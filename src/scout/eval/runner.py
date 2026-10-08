@@ -192,9 +192,7 @@ def _firmographics(spec: CompanySpec, profile: CompanyProfile) -> dict[str, bool
     emp = profile.number("employees")
     out["employees"] = emp == spec.employees if emp is not None else None
     fleet = profile.number("fleet_size")
-    out["fleet_size"] = (
-        (fleet == spec.fleet_size) if fleet is not None else (None if spec.fleet_size is None else False)
-    )
+    out["fleet_size"] = (fleet == spec.fleet_size) if fleet is not None else None
     country = profile.fact("country")
     out["country"] = (country.value == spec.country) if country else None
     out["segment"] = profile.segment == spec.segment if profile.segment else None
@@ -318,7 +316,7 @@ def run_accounts(settings: Settings, name: str, *, subset: bool, limit: int) -> 
                 "emitted": facts_emitted,
                 "kept": facts_kept,
                 "rejected_rate": rate(facts_emitted - facts_kept, facts_emitted),
-                "hallucinated_fact_rate_after_validation": rate(
+                "firmographic_disagreement_rate": rate(
                     sum(v[1] for v in firm.values()), sum(v[0] + v[1] for v in firm.values())
                 ),
             },

@@ -1,0 +1,80 @@
+{
+ "name": "main",
+ "suite": "compliance",
+ "date": "2026-10-08",
+ "checks": [
+  {
+   "check": "An unapproved message is not sent (send gate)",
+   "passed": true,
+   "detail": "status=blocked"
+  },
+  {
+   "check": "The database refuses status 'sent' without an approver",
+   "passed": true,
+   "detail": "CHECK sent_requires_approval"
+  },
+  {
+   "check": "Pending drafts have no outgoing messages",
+   "passed": true,
+   "detail": ""
+  },
+  {
+   "check": "Unsubscribing from one sequence stops every sequence to that address",
+   "passed": true,
+   "detail": "2 sequences, 0 still scheduled, sent 6 -> 6"
+  },
+  {
+   "check": "A suppressed address cannot be scheduled (database trigger)",
+   "passed": true,
+   "detail": ""
+  },
+  {
+   "check": "Drafting for a suppressed contact is refused",
+   "passed": true,
+   "detail": "ruth.delgado@brightwater-fs.example is suppressed"
+  },
+  {
+   "check": "An opt-out reply suppresses the address and cancels its follow-ups",
+   "passed": true,
+   "detail": ""
+  },
+  {
+   "check": "Do-not-contact cancels scheduled messages",
+   "passed": true,
+   "detail": "cancelled 3, {'sent': 0, 'deferred': 0, 'blocked': 0, 'waiting': 0}"
+  },
+  {
+   "check": "Drafting for a do-not-contact account is refused",
+   "passed": true,
+   "detail": ""
+  },
+  {
+   "check": "Daily and per-domain caps are never exceeded (excess is deferred)",
+   "passed": true,
+   "detail": "max/day 2, max/domain/day 1, deferrals 61, still waiting 0"
+  },
+  {
+   "check": "Every sent email has an unsubscribe link, RFC 8058 headers and the postal address",
+   "passed": true,
+   "detail": "22/22"
+  },
+  {
+   "check": "The mailer refuses a real SMTP server in capture-only mode",
+   "passed": true,
+   "detail": ""
+  },
+  {
+   "check": "Retention purges old page text and reply bodies",
+   "passed": true,
+   "detail": "{'pages_purged': 10, 'reply_bodies_purged': 1, 'rejected_drafts_deleted': 0}"
+  },
+  {
+   "check": "Every decision is in the audit log",
+   "passed": true,
+   "detail": "missing: []"
+  }
+ ],
+ "passed": 14,
+ "total": 14,
+ "emails_captured": 22
+}

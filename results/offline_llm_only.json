@@ -1,0 +1,219 @@
+{
+ "name": "offline",
+ "suite": "llm_only",
+ "date": "2026-10-08",
+ "model": "fake/default",
+ "accounts": 14,
+ "accuracy": 0.5,
+ "confusion": {
+  "qualified": {
+   "qualified": 3,
+   "nurture": 0,
+   "disqualified": 0
+  },
+  "nurture": {
+   "qualified": 2,
+   "nurture": 4,
+   "disqualified": 0
+  },
+  "disqualified": {
+   "qualified": 4,
+   "nurture": 1,
+   "disqualified": 0
+  }
+ },
+ "errors": [
+  "sterling-septic.example: gold nurture, got qualified (60) mentions a fleet; hiring for fleet roles",
+  "redwood-facility.example: gold nurture, got qualified (70) mentions a fleet; hiring for fleet roles; funding news",
+  "fleetforge-games.example: gold disqualified, got qualified (60) mentions a fleet; hiring for fleet roles",
+  "convoy-analytics.example: gold disqualified, got qualified (80) mentions a fleet; hiring for fleet roles; funding news; expansion news",
+  "fleetstreet-capital.example: gold disqualified, got nurture (55) mentions a fleet; funding news",
+  "trackright.example: gold disqualified, got qualified (80) mentions a fleet; hiring for fleet roles; funding news; expansion news",
+  "northbeam-logistics.example: gold disqualified, got qualified (60) mentions a fleet; hiring for fleet roles"
+ ],
+ "calls": {
+  "qualify_llm_only": 14
+ },
+ "rows": [
+  {
+   "domain": "brightwater-fs.example",
+   "gold": "qualified",
+   "route": "qualified",
+   "score": 60,
+   "reasons": [
+    "mentions a fleet",
+    "hiring for fleet roles"
+   ],
+   "traps": []
+  },
+  {
+   "domain": "tallgrass-couriers.example",
+   "gold": "qualified",
+   "route": "qualified",
+   "score": 65,
+   "reasons": [
+    "mentions a fleet",
+    "funding news",
+    "expansion news"
+   ],
+   "traps": []
+  },
+  {
+   "domain": "sterling-septic.example",
+   "gold": "nurture",
+   "route": "qualified",
+   "score": 60,
+   "reasons": [
+    "mentions a fleet",
+    "hiring for fleet roles"
+   ],
+   "traps": [
+    "stale_careers"
+   ]
+  },
+  {
+   "domain": "westbrook-logistics.example",
+   "gold": "nurture",
+   "route": "nurture",
+   "score": 55,
+   "reasons": [
+    "mentions a fleet",
+    "funding news"
+   ],
+   "traps": [
+    "outdated_page"
+   ]
+  },
+  {
+   "domain": "redwood-facility.example",
+   "gold": "nurture",
+   "route": "qualified",
+   "score": 70,
+   "reasons": [
+    "mentions a fleet",
+    "hiring for fleet roles",
+    "funding news"
+   ],
+   "traps": []
+  },
+  {
+   "domain": "sunridge-solar.example",
+   "gold": "nurture",
+   "route": "nurture",
+   "score": 45,
+   "reasons": [
+    "mentions a fleet"
+   ],
+   "traps": [
+    "injection"
+   ]
+  },
+  {
+   "domain": "thornbury-waste.example",
+   "gold": "nurture",
+   "route": "nurture",
+   "score": 45,
+   "reasons": [
+    "mentions a fleet"
+   ],
+   "traps": [
+    "injection",
+    "hidden_text"
+   ]
+  },
+  {
+   "domain": "fleetforge-games.example",
+   "gold": "disqualified",
+   "route": "qualified",
+   "score": 60,
+   "reasons": [
+    "mentions a fleet",
+    "hiring for fleet roles"
+   ],
+   "traps": [
+    "keyword_wrong_segment"
+   ]
+  },
+  {
+   "domain": "convoy-analytics.example",
+   "gold": "disqualified",
+   "route": "qualified",
+   "score": 80,
+   "reasons": [
+    "mentions a fleet",
+    "hiring for fleet roles",
+    "funding news",
+    "expansion news"
+   ],
+   "traps": [
+    "keyword_wrong_segment"
+   ]
+  },
+  {
+   "domain": "fleetstreet-capital.example",
+   "gold": "disqualified",
+   "route": "nurture",
+   "score": 55,
+   "reasons": [
+    "mentions a fleet",
+    "funding news"
+   ],
+   "traps": [
+    "keyword_wrong_segment"
+   ]
+  },
+  {
+   "domain": "trackright.example",
+   "gold": "disqualified",
+   "route": "qualified",
+   "score": 80,
+   "reasons": [
+    "mentions a fleet",
+    "hiring for fleet roles",
+    "funding news",
+    "expansion news"
+   ],
+   "traps": [
+    "competitor"
+   ]
+  },
+  {
+   "domain": "northbeam-logistics.example",
+   "gold": "disqualified",
+   "route": "qualified",
+   "score": 60,
+   "reasons": [
+    "mentions a fleet",
+    "hiring for fleet roles"
+   ],
+   "traps": [
+    "existing_customer"
+   ]
+  },
+  {
+   "domain": "bramble-landscaping.example",
+   "gold": "qualified",
+   "route": "qualified",
+   "score": 60,
+   "reasons": [
+    "mentions a fleet",
+    "hiring for fleet roles"
+   ],
+   "traps": [
+    "borderline"
+   ]
+  },
+  {
+   "domain": "quayside-marine.example",
+   "gold": "nurture",
+   "route": "nurture",
+   "score": 45,
+   "reasons": [
+    "mentions a fleet"
+   ],
+   "traps": [
+    "borderline"
+   ]
+  }
+ ]
+}

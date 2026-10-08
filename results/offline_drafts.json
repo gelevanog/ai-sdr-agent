@@ -1,0 +1,5262 @@
+{
+ "name": "offline",
+ "suite": "drafts",
+ "date": "2026-10-08",
+ "model": "fake/default",
+ "judge_model": "fake/rules",
+ "checker": true,
+ "accounts": 21,
+ "variants": 42,
+ "errors": [
+  {
+   "domain": "pinecrest-waste.example",
+   "error": "no contact with a published or supplied email address; add one before drafting"
+  }
+ ],
+ "checker_view": {
+  "first_drafts": {
+   "claims": 154,
+   "supported_by_checker": 0.8117,
+   "unsupported": 29
+  },
+  "final_drafts": {
+   "claims": 125,
+   "supported_by_checker": 1.0,
+   "unsupported": 0
+  }
+ },
+ "independent_audit": {
+  "first_drafts": {
+   "claims": 29,
+   "unsupported": 28,
+   "unsupported_rate": 0.9655,
+   "supported_rate": 0.0345,
+   "examples": [
+    "meridian-mobile-medical.example A-first: Congrats on doubling the fleet this year. (numbers and events checked against the reference (offline))",
+    "meridian-mobile-medical.example B-first: Congrats on doubling the fleet this year. (numbers and events checked against the reference (offline))",
+    "ironbridge-plumbing.example A-first: Congrats on doubling the fleet this year. (numbers and events checked against the reference (offline))",
+    "ironbridge-plumbing.example B-first: Congrats on doubling the fleet this year. (numbers and events checked against the reference (offline))",
+    "ridgeway-utility.example A-first: Your 25 new depots must keep the team busy. (numbers and events checked against the reference (offline))",
+    "ridgeway-utility.example B-first: Your 25 new depots must keep the team busy. (numbers and events checked against the reference (offline))",
+    "bluebell-linen.example A-first: Your 25 new depots must keep the team busy. (numbers and events checked against the reference (offline))",
+    "bluebell-linen.example B-first: Your 25 new depots must keep the team busy. (numbers and events checked against the reference (offline))",
+    "brightwater-fs.example A-first: Your 25 new depots must keep the team busy. (numbers and events checked against the reference (offline))",
+    "brightwater-fs.example B-first: Your 25 new depots must keep the team busy. (numbers and events checked against the reference (offline))",
+    "coldline-distribution.example A-first: Your 25 new depots must keep the team busy. (numbers and events checked against the reference (offline))",
+    "coldline-distribution.example B-first: Your 25 new depots must keep the team busy. (numbers and events checked against the reference (offline))",
+    "nordlicht-kurier.example A-first: Congrats on doubling the fleet this year. (numbers and events checked against the reference (offline))",
+    "nordlicht-kurier.example B-first: Congrats on doubling the fleet this year. (numbers and events checked against the reference (offline))",
+    "granitepeak-construction.example A-first: Congrats on doubling the fleet this year. (numbers and events checked against the reference (offline))",
+    "granitepeak-construction.example B-first: Congrats on doubling the fleet this year. (numbers and events checked against the reference (offline))",
+    "evergreen-lawntree.example A-first: Your 25 new depots must keep the team busy. (numbers and events checked against the reference (offline))",
+    "evergreen-lawntree.example B-first: Your 25 new depots must keep the team busy. (numbers and events checked against the reference (offline))",
+    "clearwater-pest.example A-first: Congrats on doubling the fleet this year. (numbers and events checked against the reference (offline))",
+    "clearwater-pest.example B-first: Congrats on doubling the fleet this year. (numbers and events checked against the reference (offline))",
+    "aldergrove-bus.example A-first: Congrats on doubling the fleet this year. (numbers and events checked against the reference (offline))",
+    "aldergrove-bus.example B-first: Congrats on doubling the fleet this year. (numbers and events checked against the reference (offline))",
+    "northstar-rental.example A-first: Congrats on doubling the fleet this year. (numbers and events checked against the reference (offline))",
+    "northstar-rental.example B-first: Congrats on doubling the fleet this year. (numbers and events checked against the reference (offline))",
+    "fernhill-foods.example A-first: Your 25 new depots must keep the team busy. (numbers and events checked against the reference (offline))"
+   ]
+  },
+  "final_drafts": {
+   "claims": 1,
+   "unsupported": 0,
+   "unsupported_rate": 0.0,
+   "supported_rate": 1.0,
+   "examples": []
+  }
+ },
+ "first_draft_pass_rate": 0.3333,
+ "final_pass_rate": 1.0,
+ "regenerated": 28,
+ "trimmed": 1,
+ "attempts_mean": 1.69,
+ "personalization_mean": 0.98,
+ "spam_pass_rate": 1.0,
+ "spam_issue_counts": {
+  "length": 42
+ },
+ "readability_mean": 71.7,
+ "words_first_email_mean": 60.6,
+ "preference_vs_template": {
+  "scout": 20,
+  "tie": 1,
+  "scout_win_rate": 0.9524
+ },
+ "seconds_p50": 0.02,
+ "seconds_p95": 0.02,
+ "calls": {
+  "total": {
+   "draft": 50,
+   "verify_claims": 50
+  },
+  "per_account": 4.76
+ },
+ "rows": [
+  {
+   "domain": "meridian-mobile-medical.example",
+   "contact": "Head of Fleet",
+   "seconds": 0.03,
+   "calls": {
+    "draft": 3,
+    "verify_claims": 3
+   },
+   "variants": [
+    {
+     "variant": "A",
+     "attempts": 2,
+     "trimmed": false,
+     "first_claims": [
+      {
+       "text": "I noticed Meridian Mobile Medical is hiring a Fleet Coordinator.",
+       "evidence": [
+        "S1"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline Fleet offers in-cab coaching that cuts harsh-braking and speeding events, scored per driver.",
+       "evidence": [
+        "VP:safety"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 78%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Congrats on doubling the fleet this year.",
+       "evidence": [
+        "F7"
+       ],
+       "verdict": "unsupported",
+       "reason": "word overlap with the cited evidence 33%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "final_claims": [
+      {
+       "text": "I noticed Meridian Mobile Medical is hiring a Fleet Coordinator.",
+       "evidence": [
+        "S1"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline Fleet offers in-cab coaching that cuts harsh-braking and speeding events, scored per driver.",
+       "evidence": [
+        "VP:safety"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 78%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "first_passed": false,
+     "final_passed": true,
+     "first_issues": [
+      "'Congrats on doubling the fleet this year.': word overlap with the cited evidence 33%"
+     ],
+     "final_issues": [
+      "only 23 words"
+     ],
+     "spam_score": 0.0,
+     "spam_issues": [
+      "length"
+     ],
+     "readability": 65.8,
+     "words": [
+      59,
+      33,
+      23
+     ],
+     "personalization": 1,
+     "email1": "Subject: Meridian Mobile Medical and fleet safety\n\nHi Ethan,\n\nI noticed Meridian Mobile Medical is hiring a Fleet Coordinator. Wayline Fleet offers in-cab coaching that cuts harsh-braking and speeding events, scored per driver. Most teams start by comparing one depot for a month, so the numbers come from your own vehicles. Would you be open to a 20-minute call to compare notes on your fleet?\n\nDana",
+     "email1_first": "Subject: Meridian Mobile Medical and fleet safety\n\nHi Ethan,\n\nI noticed Meridian Mobile Medical is hiring a Fleet Coordinator. Wayline Fleet offers in-cab coaching that cuts harsh-braking and speeding events, scored per driver. Congrats on doubling the fleet this year. Most teams start by comparing one depot for a month, so the numbers come from your own vehicles. Would you be open to a 20-minute call to compare notes on your fleet?\n\nDana"
+    },
+    {
+     "variant": "B",
+     "attempts": 2,
+     "trimmed": false,
+     "first_claims": [
+      {
+       "text": "Running 85 vehicles",
+       "evidence": [
+        "F7"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 50%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline Fleet offers idle-time and route reports that typically lower fuel spend.",
+       "evidence": [
+        "VP:fuel"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 75%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Congrats on doubling the fleet this year.",
+       "evidence": [
+        "F7"
+       ],
+       "verdict": "unsupported",
+       "reason": "word overlap with the cited evidence 33%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "final_claims": [
+      {
+       "text": "Running 85 vehicles",
+       "evidence": [
+        "F7"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 50%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline Fleet offers idle-time and route reports that typically lower fuel spend.",
+       "evidence": [
+        "VP:fuel"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 75%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "first_passed": false,
+     "final_passed": true,
+     "first_issues": [
+      "'Congrats on doubling the fleet this year.': word overlap with the cited evidence 33%"
+     ],
+     "final_issues": [
+      "only 23 words"
+     ],
+     "spam_score": 0.0,
+     "spam_issues": [
+      "length"
+     ],
+     "readability": 67.7,
+     "words": [
+      60,
+      33,
+      23
+     ],
+     "personalization": 1,
+     "email1": "Subject: Fuel and safety per vehicle\n\nHi Ethan,\n\nRunning 85 vehicles means small changes in idling and harsh braking add up quickly. Wayline Fleet offers idle-time and route reports that typically lower fuel spend. Most teams start by comparing one depot for a month, so the numbers come from your own vehicles. Would you be open to a 20-minute call to compare notes on your fleet?\n\nDana",
+     "email1_first": "Subject: Fuel and safety per vehicle\n\nHi Ethan,\n\nRunning 85 vehicles means small changes in idling and harsh braking add up quickly. Wayline Fleet offers idle-time and route reports that typically lower fuel spend. Congrats on doubling the fleet this year. Most teams start by comparing one depot for a month, so the numbers come from your own vehicles. Would you be open to a 20-minute call to compare notes on your fleet?\n\nDana"
+    }
+   ],
+   "audit": {
+    "A-final": [],
+    "A-first": [
+     {
+      "text": "Congrats on doubling the fleet this year.",
+      "supported": false,
+      "reason": "numbers and events checked against the reference (offline)"
+     }
+    ],
+    "B-final": [],
+    "B-first": [
+     {
+      "text": "Congrats on doubling the fleet this year.",
+      "supported": false,
+      "reason": "numbers and events checked against the reference (offline)"
+     }
+    ]
+   },
+   "preference": "scout",
+   "preference_reason": "more specific details (offline heuristic)"
+  },
+  {
+   "domain": "lakeshore-beverage.example",
+   "contact": "Fleet Manager",
+   "seconds": 0.01,
+   "calls": {
+    "draft": 1,
+    "verify_claims": 1
+   },
+   "variants": [
+    {
+     "variant": "A",
+     "attempts": 1,
+     "trimmed": false,
+     "first_claims": [
+      {
+       "text": "I noticed Lakeshore Beverage Co. is hiring a Fleet Safety Specialist.",
+       "evidence": [
+        "S1"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline Fleet offers in-cab coaching that cuts harsh-braking and speeding events, scored per driver.",
+       "evidence": [
+        "VP:safety"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 78%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "final_claims": [
+      {
+       "text": "I noticed Lakeshore Beverage Co. is hiring a Fleet Safety Specialist.",
+       "evidence": [
+        "S1"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline Fleet offers in-cab coaching that cuts harsh-braking and speeding events, scored per driver.",
+       "evidence": [
+        "VP:safety"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 78%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "first_passed": true,
+     "final_passed": true,
+     "first_issues": [],
+     "final_issues": [
+      "only 23 words"
+     ],
+     "spam_score": 0.0,
+     "spam_issues": [
+      "length"
+     ],
+     "readability": 69.8,
+     "words": [
+      60,
+      33,
+      23
+     ],
+     "personalization": 1,
+     "email1": "Subject: Lakeshore Beverage Co. and fleet safety\n\nHi Samuel,\n\nI noticed Lakeshore Beverage Co. is hiring a Fleet Safety Specialist. Wayline Fleet offers in-cab coaching that cuts harsh-braking and speeding events, scored per driver. Most teams start by comparing one depot for a month, so the numbers come from your own vehicles. Would you be open to a 20-minute call to compare notes on your fleet?\n\nDana",
+     "email1_first": "Subject: Lakeshore Beverage Co. and fleet safety\n\nHi Samuel,\n\nI noticed Lakeshore Beverage Co. is hiring a Fleet Safety Specialist. Wayline Fleet offers in-cab coaching that cuts harsh-braking and speeding events, scored per driver. Most teams start by comparing one depot for a month, so the numbers come from your own vehicles. Would you be open to a 20-minute call to compare notes on your fleet?\n\nDana"
+    },
+    {
+     "variant": "B",
+     "attempts": 1,
+     "trimmed": false,
+     "first_claims": [
+      {
+       "text": "Running 230 vehicles",
+       "evidence": [
+        "F7"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 50%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline Fleet offers idle-time and route reports that typically lower fuel spend.",
+       "evidence": [
+        "VP:fuel"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 75%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "final_claims": [
+      {
+       "text": "Running 230 vehicles",
+       "evidence": [
+        "F7"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 50%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline Fleet offers idle-time and route reports that typically lower fuel spend.",
+       "evidence": [
+        "VP:fuel"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 75%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "first_passed": true,
+     "final_passed": true,
+     "first_issues": [],
+     "final_issues": [
+      "only 23 words"
+     ],
+     "spam_score": 0.0,
+     "spam_issues": [
+      "length"
+     ],
+     "readability": 72.8,
+     "words": [
+      60,
+      33,
+      23
+     ],
+     "personalization": 1,
+     "email1": "Subject: Fuel and safety per vehicle\n\nHi Samuel,\n\nRunning 230 vehicles means small changes in idling and harsh braking add up quickly. Wayline Fleet offers idle-time and route reports that typically lower fuel spend. Most teams start by comparing one depot for a month, so the numbers come from your own vehicles. Would you be open to a 20-minute call to compare notes on your fleet?\n\nDana",
+     "email1_first": "Subject: Fuel and safety per vehicle\n\nHi Samuel,\n\nRunning 230 vehicles means small changes in idling and harsh braking add up quickly. Wayline Fleet offers idle-time and route reports that typically lower fuel spend. Most teams start by comparing one depot for a month, so the numbers come from your own vehicles. Would you be open to a 20-minute call to compare notes on your fleet?\n\nDana"
+    }
+   ],
+   "audit": {
+    "A-final": [],
+    "B-final": []
+   },
+   "preference": "scout",
+   "preference_reason": "more specific details (offline heuristic)"
+  },
+  {
+   "domain": "copperline-electrical.example",
+   "contact": "Fleet Operations Manager",
+   "seconds": 0.01,
+   "calls": {
+    "draft": 1,
+    "verify_claims": 1
+   },
+   "variants": [
+    {
+     "variant": "A",
+     "attempts": 1,
+     "trimmed": false,
+     "first_claims": [
+      {
+       "text": "I noticed Copperline Electrical Services is hiring a Fleet Administrator.",
+       "evidence": [
+        "S1"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline Fleet offers in-cab coaching that cuts harsh-braking and speeding events, scored per driver.",
+       "evidence": [
+        "VP:safety"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 78%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "final_claims": [
+      {
+       "text": "I noticed Copperline Electrical Services is hiring a Fleet Administrator.",
+       "evidence": [
+        "S1"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline Fleet offers in-cab coaching that cuts harsh-braking and speeding events, scored per driver.",
+       "evidence": [
+        "VP:safety"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 78%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "first_passed": true,
+     "final_passed": true,
+     "first_issues": [],
+     "final_issues": [
+      "only 23 words"
+     ],
+     "spam_score": 0.0,
+     "spam_issues": [
+      "length"
+     ],
+     "readability": 65.8,
+     "words": [
+      59,
+      33,
+      23
+     ],
+     "personalization": 1,
+     "email1": "Subject: Copperline Electrical Services and fleet safety\n\nHi Liam,\n\nI noticed Copperline Electrical Services is hiring a Fleet Administrator. Wayline Fleet offers in-cab coaching that cuts harsh-braking and speeding events, scored per driver. Most teams start by comparing one depot for a month, so the numbers come from your own vehicles. Would you be open to a 20-minute call to compare notes on your fleet?\n\nDana",
+     "email1_first": "Subject: Copperline Electrical Services and fleet safety\n\nHi Liam,\n\nI noticed Copperline Electrical Services is hiring a Fleet Administrator. Wayline Fleet offers in-cab coaching that cuts harsh-braking and speeding events, scored per driver. Most teams start by comparing one depot for a month, so the numbers come from your own vehicles. Would you be open to a 20-minute call to compare notes on your fleet?\n\nDana"
+    },
+    {
+     "variant": "B",
+     "attempts": 1,
+     "trimmed": false,
+     "first_claims": [
+      {
+       "text": "Running 210 vehicles",
+       "evidence": [
+        "F6"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 50%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline Fleet offers idle-time and route reports that typically lower fuel spend.",
+       "evidence": [
+        "VP:fuel"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 75%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "final_claims": [
+      {
+       "text": "Running 210 vehicles",
+       "evidence": [
+        "F6"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 50%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline Fleet offers idle-time and route reports that typically lower fuel spend.",
+       "evidence": [
+        "VP:fuel"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 75%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "first_passed": true,
+     "final_passed": true,
+     "first_issues": [],
+     "final_issues": [
+      "only 23 words"
+     ],
+     "spam_score": 0.0,
+     "spam_issues": [
+      "length"
+     ],
+     "readability": 70.3,
+     "words": [
+      60,
+      33,
+      23
+     ],
+     "personalization": 1,
+     "email1": "Subject: Fuel and safety per vehicle\n\nHi Liam,\n\nRunning 210 vehicles means small changes in idling and harsh braking add up quickly. Wayline Fleet offers idle-time and route reports that typically lower fuel spend. Most teams start by comparing one depot for a month, so the numbers come from your own vehicles. Would you be open to a 20-minute call to compare notes on your fleet?\n\nDana",
+     "email1_first": "Subject: Fuel and safety per vehicle\n\nHi Liam,\n\nRunning 210 vehicles means small changes in idling and harsh braking add up quickly. Wayline Fleet offers idle-time and route reports that typically lower fuel spend. Most teams start by comparing one depot for a month, so the numbers come from your own vehicles. Would you be open to a 20-minute call to compare notes on your fleet?\n\nDana"
+    }
+   ],
+   "audit": {
+    "A-final": [],
+    "B-final": []
+   },
+   "preference": "scout",
+   "preference_reason": "more specific details (offline heuristic)"
+  },
+  {
+   "domain": "harborview-shuttle.example",
+   "contact": "Fleet Operations Manager",
+   "seconds": 0.01,
+   "calls": {
+    "draft": 1,
+    "verify_claims": 1
+   },
+   "variants": [
+    {
+     "variant": "A",
+     "attempts": 1,
+     "trimmed": false,
+     "first_claims": [
+      {
+       "text": "I noticed Harborview Shuttle is hiring a Safety & Training Manager.",
+       "evidence": [
+        "S1"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline Fleet offers in-cab coaching that cuts harsh-braking and speeding events, scored per driver.",
+       "evidence": [
+        "VP:safety"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 78%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "final_claims": [
+      {
+       "text": "I noticed Harborview Shuttle is hiring a Safety & Training Manager.",
+       "evidence": [
+        "S1"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline Fleet offers in-cab coaching that cuts harsh-braking and speeding events, scored per driver.",
+       "evidence": [
+        "VP:safety"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 78%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "first_passed": true,
+     "final_passed": true,
+     "first_issues": [],
+     "final_issues": [
+      "only 23 words"
+     ],
+     "spam_score": 0.0,
+     "spam_issues": [
+      "length"
+     ],
+     "readability": 68.7,
+     "words": [
+      59,
+      32,
+      23
+     ],
+     "personalization": 1,
+     "email1": "Subject: Harborview Shuttle and fleet safety\n\nHi Grace,\n\nI noticed Harborview Shuttle is hiring a Safety & Training Manager. Wayline Fleet offers in-cab coaching that cuts harsh-braking and speeding events, scored per driver. Most teams start by comparing one depot for a month, so the numbers come from your own vehicles. Would you be open to a 20-minute call to compare notes on your fleet?\n\nDana",
+     "email1_first": "Subject: Harborview Shuttle and fleet safety\n\nHi Grace,\n\nI noticed Harborview Shuttle is hiring a Safety & Training Manager. Wayline Fleet offers in-cab coaching that cuts harsh-braking and speeding events, scored per driver. Most teams start by comparing one depot for a month, so the numbers come from your own vehicles. Would you be open to a 20-minute call to compare notes on your fleet?\n\nDana"
+    },
+    {
+     "variant": "B",
+     "attempts": 1,
+     "trimmed": false,
+     "first_claims": [
+      {
+       "text": "Running 140 vehicles",
+       "evidence": [
+        "F6"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 50%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline Fleet offers idle-time and route reports that typically lower fuel spend.",
+       "evidence": [
+        "VP:fuel"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 75%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "final_claims": [
+      {
+       "text": "Running 140 vehicles",
+       "evidence": [
+        "F6"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 50%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline Fleet offers idle-time and route reports that typically lower fuel spend.",
+       "evidence": [
+        "VP:fuel"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 75%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "first_passed": true,
+     "final_passed": true,
+     "first_issues": [],
+     "final_issues": [
+      "only 23 words"
+     ],
+     "spam_score": 0.0,
+     "spam_issues": [
+      "length"
+     ],
+     "readability": 74.8,
+     "words": [
+      60,
+      32,
+      23
+     ],
+     "personalization": 1,
+     "email1": "Subject: Fuel and safety per vehicle\n\nHi Grace,\n\nRunning 140 vehicles means small changes in idling and harsh braking add up quickly. Wayline Fleet offers idle-time and route reports that typically lower fuel spend. Most teams start by comparing one depot for a month, so the numbers come from your own vehicles. Would you be open to a 20-minute call to compare notes on your fleet?\n\nDana",
+     "email1_first": "Subject: Fuel and safety per vehicle\n\nHi Grace,\n\nRunning 140 vehicles means small changes in idling and harsh braking add up quickly. Wayline Fleet offers idle-time and route reports that typically lower fuel spend. Most teams start by comparing one depot for a month, so the numbers come from your own vehicles. Would you be open to a 20-minute call to compare notes on your fleet?\n\nDana"
+    }
+   ],
+   "audit": {
+    "A-final": [],
+    "B-final": []
+   },
+   "preference": "scout",
+   "preference_reason": "more specific details (offline heuristic)"
+  },
+  {
+   "domain": "ironbridge-plumbing.example",
+   "contact": "Fleet Operations Manager",
+   "seconds": 0.02,
+   "calls": {
+    "draft": 3,
+    "verify_claims": 3
+   },
+   "variants": [
+    {
+     "variant": "A",
+     "attempts": 2,
+     "trimmed": false,
+     "first_claims": [
+      {
+       "text": "I noticed Ironbridge Plumbing Group is hiring a Fleet Coordinator.",
+       "evidence": [
+        "S1"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline Fleet offers in-cab coaching that cuts harsh-braking and speeding events, scored per driver.",
+       "evidence": [
+        "VP:safety"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 78%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Congrats on doubling the fleet this year.",
+       "evidence": [
+        "F5"
+       ],
+       "verdict": "unsupported",
+       "reason": "word overlap with the cited evidence 33%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "final_claims": [
+      {
+       "text": "I noticed Ironbridge Plumbing Group is hiring a Fleet Coordinator.",
+       "evidence": [
+        "S1"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline Fleet offers in-cab coaching that cuts harsh-braking and speeding events, scored per driver.",
+       "evidence": [
+        "VP:safety"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 78%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "first_passed": false,
+     "final_passed": true,
+     "first_issues": [
+      "'Congrats on doubling the fleet this year.': word overlap with the cited evidence 33%"
+     ],
+     "final_issues": [
+      "only 23 words"
+     ],
+     "spam_score": 0.0,
+     "spam_issues": [
+      "length"
+     ],
+     "readability": 71.5,
+     "words": [
+      59,
+      33,
+      23
+     ],
+     "personalization": 1,
+     "email1": "Subject: Ironbridge Plumbing Group and fleet safety\n\nHi Leah,\n\nI noticed Ironbridge Plumbing Group is hiring a Fleet Coordinator. Wayline Fleet offers in-cab coaching that cuts harsh-braking and speeding events, scored per driver. Most teams start by comparing one depot for a month, so the numbers come from your own vehicles. Would you be open to a 20-minute call to compare notes on your fleet?\n\nDana",
+     "email1_first": "Subject: Ironbridge Plumbing Group and fleet safety\n\nHi Leah,\n\nI noticed Ironbridge Plumbing Group is hiring a Fleet Coordinator. Wayline Fleet offers in-cab coaching that cuts harsh-braking and speeding events, scored per driver. Congrats on doubling the fleet this year. Most teams start by comparing one depot for a month, so the numbers come from your own vehicles. Would you be open to a 20-minute call to compare notes on your fleet?\n\nDana"
+    },
+    {
+     "variant": "B",
+     "attempts": 2,
+     "trimmed": false,
+     "first_claims": [
+      {
+       "text": "Running 95 vehicles",
+       "evidence": [
+        "F5"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 50%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline Fleet offers idle-time and route reports that typically lower fuel spend.",
+       "evidence": [
+        "VP:fuel"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 75%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Congrats on doubling the fleet this year.",
+       "evidence": [
+        "F5"
+       ],
+       "verdict": "unsupported",
+       "reason": "word overlap with the cited evidence 33%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "final_claims": [
+      {
+       "text": "Running 95 vehicles",
+       "evidence": [
+        "F5"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 50%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline Fleet offers idle-time and route reports that typically lower fuel spend.",
+       "evidence": [
+        "VP:fuel"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 75%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "first_passed": false,
+     "final_passed": true,
+     "first_issues": [
+      "'Congrats on doubling the fleet this year.': word overlap with the cited evidence 33%"
+     ],
+     "final_issues": [
+      "only 23 words"
+     ],
+     "spam_score": 0.0,
+     "spam_issues": [
+      "length"
+     ],
+     "readability": 74.8,
+     "words": [
+      60,
+      33,
+      23
+     ],
+     "personalization": 1,
+     "email1": "Subject: Fuel and safety per vehicle\n\nHi Leah,\n\nRunning 95 vehicles means small changes in idling and harsh braking add up quickly. Wayline Fleet offers idle-time and route reports that typically lower fuel spend. Most teams start by comparing one depot for a month, so the numbers come from your own vehicles. Would you be open to a 20-minute call to compare notes on your fleet?\n\nDana",
+     "email1_first": "Subject: Fuel and safety per vehicle\n\nHi Leah,\n\nRunning 95 vehicles means small changes in idling and harsh braking add up quickly. Wayline Fleet offers idle-time and route reports that typically lower fuel spend. Congrats on doubling the fleet this year. Most teams start by comparing one depot for a month, so the numbers come from your own vehicles. Would you be open to a 20-minute call to compare notes on your fleet?\n\nDana"
+    }
+   ],
+   "audit": {
+    "A-final": [],
+    "A-first": [
+     {
+      "text": "Congrats on doubling the fleet this year.",
+      "supported": false,
+      "reason": "numbers and events checked against the reference (offline)"
+     }
+    ],
+    "B-final": [],
+    "B-first": [
+     {
+      "text": "Congrats on doubling the fleet this year.",
+      "supported": false,
+      "reason": "numbers and events checked against the reference (offline)"
+     }
+    ]
+   },
+   "preference": "scout",
+   "preference_reason": "more specific details (offline heuristic)"
+  },
+  {
+   "domain": "metro-medtransport.example",
+   "contact": "Fleet Manager",
+   "seconds": 0.01,
+   "calls": {
+    "draft": 1,
+    "verify_claims": 1
+   },
+   "variants": [
+    {
+     "variant": "A",
+     "attempts": 1,
+     "trimmed": false,
+     "first_claims": [
+      {
+       "text": "I noticed Metro Medical Transport is hiring a Dispatcher.",
+       "evidence": [
+        "S1"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline Fleet offers in-cab coaching that cuts harsh-braking and speeding events, scored per driver.",
+       "evidence": [
+        "VP:safety"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 78%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "final_claims": [
+      {
+       "text": "I noticed Metro Medical Transport is hiring a Dispatcher.",
+       "evidence": [
+        "S1"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline Fleet offers in-cab coaching that cuts harsh-braking and speeding events, scored per driver.",
+       "evidence": [
+        "VP:safety"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 78%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "first_passed": true,
+     "final_passed": true,
+     "first_issues": [],
+     "final_issues": [
+      "only 23 words"
+     ],
+     "spam_score": 0.0,
+     "spam_issues": [
+      "length"
+     ],
+     "readability": 69.6,
+     "words": [
+      58,
+      33,
+      23
+     ],
+     "personalization": 1,
+     "email1": "Subject: Metro Medical Transport and fleet safety\n\nHi Samuel,\n\nI noticed Metro Medical Transport is hiring a Dispatcher. Wayline Fleet offers in-cab coaching that cuts harsh-braking and speeding events, scored per driver. Most teams start by comparing one depot for a month, so the numbers come from your own vehicles. Would you be open to a 20-minute call to compare notes on your fleet?\n\nDana",
+     "email1_first": "Subject: Metro Medical Transport and fleet safety\n\nHi Samuel,\n\nI noticed Metro Medical Transport is hiring a Dispatcher. Wayline Fleet offers in-cab coaching that cuts harsh-braking and speeding events, scored per driver. Most teams start by comparing one depot for a month, so the numbers come from your own vehicles. Would you be open to a 20-minute call to compare notes on your fleet?\n\nDana"
+    },
+    {
+     "variant": "B",
+     "attempts": 1,
+     "trimmed": false,
+     "first_claims": [
+      {
+       "text": "Running 260 vehicles",
+       "evidence": [
+        "F7"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 50%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline Fleet offers idle-time and route reports that typically lower fuel spend.",
+       "evidence": [
+        "VP:fuel"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 75%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "final_claims": [
+      {
+       "text": "Running 260 vehicles",
+       "evidence": [
+        "F7"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 50%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline Fleet offers idle-time and route reports that typically lower fuel spend.",
+       "evidence": [
+        "VP:fuel"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 75%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "first_passed": true,
+     "final_passed": true,
+     "first_issues": [],
+     "final_issues": [
+      "only 23 words"
+     ],
+     "spam_score": 0.0,
+     "spam_issues": [
+      "length"
+     ],
+     "readability": 72.8,
+     "words": [
+      60,
+      33,
+      23
+     ],
+     "personalization": 1,
+     "email1": "Subject: Fuel and safety per vehicle\n\nHi Samuel,\n\nRunning 260 vehicles means small changes in idling and harsh braking add up quickly. Wayline Fleet offers idle-time and route reports that typically lower fuel spend. Most teams start by comparing one depot for a month, so the numbers come from your own vehicles. Would you be open to a 20-minute call to compare notes on your fleet?\n\nDana",
+     "email1_first": "Subject: Fuel and safety per vehicle\n\nHi Samuel,\n\nRunning 260 vehicles means small changes in idling and harsh braking add up quickly. Wayline Fleet offers idle-time and route reports that typically lower fuel spend. Most teams start by comparing one depot for a month, so the numbers come from your own vehicles. Would you be open to a 20-minute call to compare notes on your fleet?\n\nDana"
+    }
+   ],
+   "audit": {
+    "A-final": [],
+    "B-final": []
+   },
+   "preference": "scout",
+   "preference_reason": "more specific details (offline heuristic)"
+  },
+  {
+   "domain": "ridgeway-utility.example",
+   "contact": "VP Fleet Operations",
+   "seconds": 0.02,
+   "calls": {
+    "draft": 3,
+    "verify_claims": 3
+   },
+   "variants": [
+    {
+     "variant": "A",
+     "attempts": 2,
+     "trimmed": false,
+     "first_claims": [
+      {
+       "text": "I noticed Ridgeway Utility Contractors is hiring a Dispatcher (Night Shift).",
+       "evidence": [
+        "S1"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline Fleet offers in-cab coaching that cuts harsh-braking and speeding events, scored per driver.",
+       "evidence": [
+        "VP:safety"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 78%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Your 25 new depots",
+       "evidence": [
+        "F6"
+       ],
+       "verdict": "unsupported",
+       "reason": "number(s) 25 not in the cited evidence; word overlap with the cited evidence 0%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "final_claims": [
+      {
+       "text": "I noticed Ridgeway Utility Contractors is hiring a Dispatcher (Night Shift).",
+       "evidence": [
+        "S1"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline Fleet offers in-cab coaching that cuts harsh-braking and speeding events, scored per driver.",
+       "evidence": [
+        "VP:safety"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 78%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "first_passed": false,
+     "final_passed": true,
+     "first_issues": [
+      "the number 25 is not in the research or the offer",
+      "'Your 25 new depots': number(s) 25 not in the cited evidence"
+     ],
+     "final_issues": [
+      "only 23 words"
+     ],
+     "spam_score": 0.0,
+     "spam_issues": [
+      "length"
+     ],
+     "readability": 65.2,
+     "words": [
+      60,
+      33,
+      23
+     ],
+     "personalization": 1,
+     "email1": "Subject: Ridgeway Utility Contractors and fleet safety\n\nHi Marcus,\n\nI noticed Ridgeway Utility Contractors is hiring a Dispatcher (Night Shift). Wayline Fleet offers in-cab coaching that cuts harsh-braking and speeding events, scored per driver. Most teams start by comparing one depot for a month, so the numbers come from your own vehicles. Would you be open to a 20-minute call to compare notes on your fleet?\n\nDana",
+     "email1_first": "Subject: Ridgeway Utility Contractors and fleet safety\n\nHi Marcus,\n\nI noticed Ridgeway Utility Contractors is hiring a Dispatcher (Night Shift). Wayline Fleet offers in-cab coaching that cuts harsh-braking and speeding events, scored per driver. Your 25 new depots must keep the team busy. Most teams start by comparing one depot for a month, so the numbers come from your own vehicles. Would you be open to a 20-minute call to compare notes on your fleet?\n\nDana"
+    },
+    {
+     "variant": "B",
+     "attempts": 2,
+     "trimmed": false,
+     "first_claims": [
+      {
+       "text": "Running 700 vehicles",
+       "evidence": [
+        "F6"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline Fleet offers idle-time and route reports that typically lower fuel spend.",
+       "evidence": [
+        "VP:fuel"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 75%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Your 25 new depots",
+       "evidence": [
+        "F6"
+       ],
+       "verdict": "unsupported",
+       "reason": "number(s) 25 not in the cited evidence; word overlap with the cited evidence 0%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "final_claims": [
+      {
+       "text": "Running 700 vehicles",
+       "evidence": [
+        "F6"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline Fleet offers idle-time and route reports that typically lower fuel spend.",
+       "evidence": [
+        "VP:fuel"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 75%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "first_passed": false,
+     "final_passed": true,
+     "first_issues": [
+      "the number 25 is not in the research or the offer",
+      "'Your 25 new depots': number(s) 25 not in the cited evidence"
+     ],
+     "final_issues": [
+      "only 23 words"
+     ],
+     "spam_score": 0.0,
+     "spam_issues": [
+      "length"
+     ],
+     "readability": 65.2,
+     "words": [
+      60,
+      33,
+      23
+     ],
+     "personalization": 1,
+     "email1": "Subject: Fuel and safety per vehicle\n\nHi Marcus,\n\nRunning 700 vehicles means small changes in idling and harsh braking add up quickly. Wayline Fleet offers idle-time and route reports that typically lower fuel spend. Most teams start by comparing one depot for a month, so the numbers come from your own vehicles. Would you be open to a 20-minute call to compare notes on your fleet?\n\nDana",
+     "email1_first": "Subject: Fuel and safety per vehicle\n\nHi Marcus,\n\nRunning 700 vehicles means small changes in idling and harsh braking add up quickly. Wayline Fleet offers idle-time and route reports that typically lower fuel spend. Your 25 new depots must keep the team busy. Most teams start by comparing one depot for a month, so the numbers come from your own vehicles. Would you be open to a 20-minute call to compare notes on your fleet?\n\nDana"
+    }
+   ],
+   "audit": {
+    "A-final": [],
+    "A-first": [
+     {
+      "text": "Your 25 new depots must keep the team busy.",
+      "supported": false,
+      "reason": "numbers and events checked against the reference (offline)"
+     }
+    ],
+    "B-final": [],
+    "B-first": [
+     {
+      "text": "Your 25 new depots must keep the team busy.",
+      "supported": false,
+      "reason": "numbers and events checked against the reference (offline)"
+     }
+    ]
+   },
+   "preference": "scout",
+   "preference_reason": "more specific details (offline heuristic)"
+  },
+  {
+   "domain": "bluebell-linen.example",
+   "contact": "Director of Operations",
+   "seconds": 0.02,
+   "calls": {
+    "draft": 3,
+    "verify_claims": 3
+   },
+   "variants": [
+    {
+     "variant": "A",
+     "attempts": 2,
+     "trimmed": false,
+     "first_claims": [
+      {
+       "text": "I noticed Bluebell Linen & Uniform is hiring a Transport Manager.",
+       "evidence": [
+        "S1"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline Fleet offers in-cab coaching that cuts harsh-braking and speeding events, scored per driver.",
+       "evidence": [
+        "VP:safety"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 78%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Your 25 new depots",
+       "evidence": [
+        "F6"
+       ],
+       "verdict": "unsupported",
+       "reason": "number(s) 25 not in the cited evidence; word overlap with the cited evidence 0%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "final_claims": [
+      {
+       "text": "I noticed Bluebell Linen & Uniform is hiring a Transport Manager.",
+       "evidence": [
+        "S1"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline Fleet offers in-cab coaching that cuts harsh-braking and speeding events, scored per driver.",
+       "evidence": [
+        "VP:safety"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 78%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "first_passed": false,
+     "final_passed": true,
+     "first_issues": [
+      "the number 25 is not in the research or the offer",
+      "'Your 25 new depots': number(s) 25 not in the cited evidence"
+     ],
+     "final_issues": [
+      "only 23 words"
+     ],
+     "spam_score": 0.0,
+     "spam_issues": [
+      "length"
+     ],
+     "readability": 68.7,
+     "words": [
+      59,
+      33,
+      23
+     ],
+     "personalization": 1,
+     "email1": "Subject: Bluebell Linen & Uniform and fleet safety\n\nHi Megan,\n\nI noticed Bluebell Linen & Uniform is hiring a Transport Manager. Wayline Fleet offers in-cab coaching that cuts harsh-braking and speeding events, scored per driver. Most teams start by comparing one depot for a month, so the numbers come from your own vehicles. Would you be open to a 20-minute call to compare notes on your fleet?\n\nDana",
+     "email1_first": "Subject: Bluebell Linen & Uniform and fleet safety\n\nHi Megan,\n\nI noticed Bluebell Linen & Uniform is hiring a Transport Manager. Wayline Fleet offers in-cab coaching that cuts harsh-braking and speeding events, scored per driver. Your 25 new depots must keep the team busy. Most teams start by comparing one depot for a month, so the numbers come from your own vehicles. Would you be open to a 20-minute call to compare notes on your fleet?\n\nDana"
+    },
+    {
+     "variant": "B",
+     "attempts": 2,
+     "trimmed": false,
+     "first_claims": [
+      {
+       "text": "Running 140 vehicles",
+       "evidence": [
+        "F6"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 50%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline Fleet offers idle-time and route reports that typically lower fuel spend.",
+       "evidence": [
+        "VP:fuel"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 75%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Your 25 new depots",
+       "evidence": [
+        "F6"
+       ],
+       "verdict": "unsupported",
+       "reason": "number(s) 25 not in the cited evidence; word overlap with the cited evidence 0%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "final_claims": [
+      {
+       "text": "Running 140 vehicles",
+       "evidence": [
+        "F6"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 50%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline Fleet offers idle-time and route reports that typically lower fuel spend.",
+       "evidence": [
+        "VP:fuel"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 75%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "first_passed": false,
+     "final_passed": true,
+     "first_issues": [
+      "the number 25 is not in the research or the offer",
+      "'Your 25 new depots': number(s) 25 not in the cited evidence"
+     ],
+     "final_issues": [
+      "only 23 words"
+     ],
+     "spam_score": 0.0,
+     "spam_issues": [
+      "length"
+     ],
+     "readability": 72.8,
+     "words": [
+      60,
+      33,
+      23
+     ],
+     "personalization": 1,
+     "email1": "Subject: Fuel and safety per vehicle\n\nHi Megan,\n\nRunning 140 vehicles means small changes in idling and harsh braking add up quickly. Wayline Fleet offers idle-time and route reports that typically lower fuel spend. Most teams start by comparing one depot for a month, so the numbers come from your own vehicles. Would you be open to a 20-minute call to compare notes on your fleet?\n\nDana",
+     "email1_first": "Subject: Fuel and safety per vehicle\n\nHi Megan,\n\nRunning 140 vehicles means small changes in idling and harsh braking add up quickly. Wayline Fleet offers idle-time and route reports that typically lower fuel spend. Your 25 new depots must keep the team busy. Most teams start by comparing one depot for a month, so the numbers come from your own vehicles. Would you be open to a 20-minute call to compare notes on your fleet?\n\nDana"
+    }
+   ],
+   "audit": {
+    "A-final": [],
+    "A-first": [
+     {
+      "text": "Your 25 new depots must keep the team busy.",
+      "supported": false,
+      "reason": "numbers and events checked against the reference (offline)"
+     }
+    ],
+    "B-final": [],
+    "B-first": [
+     {
+      "text": "Your 25 new depots must keep the team busy.",
+      "supported": false,
+      "reason": "numbers and events checked against the reference (offline)"
+     }
+    ]
+   },
+   "preference": "scout",
+   "preference_reason": "more specific details (offline heuristic)"
+  },
+  {
+   "domain": "brightwater-fs.example",
+   "contact": "Fleet Manager",
+   "seconds": 0.02,
+   "calls": {
+    "draft": 3,
+    "verify_claims": 3
+   },
+   "variants": [
+    {
+     "variant": "A",
+     "attempts": 2,
+     "trimmed": false,
+     "first_claims": [
+      {
+       "text": "I noticed Brightwater Field Services is hiring a Fleet Safety Manager.",
+       "evidence": [
+        "S1"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline Fleet offers in-cab coaching that cuts harsh-braking and speeding events, scored per driver.",
+       "evidence": [
+        "VP:safety"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 78%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Your 25 new depots",
+       "evidence": [
+        "F7"
+       ],
+       "verdict": "unsupported",
+       "reason": "number(s) 25 not in the cited evidence; word overlap with the cited evidence 0%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "final_claims": [
+      {
+       "text": "I noticed Brightwater Field Services is hiring a Fleet Safety Manager.",
+       "evidence": [
+        "S1"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline Fleet offers in-cab coaching that cuts harsh-braking and speeding events, scored per driver.",
+       "evidence": [
+        "VP:safety"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 78%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "first_passed": false,
+     "final_passed": true,
+     "first_issues": [
+      "the number 25 is not in the research or the offer",
+      "'Your 25 new depots': number(s) 25 not in the cited evidence"
+     ],
+     "final_issues": [
+      "only 23 words"
+     ],
+     "spam_score": 0.0,
+     "spam_issues": [
+      "length"
+     ],
+     "readability": 70.6,
+     "words": [
+      60,
+      33,
+      23
+     ],
+     "personalization": 1,
+     "email1": "Subject: Brightwater Field Services and fleet safety\n\nHi Ruth,\n\nI noticed Brightwater Field Services is hiring a Fleet Safety Manager. Wayline Fleet offers in-cab coaching that cuts harsh-braking and speeding events, scored per driver. Most teams start by comparing one depot for a month, so the numbers come from your own vehicles. Would you be open to a 20-minute call to compare notes on your fleet?\n\nDana",
+     "email1_first": "Subject: Brightwater Field Services and fleet safety\n\nHi Ruth,\n\nI noticed Brightwater Field Services is hiring a Fleet Safety Manager. Wayline Fleet offers in-cab coaching that cuts harsh-braking and speeding events, scored per driver. Your 25 new depots must keep the team busy. Most teams start by comparing one depot for a month, so the numbers come from your own vehicles. Would you be open to a 20-minute call to compare notes on your fleet?\n\nDana"
+    },
+    {
+     "variant": "B",
+     "attempts": 2,
+     "trimmed": false,
+     "first_claims": [
+      {
+       "text": "Running 310 vehicles",
+       "evidence": [
+        "F7"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 50%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline Fleet offers idle-time and route reports that typically lower fuel spend.",
+       "evidence": [
+        "VP:fuel"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 75%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Your 25 new depots",
+       "evidence": [
+        "F7"
+       ],
+       "verdict": "unsupported",
+       "reason": "number(s) 25 not in the cited evidence; word overlap with the cited evidence 0%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "final_claims": [
+      {
+       "text": "Running 310 vehicles",
+       "evidence": [
+        "F7"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 50%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline Fleet offers idle-time and route reports that typically lower fuel spend.",
+       "evidence": [
+        "VP:fuel"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 75%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "first_passed": false,
+     "final_passed": true,
+     "first_issues": [
+      "the number 25 is not in the research or the offer",
+      "'Your 25 new depots': number(s) 25 not in the cited evidence"
+     ],
+     "final_issues": [
+      "only 23 words"
+     ],
+     "spam_score": 0.0,
+     "spam_issues": [
+      "length"
+     ],
+     "readability": 74.8,
+     "words": [
+      60,
+      33,
+      23
+     ],
+     "personalization": 1,
+     "email1": "Subject: Fuel and safety per vehicle\n\nHi Ruth,\n\nRunning 310 vehicles means small changes in idling and harsh braking add up quickly. Wayline Fleet offers idle-time and route reports that typically lower fuel spend. Most teams start by comparing one depot for a month, so the numbers come from your own vehicles. Would you be open to a 20-minute call to compare notes on your fleet?\n\nDana",
+     "email1_first": "Subject: Fuel and safety per vehicle\n\nHi Ruth,\n\nRunning 310 vehicles means small changes in idling and harsh braking add up quickly. Wayline Fleet offers idle-time and route reports that typically lower fuel spend. Your 25 new depots must keep the team busy. Most teams start by comparing one depot for a month, so the numbers come from your own vehicles. Would you be open to a 20-minute call to compare notes on your fleet?\n\nDana"
+    }
+   ],
+   "audit": {
+    "A-final": [],
+    "A-first": [
+     {
+      "text": "Your 25 new depots must keep the team busy.",
+      "supported": false,
+      "reason": "numbers and events checked against the reference (offline)"
+     }
+    ],
+    "B-final": [],
+    "B-first": [
+     {
+      "text": "Your 25 new depots must keep the team busy.",
+      "supported": false,
+      "reason": "numbers and events checked against the reference (offline)"
+     }
+    ]
+   },
+   "preference": "scout",
+   "preference_reason": "more specific details (offline heuristic)"
+  },
+  {
+   "domain": "pinecrest-waste.example",
+   "error": "no contact with a published or supplied email address; add one before drafting"
+  },
+  {
+   "domain": "tallgrass-couriers.example",
+   "contact": "Fleet Operations Manager",
+   "seconds": 0.01,
+   "calls": {
+    "draft": 1,
+    "verify_claims": 1
+   },
+   "variants": [
+    {
+     "variant": "A",
+     "attempts": 1,
+     "trimmed": false,
+     "first_claims": [
+      {
+       "text": "I read your news: \"Our Manchester hub opened in August 2026 with 40 new electric vans\".",
+       "evidence": [
+        "S1"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 83%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline Fleet offers self-install devices, so a new depot or region is tracked from its first week.",
+       "evidence": [
+        "VP:rollout"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 75%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "final_claims": [
+      {
+       "text": "I read your news: \"Our Manchester hub opened in August 2026 with 40 new electric vans\".",
+       "evidence": [
+        "S1"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 83%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline Fleet offers self-install devices, so a new depot or region is tracked from its first week.",
+       "evidence": [
+        "VP:rollout"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 75%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "first_passed": true,
+     "final_passed": true,
+     "first_issues": [],
+     "final_issues": [
+      "only 23 words"
+     ],
+     "spam_score": 0.0,
+     "spam_issues": [
+      "length"
+     ],
+     "readability": 77.1,
+     "words": [
+      66,
+      32,
+      23
+     ],
+     "personalization": 1,
+     "email1": "Subject: Tallgrass Couriers and fleet safety\n\nHi Daniel,\n\nI read your news: \"Our Manchester hub opened in August 2026 with 40 new electric vans\". Wayline Fleet offers self-install devices, so a new depot or region is tracked from its first week. Most teams start by comparing one depot for a month, so the numbers come from your own vehicles. Would you be open to a 20-minute call to compare notes on your fleet?\n\nDana",
+     "email1_first": "Subject: Tallgrass Couriers and fleet safety\n\nHi Daniel,\n\nI read your news: \"Our Manchester hub opened in August 2026 with 40 new electric vans\". Wayline Fleet offers self-install devices, so a new depot or region is tracked from its first week. Most teams start by comparing one depot for a month, so the numbers come from your own vehicles. Would you be open to a 20-minute call to compare notes on your fleet?\n\nDana"
+    },
+    {
+     "variant": "B",
+     "attempts": 1,
+     "trimmed": false,
+     "first_claims": [
+      {
+       "text": "Running 190 vehicles",
+       "evidence": [
+        "F7"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 50%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline Fleet offers idle-time and route reports that typically lower fuel spend.",
+       "evidence": [
+        "VP:fuel"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 75%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "final_claims": [
+      {
+       "text": "Running 190 vehicles",
+       "evidence": [
+        "F7"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 50%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline Fleet offers idle-time and route reports that typically lower fuel spend.",
+       "evidence": [
+        "VP:fuel"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 75%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "first_passed": true,
+     "final_passed": true,
+     "first_issues": [],
+     "final_issues": [
+      "only 23 words"
+     ],
+     "spam_score": 0.0,
+     "spam_issues": [
+      "length"
+     ],
+     "readability": 73.4,
+     "words": [
+      60,
+      32,
+      23
+     ],
+     "personalization": 1,
+     "email1": "Subject: Fuel and safety per vehicle\n\nHi Daniel,\n\nRunning 190 vehicles means small changes in idling and harsh braking add up quickly. Wayline Fleet offers idle-time and route reports that typically lower fuel spend. Most teams start by comparing one depot for a month, so the numbers come from your own vehicles. Would you be open to a 20-minute call to compare notes on your fleet?\n\nDana",
+     "email1_first": "Subject: Fuel and safety per vehicle\n\nHi Daniel,\n\nRunning 190 vehicles means small changes in idling and harsh braking add up quickly. Wayline Fleet offers idle-time and route reports that typically lower fuel spend. Most teams start by comparing one depot for a month, so the numbers come from your own vehicles. Would you be open to a 20-minute call to compare notes on your fleet?\n\nDana"
+    }
+   ],
+   "audit": {
+    "A-final": [],
+    "B-final": []
+   },
+   "preference": "scout",
+   "preference_reason": "more specific details (offline heuristic)"
+  },
+  {
+   "domain": "swiftmark-parcel.example",
+   "contact": "Fleet Manager",
+   "seconds": 0.01,
+   "calls": {
+    "draft": 1,
+    "verify_claims": 1
+   },
+   "variants": [
+    {
+     "variant": "A",
+     "attempts": 1,
+     "trimmed": false,
+     "first_claims": [
+      {
+       "text": "I read your news: \"Swiftmark started next-day delivery in the Berlin metropolitan area on 5 August 2026\".",
+       "evidence": [
+        "S1"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 88%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline Fleet offers self-install devices, so a new depot or region is tracked from its first week.",
+       "evidence": [
+        "VP:rollout"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 75%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "final_claims": [
+      {
+       "text": "I read your news: \"Swiftmark started next-day delivery in the Berlin metropolitan area on 5 August 2026\".",
+       "evidence": [
+        "S1"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 88%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline Fleet offers self-install devices, so a new depot or region is tracked from its first week.",
+       "evidence": [
+        "VP:rollout"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 75%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "first_passed": true,
+     "final_passed": true,
+     "first_issues": [],
+     "final_issues": [
+      "only 23 words"
+     ],
+     "spam_score": 0.0,
+     "spam_issues": [
+      "length"
+     ],
+     "readability": 70.8,
+     "words": [
+      67,
+      32,
+      23
+     ],
+     "personalization": 1,
+     "email1": "Subject: Swiftmark Parcel and fleet safety\n\nHi Anna,\n\nI read your news: \"Swiftmark started next-day delivery in the Berlin metropolitan area on 5 August 2026\". Wayline Fleet offers self-install devices, so a new depot or region is tracked from its first week. Most teams start by comparing one depot for a month, so the numbers come from your own vehicles. Would you be open to a 20-minute call to compare notes on your fleet?\n\nDana",
+     "email1_first": "Subject: Swiftmark Parcel and fleet safety\n\nHi Anna,\n\nI read your news: \"Swiftmark started next-day delivery in the Berlin metropolitan area on 5 August 2026\". Wayline Fleet offers self-install devices, so a new depot or region is tracked from its first week. Most teams start by comparing one depot for a month, so the numbers come from your own vehicles. Would you be open to a 20-minute call to compare notes on your fleet?\n\nDana"
+    },
+    {
+     "variant": "B",
+     "attempts": 1,
+     "trimmed": false,
+     "first_claims": [
+      {
+       "text": "Running 600 vehicles",
+       "evidence": [
+        "F6"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 50%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline Fleet offers idle-time and route reports that typically lower fuel spend.",
+       "evidence": [
+        "VP:fuel"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 75%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "final_claims": [
+      {
+       "text": "Running 600 vehicles",
+       "evidence": [
+        "F6"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 50%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline Fleet offers idle-time and route reports that typically lower fuel spend.",
+       "evidence": [
+        "VP:fuel"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 75%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "first_passed": true,
+     "final_passed": true,
+     "first_issues": [],
+     "final_issues": [
+      "only 23 words"
+     ],
+     "spam_score": 0.0,
+     "spam_issues": [
+      "length"
+     ],
+     "readability": 73.4,
+     "words": [
+      60,
+      32,
+      23
+     ],
+     "personalization": 1,
+     "email1": "Subject: Fuel and safety per vehicle\n\nHi Anna,\n\nRunning 600 vehicles means small changes in idling and harsh braking add up quickly. Wayline Fleet offers idle-time and route reports that typically lower fuel spend. Most teams start by comparing one depot for a month, so the numbers come from your own vehicles. Would you be open to a 20-minute call to compare notes on your fleet?\n\nDana",
+     "email1_first": "Subject: Fuel and safety per vehicle\n\nHi Anna,\n\nRunning 600 vehicles means small changes in idling and harsh braking add up quickly. Wayline Fleet offers idle-time and route reports that typically lower fuel spend. Most teams start by comparing one depot for a month, so the numbers come from your own vehicles. Would you be open to a 20-minute call to compare notes on your fleet?\n\nDana"
+    }
+   ],
+   "audit": {
+    "A-final": [],
+    "B-final": []
+   },
+   "preference": "scout",
+   "preference_reason": "more specific details (offline heuristic)"
+  },
+  {
+   "domain": "coldline-distribution.example",
+   "contact": "Chief Operating Officer",
+   "seconds": 0.02,
+   "calls": {
+    "draft": 3,
+    "verify_claims": 3
+   },
+   "variants": [
+    {
+     "variant": "A",
+     "attempts": 2,
+     "trimmed": false,
+     "first_claims": [
+      {
+       "text": "I read your news: \"Coldline opened its new Antwerp depot on 14 July 2026, adding 60 refrigerated trucks to serve Flanders\".",
+       "evidence": [
+        "S1"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 90%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline Fleet offers self-install devices, so a new depot or region is tracked from its first week.",
+       "evidence": [
+        "VP:rollout"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 75%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Your 25 new depots",
+       "evidence": [
+        "F6"
+       ],
+       "verdict": "unsupported",
+       "reason": "number(s) 25 not in the cited evidence; word overlap with the cited evidence 0%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "final_claims": [
+      {
+       "text": "I read your news: \"Coldline opened its new Antwerp depot on 14 July 2026, adding 60 refrigerated trucks to serve Flanders\".",
+       "evidence": [
+        "S1"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 90%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline Fleet offers self-install devices, so a new depot or region is tracked from its first week.",
+       "evidence": [
+        "VP:rollout"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 75%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "first_passed": false,
+     "final_passed": true,
+     "first_issues": [
+      "the number 25 is not in the research or the offer",
+      "'Your 25 new depots': number(s) 25 not in the cited evidence"
+     ],
+     "final_issues": [
+      "only 23 words"
+     ],
+     "spam_score": 0.0,
+     "spam_issues": [
+      "length"
+     ],
+     "readability": 74.5,
+     "words": [
+      70,
+      32,
+      23
+     ],
+     "personalization": 1,
+     "email1": "Subject: Coldline Distribution and fleet safety\n\nHi Sanne,\n\nI read your news: \"Coldline opened its new Antwerp depot on 14 July 2026, adding 60 refrigerated trucks to serve Flanders\". Wayline Fleet offers self-install devices, so a new depot or region is tracked from its first week. Most teams start by comparing one depot for a month, so the numbers come from your own vehicles. Would you be open to a 20-minute call to compare notes on your fleet?\n\nDana",
+     "email1_first": "Subject: Coldline Distribution and fleet safety\n\nHi Sanne,\n\nI read your news: \"Coldline opened its new Antwerp depot on 14 July 2026, adding 60 refrigerated trucks to serve Flanders\". Wayline Fleet offers self-install devices, so a new depot or region is tracked from its first week. Your 25 new depots must keep the team busy. Most teams start by comparing one depot for a month, so the numbers come from your own vehicles. Would you be open to a 20-minute call to compare notes on your fleet?\n\nDana"
+    },
+    {
+     "variant": "B",
+     "attempts": 2,
+     "trimmed": false,
+     "first_claims": [
+      {
+       "text": "Running 420 vehicles",
+       "evidence": [
+        "F6"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 50%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline Fleet offers idle-time and route reports that typically lower fuel spend.",
+       "evidence": [
+        "VP:fuel"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 75%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Your 25 new depots",
+       "evidence": [
+        "F6"
+       ],
+       "verdict": "unsupported",
+       "reason": "number(s) 25 not in the cited evidence; word overlap with the cited evidence 0%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "final_claims": [
+      {
+       "text": "Running 420 vehicles",
+       "evidence": [
+        "F6"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 50%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline Fleet offers idle-time and route reports that typically lower fuel spend.",
+       "evidence": [
+        "VP:fuel"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 75%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "first_passed": false,
+     "final_passed": true,
+     "first_issues": [
+      "the number 25 is not in the research or the offer",
+      "'Your 25 new depots': number(s) 25 not in the cited evidence"
+     ],
+     "final_issues": [
+      "only 23 words"
+     ],
+     "spam_score": 0.0,
+     "spam_issues": [
+      "length"
+     ],
+     "readability": 74.5,
+     "words": [
+      60,
+      32,
+      23
+     ],
+     "personalization": 1,
+     "email1": "Subject: Fuel and safety per vehicle\n\nHi Sanne,\n\nRunning 420 vehicles means small changes in idling and harsh braking add up quickly. Wayline Fleet offers idle-time and route reports that typically lower fuel spend. Most teams start by comparing one depot for a month, so the numbers come from your own vehicles. Would you be open to a 20-minute call to compare notes on your fleet?\n\nDana",
+     "email1_first": "Subject: Fuel and safety per vehicle\n\nHi Sanne,\n\nRunning 420 vehicles means small changes in idling and harsh braking add up quickly. Wayline Fleet offers idle-time and route reports that typically lower fuel spend. Your 25 new depots must keep the team busy. Most teams start by comparing one depot for a month, so the numbers come from your own vehicles. Would you be open to a 20-minute call to compare notes on your fleet?\n\nDana"
+    }
+   ],
+   "audit": {
+    "A-final": [],
+    "A-first": [
+     {
+      "text": "Your 25 new depots must keep the team busy.",
+      "supported": false,
+      "reason": "numbers and events checked against the reference (offline)"
+     }
+    ],
+    "B-final": [],
+    "B-first": [
+     {
+      "text": "Your 25 new depots must keep the team busy.",
+      "supported": false,
+      "reason": "numbers and events checked against the reference (offline)"
+     }
+    ]
+   },
+   "preference": "scout",
+   "preference_reason": "more specific details (offline heuristic)"
+  },
+  {
+   "domain": "nordlicht-kurier.example",
+   "contact": "Head of Fleet",
+   "seconds": 0.02,
+   "calls": {
+    "draft": 3,
+    "verify_claims": 3
+   },
+   "variants": [
+    {
+     "variant": "A",
+     "attempts": 2,
+     "trimmed": false,
+     "first_claims": [
+      {
+       "text": "I read your news: \"Nordlicht Kurier began serving Salzburg and Innsbruck on 12 September 2026\".",
+       "evidence": [
+        "S1"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 80%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline Fleet offers self-install devices, so a new depot or region is tracked from its first week.",
+       "evidence": [
+        "VP:rollout"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 75%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Congrats on doubling the fleet this year.",
+       "evidence": [
+        "F7"
+       ],
+       "verdict": "unsupported",
+       "reason": "word overlap with the cited evidence 33%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "final_claims": [
+      {
+       "text": "I read your news: \"Nordlicht Kurier began serving Salzburg and Innsbruck on 12 September 2026\".",
+       "evidence": [
+        "S1"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 80%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline Fleet offers self-install devices, so a new depot or region is tracked from its first week.",
+       "evidence": [
+        "VP:rollout"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 75%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "first_passed": false,
+     "final_passed": true,
+     "first_issues": [
+      "'Congrats on doubling the fleet this year.': word overlap with the cited evidence 33%"
+     ],
+     "final_issues": [
+      "only 23 words"
+     ],
+     "spam_score": 0.0,
+     "spam_issues": [
+      "length"
+     ],
+     "readability": 75.2,
+     "words": [
+      65,
+      32,
+      23
+     ],
+     "personalization": 1,
+     "email1": "Subject: Nordlicht Kurier and fleet safety\n\nHi Sophie,\n\nI read your news: \"Nordlicht Kurier began serving Salzburg and Innsbruck on 12 September 2026\". Wayline Fleet offers self-install devices, so a new depot or region is tracked from its first week. Most teams start by comparing one depot for a month, so the numbers come from your own vehicles. Would you be open to a 20-minute call to compare notes on your fleet?\n\nDana",
+     "email1_first": "Subject: Nordlicht Kurier and fleet safety\n\nHi Sophie,\n\nI read your news: \"Nordlicht Kurier began serving Salzburg and Innsbruck on 12 September 2026\". Wayline Fleet offers self-install devices, so a new depot or region is tracked from its first week. Congrats on doubling the fleet this year. Most teams start by comparing one depot for a month, so the numbers come from your own vehicles. Would you be open to a 20-minute call to compare notes on your fleet?\n\nDana"
+    },
+    {
+     "variant": "B",
+     "attempts": 2,
+     "trimmed": false,
+     "first_claims": [
+      {
+       "text": "Running 210 vehicles",
+       "evidence": [
+        "F7"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 50%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline Fleet offers idle-time and route reports that typically lower fuel spend.",
+       "evidence": [
+        "VP:fuel"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 75%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Congrats on doubling the fleet this year.",
+       "evidence": [
+        "F7"
+       ],
+       "verdict": "unsupported",
+       "reason": "word overlap with the cited evidence 33%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "final_claims": [
+      {
+       "text": "Running 210 vehicles",
+       "evidence": [
+        "F7"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 50%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline Fleet offers idle-time and route reports that typically lower fuel spend.",
+       "evidence": [
+        "VP:fuel"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 75%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "first_passed": false,
+     "final_passed": true,
+     "first_issues": [
+      "'Congrats on doubling the fleet this year.': word overlap with the cited evidence 33%"
+     ],
+     "final_issues": [
+      "only 23 words"
+     ],
+     "spam_score": 0.0,
+     "spam_issues": [
+      "length"
+     ],
+     "readability": 73.4,
+     "words": [
+      60,
+      32,
+      23
+     ],
+     "personalization": 1,
+     "email1": "Subject: Fuel and safety per vehicle\n\nHi Sophie,\n\nRunning 210 vehicles means small changes in idling and harsh braking add up quickly. Wayline Fleet offers idle-time and route reports that typically lower fuel spend. Most teams start by comparing one depot for a month, so the numbers come from your own vehicles. Would you be open to a 20-minute call to compare notes on your fleet?\n\nDana",
+     "email1_first": "Subject: Fuel and safety per vehicle\n\nHi Sophie,\n\nRunning 210 vehicles means small changes in idling and harsh braking add up quickly. Wayline Fleet offers idle-time and route reports that typically lower fuel spend. Congrats on doubling the fleet this year. Most teams start by comparing one depot for a month, so the numbers come from your own vehicles. Would you be open to a 20-minute call to compare notes on your fleet?\n\nDana"
+    }
+   ],
+   "audit": {
+    "A-final": [],
+    "A-first": [
+     {
+      "text": "Congrats on doubling the fleet this year.",
+      "supported": false,
+      "reason": "numbers and events checked against the reference (offline)"
+     }
+    ],
+    "B-final": [],
+    "B-first": [
+     {
+      "text": "Congrats on doubling the fleet this year.",
+      "supported": false,
+      "reason": "numbers and events checked against the reference (offline)"
+     }
+    ]
+   },
+   "preference": "scout",
+   "preference_reason": "more specific details (offline heuristic)"
+  },
+  {
+   "domain": "granitepeak-construction.example",
+   "contact": "Fleet Manager",
+   "seconds": 0.02,
+   "calls": {
+    "draft": 3,
+    "verify_claims": 3
+   },
+   "variants": [
+    {
+     "variant": "A",
+     "attempts": 2,
+     "trimmed": false,
+     "first_claims": [
+      {
+       "text": "I read your news: \"Granite Peak opened a Boise office in June 2026 to support projects across Idaho\".",
+       "evidence": [
+        "S2"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 86%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline Fleet offers self-install devices, so a new depot or region is tracked from its first week.",
+       "evidence": [
+        "VP:rollout"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 75%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Congrats on doubling the fleet this year.",
+       "evidence": [
+        "F7"
+       ],
+       "verdict": "unsupported",
+       "reason": "word overlap with the cited evidence 33%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "final_claims": [
+      {
+       "text": "I read your news: \"Granite Peak opened a Boise office in June 2026 to support projects across Idaho\".",
+       "evidence": [
+        "S2"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 86%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline Fleet offers self-install devices, so a new depot or region is tracked from its first week.",
+       "evidence": [
+        "VP:rollout"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 75%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "first_passed": false,
+     "final_passed": true,
+     "first_issues": [
+      "'Congrats on doubling the fleet this year.': word overlap with the cited evidence 33%"
+     ],
+     "final_issues": [
+      "only 23 words"
+     ],
+     "spam_score": 0.0,
+     "spam_issues": [
+      "length"
+     ],
+     "readability": 75.4,
+     "words": [
+      69,
+      33,
+      23
+     ],
+     "personalization": 1,
+     "email1": "Subject: Granite Peak Construction and fleet safety\n\nHi Maya,\n\nI read your news: \"Granite Peak opened a Boise office in June 2026 to support projects across Idaho\". Wayline Fleet offers self-install devices, so a new depot or region is tracked from its first week. Most teams start by comparing one depot for a month, so the numbers come from your own vehicles. Would you be open to a 20-minute call to compare notes on your fleet?\n\nDana",
+     "email1_first": "Subject: Granite Peak Construction and fleet safety\n\nHi Maya,\n\nI read your news: \"Granite Peak opened a Boise office in June 2026 to support projects across Idaho\". Wayline Fleet offers self-install devices, so a new depot or region is tracked from its first week. Congrats on doubling the fleet this year. Most teams start by comparing one depot for a month, so the numbers come from your own vehicles. Would you be open to a 20-minute call to compare notes on your fleet?\n\nDana"
+    },
+    {
+     "variant": "B",
+     "attempts": 2,
+     "trimmed": false,
+     "first_claims": [
+      {
+       "text": "Running 340 vehicles",
+       "evidence": [
+        "F7"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 50%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline Fleet offers idle-time and route reports that typically lower fuel spend.",
+       "evidence": [
+        "VP:fuel"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 75%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Congrats on doubling the fleet this year.",
+       "evidence": [
+        "F7"
+       ],
+       "verdict": "unsupported",
+       "reason": "word overlap with the cited evidence 33%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "final_claims": [
+      {
+       "text": "Running 340 vehicles",
+       "evidence": [
+        "F7"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 50%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline Fleet offers idle-time and route reports that typically lower fuel spend.",
+       "evidence": [
+        "VP:fuel"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 75%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "first_passed": false,
+     "final_passed": true,
+     "first_issues": [
+      "'Congrats on doubling the fleet this year.': word overlap with the cited evidence 33%"
+     ],
+     "final_issues": [
+      "only 23 words"
+     ],
+     "spam_score": 0.0,
+     "spam_issues": [
+      "length"
+     ],
+     "readability": 73.4,
+     "words": [
+      60,
+      33,
+      23
+     ],
+     "personalization": 1,
+     "email1": "Subject: Fuel and safety per vehicle\n\nHi Maya,\n\nRunning 340 vehicles means small changes in idling and harsh braking add up quickly. Wayline Fleet offers idle-time and route reports that typically lower fuel spend. Most teams start by comparing one depot for a month, so the numbers come from your own vehicles. Would you be open to a 20-minute call to compare notes on your fleet?\n\nDana",
+     "email1_first": "Subject: Fuel and safety per vehicle\n\nHi Maya,\n\nRunning 340 vehicles means small changes in idling and harsh braking add up quickly. Wayline Fleet offers idle-time and route reports that typically lower fuel spend. Congrats on doubling the fleet this year. Most teams start by comparing one depot for a month, so the numbers come from your own vehicles. Would you be open to a 20-minute call to compare notes on your fleet?\n\nDana"
+    }
+   ],
+   "audit": {
+    "A-final": [],
+    "A-first": [
+     {
+      "text": "Congrats on doubling the fleet this year.",
+      "supported": false,
+      "reason": "numbers and events checked against the reference (offline)"
+     }
+    ],
+    "B-final": [],
+    "B-first": [
+     {
+      "text": "Congrats on doubling the fleet this year.",
+      "supported": false,
+      "reason": "numbers and events checked against the reference (offline)"
+     }
+    ]
+   },
+   "preference": "scout",
+   "preference_reason": "more specific details (offline heuristic)"
+  },
+  {
+   "domain": "evergreen-lawntree.example",
+   "contact": "Chief Executive Officer",
+   "seconds": 0.02,
+   "calls": {
+    "draft": 3,
+    "verify_claims": 3
+   },
+   "variants": [
+    {
+     "variant": "A",
+     "attempts": 2,
+     "trimmed": false,
+     "first_claims": [
+      {
+       "text": "I noticed Evergreen Lawn & Tree is hiring a Fleet Manager.",
+       "evidence": [
+        "S1"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline Fleet offers in-cab coaching that cuts harsh-braking and speeding events, scored per driver.",
+       "evidence": [
+        "VP:safety"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 78%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Your 25 new depots",
+       "evidence": [
+        "F5"
+       ],
+       "verdict": "unsupported",
+       "reason": "number(s) 25 not in the cited evidence; word overlap with the cited evidence 0%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "final_claims": [
+      {
+       "text": "I noticed Evergreen Lawn & Tree is hiring a Fleet Manager.",
+       "evidence": [
+        "S1"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline Fleet offers in-cab coaching that cuts harsh-braking and speeding events, scored per driver.",
+       "evidence": [
+        "VP:safety"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 78%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "first_passed": false,
+     "final_passed": true,
+     "first_issues": [
+      "the number 25 is not in the research or the offer",
+      "'Your 25 new depots': number(s) 25 not in the cited evidence"
+     ],
+     "final_issues": [
+      "only 23 words"
+     ],
+     "spam_score": 0.0,
+     "spam_issues": [
+      "length"
+     ],
+     "readability": 73.0,
+     "words": [
+      59,
+      33,
+      23
+     ],
+     "personalization": 1,
+     "email1": "Subject: Evergreen Lawn & Tree and fleet safety\n\nHi Maya,\n\nI noticed Evergreen Lawn & Tree is hiring a Fleet Manager. Wayline Fleet offers in-cab coaching that cuts harsh-braking and speeding events, scored per driver. Most teams start by comparing one depot for a month, so the numbers come from your own vehicles. Would you be open to a 20-minute call to compare notes on your fleet?\n\nDana",
+     "email1_first": "Subject: Evergreen Lawn & Tree and fleet safety\n\nHi Maya,\n\nI noticed Evergreen Lawn & Tree is hiring a Fleet Manager. Wayline Fleet offers in-cab coaching that cuts harsh-braking and speeding events, scored per driver. Your 25 new depots must keep the team busy. Most teams start by comparing one depot for a month, so the numbers come from your own vehicles. Would you be open to a 20-minute call to compare notes on your fleet?\n\nDana"
+    },
+    {
+     "variant": "B",
+     "attempts": 2,
+     "trimmed": false,
+     "first_claims": [
+      {
+       "text": "Running 120 vehicles",
+       "evidence": [
+        "F5"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 50%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline Fleet offers idle-time and route reports that typically lower fuel spend.",
+       "evidence": [
+        "VP:fuel"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 75%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Your 25 new depots",
+       "evidence": [
+        "F5"
+       ],
+       "verdict": "unsupported",
+       "reason": "number(s) 25 not in the cited evidence; word overlap with the cited evidence 0%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "final_claims": [
+      {
+       "text": "Running 120 vehicles",
+       "evidence": [
+        "F5"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 50%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline Fleet offers idle-time and route reports that typically lower fuel spend.",
+       "evidence": [
+        "VP:fuel"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 75%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "first_passed": false,
+     "final_passed": true,
+     "first_issues": [
+      "the number 25 is not in the research or the offer",
+      "'Your 25 new depots': number(s) 25 not in the cited evidence"
+     ],
+     "final_issues": [
+      "only 23 words"
+     ],
+     "spam_score": 0.0,
+     "spam_issues": [
+      "length"
+     ],
+     "readability": 73.4,
+     "words": [
+      60,
+      33,
+      23
+     ],
+     "personalization": 1,
+     "email1": "Subject: Fuel and safety per vehicle\n\nHi Maya,\n\nRunning 120 vehicles means small changes in idling and harsh braking add up quickly. Wayline Fleet offers idle-time and route reports that typically lower fuel spend. Most teams start by comparing one depot for a month, so the numbers come from your own vehicles. Would you be open to a 20-minute call to compare notes on your fleet?\n\nDana",
+     "email1_first": "Subject: Fuel and safety per vehicle\n\nHi Maya,\n\nRunning 120 vehicles means small changes in idling and harsh braking add up quickly. Wayline Fleet offers idle-time and route reports that typically lower fuel spend. Your 25 new depots must keep the team busy. Most teams start by comparing one depot for a month, so the numbers come from your own vehicles. Would you be open to a 20-minute call to compare notes on your fleet?\n\nDana"
+    }
+   ],
+   "audit": {
+    "A-final": [],
+    "A-first": [
+     {
+      "text": "Your 25 new depots must keep the team busy.",
+      "supported": false,
+      "reason": "numbers and events checked against the reference (offline)"
+     }
+    ],
+    "B-final": [],
+    "B-first": [
+     {
+      "text": "Your 25 new depots must keep the team busy.",
+      "supported": false,
+      "reason": "numbers and events checked against the reference (offline)"
+     }
+    ]
+   },
+   "preference": "scout",
+   "preference_reason": "more specific details (offline heuristic)"
+  },
+  {
+   "domain": "clearwater-pest.example",
+   "contact": "Head of Fleet",
+   "seconds": 0.02,
+   "calls": {
+    "draft": 3,
+    "verify_claims": 3
+   },
+   "variants": [
+    {
+     "variant": "A",
+     "attempts": 2,
+     "trimmed": false,
+     "first_claims": [
+      {
+       "text": "I read your news: \"Clearwater acquired three local pest control operators in Orlando and Jacksonville in August 2026\".",
+       "evidence": [
+        "S2"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 88%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline Fleet offers self-install devices, so a new depot or region is tracked from its first week.",
+       "evidence": [
+        "VP:rollout"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 75%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Congrats on doubling the fleet this year.",
+       "evidence": [
+        "F7"
+       ],
+       "verdict": "unsupported",
+       "reason": "word overlap with the cited evidence 33%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "final_claims": [
+      {
+       "text": "I read your news: \"Clearwater acquired three local pest control operators in Orlando and Jacksonville in August 2026\".",
+       "evidence": [
+        "S2"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 88%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline Fleet offers self-install devices, so a new depot or region is tracked from its first week.",
+       "evidence": [
+        "VP:rollout"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 75%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "first_passed": false,
+     "final_passed": true,
+     "first_issues": [
+      "'Congrats on doubling the fleet this year.': word overlap with the cited evidence 33%"
+     ],
+     "final_issues": [
+      "only 23 words"
+     ],
+     "spam_score": 0.0,
+     "spam_issues": [
+      "length"
+     ],
+     "readability": 67.8,
+     "words": [
+      69,
+      33,
+      23
+     ],
+     "personalization": 1,
+     "email1": "Subject: Clearwater Pest Control and fleet safety\n\nHi Imani,\n\nI read your news: \"Clearwater acquired three local pest control operators in Orlando and Jacksonville in August 2026\". Wayline Fleet offers self-install devices, so a new depot or region is tracked from its first week. Most teams start by comparing one depot for a month, so the numbers come from your own vehicles. Would you be open to a 20-minute call to compare notes on your fleet?\n\nDana",
+     "email1_first": "Subject: Clearwater Pest Control and fleet safety\n\nHi Imani,\n\nI read your news: \"Clearwater acquired three local pest control operators in Orlando and Jacksonville in August 2026\". Wayline Fleet offers self-install devices, so a new depot or region is tracked from its first week. Congrats on doubling the fleet this year. Most teams start by comparing one depot for a month, so the numbers come from your own vehicles. Would you be open to a 20-minute call to compare notes on your fleet?\n\nDana"
+    },
+    {
+     "variant": "B",
+     "attempts": 2,
+     "trimmed": false,
+     "first_claims": [
+      {
+       "text": "Running 230 vehicles",
+       "evidence": [
+        "F7"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline Fleet offers idle-time and route reports that typically lower fuel spend.",
+       "evidence": [
+        "VP:fuel"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 75%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Congrats on doubling the fleet this year.",
+       "evidence": [
+        "F7"
+       ],
+       "verdict": "unsupported",
+       "reason": "word overlap with the cited evidence 33%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "final_claims": [
+      {
+       "text": "Running 230 vehicles",
+       "evidence": [
+        "F7"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline Fleet offers idle-time and route reports that typically lower fuel spend.",
+       "evidence": [
+        "VP:fuel"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 75%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "first_passed": false,
+     "final_passed": true,
+     "first_issues": [
+      "'Congrats on doubling the fleet this year.': word overlap with the cited evidence 33%"
+     ],
+     "final_issues": [
+      "only 23 words"
+     ],
+     "spam_score": 0.0,
+     "spam_issues": [
+      "length"
+     ],
+     "readability": 72.0,
+     "words": [
+      60,
+      33,
+      23
+     ],
+     "personalization": 1,
+     "email1": "Subject: Fuel and safety per vehicle\n\nHi Imani,\n\nRunning 230 vehicles means small changes in idling and harsh braking add up quickly. Wayline Fleet offers idle-time and route reports that typically lower fuel spend. Most teams start by comparing one depot for a month, so the numbers come from your own vehicles. Would you be open to a 20-minute call to compare notes on your fleet?\n\nDana",
+     "email1_first": "Subject: Fuel and safety per vehicle\n\nHi Imani,\n\nRunning 230 vehicles means small changes in idling and harsh braking add up quickly. Wayline Fleet offers idle-time and route reports that typically lower fuel spend. Congrats on doubling the fleet this year. Most teams start by comparing one depot for a month, so the numbers come from your own vehicles. Would you be open to a 20-minute call to compare notes on your fleet?\n\nDana"
+    }
+   ],
+   "audit": {
+    "A-final": [],
+    "A-first": [
+     {
+      "text": "Congrats on doubling the fleet this year.",
+      "supported": false,
+      "reason": "numbers and events checked against the reference (offline)"
+     }
+    ],
+    "B-final": [],
+    "B-first": [
+     {
+      "text": "Congrats on doubling the fleet this year.",
+      "supported": false,
+      "reason": "numbers and events checked against the reference (offline)"
+     }
+    ]
+   },
+   "preference": "scout",
+   "preference_reason": "more specific details (offline heuristic)"
+  },
+  {
+   "domain": "halvorsen-freight.example",
+   "contact": "Fleet Operations Manager",
+   "seconds": 0.01,
+   "calls": {
+    "draft": 1,
+    "verify_claims": 1
+   },
+   "variants": [
+    {
+     "variant": "A",
+     "attempts": 1,
+     "trimmed": false,
+     "first_claims": [
+      {
+       "text": "I noticed Halvorsen Freight is hiring a Fleet Safety Lead.",
+       "evidence": [
+        "S1"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline Fleet offers in-cab coaching that cuts harsh-braking and speeding events, scored per driver.",
+       "evidence": [
+        "VP:safety"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 78%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "final_claims": [
+      {
+       "text": "I noticed Halvorsen Freight is hiring a Fleet Safety Lead.",
+       "evidence": [
+        "S1"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline Fleet offers in-cab coaching that cuts harsh-braking and speeding events, scored per driver.",
+       "evidence": [
+        "VP:safety"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 78%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "first_passed": true,
+     "final_passed": true,
+     "first_issues": [],
+     "final_issues": [
+      "only 23 words"
+     ],
+     "spam_score": 0.0,
+     "spam_issues": [
+      "length"
+     ],
+     "readability": 73.0,
+     "words": [
+      59,
+      32,
+      23
+     ],
+     "personalization": 1,
+     "email1": "Subject: Halvorsen Freight and fleet safety\n\nHi Maja,\n\nI noticed Halvorsen Freight is hiring a Fleet Safety Lead. Wayline Fleet offers in-cab coaching that cuts harsh-braking and speeding events, scored per driver. Most teams start by comparing one depot for a month, so the numbers come from your own vehicles. Would you be open to a 20-minute call to compare notes on your fleet?\n\nDana",
+     "email1_first": "Subject: Halvorsen Freight and fleet safety\n\nHi Maja,\n\nI noticed Halvorsen Freight is hiring a Fleet Safety Lead. Wayline Fleet offers in-cab coaching that cuts harsh-braking and speeding events, scored per driver. Most teams start by comparing one depot for a month, so the numbers come from your own vehicles. Would you be open to a 20-minute call to compare notes on your fleet?\n\nDana"
+    },
+    {
+     "variant": "B",
+     "attempts": 1,
+     "trimmed": false,
+     "first_claims": [
+      {
+       "text": "Running 450 vehicles",
+       "evidence": [
+        "F7"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 50%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline Fleet offers idle-time and route reports that typically lower fuel spend.",
+       "evidence": [
+        "VP:fuel"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 75%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "final_claims": [
+      {
+       "text": "Running 450 vehicles",
+       "evidence": [
+        "F7"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 50%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline Fleet offers idle-time and route reports that typically lower fuel spend.",
+       "evidence": [
+        "VP:fuel"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 75%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "first_passed": true,
+     "final_passed": true,
+     "first_issues": [],
+     "final_issues": [
+      "only 23 words"
+     ],
+     "spam_score": 0.0,
+     "spam_issues": [
+      "length"
+     ],
+     "readability": 73.4,
+     "words": [
+      60,
+      32,
+      23
+     ],
+     "personalization": 1,
+     "email1": "Subject: Fuel and safety per vehicle\n\nHi Maja,\n\nRunning 450 vehicles means small changes in idling and harsh braking add up quickly. Wayline Fleet offers idle-time and route reports that typically lower fuel spend. Most teams start by comparing one depot for a month, so the numbers come from your own vehicles. Would you be open to a 20-minute call to compare notes on your fleet?\n\nDana",
+     "email1_first": "Subject: Fuel and safety per vehicle\n\nHi Maja,\n\nRunning 450 vehicles means small changes in idling and harsh braking add up quickly. Wayline Fleet offers idle-time and route reports that typically lower fuel spend. Most teams start by comparing one depot for a month, so the numbers come from your own vehicles. Would you be open to a 20-minute call to compare notes on your fleet?\n\nDana"
+    }
+   ],
+   "audit": {
+    "A-final": [],
+    "B-final": []
+   },
+   "preference": "scout",
+   "preference_reason": "more specific details (offline heuristic)"
+  },
+  {
+   "domain": "aldergrove-bus.example",
+   "contact": "Fleet Operations Manager",
+   "seconds": 0.02,
+   "calls": {
+    "draft": 3,
+    "verify_claims": 3
+   },
+   "variants": [
+    {
+     "variant": "A",
+     "attempts": 2,
+     "trimmed": false,
+     "first_claims": [
+      {
+       "text": "I noticed Alder Grove School Bus is hiring a Transportation Safety Officer.",
+       "evidence": [
+        "S1"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline Fleet offers in-cab coaching that cuts harsh-braking and speeding events, scored per driver.",
+       "evidence": [
+        "VP:safety"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 78%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Congrats on doubling the fleet this year.",
+       "evidence": [
+        "F5"
+       ],
+       "verdict": "unsupported",
+       "reason": "word overlap with the cited evidence 33%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "final_claims": [
+      {
+       "text": "I noticed Alder Grove School Bus is hiring a Transportation Safety Officer.",
+       "evidence": [
+        "S1"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline Fleet offers in-cab coaching that cuts harsh-braking and speeding events, scored per driver.",
+       "evidence": [
+        "VP:safety"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 78%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "first_passed": false,
+     "final_passed": true,
+     "first_issues": [
+      "'Congrats on doubling the fleet this year.': word overlap with the cited evidence 33%"
+     ],
+     "final_issues": [
+      "only 23 words"
+     ],
+     "spam_score": 0.0,
+     "spam_issues": [
+      "length"
+     ],
+     "readability": 69.6,
+     "words": [
+      61,
+      34,
+      23
+     ],
+     "personalization": 1,
+     "email1": "Subject: Alder Grove School Bus and fleet safety\n\nHi Noah,\n\nI noticed Alder Grove School Bus is hiring a Transportation Safety Officer. Wayline Fleet offers in-cab coaching that cuts harsh-braking and speeding events, scored per driver. Most teams start by comparing one depot for a month, so the numbers come from your own vehicles. Would you be open to a 20-minute call to compare notes on your fleet?\n\nDana",
+     "email1_first": "Subject: Alder Grove School Bus and fleet safety\n\nHi Noah,\n\nI noticed Alder Grove School Bus is hiring a Transportation Safety Officer. Wayline Fleet offers in-cab coaching that cuts harsh-braking and speeding events, scored per driver. Congrats on doubling the fleet this year. Most teams start by comparing one depot for a month, so the numbers come from your own vehicles. Would you be open to a 20-minute call to compare notes on your fleet?\n\nDana"
+    },
+    {
+     "variant": "B",
+     "attempts": 2,
+     "trimmed": false,
+     "first_claims": [
+      {
+       "text": "Running 300 vehicles",
+       "evidence": [
+        "F5"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 50%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline Fleet offers idle-time and route reports that typically lower fuel spend.",
+       "evidence": [
+        "VP:fuel"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 75%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Congrats on doubling the fleet this year.",
+       "evidence": [
+        "F5"
+       ],
+       "verdict": "unsupported",
+       "reason": "word overlap with the cited evidence 33%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "final_claims": [
+      {
+       "text": "Running 300 vehicles",
+       "evidence": [
+        "F5"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 50%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline Fleet offers idle-time and route reports that typically lower fuel spend.",
+       "evidence": [
+        "VP:fuel"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 75%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "first_passed": false,
+     "final_passed": true,
+     "first_issues": [
+      "'Congrats on doubling the fleet this year.': word overlap with the cited evidence 33%"
+     ],
+     "final_issues": [
+      "only 23 words"
+     ],
+     "spam_score": 0.0,
+     "spam_issues": [
+      "length"
+     ],
+     "readability": 74.8,
+     "words": [
+      60,
+      34,
+      23
+     ],
+     "personalization": 1,
+     "email1": "Subject: Fuel and safety per vehicle\n\nHi Noah,\n\nRunning 300 vehicles means small changes in idling and harsh braking add up quickly. Wayline Fleet offers idle-time and route reports that typically lower fuel spend. Most teams start by comparing one depot for a month, so the numbers come from your own vehicles. Would you be open to a 20-minute call to compare notes on your fleet?\n\nDana",
+     "email1_first": "Subject: Fuel and safety per vehicle\n\nHi Noah,\n\nRunning 300 vehicles means small changes in idling and harsh braking add up quickly. Wayline Fleet offers idle-time and route reports that typically lower fuel spend. Congrats on doubling the fleet this year. Most teams start by comparing one depot for a month, so the numbers come from your own vehicles. Would you be open to a 20-minute call to compare notes on your fleet?\n\nDana"
+    }
+   ],
+   "audit": {
+    "A-final": [],
+    "A-first": [
+     {
+      "text": "Congrats on doubling the fleet this year.",
+      "supported": false,
+      "reason": "numbers and events checked against the reference (offline)"
+     }
+    ],
+    "B-final": [],
+    "B-first": [
+     {
+      "text": "Congrats on doubling the fleet this year.",
+      "supported": false,
+      "reason": "numbers and events checked against the reference (offline)"
+     }
+    ]
+   },
+   "preference": "scout",
+   "preference_reason": "more specific details (offline heuristic)"
+  },
+  {
+   "domain": "northstar-rental.example",
+   "contact": "Head of Fleet",
+   "seconds": 0.02,
+   "calls": {
+    "draft": 3,
+    "verify_claims": 3
+   },
+   "variants": [
+    {
+     "variant": "A",
+     "attempts": 2,
+     "trimmed": false,
+     "first_claims": [
+      {
+       "text": "I saw that Elena Petrov joined Northstar Rental Equipment as Head of Fleet.",
+       "evidence": [
+        "S2"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline Fleet offers in-cab coaching that cuts harsh-braking and speeding events, scored per driver.",
+       "evidence": [
+        "VP:safety"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 78%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Congrats on doubling the fleet this year.",
+       "evidence": [
+        "F6"
+       ],
+       "verdict": "unsupported",
+       "reason": "word overlap with the cited evidence 33%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "final_claims": [
+      {
+       "text": "I saw that Elena Petrov joined Northstar Rental Equipment as Head of Fleet.",
+       "evidence": [
+        "S2"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline Fleet offers in-cab coaching that cuts harsh-braking and speeding events, scored per driver.",
+       "evidence": [
+        "VP:safety"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 78%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "first_passed": false,
+     "final_passed": true,
+     "first_issues": [
+      "'Congrats on doubling the fleet this year.': word overlap with the cited evidence 33%"
+     ],
+     "final_issues": [
+      "only 23 words"
+     ],
+     "spam_score": 0.0,
+     "spam_issues": [
+      "length"
+     ],
+     "readability": 70.3,
+     "words": [
+      62,
+      33,
+      23
+     ],
+     "personalization": 1,
+     "email1": "Subject: Northstar Rental Equipment and fleet safety\n\nHi Elena,\n\nI saw that Elena Petrov joined Northstar Rental Equipment as Head of Fleet. Wayline Fleet offers in-cab coaching that cuts harsh-braking and speeding events, scored per driver. Most teams start by comparing one depot for a month, so the numbers come from your own vehicles. Would you be open to a 20-minute call to compare notes on your fleet?\n\nDana",
+     "email1_first": "Subject: Northstar Rental Equipment and fleet safety\n\nHi Elena,\n\nI saw that Elena Petrov joined Northstar Rental Equipment as Head of Fleet. Wayline Fleet offers in-cab coaching that cuts harsh-braking and speeding events, scored per driver. Congrats on doubling the fleet this year. Most teams start by comparing one depot for a month, so the numbers come from your own vehicles. Would you be open to a 20-minute call to compare notes on your fleet?\n\nDana"
+    },
+    {
+     "variant": "B",
+     "attempts": 2,
+     "trimmed": false,
+     "first_claims": [
+      {
+       "text": "Running 500 vehicles",
+       "evidence": [
+        "F6"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 50%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline Fleet offers idle-time and route reports that typically lower fuel spend.",
+       "evidence": [
+        "VP:fuel"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 75%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Congrats on doubling the fleet this year.",
+       "evidence": [
+        "F6"
+       ],
+       "verdict": "unsupported",
+       "reason": "word overlap with the cited evidence 33%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "final_claims": [
+      {
+       "text": "Running 500 vehicles",
+       "evidence": [
+        "F6"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 50%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline Fleet offers idle-time and route reports that typically lower fuel spend.",
+       "evidence": [
+        "VP:fuel"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 75%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "first_passed": false,
+     "final_passed": true,
+     "first_issues": [
+      "'Congrats on doubling the fleet this year.': word overlap with the cited evidence 33%"
+     ],
+     "final_issues": [
+      "only 23 words"
+     ],
+     "spam_score": 0.0,
+     "spam_issues": [
+      "length"
+     ],
+     "readability": 70.3,
+     "words": [
+      60,
+      33,
+      23
+     ],
+     "personalization": 1,
+     "email1": "Subject: Fuel and safety per vehicle\n\nHi Elena,\n\nRunning 500 vehicles means small changes in idling and harsh braking add up quickly. Wayline Fleet offers idle-time and route reports that typically lower fuel spend. Most teams start by comparing one depot for a month, so the numbers come from your own vehicles. Would you be open to a 20-minute call to compare notes on your fleet?\n\nDana",
+     "email1_first": "Subject: Fuel and safety per vehicle\n\nHi Elena,\n\nRunning 500 vehicles means small changes in idling and harsh braking add up quickly. Wayline Fleet offers idle-time and route reports that typically lower fuel spend. Congrats on doubling the fleet this year. Most teams start by comparing one depot for a month, so the numbers come from your own vehicles. Would you be open to a 20-minute call to compare notes on your fleet?\n\nDana"
+    }
+   ],
+   "audit": {
+    "A-final": [],
+    "A-first": [
+     {
+      "text": "Congrats on doubling the fleet this year.",
+      "supported": false,
+      "reason": "numbers and events checked against the reference (offline)"
+     }
+    ],
+    "B-final": [],
+    "B-first": [
+     {
+      "text": "Congrats on doubling the fleet this year.",
+      "supported": false,
+      "reason": "numbers and events checked against the reference (offline)"
+     }
+    ]
+   },
+   "preference": "scout",
+   "preference_reason": "more specific details (offline heuristic)"
+  },
+  {
+   "domain": "fernhill-foods.example",
+   "contact": "Fleet Operations Manager",
+   "seconds": 0.02,
+   "calls": {
+    "draft": 4,
+    "verify_claims": 4
+   },
+   "variants": [
+    {
+     "variant": "A",
+     "attempts": 3,
+     "trimmed": true,
+     "first_claims": [
+      {
+       "text": "I saw that Julien Marchand joined Fernhill Foods Distribution as Chief Operating Officer.",
+       "evidence": [
+        "S2"
+       ],
+       "verdict": "unsupported",
+       "reason": "word overlap with the cited evidence 0%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline Fleet offers in-cab coaching that cuts harsh-braking and speeding events, scored per driver.",
+       "evidence": [
+        "VP:safety"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 78%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Your 25 new depots",
+       "evidence": [
+        "F7"
+       ],
+       "verdict": "unsupported",
+       "reason": "number(s) 25 not in the cited evidence; word overlap with the cited evidence 0%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "final_claims": [
+      {
+       "text": "Wayline Fleet offers in-cab coaching that cuts harsh-braking and speeding events, scored per driver.",
+       "evidence": [
+        "VP:safety"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 78%",
+       "checked_by": [
+        "rules",
+        "llm",
+        "rules"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm",
+        "rules"
+       ]
+      }
+     ],
+     "first_passed": false,
+     "final_passed": true,
+     "first_issues": [
+      "the number 25 is not in the research or the offer",
+      "'Your 25 new depots': number(s) 25 not in the cited evidence",
+      "'I saw that Julien Marchand joined Fernhill Foods Distribution as Chief Operating Officer.': word overlap with the cited evidence 0%"
+     ],
+     "final_issues": [
+      "no greeting",
+      "only 23 words"
+     ],
+     "spam_score": 0.0,
+     "spam_issues": [
+      "length"
+     ],
+     "readability": 72.8,
+     "words": [
+      47,
+      33,
+      23
+     ],
+     "personalization": 0,
+     "email1": "Subject: Fernhill Foods Distribution and fleet safety\n\nWayline Fleet offers in-cab coaching that cuts harsh-braking and speeding events, scored per driver. Most teams start by comparing one depot for a month, so the numbers come from your own vehicles. Would you be open to a 20-minute call to compare notes on your fleet? Dana",
+     "email1_first": "Subject: Fernhill Foods Distribution and fleet safety\n\nHi Manon,\n\nI saw that Julien Marchand joined Fernhill Foods Distribution as Chief Operating Officer. Wayline Fleet offers in-cab coaching that cuts harsh-braking and speeding events, scored per driver. Your 25 new depots must keep the team busy. Most teams start by comparing one depot for a month, so the numbers come from your own vehicles. Would you be open to a 20-minute call to compare notes on your fleet?\n\nDana"
+    },
+    {
+     "variant": "B",
+     "attempts": 2,
+     "trimmed": false,
+     "first_claims": [
+      {
+       "text": "Running 800 vehicles",
+       "evidence": [
+        "F7"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 50%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline Fleet offers idle-time and route reports that typically lower fuel spend.",
+       "evidence": [
+        "VP:fuel"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 75%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Your 25 new depots",
+       "evidence": [
+        "F7"
+       ],
+       "verdict": "unsupported",
+       "reason": "number(s) 25 not in the cited evidence; word overlap with the cited evidence 0%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "final_claims": [
+      {
+       "text": "Running 800 vehicles",
+       "evidence": [
+        "F7"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 50%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline Fleet offers idle-time and route reports that typically lower fuel spend.",
+       "evidence": [
+        "VP:fuel"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 75%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "first_passed": false,
+     "final_passed": true,
+     "first_issues": [
+      "the number 25 is not in the research or the offer",
+      "'Your 25 new depots': number(s) 25 not in the cited evidence"
+     ],
+     "final_issues": [
+      "only 23 words"
+     ],
+     "spam_score": 0.0,
+     "spam_issues": [
+      "length"
+     ],
+     "readability": 72.8,
+     "words": [
+      60,
+      33,
+      23
+     ],
+     "personalization": 1,
+     "email1": "Subject: Fuel and safety per vehicle\n\nHi Manon,\n\nRunning 800 vehicles means small changes in idling and harsh braking add up quickly. Wayline Fleet offers idle-time and route reports that typically lower fuel spend. Most teams start by comparing one depot for a month, so the numbers come from your own vehicles. Would you be open to a 20-minute call to compare notes on your fleet?\n\nDana",
+     "email1_first": "Subject: Fuel and safety per vehicle\n\nHi Manon,\n\nRunning 800 vehicles means small changes in idling and harsh braking add up quickly. Wayline Fleet offers idle-time and route reports that typically lower fuel spend. Your 25 new depots must keep the team busy. Most teams start by comparing one depot for a month, so the numbers come from your own vehicles. Would you be open to a 20-minute call to compare notes on your fleet?\n\nDana"
+    }
+   ],
+   "audit": {
+    "A-final": [],
+    "A-first": [
+     {
+      "text": "Your 25 new depots must keep the team busy.",
+      "supported": false,
+      "reason": "numbers and events checked against the reference (offline)"
+     }
+    ],
+    "B-final": [],
+    "B-first": [
+     {
+      "text": "Your 25 new depots must keep the team busy.",
+      "supported": false,
+      "reason": "numbers and events checked against the reference (offline)"
+     }
+    ]
+   },
+   "preference": "tie",
+   "preference_reason": "more specific details (offline heuristic)"
+  },
+  {
+   "domain": "bramble-landscaping.example",
+   "contact": "Fleet Manager",
+   "seconds": 0.02,
+   "calls": {
+    "draft": 3,
+    "verify_claims": 3
+   },
+   "variants": [
+    {
+     "variant": "A",
+     "attempts": 2,
+     "trimmed": false,
+     "first_claims": [
+      {
+       "text": "I noticed Bramble & Co. Landscaping is hiring a Fleet & Yard Supervisor.",
+       "evidence": [
+        "S1"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline Fleet offers in-cab coaching that cuts harsh-braking and speeding events, scored per driver.",
+       "evidence": [
+        "VP:safety"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 78%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Congrats on doubling the fleet this year.",
+       "evidence": [
+        "F6"
+       ],
+       "verdict": "unsupported",
+       "reason": "word overlap with the cited evidence 33%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "final_claims": [
+      {
+       "text": "I noticed Bramble & Co. Landscaping is hiring a Fleet & Yard Supervisor.",
+       "evidence": [
+        "S1"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline Fleet offers in-cab coaching that cuts harsh-braking and speeding events, scored per driver.",
+       "evidence": [
+        "VP:safety"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 78%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "first_passed": false,
+     "final_passed": true,
+     "first_issues": [
+      "'Congrats on doubling the fleet this year.': word overlap with the cited evidence 33%"
+     ],
+     "final_issues": [
+      "only 23 words"
+     ],
+     "spam_score": 0.0,
+     "spam_issues": [
+      "length"
+     ],
+     "readability": 72.6,
+     "words": [
+      60,
+      33,
+      23
+     ],
+     "personalization": 1,
+     "email1": "Subject: Bramble & Co. Landscaping and fleet safety\n\nHi Ethan,\n\nI noticed Bramble & Co. Landscaping is hiring a Fleet & Yard Supervisor. Wayline Fleet offers in-cab coaching that cuts harsh-braking and speeding events, scored per driver. Most teams start by comparing one depot for a month, so the numbers come from your own vehicles. Would you be open to a 20-minute call to compare notes on your fleet?\n\nDana",
+     "email1_first": "Subject: Bramble & Co. Landscaping and fleet safety\n\nHi Ethan,\n\nI noticed Bramble & Co. Landscaping is hiring a Fleet & Yard Supervisor. Wayline Fleet offers in-cab coaching that cuts harsh-braking and speeding events, scored per driver. Congrats on doubling the fleet this year. Most teams start by comparing one depot for a month, so the numbers come from your own vehicles. Would you be open to a 20-minute call to compare notes on your fleet?\n\nDana"
+    },
+    {
+     "variant": "B",
+     "attempts": 2,
+     "trimmed": false,
+     "first_claims": [
+      {
+       "text": "Running 45 vehicles",
+       "evidence": [
+        "F6"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 50%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline Fleet offers idle-time and route reports that typically lower fuel spend.",
+       "evidence": [
+        "VP:fuel"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 75%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Congrats on doubling the fleet this year.",
+       "evidence": [
+        "F6"
+       ],
+       "verdict": "unsupported",
+       "reason": "word overlap with the cited evidence 33%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "final_claims": [
+      {
+       "text": "Running 45 vehicles",
+       "evidence": [
+        "F6"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 50%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline Fleet offers idle-time and route reports that typically lower fuel spend.",
+       "evidence": [
+        "VP:fuel"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 75%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "word overlap with the cited evidence 100%",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "first_passed": false,
+     "final_passed": true,
+     "first_issues": [
+      "'Congrats on doubling the fleet this year.': word overlap with the cited evidence 33%"
+     ],
+     "final_issues": [
+      "only 23 words"
+     ],
+     "spam_score": 0.0,
+     "spam_issues": [
+      "length"
+     ],
+     "readability": 73.4,
+     "words": [
+      60,
+      33,
+      23
+     ],
+     "personalization": 1,
+     "email1": "Subject: Fuel and safety per vehicle\n\nHi Ethan,\n\nRunning 45 vehicles means small changes in idling and harsh braking add up quickly. Wayline Fleet offers idle-time and route reports that typically lower fuel spend. Most teams start by comparing one depot for a month, so the numbers come from your own vehicles. Would you be open to a 20-minute call to compare notes on your fleet?\n\nDana",
+     "email1_first": "Subject: Fuel and safety per vehicle\n\nHi Ethan,\n\nRunning 45 vehicles means small changes in idling and harsh braking add up quickly. Wayline Fleet offers idle-time and route reports that typically lower fuel spend. Congrats on doubling the fleet this year. Most teams start by comparing one depot for a month, so the numbers come from your own vehicles. Would you be open to a 20-minute call to compare notes on your fleet?\n\nDana"
+    }
+   ],
+   "audit": {
+    "A-final": [
+     {
+      "text": "Landscaping is hiring a Fleet & Yard Supervisor.",
+      "supported": true,
+      "reason": "numbers and events checked against the reference (offline)"
+     }
+    ],
+    "A-first": [
+     {
+      "text": "Landscaping is hiring a Fleet & Yard Supervisor.",
+      "supported": true,
+      "reason": "numbers and events checked against the reference (offline)"
+     },
+     {
+      "text": "Congrats on doubling the fleet this year.",
+      "supported": false,
+      "reason": "numbers and events checked against the reference (offline)"
+     }
+    ],
+    "B-final": [],
+    "B-first": [
+     {
+      "text": "Congrats on doubling the fleet this year.",
+      "supported": false,
+      "reason": "numbers and events checked against the reference (offline)"
+     }
+    ]
+   },
+   "preference": "scout",
+   "preference_reason": "more specific details (offline heuristic)"
+  }
+ ]
+}

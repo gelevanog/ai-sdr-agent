@@ -1,0 +1,866 @@
+{
+ "name": "offline",
+ "suite": "claims",
+ "date": "2026-10-08",
+ "model": "fake/default",
+ "claims": 57,
+ "unsupported": 29,
+ "rules_only": {
+  "tp": 25,
+  "fp": 0,
+  "fn": 4,
+  "precision": 1.0,
+  "recall": 0.8621,
+  "f1": 0.9259
+ },
+ "llm_only": {
+  "tp": 22,
+  "fp": 11,
+  "fn": 7,
+  "precision": 0.6667,
+  "recall": 0.7586,
+  "f1": 0.7097
+ },
+ "combined": {
+  "tp": 28,
+  "fp": 11,
+  "fn": 1,
+  "precision": 0.7179,
+  "recall": 0.9655,
+  "f1": 0.8235
+ },
+ "by_error_type": {
+  "wrong_number": {
+   "total": 6,
+   "rules": 6,
+   "llm": 3,
+   "combined": 6
+  },
+  "invented_detail": {
+   "total": 4,
+   "rules": 3,
+   "llm": 4,
+   "combined": 4
+  },
+  "wrong_role": {
+   "total": 2,
+   "rules": 1,
+   "llm": 0,
+   "combined": 1
+  },
+  "exaggeration": {
+   "total": 1,
+   "rules": 0,
+   "llm": 1,
+   "combined": 1
+  },
+  "wrong_date": {
+   "total": 2,
+   "rules": 2,
+   "llm": 2,
+   "combined": 2
+  },
+  "wrong_person": {
+   "total": 1,
+   "rules": 1,
+   "llm": 0,
+   "combined": 1
+  },
+  "wrong_place": {
+   "total": 3,
+   "rules": 3,
+   "llm": 2,
+   "combined": 3
+  },
+  "invented_customer": {
+   "total": 2,
+   "rules": 2,
+   "llm": 2,
+   "combined": 2
+  },
+  "wrong_detail": {
+   "total": 2,
+   "rules": 1,
+   "llm": 2,
+   "combined": 2
+  },
+  "wrong_attribution": {
+   "total": 1,
+   "rules": 1,
+   "llm": 1,
+   "combined": 1
+  },
+  "stale_as_recent": {
+   "total": 5,
+   "rules": 5,
+   "llm": 5,
+   "combined": 5
+  }
+ },
+ "false_alarms": [
+  "c08: Brightwater has been serving customers since 1998. -> word overlap with the cited evidence 25%",
+  "c09: Congrats on opening the Antwerp depot in July. -> word overlap with the cited evidence 50%",
+  "c16: Congratulations on the £18 million Series B. -> word overlap with the cited evidence 100%",
+  "c17: I read about the Series B led by Moorland Ventures. -> word overlap with the cited evidence 0%",
+  "c18: Your new Manchester hub must keep the team busy. -> word overlap with the cited evidence 0%",
+  "c23: Marcus Okafor started as VP Fleet Operations in September. -> word overlap with the cited evidence 0%",
+  "c25: I noticed you are hiring a night-shift dispatcher. -> word overlap with the cited evidence 33%",
+  "c28: Congratulations on the $22 million Series C. -> word overlap with the cited evidence 100%",
+  "c32: Congrats on the €40 million growth financing. -> word overlap with the cited evidence 100%",
+  "c43: I know your vans already run TrackRight telematics. -> word overlap with the cited evidence 25%",
+  "c48: Nordlicht now serves Salzburg and Innsbruck. -> word overlap with the cited evidence 0%"
+ ],
+ "missed": [
+  "c06 (wrong_role): I noticed Brightwater is hiring a Head of Fleet."
+ ],
+ "calls": {
+  "verify_claims": 12
+ },
+ "rows": [
+  {
+   "id": "c01",
+   "domain": "brightwater-fs.example",
+   "gold": "supported",
+   "error": null,
+   "text": "I noticed Brightwater is hiring a Fleet Safety Manager.",
+   "rules_flag": false,
+   "rules_issues": [],
+   "llm_flag": false,
+   "llm_reason": "word overlap with the cited evidence 100%",
+   "combined_flag": false
+  },
+  {
+   "id": "c02",
+   "domain": "brightwater-fs.example",
+   "gold": "supported",
+   "error": null,
+   "text": "With 310 service vans on the road, small changes add up.",
+   "rules_flag": false,
+   "rules_issues": [],
+   "llm_flag": false,
+   "llm_reason": "word overlap with the cited evidence 50%",
+   "combined_flag": false
+  },
+  {
+   "id": "c03",
+   "domain": "brightwater-fs.example",
+   "gold": "supported",
+   "error": null,
+   "text": "I saw that your dispatch board runs on ServiceTitan.",
+   "rules_flag": false,
+   "rules_issues": [],
+   "llm_flag": false,
+   "llm_reason": "word overlap with the cited evidence 67%",
+   "combined_flag": false
+  },
+  {
+   "id": "c04",
+   "domain": "brightwater-fs.example",
+   "gold": "unsupported",
+   "error": "wrong_number",
+   "text": "With 350 service vans on the road, small changes add up.",
+   "rules_flag": true,
+   "rules_issues": [
+    "the number 350 is not in the research or the offer",
+    "'With 350 service vans on the road, small changes add up.': number(s) 350 not in the cited evidence"
+   ],
+   "llm_flag": true,
+   "llm_reason": "word overlap with the cited evidence 33%",
+   "combined_flag": true
+  },
+  {
+   "id": "c05",
+   "domain": "brightwater-fs.example",
+   "gold": "unsupported",
+   "error": "invented_detail",
+   "text": "I saw Brightwater just opened a depot in Indianapolis.",
+   "rules_flag": true,
+   "rules_issues": [
+    "'Indianapolis' is not a name found in the research or the offer"
+   ],
+   "llm_flag": true,
+   "llm_reason": "word overlap with the cited evidence 0%",
+   "combined_flag": true
+  },
+  {
+   "id": "c06",
+   "domain": "brightwater-fs.example",
+   "gold": "unsupported",
+   "error": "wrong_role",
+   "text": "I noticed Brightwater is hiring a Head of Fleet.",
+   "rules_flag": false,
+   "rules_issues": [],
+   "llm_flag": false,
+   "llm_reason": "word overlap with the cited evidence 100%",
+   "combined_flag": false
+  },
+  {
+   "id": "c07",
+   "domain": "brightwater-fs.example",
+   "gold": "unsupported",
+   "error": "exaggeration",
+   "text": "Congrats on doubling your fleet this year.",
+   "rules_flag": false,
+   "rules_issues": [],
+   "llm_flag": true,
+   "llm_reason": "word overlap with the cited evidence 33%",
+   "combined_flag": true
+  },
+  {
+   "id": "c08",
+   "domain": "brightwater-fs.example",
+   "gold": "supported",
+   "error": null,
+   "text": "Brightwater has been serving customers since 1998.",
+   "rules_flag": false,
+   "rules_issues": [],
+   "llm_flag": true,
+   "llm_reason": "word overlap with the cited evidence 25%",
+   "combined_flag": true
+  },
+  {
+   "id": "c52",
+   "domain": "brightwater-fs.example",
+   "gold": "supported",
+   "error": null,
+   "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+   "rules_flag": false,
+   "rules_issues": [],
+   "llm_flag": false,
+   "llm_reason": "word overlap with the cited evidence 100%",
+   "combined_flag": false
+  },
+  {
+   "id": "c53",
+   "domain": "brightwater-fs.example",
+   "gold": "unsupported",
+   "error": "wrong_number",
+   "text": "Northbeam Logistics reduced idle time by 32% in the first six months.",
+   "rules_flag": true,
+   "rules_issues": [
+    "the number 32 is not in the research or the offer",
+    "'Northbeam Logistics reduced idle time by 32% in the first six months.': number(s) 32 not in the cited evidence"
+   ],
+   "llm_flag": false,
+   "llm_reason": "word overlap with the cited evidence 83%",
+   "combined_flag": true
+  },
+  {
+   "id": "c09",
+   "domain": "coldline-distribution.example",
+   "gold": "supported",
+   "error": null,
+   "text": "Congrats on opening the Antwerp depot in July.",
+   "rules_flag": false,
+   "rules_issues": [],
+   "llm_flag": true,
+   "llm_reason": "word overlap with the cited evidence 50%",
+   "combined_flag": true
+  },
+  {
+   "id": "c10",
+   "domain": "coldline-distribution.example",
+   "gold": "supported",
+   "error": null,
+   "text": "Adding 60 refrigerated trucks for Flanders is a big step.",
+   "rules_flag": false,
+   "rules_issues": [],
+   "llm_flag": false,
+   "llm_reason": "word overlap with the cited evidence 75%",
+   "combined_flag": false
+  },
+  {
+   "id": "c11",
+   "domain": "coldline-distribution.example",
+   "gold": "supported",
+   "error": null,
+   "text": "I saw that Sanne de Vries joined as Chief Operating Officer.",
+   "rules_flag": false,
+   "rules_issues": [],
+   "llm_flag": false,
+   "llm_reason": "word overlap with the cited evidence 100%",
+   "combined_flag": false
+  },
+  {
+   "id": "c12",
+   "domain": "coldline-distribution.example",
+   "gold": "unsupported",
+   "error": "wrong_date",
+   "text": "Congrats on opening the Antwerp depot in March.",
+   "rules_flag": true,
+   "rules_issues": [
+    "'march' does not match any cited date"
+   ],
+   "llm_flag": true,
+   "llm_reason": "word overlap with the cited evidence 50%",
+   "combined_flag": true
+  },
+  {
+   "id": "c13",
+   "domain": "coldline-distribution.example",
+   "gold": "unsupported",
+   "error": "wrong_number",
+   "text": "Adding 80 refrigerated trucks for Flanders is a big step.",
+   "rules_flag": true,
+   "rules_issues": [
+    "the number 80 is not in the research or the offer",
+    "'Adding 80 refrigerated trucks for Flanders is a big step.': number(s) 80 not in the cited evidence"
+   ],
+   "llm_flag": false,
+   "llm_reason": "word overlap with the cited evidence 50%",
+   "combined_flag": true
+  },
+  {
+   "id": "c14",
+   "domain": "coldline-distribution.example",
+   "gold": "unsupported",
+   "error": "wrong_person",
+   "text": "I saw that Pieter Bakker joined as Chief Operating Officer.",
+   "rules_flag": true,
+   "rules_issues": [
+    "'Pieter' is not a name found in the research or the offer",
+    "'Bakker' is not a name found in the research or the offer"
+   ],
+   "llm_flag": false,
+   "llm_reason": "word overlap with the cited evidence 100%",
+   "combined_flag": true
+  },
+  {
+   "id": "c15",
+   "domain": "coldline-distribution.example",
+   "gold": "unsupported",
+   "error": "wrong_place",
+   "text": "Congrats on opening the Brussels depot.",
+   "rules_flag": true,
+   "rules_issues": [
+    "'Brussels' is not a name found in the research or the offer"
+   ],
+   "llm_flag": true,
+   "llm_reason": "word overlap with the cited evidence 50%",
+   "combined_flag": true
+  },
+  {
+   "id": "c54",
+   "domain": "coldline-distribution.example",
+   "gold": "supported",
+   "error": null,
+   "text": "Harlow Plumbing & Heating cut harsh-braking events by 41% across 120 vans.",
+   "rules_flag": false,
+   "rules_issues": [],
+   "llm_flag": false,
+   "llm_reason": "word overlap with the cited evidence 100%",
+   "combined_flag": false
+  },
+  {
+   "id": "c55",
+   "domain": "coldline-distribution.example",
+   "gold": "unsupported",
+   "error": "invented_customer",
+   "text": "Pinecrest Waste already uses Wayline across 260 trucks.",
+   "rules_flag": true,
+   "rules_issues": [
+    "the number 260 is not in the research or the offer",
+    "'Waste' is not a name found in the research or the offer",
+    "'Pinecrest Waste already uses Wayline across 260 trucks.': number(s) 260 not in the cited evidence"
+   ],
+   "llm_flag": true,
+   "llm_reason": "word overlap with the cited evidence 20%",
+   "combined_flag": true
+  },
+  {
+   "id": "c16",
+   "domain": "tallgrass-couriers.example",
+   "gold": "supported",
+   "error": null,
+   "text": "Congratulations on the £18 million Series B.",
+   "rules_flag": false,
+   "rules_issues": [],
+   "llm_flag": true,
+   "llm_reason": "word overlap with the cited evidence 100%",
+   "combined_flag": true
+  },
+  {
+   "id": "c17",
+   "domain": "tallgrass-couriers.example",
+   "gold": "supported",
+   "error": null,
+   "text": "I read about the Series B led by Moorland Ventures.",
+   "rules_flag": false,
+   "rules_issues": [],
+   "llm_flag": true,
+   "llm_reason": "word overlap with the cited evidence 0%",
+   "combined_flag": true
+  },
+  {
+   "id": "c18",
+   "domain": "tallgrass-couriers.example",
+   "gold": "supported",
+   "error": null,
+   "text": "Your new Manchester hub must keep the team busy.",
+   "rules_flag": false,
+   "rules_issues": [],
+   "llm_flag": true,
+   "llm_reason": "word overlap with the cited evidence 0%",
+   "combined_flag": true
+  },
+  {
+   "id": "c19",
+   "domain": "tallgrass-couriers.example",
+   "gold": "unsupported",
+   "error": "wrong_number",
+   "text": "Congratulations on the £25 million Series B.",
+   "rules_flag": true,
+   "rules_issues": [
+    "'Congratulations on the £25 million Series B.': number(s) 25 not in the cited evidence"
+   ],
+   "llm_flag": true,
+   "llm_reason": "word overlap with the cited evidence 50%",
+   "combined_flag": true
+  },
+  {
+   "id": "c20",
+   "domain": "tallgrass-couriers.example",
+   "gold": "unsupported",
+   "error": "wrong_detail",
+   "text": "Congratulations on closing your Series C.",
+   "rules_flag": true,
+   "rules_issues": [
+    "'C' is not a name found in the research or the offer"
+   ],
+   "llm_flag": true,
+   "llm_reason": "word overlap with the cited evidence 0%",
+   "combined_flag": true
+  },
+  {
+   "id": "c21",
+   "domain": "tallgrass-couriers.example",
+   "gold": "unsupported",
+   "error": "wrong_number",
+   "text": "The Manchester hub with 100 electric vans is impressive.",
+   "rules_flag": true,
+   "rules_issues": [
+    "the number 100 is not in the research or the offer",
+    "'The Manchester hub with 100 electric vans is impressive.': number(s) 100 not in the cited evidence"
+   ],
+   "llm_flag": false,
+   "llm_reason": "word overlap with the cited evidence 50%",
+   "combined_flag": true
+  },
+  {
+   "id": "c22",
+   "domain": "tallgrass-couriers.example",
+   "gold": "supported",
+   "error": null,
+   "text": "You added 40 new electric vans in Manchester.",
+   "rules_flag": false,
+   "rules_issues": [],
+   "llm_flag": false,
+   "llm_reason": "word overlap with the cited evidence 75%",
+   "combined_flag": false
+  },
+  {
+   "id": "c56",
+   "domain": "tallgrass-couriers.example",
+   "gold": "unsupported",
+   "error": "wrong_attribution",
+   "text": "Harlow Plumbing & Heating reduced idle time by 23%.",
+   "rules_flag": true,
+   "rules_issues": [
+    "'Harlow Plumbing & Heating reduced idle time by 23%.': number(s) 23 not in the cited evidence"
+   ],
+   "llm_flag": true,
+   "llm_reason": "word overlap with the cited evidence 0%",
+   "combined_flag": true
+  },
+  {
+   "id": "c23",
+   "domain": "ridgeway-utility.example",
+   "gold": "supported",
+   "error": null,
+   "text": "Marcus Okafor started as VP Fleet Operations in September.",
+   "rules_flag": false,
+   "rules_issues": [],
+   "llm_flag": true,
+   "llm_reason": "word overlap with the cited evidence 0%",
+   "combined_flag": true
+  },
+  {
+   "id": "c24",
+   "domain": "ridgeway-utility.example",
+   "gold": "unsupported",
+   "error": "wrong_date",
+   "text": "Marcus Okafor started as VP Fleet Operations in January.",
+   "rules_flag": true,
+   "rules_issues": [
+    "'january' does not match any cited date"
+   ],
+   "llm_flag": true,
+   "llm_reason": "word overlap with the cited evidence 0%",
+   "combined_flag": true
+  },
+  {
+   "id": "c25",
+   "domain": "ridgeway-utility.example",
+   "gold": "supported",
+   "error": null,
+   "text": "I noticed you are hiring a night-shift dispatcher.",
+   "rules_flag": false,
+   "rules_issues": [],
+   "llm_flag": true,
+   "llm_reason": "word overlap with the cited evidence 33%",
+   "combined_flag": true
+  },
+  {
+   "id": "c26",
+   "domain": "ridgeway-utility.example",
+   "gold": "unsupported",
+   "error": "invented_detail",
+   "text": "Since Ridgeway already runs GPS trackers on every truck, the switch is easy.",
+   "rules_flag": true,
+   "rules_issues": [
+    "'GPS' is not a name found in the research or the offer"
+   ],
+   "llm_flag": true,
+   "llm_reason": "word overlap with the cited evidence 0%",
+   "combined_flag": true
+  },
+  {
+   "id": "c27",
+   "domain": "ridgeway-utility.example",
+   "gold": "supported",
+   "error": null,
+   "text": "Running 700 trucks and service vehicles takes a lot of coordination.",
+   "rules_flag": false,
+   "rules_issues": [],
+   "llm_flag": false,
+   "llm_reason": "word overlap with the cited evidence 67%",
+   "combined_flag": false
+  },
+  {
+   "id": "c28",
+   "domain": "meridian-mobile-medical.example",
+   "gold": "supported",
+   "error": null,
+   "text": "Congratulations on the $22 million Series C.",
+   "rules_flag": false,
+   "rules_issues": [],
+   "llm_flag": true,
+   "llm_reason": "word overlap with the cited evidence 100%",
+   "combined_flag": true
+  },
+  {
+   "id": "c29",
+   "domain": "meridian-mobile-medical.example",
+   "gold": "unsupported",
+   "error": "wrong_detail",
+   "text": "Congratulations on the €22 million Series C.",
+   "rules_flag": false,
+   "rules_issues": [],
+   "llm_flag": true,
+   "llm_reason": "word overlap with the cited evidence 100%",
+   "combined_flag": true
+  },
+  {
+   "id": "c30",
+   "domain": "meridian-mobile-medical.example",
+   "gold": "supported",
+   "error": null,
+   "text": "I saw you're hiring a Fleet Coordinator.",
+   "rules_flag": false,
+   "rules_issues": [],
+   "llm_flag": false,
+   "llm_reason": "word overlap with the cited evidence 50%",
+   "combined_flag": false
+  },
+  {
+   "id": "c31",
+   "domain": "meridian-mobile-medical.example",
+   "gold": "unsupported",
+   "error": "invented_detail",
+   "text": "Your plan to double the imaging fleet by 2027 is ambitious.",
+   "rules_flag": true,
+   "rules_issues": [
+    "the number 2027 is not in the research or the offer",
+    "'2027' does not match any cited date",
+    "'Your plan to double the imaging fleet by 2027 is ambitious.': number(s) 2027 not in the cited evidence"
+   ],
+   "llm_flag": true,
+   "llm_reason": "word overlap with the cited evidence 17%",
+   "combined_flag": true
+  },
+  {
+   "id": "c32",
+   "domain": "swiftmark-parcel.example",
+   "gold": "supported",
+   "error": null,
+   "text": "Congrats on the €40 million growth financing.",
+   "rules_flag": false,
+   "rules_issues": [],
+   "llm_flag": true,
+   "llm_reason": "word overlap with the cited evidence 100%",
+   "combined_flag": true
+  },
+  {
+   "id": "c33",
+   "domain": "swiftmark-parcel.example",
+   "gold": "supported",
+   "error": null,
+   "text": "You started next-day delivery in Berlin in August.",
+   "rules_flag": false,
+   "rules_issues": [],
+   "llm_flag": false,
+   "llm_reason": "word overlap with the cited evidence 100%",
+   "combined_flag": false
+  },
+  {
+   "id": "c34",
+   "domain": "swiftmark-parcel.example",
+   "gold": "unsupported",
+   "error": "wrong_place",
+   "text": "You started next-day delivery in Munich in August.",
+   "rules_flag": true,
+   "rules_issues": [
+    "'Munich' is not a name found in the research or the offer"
+   ],
+   "llm_flag": false,
+   "llm_reason": "word overlap with the cited evidence 100%",
+   "combined_flag": true
+  },
+  {
+   "id": "c35",
+   "domain": "swiftmark-parcel.example",
+   "gold": "unsupported",
+   "error": "wrong_number",
+   "text": "Your 800 vans cover a lot of ground.",
+   "rules_flag": true,
+   "rules_issues": [
+    "the number 800 is not in the research or the offer",
+    "'Your 800 vans cover a lot of ground.': number(s) 800 not in the cited evidence"
+   ],
+   "llm_flag": true,
+   "llm_reason": "word overlap with the cited evidence 25%",
+   "combined_flag": true
+  },
+  {
+   "id": "c36",
+   "domain": "swiftmark-parcel.example",
+   "gold": "supported",
+   "error": null,
+   "text": "Your 600 vans cover northern Germany.",
+   "rules_flag": false,
+   "rules_issues": [],
+   "llm_flag": false,
+   "llm_reason": "word overlap with the cited evidence 50%",
+   "combined_flag": false
+  },
+  {
+   "id": "c57",
+   "domain": "swiftmark-parcel.example",
+   "gold": "unsupported",
+   "error": "invented_customer",
+   "text": "Delivery leaders like Amazon coach their drivers with Wayline.",
+   "rules_flag": true,
+   "rules_issues": [
+    "'Amazon' is not a name found in the research or the offer"
+   ],
+   "llm_flag": true,
+   "llm_reason": "word overlap with the cited evidence 0%",
+   "combined_flag": true
+  },
+  {
+   "id": "c37",
+   "domain": "sterling-septic.example",
+   "gold": "unsupported",
+   "error": "stale_as_recent",
+   "text": "I saw you're currently hiring a Fleet Manager.",
+   "rules_flag": true,
+   "rules_issues": [
+    "'I saw you're currently hiring a Fleet Manager.': presents an old signal (S1) as recent"
+   ],
+   "llm_flag": true,
+   "llm_reason": "word overlap with the cited evidence 33%",
+   "combined_flag": true
+  },
+  {
+   "id": "c38",
+   "domain": "sterling-septic.example",
+   "gold": "unsupported",
+   "error": "stale_as_recent",
+   "text": "I saw the new Fleet Manager opening on your site.",
+   "rules_flag": true,
+   "rules_issues": [
+    "'I saw the new Fleet Manager opening on your site.': presents an old signal (S1) as recent"
+   ],
+   "llm_flag": true,
+   "llm_reason": "word overlap with the cited evidence 0%",
+   "combined_flag": true
+  },
+  {
+   "id": "c39",
+   "domain": "sterling-septic.example",
+   "gold": "supported",
+   "error": null,
+   "text": "Sterling runs 70 pump trucks across the Carolinas.",
+   "rules_flag": false,
+   "rules_issues": [],
+   "llm_flag": false,
+   "llm_reason": "word overlap with the cited evidence 60%",
+   "combined_flag": false
+  },
+  {
+   "id": "c40",
+   "domain": "westbrook-logistics.example",
+   "gold": "unsupported",
+   "error": "stale_as_recent",
+   "text": "Congrats on the recent $12 million Series A.",
+   "rules_flag": true,
+   "rules_issues": [
+    "'Congrats on the recent $12 million Series A.': presents an old signal (S1) as recent"
+   ],
+   "llm_flag": true,
+   "llm_reason": "word overlap with the cited evidence 67%",
+   "combined_flag": true
+  },
+  {
+   "id": "c41",
+   "domain": "westbrook-logistics.example",
+   "gold": "supported",
+   "error": null,
+   "text": "After your 2023 Series A, the fleet has had time to grow.",
+   "rules_flag": false,
+   "rules_issues": [],
+   "llm_flag": false,
+   "llm_reason": "word overlap with the cited evidence 50%",
+   "combined_flag": false
+  },
+  {
+   "id": "c42",
+   "domain": "westbrook-logistics.example",
+   "gold": "supported",
+   "error": null,
+   "text": "You run 300 trucks across the Midwest.",
+   "rules_flag": false,
+   "rules_issues": [],
+   "llm_flag": false,
+   "llm_reason": "word overlap with the cited evidence 67%",
+   "combined_flag": false
+  },
+  {
+   "id": "c43",
+   "domain": "redwood-facility.example",
+   "gold": "supported",
+   "error": null,
+   "text": "I know your vans already run TrackRight telematics.",
+   "rules_flag": false,
+   "rules_issues": [],
+   "llm_flag": true,
+   "llm_reason": "word overlap with the cited evidence 25%",
+   "combined_flag": true
+  },
+  {
+   "id": "c44",
+   "domain": "redwood-facility.example",
+   "gold": "unsupported",
+   "error": "invented_detail",
+   "text": "I heard your team is unhappy with TrackRight.",
+   "rules_flag": false,
+   "rules_issues": [],
+   "llm_flag": true,
+   "llm_reason": "word overlap with the cited evidence 0%",
+   "combined_flag": true
+  },
+  {
+   "id": "c45",
+   "domain": "glenmore-security.example",
+   "gold": "unsupported",
+   "error": "stale_as_recent",
+   "text": "Congrats to Callum Reid on the new Director of Operations role.",
+   "rules_flag": true,
+   "rules_issues": [
+    "'Congrats to Callum Reid on the new Director of Operations role.': presents an old signal (S1) as recent"
+   ],
+   "llm_flag": true,
+   "llm_reason": "word overlap with the cited evidence 0%",
+   "combined_flag": true
+  },
+  {
+   "id": "c46",
+   "domain": "glenmore-security.example",
+   "gold": "supported",
+   "error": null,
+   "text": "Your 120 patrol cars cover Scotland.",
+   "rules_flag": false,
+   "rules_issues": [],
+   "llm_flag": false,
+   "llm_reason": "word overlap with the cited evidence 75%",
+   "combined_flag": false
+  },
+  {
+   "id": "c47",
+   "domain": "crescentcity-plumbing.example",
+   "gold": "unsupported",
+   "error": "stale_as_recent",
+   "text": "I see you're hiring a Fleet Manager right now.",
+   "rules_flag": true,
+   "rules_issues": [
+    "'I see you're hiring a Fleet Manager right now.': presents an old signal (S1) as recent"
+   ],
+   "llm_flag": true,
+   "llm_reason": "word overlap with the cited evidence 33%",
+   "combined_flag": true
+  },
+  {
+   "id": "c48",
+   "domain": "nordlicht-kurier.example",
+   "gold": "supported",
+   "error": null,
+   "text": "Nordlicht now serves Salzburg and Innsbruck.",
+   "rules_flag": false,
+   "rules_issues": [],
+   "llm_flag": true,
+   "llm_reason": "word overlap with the cited evidence 0%",
+   "combined_flag": true
+  },
+  {
+   "id": "c49",
+   "domain": "nordlicht-kurier.example",
+   "gold": "supported",
+   "error": null,
+   "text": "Katrin Vogel became Managing Director in April.",
+   "rules_flag": false,
+   "rules_issues": [],
+   "llm_flag": false,
+   "llm_reason": "word overlap with the cited evidence 100%",
+   "combined_flag": false
+  },
+  {
+   "id": "c50",
+   "domain": "nordlicht-kurier.example",
+   "gold": "unsupported",
+   "error": "wrong_place",
+   "text": "Nordlicht now serves Vienna and Graz.",
+   "rules_flag": true,
+   "rules_issues": [
+    "'Vienna' is not a name found in the research or the offer",
+    "'Graz' is not a name found in the research or the offer"
+   ],
+   "llm_flag": true,
+   "llm_reason": "word overlap with the cited evidence 0%",
+   "combined_flag": true
+  },
+  {
+   "id": "c51",
+   "domain": "nordlicht-kurier.example",
+   "gold": "unsupported",
+   "error": "wrong_role",
+   "text": "Katrin Vogel became the company's CFO in April.",
+   "rules_flag": true,
+   "rules_issues": [
+    "'CFO' is not a name found in the research or the offer"
+   ],
+   "llm_flag": false,
+   "llm_reason": "word overlap with the cited evidence 50%",
+   "combined_flag": true
+  }
+ ]
+}

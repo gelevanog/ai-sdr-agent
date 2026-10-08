@@ -220,3 +220,26 @@ def test_live_mode_contacts_come_only_from_the_client_list(crawler: Crawler, con
               ClientContact("ridgeway-utility.example", "Sam Fox", "HR Director", "sam.fox@ridgeway-utility.example")]  # fmt: skip
     chosen = select_contact(profile, config, client_contacts=client).contact
     assert chosen is not None and chosen.email == "pat.lee@ridgeway-utility.example" and chosen.source == "client_list"
+
+
+def test_country_falls_back_to_the_postal_address(config: Config) -> None:
+    pages = {
+        "P1": _page("https://a.example/", ("We run 40 vans.", None), ("A Ltd · 12 Mill Road, Lima, Peru", None)),
+        "P2": _page(
+            "https://a.example/news.html",
+            ("A Ltd · 12 Mill Road, Lima, Peru", None),
+            ("Our customers include firms in France", None),
+        ),
+    }
+    out = validate_extraction(
+        {"facts": [{"field": "fleet_size", "value": "40", "page": "P1", "quote": "We run 40 vans."}]},
+        pages,
+        config,
+        today=TODAY,
+    )
+    country = next(f for f in out.facts if f.field == "country")
+    assert country.value == "PE" and country.citation.quote.endswith("Peru") and country.id == "F2"
+    with_country = {"facts": [{"field": "country", "value": "pe", "page": "P1", "quote": "Lima, Peru"}]}
+    assert [
+        f.value for f in validate_extraction(with_country, pages, config, today=TODAY).facts if f.field == "country"
+    ] == ["PE"]

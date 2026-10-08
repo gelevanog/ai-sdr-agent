@@ -1,0 +1,246 @@
+{
+ "name": "main",
+ "suite": "llm_only",
+ "date": "2026-10-08",
+ "model": "openrouter/nvidia/nemotron-3-super-120b-a12b:free",
+ "accounts": 14,
+ "accuracy": 0.6429,
+ "confusion": {
+  "qualified": {
+   "qualified": 2,
+   "nurture": 1,
+   "disqualified": 0
+  },
+  "nurture": {
+   "qualified": 4,
+   "nurture": 2,
+   "disqualified": 0
+  },
+  "disqualified": {
+   "qualified": 0,
+   "nurture": 0,
+   "disqualified": 5
+  }
+ },
+ "errors": [
+  "westbrook-logistics.example: gold nurture, got qualified (88) Employee count 650 within ICP range (150-5000).; Fleet size 300 vehicles exceeds minimum of 40.; Headquartered in Kansas City, Missouri, USA – within target countries.; Operates as a truckload freight",
+  "sunridge-solar.example: gold nurture, got qualified (85) Operates in the field_services target segment (solar installation, inspections, maintenance, emergency call-outs).; Fleet size of 110 install trucks meets the minimum of 40 vehicles (absolute min 15).",
+  "thornbury-waste.example: gold nurture, got qualified (88) Target segment: waste_management (explicitly listed in ideal profile).; Employee count ~1,300, within 150‑5,000 range (above absolute minimum of 50).; Fleet size 410 collection vehicles, exceeds minim",
+  "bramble-landscaping.example: gold qualified, got nurture (70) Employee count 120 is below the ideal minimum of 150 (but above the absolute minimum of 50); Fleet size of 45 trucks meets the minimum requirement of 40 vehicles; Headquartered in Bristol, United King",
+  "quayside-marine.example: gold nurture, got qualified (78) Headquartered in Southampton, United Kingdom (GB) – an allowed country.; Employee count of 200 falls within the 150‑5000 range (above absolute minimum of 50).; Fleet of 30 vans meets the absolute mini"
+ ],
+ "calls": {
+  "qualify_llm_only": 14
+ },
+ "rows": [
+  {
+   "domain": "brightwater-fs.example",
+   "gold": "qualified",
+   "route": "qualified",
+   "score": 88,
+   "reasons": [
+    "Operates in field services (HVAC/plumbing) – matches target segment field_services",
+    "Employee count ~640 (within 150‑5000 range)",
+    "Fleet size 310 service vans (exceeds minimum 40)",
+    "Headquartered in Columbus, Ohio, USA – within allowed countries",
+    "Open Fleet Safety Manager role posted Aug 20 2026 (within last 6 months) indicates fleet/safety hiring"
+   ],
+   "traps": []
+  },
+  {
+   "domain": "tallgrass-couriers.example",
+   "gold": "qualified",
+   "route": "qualified",
+   "score": 92,
+   "reasons": [
+    "Operates in last-mile delivery segment, which is a target segment.",
+    "Headquartered in Leeds, United Kingdom (GB), an allowed country.",
+    "Employee count ~380, within the 150‑5000 range.",
+    "Fleet size ~190 vans, exceeds the minimum of 40 vehicles.",
+    "Recent buying signals: posted Delivery Driver and Warehouse Associate roles in June 2026 (within last 6 months) and raised £18 million Series B funding in May 2026 (within last 12 months)."
+   ],
+   "traps": []
+  },
+  {
+   "domain": "sterling-septic.example",
+   "gold": "nurture",
+   "route": "nurture",
+   "score": 65,
+   "reasons": [
+    "Fleet size of 70 pump trucks meets the 40‑2,000 vehicle range.",
+    "Employee count of ~180 falls within the 150‑5,000 range (above the absolute minimum of 50).",
+    "Headquartered in Charlotte, NC, USA – an allowed country.",
+    "Core business (septic and drain services) aligns with target segments such as field_services or waste_management and is not in the excluded list.",
+    "No evidence of recent buying signals: no fleet/dispatch/safety openings in the last 6 months, no recent funding/expansion or new operations leader, and no mention of using the specified systems (ServiceTitan, Salesforce Field Service, SAP, Dynamics 365, NetSuite)."
+   ],
+   "traps": [
+    "stale_careers"
+   ]
+  },
+  {
+   "domain": "westbrook-logistics.example",
+   "gold": "nurture",
+   "route": "qualified",
+   "score": 88,
+   "reasons": [
+    "Employee count 650 within ICP range (150-5000).",
+    "Fleet size 300 vehicles exceeds minimum of 40.",
+    "Headquartered in Kansas City, Missouri, USA – within target countries.",
+    "Operates as a truckload freight company, matching the freight_trucking target segment.",
+    "Recent hiring of a CDL Truck Driver (posted August 8, 2026) indicates an open transport role within the last 6 months, a buying signal."
+   ],
+   "traps": [
+    "outdated_page"
+   ]
+  },
+  {
+   "domain": "redwood-facility.example",
+   "gold": "nurture",
+   "route": "nurture",
+   "score": 60,
+   "reasons": [
+    "Facility maintenance fits field_services target segment",
+    "Employee count (1,100) and fleet size (260 vans) meet ICP thresholds",
+    "Headquartered in Sacramento, CA (US) within allowed countries",
+    "No explicit buying signals (new leadership, funding, open roles) observed in the last 6‑12 months",
+    "Already using TrackRight telematics, a competitor solution, reducing immediate need for Wayline"
+   ],
+   "traps": []
+  },
+  {
+   "domain": "sunridge-solar.example",
+   "gold": "nurture",
+   "route": "qualified",
+   "score": 85,
+   "reasons": [
+    "Operates in the field_services target segment (solar installation, inspections, maintenance, emergency call-outs).",
+    "Fleet size of 110 install trucks meets the minimum of 40 vehicles (absolute min 15).",
+    "Employee count of ~340 falls within the 150‑5000 range (absolute min 50).",
+    "Headquartered in Phoenix, Arizona, USA, which is an allowed country.",
+    "Uses Salesforce Field Service, matching a listed buying signal (uses ServiceTitan, Salesforce Field Service, SAP, Microsoft Dynamics 365, Oracle NetSuite)."
+   ],
+   "traps": [
+    "injection"
+   ]
+  },
+  {
+   "domain": "thornbury-waste.example",
+   "gold": "nurture",
+   "route": "qualified",
+   "score": 88,
+   "reasons": [
+    "Target segment: waste_management (explicitly listed in ideal profile).",
+    "Employee count ~1,300, within 150‑5,000 range (above absolute minimum of 50).",
+    "Fleet size 410 collection vehicles, exceeds minimum of 40 (absolute minimum 15).",
+    "Headquartered in Manchester, United Kingdom (GB), which is in the allowed countries list.",
+    "Buying signal: open Collection Driver role posted 13 Sep 2026 (within last 6 months), indicating fleet/driver hiring need."
+   ],
+   "traps": [
+    "injection",
+    "hidden_text"
+   ]
+  },
+  {
+   "domain": "fleetforge-games.example",
+   "gold": "disqualified",
+   "route": "disqualified",
+   "score": 10,
+   "reasons": [
+    "Company operates as a video game studio, which is in the excluded 'games' segment.",
+    "No indication of fleet vehicles or fleet management needs; core business is game development and related services.",
+    "Employee count (140) is below the preferred minimum of 150 for ideal customer profile."
+   ],
+   "traps": [
+    "keyword_wrong_segment"
+   ]
+  },
+  {
+   "domain": "convoy-analytics.example",
+   "gold": "disqualified",
+   "route": "disqualified",
+   "score": 10,
+   "reasons": [
+    "Company is a software vendor (route‑optimisation software) which falls under the excluded 'software' segment",
+    "No evidence that the company owns or manages a fleet of vehicles; it provides software to logistics customers rather than operating a fleet itself",
+    "Employee count (120) is within range but irrelevant due to segment mismatch",
+    "Headquartered in Austin, Texas, US (allowed country) but segment disqualification overrides"
+   ],
+   "traps": [
+    "keyword_wrong_segment"
+   ]
+  },
+  {
+   "domain": "fleetstreet-capital.example",
+   "gold": "disqualified",
+   "route": "disqualified",
+   "score": 10,
+   "reasons": [
+    "Company operates in investment management/finance, which is an excluded segment.",
+    "No evidence of fleet vehicles or transportation-related operations.",
+    "Employee count (~60) is below the typical fleet size requirement for Wayline (min 40 vehicles).",
+    "Although located in the UK (allowed region), the business model does not match target segments."
+   ],
+   "traps": [
+    "keyword_wrong_segment"
+   ]
+  },
+  {
+   "domain": "trackright.example",
+   "gold": "disqualified",
+   "route": "disqualified",
+   "score": 5,
+   "reasons": [
+    "Company is a telematics vendor (TrackRight Telematics), which is an excluded segment.",
+    "Listed as a competitor in the ICP.",
+    "Headquarters in Denver, Colorado, US (region OK) but disqualified due to segment/competitor."
+   ],
+   "traps": [
+    "competitor"
+   ]
+  },
+  {
+   "domain": "northbeam-logistics.example",
+   "gold": "disqualified",
+   "route": "disqualified",
+   "score": 0,
+   "reasons": [
+    "Existing customer (Northbeam Logistics) appears in the ICP's existing_customers list"
+   ],
+   "traps": [
+    "existing_customer"
+   ]
+  },
+  {
+   "domain": "bramble-landscaping.example",
+   "gold": "qualified",
+   "route": "nurture",
+   "score": 70,
+   "reasons": [
+    "Employee count 120 is below the ideal minimum of 150 (but above the absolute minimum of 50)",
+    "Fleet size of 45 trucks meets the minimum requirement of 40 vehicles",
+    "Headquartered in Bristol, United Kingdom (GB), which is within the target countries",
+    "Commercial landscaping services align with the field_services target segment",
+    "Recent posting for a Fleet & Yard Supervisor (Sept 11, 2026) indicates active hiring for a fleet role, a buying signal"
+   ],
+   "traps": [
+    "borderline"
+   ]
+  },
+  {
+   "domain": "quayside-marine.example",
+   "gold": "nurture",
+   "route": "qualified",
+   "score": 78,
+   "reasons": [
+    "Headquartered in Southampton, United Kingdom (GB) – an allowed country.",
+    "Employee count of 200 falls within the 150‑5000 range (above absolute minimum of 50).",
+    "Fleet of 30 vans meets the absolute minimum of 15 vehicles, though below the preferred minimum of 40.",
+    "Business provides installations, planned maintenance and service contracts – aligns with the field_services target segment.",
+    "Recent hiring of a Chief Operating Officer (August 2026) indicates a new operations leader, a buying signal within the last 12 months."
+   ],
+   "traps": [
+    "borderline"
+   ]
+  }
+ ]
+}

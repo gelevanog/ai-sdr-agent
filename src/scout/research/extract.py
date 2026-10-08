@@ -145,6 +145,36 @@ def quote_on_page(quote: str, page_text: str) -> bool:
     return len(needle) >= 3 and needle in normalize(page_text)
 
 
+COUNTRIES = {
+    "united states": "US", "usa": "US", "canada": "CA", "united kingdom": "GB", "england": "GB", "scotland": "GB",
+    "wales": "GB", "ireland": "IE", "germany": "DE", "deutschland": "DE", "netherlands": "NL", "belgium": "BE",
+    "france": "FR", "austria": "AT", "norway": "NO", "sweden": "SE", "denmark": "DK", "finland": "FI",
+    "australia": "AU", "new zealand": "NZ", "peru": "PE", "japan": "JP", "spain": "ES", "italy": "IT",
+    "portugal": "PT", "poland": "PL", "switzerland": "CH", "mexico": "MX", "brazil": "BR", "india": "IN",
+}  # fmt: skip
+_ADDRESS_HINT = re.compile(r"\d|·|,")
+
+
+def country_from_address(pages: list[ParsedPage]) -> tuple[str, str, str] | None:
+    """(ISO code, page URL, block text) from a postal-address-like block that ends in a country name: the most
+    common country across the pages wins, so one mention of a customer abroad does not decide it."""
+    votes: dict[str, tuple[int, str, str]] = {}
+    for page in pages:
+        for block in page.blocks:
+            text = block.text.strip()
+            if len(text) > 200 or not _ADDRESS_HINT.search(text):
+                continue
+            tail = normalize(text.rsplit(",", 1)[-1])
+            code = COUNTRIES.get(tail)
+            if code:
+                count, url, quote = votes.get(code, (0, page.url, text))
+                votes[code] = (count + 1, url, quote)
+    if not votes:
+        return None
+    code, (_, url, quote) = max(votes.items(), key=lambda item: item[1][0])
+    return code, url, quote
+
+
 # ------------------------------------------------------------------------------------------- assembling the profile
 @dataclass
 class Extracted:
@@ -243,6 +273,13 @@ def validate_extraction(
         seen_fields.add(field)
         facts.append(Fact(id=f"F{len(facts) + 1}", field=field, value=value, number=number, citation=citation))
 
+    if "country" not in seen_fields and (found := country_from_address(pages)):
+        # Deterministic fallback: models often skip the country when only the postal address states it.
+        code, url, block_text = found
+        facts.append(
+            Fact(id=f"F{len(facts) + 1}", field="country", value=code, citation=Citation(url=url, quote=block_text))
+        )
+        seen_fields.add("country")
     segment = next((f.value for f in facts if f.field == "segment"), None)
     if segment is None:
         raw_segment = str(data.get("segment") or "").strip()

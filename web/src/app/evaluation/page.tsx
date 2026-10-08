@@ -101,7 +101,7 @@ export default function EvaluationPage() {
                 ["... found on another crawled page (re-attributed)", pct(acc.research.citations.quote_on_another_page)],
                 ["... found nowhere (rejected)", pct(acc.research.citations.quote_not_found)],
                 ["Facts rejected by validation", `${pct(acc.research.facts.rejected_rate)} of ${acc.research.facts.emitted}`],
-                ["Wrong facts that passed validation", pct(acc.research.facts.hallucinated_fact_rate_after_validation)],
+                ["Firmographics that disagree with my labels", pct(acc.research.facts.firmographic_disagreement_rate)],
                 ["Injection attempts quarantined", acc.research.injection_findings],
                 ["Research latency p50 / p95", `${acc.latency.research_p50} s / ${acc.latency.research_p95} s`],
                 ["Model calls per account (research + judgment)", acc.calls.per_account],
