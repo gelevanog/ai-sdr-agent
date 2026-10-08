@@ -279,7 +279,10 @@ For each claim decide:
 - "supported": every specific detail in the claim (names, roles, numbers, dates, places, events, and timing words
   such as "recently" or "this month") is stated in, or directly implied by, the evidence it cites.
 - "unsupported": anything is added, exaggerated, mis-dated, attributed to the wrong company, or not in the evidence.
-Paraphrase is fine: judge meaning, not wording. Then list any other sentence in the emails that asserts a specific
+Paraphrase is fine: judge meaning, not wording. A claim that restates one of the seller's proof points or value props
+is supported, including saying that the customer named in a proof point used the seller's product. A general
+observation or opinion that asserts nothing specific about the prospect (for example "this can be hard to track")
+is supported. Then list any other sentence in the emails that asserts a specific
 fact about the prospect (their company, people, plans, numbers, tools, events) and is not covered by a claim, with
 whether the evidence supports it. Questions, requests for a call, greetings, sign-offs and statements about the
 sender's own product or customers are not facts about the prospect: do not list them.

@@ -39,6 +39,8 @@ Grounding rules (the most important part):
 - Every statement about the prospect (their company, people, hiring, funding, expansion, tools, size, fleet,
   locations, dates) must come from the evidence below and must be listed in "claims" with the evidence ids it rests
   on. Copy each claim's text exactly as it appears in the email.
+- Declare as claims only specific facts (about the prospect, or the seller's proof points); questions, opinions and
+  general observations are not claims.
 - Statements about {company} may only use the value props (VP:...) and proof points (PP:...) below; quote
   proof-point numbers exactly and cite them as claims too. Do not invent customers, numbers, awards or features.
 - Never present a stale signal as recent; prefer current ones. Do not add dates, numbers or names that are not in
