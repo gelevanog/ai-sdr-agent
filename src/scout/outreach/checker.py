@@ -141,7 +141,7 @@ def _date_mentions(text: str) -> list[str]:
 
 def _sentence_starts(text: str) -> set[int]:
     starts = {0}
-    for m in re.finditer(r"(?:[.!?]\s+|\n+\s*|,\s*\n)", text):
+    for m in re.finditer(r"(?:[.!?:;]\s+|\n+\s*|,\s*\n|\s[-\u2013\u2014]\s)(?:[-*\u2022\u2013]\s*)?", text):
         starts.add(m.end())
     return starts
 
@@ -253,6 +253,17 @@ def deterministic_check(variant: DraftVariant, ev: Evidence, config: Config) -> 
                 stale = [e for e in known_ids if e.startswith("S") and not ev.current.get(e, True)]
                 if stale and _RECENCY.search(claim.text):
                     problems.append(f"presents an old signal ({', '.join(stale)}) as recent")
+            offer_ids = [e for e in known_ids if e[:3] in {"PP:", "VP:"}]
+            if (
+                not problems
+                and offer_ids
+                and len(offer_ids) == len(known_ids)
+                and any(_restates(claim.text, ev.texts[e]) for e in offer_ids)
+            ):
+                claim.verdict = "supported"
+                claim.reason = "restates the seller's approved offer text"
+                claim.checked_by = [*claim.checked_by, "rules", "offer"]
+                continue
             if problems:
                 claim.verdict = "unsupported"
                 claim.reason = "; ".join(problems)
@@ -304,6 +315,8 @@ def build_verify_messages(
                 f"--- Variant {variant.variant}, email {email.step}\nSubject: {email.subject}\n{email.body}\nClaims:"
             )
             for claim in email.claims:
+                if "offer" in claim.checked_by:
+                    continue  # restates approved offer text: decided by the rules
                 cid = f"C{len(index) + 1}"
                 index[cid] = claim
                 parts.append(f'  {cid}: "{claim.text}" cites {", ".join(claim.evidence) or "nothing"}')
@@ -356,7 +369,8 @@ def llm_verify(
                 CheckIssue(
                     step=0,
                     kind="undeclared_claim",
-                    message=f"unsupported statement not declared as a claim: '{str(item['text'])[:100]}' ({str(item.get('reason') or '')[:120]})",
+                    message=f"the verifier doubts a statement that is not declared as a claim: '{str(item['text'])[:100]}' ({str(item.get('reason') or '')[:120]})",
+                    severity="warn",  # shown to the reviewer; numbers, names and dates in it are blocked by the rules
                     text=str(item["text"]),
                 )
             )
