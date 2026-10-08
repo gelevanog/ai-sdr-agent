@@ -65,9 +65,15 @@ def audit_emails(
     except LLMError:
         return {}, 1
     out: dict[str, list[dict[str, Any]]] = {}
+    keys = {k.lower(): k for k in emails}
     for item in data.get("emails") or []:
-        if isinstance(item, dict) and str(item.get("id")) in emails:
-            out[str(item["id"])] = [c for c in item.get("claims") or [] if isinstance(c, dict)]
+        if not isinstance(item, dict):
+            continue
+        # Judges label the emails "A-final", "Email A-final" or "=== Email A-final": match on the bare id.
+        raw = str(item.get("id") or "").strip().lower().lstrip("=").strip()
+        raw = raw.removeprefix("email").strip(" :")
+        if raw in keys:
+            out[keys[raw]] = [c for c in item.get("claims") or [] if isinstance(c, dict)]
     return out, calls
 
 

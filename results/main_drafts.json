@@ -5,88 +5,90 @@
  "model": "openrouter/nvidia/nemotron-3-super-120b-a12b:free",
  "judge_model": "openrouter/dots-studio/dots-3-note-preview:free",
  "checker": true,
- "accounts": 16,
- "variants": 32,
+ "accounts": 18,
+ "variants": 36,
  "errors": [
-  {
-   "domain": "bluebell-linen.example",
-   "error": "the reply was cut off at max_tokens"
-  },
   {
    "domain": "pinecrest-waste.example",
    "error": "no contact with a published or supplied email address; add one before drafting"
-  },
-  {
-   "domain": "ridgeway-utility.example",
-   "error": "empty answer: max_tokens reached before any output"
   }
  ],
  "checker_view": {
   "first_drafts": {
-   "claims": 138,
-   "supported_by_checker": 0.9348,
+   "claims": 152,
+   "supported_by_checker": 0.9408,
    "unsupported": 9
   },
   "final_drafts": {
-   "claims": 144,
+   "claims": 158,
    "supported_by_checker": 1.0,
    "unsupported": 0
   }
  },
  "independent_audit": {
   "first_drafts": {
-   "claims": 20,
-   "unsupported": 3,
-   "unsupported_rate": 0.15,
-   "supported_rate": 0.85,
+   "claims": 78,
+   "unsupported": 9,
+   "unsupported_rate": 0.1154,
+   "supported_rate": 0.8846,
    "examples": [
+    "meridian-mobile-medical.example A-final: That role owns vehicle maintenance schedules, driver safety reviews and fleet cost reporting. (Reference facts do not include the specific responsibilities of the Fleet Coordi)",
+    "meridian-mobile-medical.example B-final: maintained in house (Reference facts do not mention whether the fleet is maintained in house or outso)",
     "tallgrass-couriers.example A-first: Tallgrass Couriers opened a Manchester hub with 40 new electric vans last month. (Reference states the hub opened in August 2026; 'last month' is ambiguous and do)",
     "tallgrass-couriers.example A-first: you can start tracking those vehicles from day one using self‑install devices (Reference product description says self‑install devices allow tracking from the )",
-    "tallgrass-couriers.example A-first: ensuring the new depot is visible in your fleet data right away (Reference states tracking begins in the first week, not immediately.)"
+    "tallgrass-couriers.example A-first: ensuring the new depot is visible in your fleet data right away (Reference states tracking begins in the first week, not immediately.)",
+    "swiftmark-parcel.example A-final: That expansion puts more vans on the road. (Reference facts do not mention that the expansion puts more vans on the road.)",
+    "aldergrove-bus.example A-first: which can help the new officer focus on proactive safety rather than reactive checks. (No reference fact supports this specific benefit; product description does not m)",
+    "aldergrove-bus.example B-first: Northbeam Logistics reduced idle time by 23% in the first six months using Wayline’s idle‑time and r (Proof point confirms the reduction but does not specify using Wayline's idle-tim)",
+    "northstar-rental.example A-final: Northstar Rental Equipment runs its rentals, dispatch and invoicing in SAP (as of Sept 28, 2026). (Reference confirms that rentals, dispatch and invoicing are handled in SAP, but )"
    ]
   },
   "final_drafts": {
-   "claims": 20,
-   "unsupported": 2,
-   "unsupported_rate": 0.1,
-   "supported_rate": 0.9,
+   "claims": 79,
+   "unsupported": 6,
+   "unsupported_rate": 0.0759,
+   "supported_rate": 0.9241,
    "examples": [
+    "meridian-mobile-medical.example A-final: That role owns vehicle maintenance schedules, driver safety reviews and fleet cost reporting. (Reference facts do not include the specific responsibilities of the Fleet Coordi)",
+    "meridian-mobile-medical.example B-final: maintained in house (Reference facts do not mention whether the fleet is maintained in house or outso)",
     "tallgrass-couriers.example A-final: you can start tracking those vehicles from day one using self‑install devices (Reference product description says self‑install devices allow tracking from the )",
-    "tallgrass-couriers.example A-final: ensuring the new depot is visible in your fleet data right away (Reference states tracking begins in the first week, not immediately.)"
+    "tallgrass-couriers.example A-final: ensuring the new depot is visible in your fleet data right away (Reference states tracking begins in the first week, not immediately.)",
+    "swiftmark-parcel.example A-final: That expansion puts more vans on the road. (Reference facts do not mention that the expansion puts more vans on the road.)",
+    "northstar-rental.example A-final: Northstar Rental Equipment runs its rentals, dispatch and invoicing in SAP (as of Sept 28, 2026). (Reference confirms that rentals, dispatch and invoicing are handled in SAP, but )"
    ]
   }
  },
- "first_draft_pass_rate": 0.625,
+ "first_draft_pass_rate": 0.6667,
  "final_pass_rate": 1.0,
  "regenerated": 12,
  "trimmed": 2,
- "attempts_mean": 1.38,
- "personalization_mean": 1.09,
+ "attempts_mean": 1.33,
+ "personalization_mean": 1.08,
  "spam_pass_rate": 1.0,
  "spam_issue_counts": {
   "length": 2
  },
- "readability_mean": 64.4,
- "words_first_email_mean": 49.9,
+ "readability_mean": 64.5,
+ "words_first_email_mean": 49.2,
  "preference_vs_template": {
   "scout": 15,
-  "baseline": 1,
-  "scout_win_rate": 0.9375
+  "baseline": 3,
+  "scout_win_rate": 0.8333
  },
- "seconds_p50": 137.44,
- "seconds_p95": 276.18,
+ "seconds_p50": 0.03,
+ "seconds_p95": 84.98,
  "calls": {
   "total": {
    "draft": 30,
-   "verify_claims": 28
+   "verify_claims": 30
   },
-  "per_account": 3.62
+  "per_account": 3.33
  },
  "rows": [
   {
    "domain": "meridian-mobile-medical.example",
    "contact": "Head of Fleet",
-   "seconds": 28.38,
+   "seconds": 0.02,
    "calls": {
     "draft": 1,
     "verify_claims": 1
@@ -410,14 +412,49 @@
      "email1_first": "Subject: Keeping 85 vans on schedule\n\nHi Ethan,\n\nI know keeping 85 imaging vans on the road and serviced on schedule can strain your team (fleet of 85 imaging vans, maintained in house).\nWayline’s idle‑time and route reports typically lower fuel spend.\nCould we jump on a 20‑minute call to compare notes on your fleet?\n\nDana"
     }
    ],
-   "audit": {},
+   "audit": {
+    "A-final": [
+     {
+      "text": "you’re hiring a Fleet Coordinator (posted Sept 1)",
+      "supported": true,
+      "reason": "Reference facts state the company's website lists a Fleet Coordinator position dated 2026-09-01, matching the Sept 1 posting date."
+     },
+     {
+      "text": "That role owns vehicle maintenance schedules, driver safety reviews and fleet cost reporting.",
+      "supported": false,
+      "reason": "Reference facts do not include the specific responsibilities of the Fleet Coordinator role."
+     },
+     {
+      "text": "Wayline’s in‑cab coaching cuts harsh‑braking and speeding events, scored per driver.",
+      "supported": true,
+      "reason": "Sender's product description includes in-cab coaching that cuts harsh-braking and speeding events, scored per driver."
+     }
+    ],
+    "B-final": [
+     {
+      "text": "fleet of 85 imaging vans",
+      "supported": true,
+      "reason": "Reference facts state the company has a fleet of 85 imaging vans."
+     },
+     {
+      "text": "maintained in house",
+      "supported": false,
+      "reason": "Reference facts do not mention whether the fleet is maintained in house or outsourced."
+     },
+     {
+      "text": "Wayline’s idle‑time and route reports typically lower fuel spend.",
+      "supported": true,
+      "reason": "Sender's product description includes idle-time and route reports that typically lower fuel spend."
+     }
+    ]
+   },
    "preference": "scout",
    "preference_reason": "Email Y is more specific and relevant as it references a current job posting (Fleet Coordinator) and directly ties Wayline's offerings to the role's responsibilities, such as driver safety and fleet costs. This demonstrates research and a tailored approach, enhancing credibility and engagement. Emai"
   },
   {
    "domain": "lakeshore-beverage.example",
    "contact": "Fleet Manager",
-   "seconds": 18.06,
+   "seconds": 0.02,
    "calls": {
     "draft": 1,
     "verify_claims": 1
@@ -640,14 +677,39 @@
      "email1_first": "Subject: Fleet size and fuel savings\n\nHi Samuel,\n\nWe operate a fleet of 230 delivery trucks.\n\nKeeping fuel costs down across that many vehicles can be challenging.\n\nNorthbeam Logistics reduced idle time by 23% in the first six months.\n\nCan we talk for 20 minutes about lowering idle time?\n\nDana"
     }
    ],
-   "audit": {},
+   "audit": {
+    "A-final": [
+     {
+      "text": "Posted 30 August 2026.",
+      "supported": true,
+      "reason": "The reference facts state that the prospect's website had a 'Fleet Safety Specialist' job posting dated 2026-08-30 (August 30, 2026)."
+     },
+     {
+      "text": "Our in‑cab coaching cuts harsh‑braking and speeding events, scored per driver.",
+      "supported": true,
+      "reason": "The reference facts state that the sender's product includes in-cab coaching that cuts harsh-braking and speeding events, scored per driver."
+     }
+    ],
+    "B-final": [
+     {
+      "text": "We operate a fleet of 230 delivery trucks.",
+      "supported": true,
+      "reason": "The reference facts state that Lakeshore Beverage Co. has a fleet of 230 delivery trucks."
+     },
+     {
+      "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+      "supported": true,
+      "reason": "The reference facts state that Northbeam Logistics reduced idle time by 23% in the first six months as a sender proof point."
+     }
+    ]
+   },
    "preference": "baseline",
    "preference_reason": "Email Y is more relevant as it specifically mentions Lakeshore Beverage Co. and addresses key concerns like fuel costs and driver safety. It is more specific by naming the company and clearly outlining the telematics solution. The credibility is higher due to the identification with Wayline, and the"
   },
   {
    "domain": "copperline-electrical.example",
    "contact": "Fleet Operations Manager",
-   "seconds": 59.13,
+   "seconds": 0.02,
    "calls": {
     "draft": 1,
     "verify_claims": 1
@@ -872,14 +934,39 @@
      "email1_first": "Subject: Driver safety challenge for 210 vans\n\nHi Liam,\n\nYour 210 vans are on the road every working day, which can make consistent driver safety a challenge.\n\nHarlow Plumbing & Heating cut harsh‑braking events by 41% across 120 vans using our in‑cab coaching.\n\nCould we schedule a 20‑minute call to see how this could work for your fleet?\n\nDana"
     }
    ],
-   "audit": {},
+   "audit": {
+    "A-final": [
+     {
+      "text": "I saw you posted a Fleet Administrator role on 18 September 2026.",
+      "supported": true,
+      "reason": "Reference facts state the website says Fleet Administrator role posted on 2026-09-18."
+     },
+     {
+      "text": "Your 210 vans are on the road every working day.",
+      "supported": true,
+      "reason": "Reference facts state Copperline has a fleet of 210 vans."
+     }
+    ],
+    "B-final": [
+     {
+      "text": "Your 210 vans are on the road every working day",
+      "supported": true,
+      "reason": "Reference facts state Copperline has a fleet of 210 vans."
+     },
+     {
+      "text": "Harlow Plumbing & Heating cut harsh‑braking events by 41% across 120 vans using our in‑cab coaching.",
+      "supported": true,
+      "reason": "Reference facts state Harlow Plumbing & Heating cut harsh-braking events by 41% across 120 vans."
+     }
+    ]
+   },
    "preference": "scout",
    "preference_reason": "Email X is more relevant and specific, referencing the recent Fleet Administrator role posting and the exact fleet size of 210 vans, which demonstrates personalized knowledge of Copperline Electrical Services. It directly ties the offered in-cab coaching to maintaining safety standards, aligning wit"
   },
   {
    "domain": "harborview-shuttle.example",
    "contact": "Fleet Operations Manager",
-   "seconds": 195.95,
+   "seconds": 0.02,
    "calls": {
     "draft": 3,
     "verify_claims": 3
@@ -1225,12 +1312,167 @@
   },
   {
    "domain": "bluebell-linen.example",
-   "error": "the reply was cut off at max_tokens"
+   "contact": "Director of Operations",
+   "seconds": 83.38,
+   "calls": {
+    "draft": 1,
+    "verify_claims": 1
+   },
+   "variants": [
+    {
+     "variant": "A",
+     "attempts": 1,
+     "trimmed": false,
+     "first_claims": [
+      {
+       "text": "I saw the Transport Manager role posted 10 September 2026.",
+       "evidence": [
+        "S1"
+       ],
+       "verdict": "supported",
+       "reason": "S1 states the Transport Manager position was posted on 10 September 2026, matching the claim.",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "final_claims": [
+      {
+       "text": "I saw the Transport Manager role posted 10 September 2026.",
+       "evidence": [
+        "S1"
+       ],
+       "verdict": "supported",
+       "reason": "S1 states the Transport Manager position was posted on 10 September 2026, matching the claim.",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "first_passed": true,
+     "final_passed": true,
+     "first_issues": [],
+     "final_issues": [],
+     "spam_score": 0.0,
+     "spam_issues": [],
+     "readability": 65.3,
+     "words": [
+      47,
+      49,
+      46
+     ],
+     "personalization": 1,
+     "email1": "Subject: Transport Manager hire and driver safety\n\nHi Megan,\n\nI saw the Transport Manager role posted 10 September 2026.\n\nWith a focus on vehicle maintenance and driver safety, our in‑cab coaching helps cut harsh‑braking and speeding events per driver.\n\nCould we schedule a 20‑minute call next week to compare notes on your fleet?\n\nDana",
+     "email1_first": "Subject: Transport Manager hire and driver safety\n\nHi Megan,\n\nI saw the Transport Manager role posted 10 September 2026.\n\nWith a focus on vehicle maintenance and driver safety, our in‑cab coaching helps cut harsh‑braking and speeding events per driver.\n\nCould we schedule a 20‑minute call next week to compare notes on your fleet?\n\nDana"
+    },
+    {
+     "variant": "B",
+     "attempts": 1,
+     "trimmed": false,
+     "first_claims": [
+      {
+       "text": "You operate a fleet of 140 vehicles.",
+       "evidence": [
+        "F4"
+       ],
+       "verdict": "supported",
+       "reason": "F4 states the company operates a fleet of 140 route trucks, matching the claim.",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      }
+     ],
+     "final_claims": [
+      {
+       "text": "You operate a fleet of 140 vehicles.",
+       "evidence": [
+        "F4"
+       ],
+       "verdict": "supported",
+       "reason": "F4 states the company operates a fleet of 140 route trucks, matching the claim.",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      }
+     ],
+     "first_passed": true,
+     "final_passed": true,
+     "first_issues": [],
+     "final_issues": [],
+     "spam_score": 0.0,
+     "spam_issues": [],
+     "readability": 77.4,
+     "words": [
+      45,
+      36,
+      36
+     ],
+     "personalization": 1,
+     "email1": "Subject: Idle time savings for a 140‑vehicle fleet\n\nHi Megan,\n\nYou operate a fleet of 140 vehicles.\n\nManaging idle time across that fleet can drive up fuel costs.\n\nNorthbeam Logistics reduced idle time by 23% in the first six months.\n\nCould we schedule a 20‑minute call next week to compare notes on your fleet?\n\nDana",
+     "email1_first": "Subject: Idle time savings for a 140‑vehicle fleet\n\nHi Megan,\n\nYou operate a fleet of 140 vehicles.\n\nManaging idle time across that fleet can drive up fuel costs.\n\nNorthbeam Logistics reduced idle time by 23% in the first six months.\n\nCould we schedule a 20‑minute call next week to compare notes on your fleet?\n\nDana"
+    }
+   ],
+   "audit": {
+    "A-final": [
+     {
+      "text": "I saw the Transport Manager role posted 10 September 2026.",
+      "supported": true,
+      "reason": "Reference facts state website says (dated 2026-09-10): Transport Manager."
+     }
+    ],
+    "B-final": [
+     {
+      "text": "Idle time savings for a 140‑vehicle fleet",
+      "supported": true,
+      "reason": "Reference facts state Bluebell Linen & Uniform has a fleet of 140 route trucks."
+     },
+     {
+      "text": "You operate a fleet of 140 vehicles.",
+      "supported": true,
+      "reason": "Reference facts state Bluebell Linen & Uniform has a fleet of 140 route trucks."
+     },
+     {
+      "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+      "supported": true,
+      "reason": "Sender's proof points state Northbeam Logistics reduced idle time by 23% in the first six months."
+     }
+    ]
+   },
+   "preference": "baseline",
+   "preference_reason": "Email Y is more relevant as it directly addresses Bluebell Linen & Uniform and focuses on key operational concerns like fuel costs and safety. It is specific about the telematics solution and has better credibility by mentioning the vendor name (Wayline). The tone is professional and concise."
   },
   {
    "domain": "brightwater-fs.example",
    "contact": "Fleet Manager",
-   "seconds": 139.5,
+   "seconds": 0.04,
    "calls": {
     "draft": 3,
     "verify_claims": 3
@@ -1518,7 +1760,41 @@
      "email1_first": "Subject: Idle time and fuel costs\n\nHi Ruth,\nManaging 310 service vans often leads to idle time that drives up fuel costs.\nNorthbeam Logistics reduced idle time by 23% in the first six months.\nCould we schedule a 20‑minute call to compare notes on your fleet?\nDana"
     }
    ],
-   "audit": {},
+   "audit": {
+    "A-final": [
+     {
+      "text": "You posted a Fleet Safety Manager role on 20 August 2026.",
+      "supported": true,
+      "reason": "Reference facts state the company's website dated 2026-08-20 mentions a Fleet Safety Manager role."
+     }
+    ],
+    "A-first": [
+     {
+      "text": "You posted a Fleet Safety Manager role on 20 August 2026.",
+      "supported": true,
+      "reason": "Reference facts state the company's website dated 2026-08-20 mentions a Fleet Safety Manager role."
+     }
+    ],
+    "B-final": [
+     {
+      "text": "your 310 service vans",
+      "supported": true,
+      "reason": "Reference facts list the fleet as 310 service vans."
+     },
+     {
+      "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+      "supported": true,
+      "reason": "Sender's proof points include that exact result."
+     }
+    ],
+    "B-first": [
+     {
+      "text": "310 service vans",
+      "supported": true,
+      "reason": "Reference facts list the fleet as 310 service vans."
+     }
+    ]
+   },
    "preference": "scout",
    "preference_reason": "Email X is more relevant and specific as it references a recent job posting for a Fleet Safety Manager, indicating the sender has researched my company's needs. It offers a tailored solution (in-cab coaching) that directly addresses fleet safety concerns, with a collaborative tone inviting a discuss"
   },
@@ -1529,7 +1805,7 @@
   {
    "domain": "tallgrass-couriers.example",
    "contact": "Fleet Operations Manager",
-   "seconds": 261.82,
+   "seconds": 22.97,
    "calls": {
     "draft": 2,
     "verify_claims": 2
@@ -1571,10 +1847,11 @@
        "evidence": [
         "S2"
        ],
-       "verdict": "unchecked",
-       "reason": "",
+       "verdict": "supported",
+       "reason": "The evidence S2 states that Tallgrass Couriers opened a Manchester hub with 40 new electric vans in August 2026, which matches the claim exactly.",
        "checked_by": [
-        "rules"
+        "rules",
+        "llm"
        ]
       }
      ],
@@ -1583,9 +1860,7 @@
      "first_issues": [
       "'Tallgrass Couriers opened a Manchester hub with 40 new electric vans last month.': The claim states the Manchester hub opened 'last month' (September 2026), but evidence S2 shows it opened in August 2026, which is two months prior."
      ],
-     "final_issues": [
-      "claim verifier unavailable: cannot reach https://openrouter.ai/api/v1/chat/completions: [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violatio"
-     ],
+     "final_issues": [],
      "spam_score": 0.0,
      "spam_issues": [],
      "readability": 57.7,
@@ -1773,7 +2048,7 @@
   {
    "domain": "swiftmark-parcel.example",
    "contact": "Fleet Manager",
-   "seconds": 232.25,
+   "seconds": 0.02,
    "calls": {
     "draft": 1,
     "verify_claims": 1
@@ -2094,14 +2369,39 @@
      "email1_first": "Subject: Harsh‑braking across 600 vans?\n\nHi Anna,\n\nSwiftmark Parcel operates a fleet of 600 vans.\nAre you seeing higher harsh‑braking events that drive up safety costs?\nHarlow Plumbing & Heating cut harsh-braking events by 41% across 120 vans.\n\nCould we schedule a 20‑minute call to compare notes on your fleet’s safety?\n\nDana"
     }
    ],
-   "audit": {},
+   "audit": {
+    "A-final": [
+     {
+      "text": "Swiftmark Parcel started next-day delivery in the Berlin metropolitan area on 5 August 2026.",
+      "supported": true,
+      "reason": "Reference facts state that Swiftmark started next-day delivery in the Berlin metropolitan area on 5 August 2026."
+     },
+     {
+      "text": "That expansion puts more vans on the road.",
+      "supported": false,
+      "reason": "Reference facts do not mention that the expansion puts more vans on the road."
+     }
+    ],
+    "B-final": [
+     {
+      "text": "Swiftmark Parcel operates a fleet of 600 vans.",
+      "supported": true,
+      "reason": "Reference facts state the fleet is 600 vans."
+     },
+     {
+      "text": "Harlow Plumbing & Heating cut harsh-braking events by 41% across 120 vans.",
+      "supported": true,
+      "reason": "Sender's proof points state exactly that."
+     }
+    ]
+   },
    "preference": "scout",
    "preference_reason": "Email X is highly relevant and specific, referencing Swiftmark Parcel's recent Berlin expansion and the need for in‑cab coaching to manage safety during growth. It offers a tailored conversation about a key fleet‑manager concern. Email Y is generic, lacks specifics, and does not demonstrate knowledg"
   },
   {
    "domain": "coldline-distribution.example",
    "contact": "Chief Operating Officer",
-   "seconds": 152.94,
+   "seconds": 0.03,
    "calls": {
     "draft": 2,
     "verify_claims": 2
@@ -2329,7 +2629,7 @@
   {
    "domain": "nordlicht-kurier.example",
    "contact": "Head of Fleet",
-   "seconds": 63.1,
+   "seconds": 0.02,
    "calls": {
     "draft": 1,
     "verify_claims": 1
@@ -2512,14 +2812,44 @@
      "email1_first": "Subject: Idle‑time cost with 210 vans – proof point inside\n\nHi Sophie,\nWith 210 vans on the road each working day, idle time can add up to noticeable fuel cost. Northbeam Logistics reduced idle time by 23% in the first six months.\nCould we schedule a 20‑minute call next week to compare notes on your fleet?\nDana"
     }
    ],
-   "audit": {},
+   "audit": {
+    "A-final": [
+     {
+      "text": "Nordlicht Kurier began serving Salzburg and Innsbruck on 12 September 2026.",
+      "supported": true,
+      "reason": "Reference website states Nordlicht Kurier began serving Salzburg and Innsbruck on 12 September 2026."
+     },
+     {
+      "text": "Our self‑install devices let you track a new region from its first week.",
+      "supported": true,
+      "reason": "Product description includes self-install devices that track a new depot or region from its first week."
+     },
+     {
+      "text": "helping you keep safety and fuel metrics under control as you scale.",
+      "supported": true,
+      "reason": "Product includes driver-safety coaching that cuts harsh-braking and speeding events, and idle-time and route reports that lower fuel spend."
+     }
+    ],
+    "B-final": [
+     {
+      "text": "Nordlicht Kurier has 210 vans.",
+      "supported": true,
+      "reason": "Reference facts list fleet of 210 vans."
+     },
+     {
+      "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+      "supported": true,
+      "reason": "Sender's proof point states exactly that."
+     }
+    ]
+   },
    "preference": "scout",
    "preference_reason": "Email X is more relevant and specific to Nordlicht Kurier's current operations, directly referencing the recent expansion to Salzburg and Innsbruck and offering a tailored solution for tracking new regions. This demonstrates greater credibility through personalized research and a collaborative tone,"
   },
   {
    "domain": "granitepeak-construction.example",
    "contact": "Fleet Manager",
-   "seconds": 174.25,
+   "seconds": 0.03,
    "calls": {
     "draft": 3,
     "verify_claims": 3
@@ -2856,7 +3186,7 @@
   {
    "domain": "evergreen-lawntree.example",
    "contact": "Chief Executive Officer",
-   "seconds": 91.81,
+   "seconds": 0.02,
    "calls": {
     "draft": 1,
     "verify_claims": 1
@@ -3039,7 +3369,7 @@
   {
    "domain": "ironbridge-plumbing.example",
    "contact": "Fleet Operations Manager",
-   "seconds": 96.87,
+   "seconds": 0.02,
    "calls": {
     "draft": 1,
     "verify_claims": 1
@@ -3190,14 +3520,44 @@
      "email1_first": "Subject: Idle time and safety with 95 vans\n\nHi Leah,\n\nWith 95 vans on the road, idle time can quickly add up to unnecessary fuel costs. Harlow Plumbing & Heating cut harsh-braking events by 41% across 120 vans. Our in-cab coaching shows how targeted feedback reduces risky driving and saves fuel.\n\nCould we schedule a 20-minute call to see if similar results make sense for Ironbridge Plumbing Group?\n\nDana"
     }
    ],
-   "audit": {},
+   "audit": {
+    "A-final": [
+     {
+      "text": "you posted a Fleet Coordinator role on August 22, 2026",
+      "supported": true,
+      "reason": "The reference facts state the company website had a Fleet Coordinator posting dated August 22, 2026."
+     },
+     {
+      "text": "Our in-cab coaching cuts harsh-braking and speeding events, scored per driver",
+      "supported": true,
+      "reason": "The reference facts state the sender's product includes in-cab coaching that cuts harsh-braking and speeding events, scored per driver."
+     }
+    ],
+    "B-final": [
+     {
+      "text": "With 95 vans on the road",
+      "supported": true,
+      "reason": "The reference facts state Ironbridge Plumbing Group has a fleet of 95 vans."
+     },
+     {
+      "text": "Harlow Plumbing & Heating cut harsh-braking events by 41% across 120 vans.",
+      "supported": true,
+      "reason": "The reference facts list this exact proof point for Harlow Plumbing & Heating."
+     },
+     {
+      "text": "Our in-cab coaching shows how targeted feedback reduces risky driving and saves fuel.",
+      "supported": true,
+      "reason": "The reference facts state the sender's product offers in-cab coaching that cuts harsh-braking and speeding events, and reports that lower fuel spend."
+     }
+    ]
+   },
    "preference": "scout",
    "preference_reason": "Email Y is more relevant and specific by referencing a recent job posting for a Fleet Coordinator role, which directly ties to current operational needs. It demonstrates that the sender has done research on Ironbridge Plumbing Group and can offer a targeted solution for onboarding new staff, enhanci"
   },
   {
    "domain": "clearwater-pest.example",
    "contact": "Head of Fleet",
-   "seconds": 134.64,
+   "seconds": 0.03,
    "calls": {
     "draft": 2,
     "verify_claims": 2
@@ -3446,14 +3806,51 @@
      "email1_first": "Subject: Fleet size and driver behavior\n\nHi Imani,\n\nClearwater Pest Control has 230 service vehicles on the road every working day.\n\nManaging driver behavior can become challenging as the fleet grows.\n\nHarlow Plumbing & Heating cut harsh‑braking events by 41% across 120 vans.\n\nCan we schedule a 20‑minute call to compare notes on your fleet?\n\nDana"
     }
    ],
-   "audit": {},
+   "audit": {
+    "A-final": [
+     {
+      "text": "Clearwater Pest Control has recently expanded in Orlando and Jacksonville.",
+      "supported": true,
+      "reason": "Reference facts state Clearwater acquired three local pest control operators in Orlando and Jacksonville in August 2026, which is a recent expansion."
+     },
+     {
+      "text": "Clearwater Pest Control recently acquired three local pest control operators in Orlando and Jacksonville.",
+      "supported": true,
+      "reason": "Reference facts state Clearwater acquired three local pest control operators in Orlando and Jacksonville in August 2026."
+     }
+    ],
+    "A-first": [
+     {
+      "text": "Clearwater Pest Control has recently expanded in Orlando and Jacksonville.",
+      "supported": true,
+      "reason": "Reference facts state Clearwater acquired three local pest control operators in Orlando and Jacksonville in August 2026, which is a recent expansion."
+     },
+     {
+      "text": "Clearwater Pest Control recently acquired three local pest control operators in Orlando and Jacksonville.",
+      "supported": true,
+      "reason": "Reference facts state Clearwater acquired three local pest control operators in Orlando and Jacksonville in August 2026."
+     }
+    ],
+    "B-final": [
+     {
+      "text": "Clearwater Pest Control has 230 service vehicles on the road every working day.",
+      "supported": true,
+      "reason": "Reference facts state Clearwater has 230 service vehicles."
+     },
+     {
+      "text": "Harlow Plumbing & Heating cut harsh‑braking events by 41% across 120 vans.",
+      "supported": true,
+      "reason": "Reference facts state exactly that."
+     }
+    ]
+   },
    "preference": "scout",
    "preference_reason": "Email Y demonstrates high relevance to Clearwater Pest Control's current growth phase by specifically referencing recent acquisitions in Orlando and Jacksonville, which directly impacts fleet management needs. It shows the vendor has researched the company, enhancing credibility, and the tone is per"
   },
   {
    "domain": "halvorsen-freight.example",
    "contact": "Fleet Operations Manager",
-   "seconds": 135.38,
+   "seconds": 0.02,
    "calls": {
     "draft": 1,
     "verify_claims": 1
@@ -3940,14 +4337,49 @@
      "email1_first": "Subject: Fuel spend challenge for 450‑vehicle fleet\n\nHi Maja,\n\nManaging fuel spend across a fleet of 450 vehicles can be a constant drain on profits. Northbeam Logistics reduced idle time by 23% in the first six months, showing how better idle‑time reporting cuts fuel costs.\n\nCould we schedule a 20‑minute call to see if similar savings fit Halvorsen Freight?\n\nDana"
     }
    ],
-   "audit": {},
+   "audit": {
+    "A-final": [
+     {
+      "text": "Fleet Safety Lead hiring – safety coaching",
+      "supported": true,
+      "reason": "Reference facts confirm the prospect posted a Fleet Safety Lead role on their website."
+     },
+     {
+      "text": "You posted a Fleet Safety Lead role on September 5, 2026.",
+      "supported": true,
+      "reason": "The reference website date (2026-09-05) matches the claim."
+     },
+     {
+      "text": "customers like Harlow Plumbing & Heating have seen a 41% reduction in harsh‑braking events across 120 vans.",
+      "supported": true,
+      "reason": "Reference facts state Harlow Plumbing & Heating cut harsh-braking events by 41% across 120 vans."
+     }
+    ],
+    "B-final": [
+     {
+      "text": "Fuel spend challenge for 450‑vehicle fleet",
+      "supported": true,
+      "reason": "Reference facts state Halvorsen Freight has a fleet of 450 tractors."
+     },
+     {
+      "text": "Managing fuel spend across a fleet of 450 vehicles can be a constant drain on profits.",
+      "supported": true,
+      "reason": "The fleet size of 450 vehicles matches the reference facts."
+     },
+     {
+      "text": "Northbeam Logistics reduced idle time by 23% in the first six months",
+      "supported": true,
+      "reason": "Reference facts confirm Northbeam Logistics reduced idle time by 23% in the first six months."
+     }
+    ]
+   },
    "preference": "scout",
    "preference_reason": "Email Y is more relevant as it directly references a recent job posting for a Fleet Safety Lead, showing tailored interest. It provides specific, credible data with a case study (41% reduction in harsh-braking events for Harlow Plumbing & Heating), which aligns with fleet safety goals. The tone is p"
   },
   {
    "domain": "aldergrove-bus.example",
    "contact": "Fleet Operations Manager",
-   "seconds": 319.27,
+   "seconds": 0.03,
    "calls": {
     "draft": 3,
     "verify_claims": 3
@@ -4361,18 +4793,438 @@
      "email1_first": "Subject: Idle time and fuel savings\n\nHi Noah,\n\nWith 300 school buses operating across southern Maine, idle time can add up quickly. Northbeam Logistics reduced idle time by 23% in the first six months using Wayline’s idle‑time and route reports.\n\nCould we schedule a 20‑minute call next week to compare notes on your fleet’s fuel efficiency?\n\nDana"
     }
    ],
-   "audit": {},
+   "audit": {
+    "A-final": [
+     {
+      "text": "I saw you posted a Transportation Safety Officer role on 28 August 2026.",
+      "supported": true,
+      "reason": "Reference facts state the website says (dated 2026-08-28) Transportation Safety Officer."
+     },
+     {
+      "text": "Our in‑cab coaching cuts harsh-braking and speeding events, scored per driver",
+      "supported": true,
+      "reason": "Sender's product description includes in-cab coaching that cuts harsh-braking and speeding events, scored per driver."
+     }
+    ],
+    "A-first": [
+     {
+      "text": "I saw you posted a Transportation Safety Officer role on 28 August 2026.",
+      "supported": true,
+      "reason": "Reference facts state the website says (dated 2026-08-28) Transportation Safety Officer."
+     },
+     {
+      "text": "Our in‑cab coaching cuts harsh-braking and speeding events, scored per driver",
+      "supported": true,
+      "reason": "Sender's product description includes in-cab coaching that cuts harsh-braking and speeding events, scored per driver."
+     },
+     {
+      "text": "which can help the new officer focus on proactive safety rather than reactive checks.",
+      "supported": false,
+      "reason": "No reference fact supports this specific benefit; product description does not mention helping new officer focus."
+     }
+    ],
+    "B-final": [
+     {
+      "text": "With 300 school buses operating across southern Maine",
+      "supported": true,
+      "reason": "Reference facts state fleet of 300 school buses and serves southern Maine."
+     },
+     {
+      "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+      "supported": true,
+      "reason": "Sender's proof point states exactly that."
+     },
+     {
+      "text": "Wayline’s idle‑time and route reports typically lower fuel spend.",
+      "supported": true,
+      "reason": "Sender's product description includes idle-time and route reports that typically lower fuel spend."
+     }
+    ],
+    "B-first": [
+     {
+      "text": "With 300 school buses operating across southern Maine",
+      "supported": true,
+      "reason": "Reference facts state fleet of 300 school buses and serves southern Maine."
+     },
+     {
+      "text": "Northbeam Logistics reduced idle time by 23% in the first six months using Wayline’s idle‑time and route reports.",
+      "supported": false,
+      "reason": "Proof point confirms the reduction but does not specify using Wayline's idle-time and route reports; the method is not supported by reference facts."
+     }
+    ]
+   },
    "preference": "scout",
    "preference_reason": "Email Y is more relevant and personalized, referencing a recent job posting and specific safety metrics (harsh‑braking, speeding events) that directly align with the fleet’s priorities, whereas Email X is generic and lacks concrete details."
   },
   {
    "domain": "ridgeway-utility.example",
-   "error": "empty answer: max_tokens reached before any output"
+   "contact": "VP Fleet Operations",
+   "seconds": 94.05,
+   "calls": {
+    "draft": 1,
+    "verify_claims": 1
+   },
+   "variants": [
+    {
+     "variant": "A",
+     "attempts": 1,
+     "trimmed": false,
+     "first_claims": [
+      {
+       "text": "I saw you posted a Dispatcher (Night Shift) role on September 12.",
+       "evidence": [
+        "S1"
+       ],
+       "verdict": "supported",
+       "reason": "Evidence S1 shows the Dispatcher (Night Shift) role was posted on September 12, 2026.",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Congratulations on your appointment as VP Fleet Operations on September 2.",
+       "evidence": [
+        "S2"
+       ],
+       "verdict": "supported",
+       "reason": "Evidence S2 states Marcus Okafor was appointed VP Fleet Operations effective September 2, 2026.",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "the 700‑vehicle fleet",
+       "evidence": [
+        "F4"
+       ],
+       "verdict": "supported",
+       "reason": "Evidence F4 indicates Ridgeway operates a fleet of 700 trucks and service vehicles.",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Harlow Plumbing & Heating cut harsh‑braking events by 41% across 120 vans.",
+       "evidence": [
+        "PP:harlow"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "Ridgeway’s 700‑vehicle fleet",
+       "evidence": [
+        "F4"
+       ],
+       "verdict": "supported",
+       "reason": "Same as C3; F4 confirms the 700‑vehicle fleet size.",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "final_claims": [
+      {
+       "text": "I saw you posted a Dispatcher (Night Shift) role on September 12.",
+       "evidence": [
+        "S1"
+       ],
+       "verdict": "supported",
+       "reason": "Evidence S1 shows the Dispatcher (Night Shift) role was posted on September 12, 2026.",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Congratulations on your appointment as VP Fleet Operations on September 2.",
+       "evidence": [
+        "S2"
+       ],
+       "verdict": "supported",
+       "reason": "Evidence S2 states Marcus Okafor was appointed VP Fleet Operations effective September 2, 2026.",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "the 700‑vehicle fleet",
+       "evidence": [
+        "F4"
+       ],
+       "verdict": "supported",
+       "reason": "Evidence F4 indicates Ridgeway operates a fleet of 700 trucks and service vehicles.",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Harlow Plumbing & Heating cut harsh‑braking events by 41% across 120 vans.",
+       "evidence": [
+        "PP:harlow"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "Ridgeway’s 700‑vehicle fleet",
+       "evidence": [
+        "F4"
+       ],
+       "verdict": "supported",
+       "reason": "Same as C3; F4 confirms the 700‑vehicle fleet size.",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "first_passed": true,
+     "final_passed": true,
+     "first_issues": [],
+     "final_issues": [
+      "the verifier doubts a statement that is not declared as a claim: 'When you’re setting priorities for the 700‑vehicle fleet, does reducing harsh‑braking events rank hi' (The evidence does not indicate that Ridgeway is currently setting priorities for its fleet.)"
+     ],
+     "spam_score": 0.0,
+     "spam_issues": [],
+     "readability": 61.4,
+     "words": [
+      42,
+      38,
+      31
+     ],
+     "personalization": 1,
+     "email1": "Subject: Safety coaching for your new dispatcher role\n\nHi Marcus,\n\nI saw you posted a Dispatcher (Night Shift) role on September 12.\n\nOur in‑cab coaching cuts harsh‑braking and speeding events, scored per driver.\n\nCould we spend 20 minutes to compare notes on how Ridgeway’s fleet handles safety coaching?\n\nDana",
+     "email1_first": "Subject: Safety coaching for your new dispatcher role\n\nHi Marcus,\n\nI saw you posted a Dispatcher (Night Shift) role on September 12.\n\nOur in‑cab coaching cuts harsh‑braking and speeding events, scored per driver.\n\nCould we spend 20 minutes to compare notes on how Ridgeway’s fleet handles safety coaching?\n\nDana"
+    },
+    {
+     "variant": "B",
+     "attempts": 1,
+     "trimmed": false,
+     "first_claims": [
+      {
+       "text": "a fleet of 700 vehicles",
+       "evidence": [
+        "F4"
+       ],
+       "verdict": "supported",
+       "reason": "F4 confirms a fleet of 700 vehicles.",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "Congratulations on your appointment as VP Fleet Operations on September 2.",
+       "evidence": [
+        "S2"
+       ],
+       "verdict": "supported",
+       "reason": "Same as C2; S2 confirms the appointment date.",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "the 700‑vehicle fleet",
+       "evidence": [
+        "F4"
+       ],
+       "verdict": "supported",
+       "reason": "Same as C3; F4 confirms the fleet size.",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "I saw you posted a Dispatcher (Night Shift) role on September 12.",
+       "evidence": [
+        "S1"
+       ],
+       "verdict": "supported",
+       "reason": "Same as C1; S1 confirms the posting date.",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Harlow Plumbing & Heating cut harsh‑braking events by 41% across 120 vans.",
+       "evidence": [
+        "PP:harlow"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      }
+     ],
+     "final_claims": [
+      {
+       "text": "a fleet of 700 vehicles",
+       "evidence": [
+        "F4"
+       ],
+       "verdict": "supported",
+       "reason": "F4 confirms a fleet of 700 vehicles.",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "Congratulations on your appointment as VP Fleet Operations on September 2.",
+       "evidence": [
+        "S2"
+       ],
+       "verdict": "supported",
+       "reason": "Same as C2; S2 confirms the appointment date.",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "the 700‑vehicle fleet",
+       "evidence": [
+        "F4"
+       ],
+       "verdict": "supported",
+       "reason": "Same as C3; F4 confirms the fleet size.",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "I saw you posted a Dispatcher (Night Shift) role on September 12.",
+       "evidence": [
+        "S1"
+       ],
+       "verdict": "supported",
+       "reason": "Same as C1; S1 confirms the posting date.",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Harlow Plumbing & Heating cut harsh‑braking events by 41% across 120 vans.",
+       "evidence": [
+        "PP:harlow"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      }
+     ],
+     "first_passed": true,
+     "final_passed": true,
+     "first_issues": [],
+     "final_issues": [
+      "the verifier doubts a statement that is not declared as a claim: 'When you’re setting goals for the 700‑vehicle fleet, is lowering fuel spend a priority?' (The evidence does not mention that Ridgeway is setting goals for its fleet.)"
+     ],
+     "spam_score": 0.0,
+     "spam_issues": [],
+     "readability": 54.7,
+     "words": [
+      41,
+      38,
+      40
+     ],
+     "personalization": 1,
+     "email1": "Subject: Idle time fuel savings for 700‑vehicle fleet\n\nHi Marcus,\n\nWith a fleet of 700 vehicles, idle time can add up to unnecessary fuel spend.\n\nNorthbeam Logistics reduced idle time by 23% in the first six months.\n\nCould we discuss how Ridgeway might achieve similar savings in a 20‑minute call?\n\nDana",
+     "email1_first": "Subject: Idle time fuel savings for 700‑vehicle fleet\n\nHi Marcus,\n\nWith a fleet of 700 vehicles, idle time can add up to unnecessary fuel spend.\n\nNorthbeam Logistics reduced idle time by 23% in the first six months.\n\nCould we discuss how Ridgeway might achieve similar savings in a 20‑minute call?\n\nDana"
+    }
+   ],
+   "audit": {
+    "A-final": [
+     {
+      "text": "I saw you posted a Dispatcher (Night Shift) role on September 12.",
+      "supported": true,
+      "reason": "Reference website confirms the posting date as 2026-09-12."
+     },
+     {
+      "text": "Our in‑cab coaching cuts harsh‑braking and speeding events, scored per driver.",
+      "supported": true,
+      "reason": "Sender's product description matches this claim."
+     },
+     {
+      "text": "Safety coaching for your new dispatcher role",
+      "supported": true,
+      "reason": "Website shows a Dispatcher (Night Shift) role posted on 2026-09-12, which is recent, and sender offers safety coaching."
+     }
+    ],
+    "B-final": [
+     {
+      "text": "With a fleet of 700 vehicles",
+      "supported": true,
+      "reason": "Reference facts confirm Ridgeway has 700 trucks and service vehicles."
+     },
+     {
+      "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+      "supported": true,
+      "reason": "Sender's proof points include this exact result."
+     },
+     {
+      "text": "Idle time fuel savings for 700‑vehicle fleet",
+      "supported": true,
+      "reason": "Sender's product includes idle-time reports that typically lower fuel spend, and fleet size is confirmed."
+     }
+    ]
+   },
+   "preference": "baseline",
+   "preference_reason": "Email Y is from an identified vendor (Wayline) and directly addresses core fleet operations concerns like fuel costs and driver safety with telematics, which aligns with my role as VP Fleet Operations. It has higher credibility due to company disclosure and a clear value proposition. Email X, while "
   },
   {
    "domain": "northstar-rental.example",
    "contact": "Head of Fleet",
-   "seconds": 192.04,
+   "seconds": 0.07,
    "calls": {
     "draft": 2,
     "verify_claims": 2
@@ -4741,7 +5593,39 @@
      "email1_first": "Subject: Reducing idle time across your fleet\n\nHi Elena,\n\nManaging idle time across a fleet of 500 delivery trucks can drive up fuel costs. Northbeam Logistics reduced idle time by 23% in the first six months.\n\nCould we schedule a 20‑minute call next week to see how Wayline’s idle‑time and route reports could lower fuel spend for Northstar?\n\nDana"
     }
    ],
-   "audit": {},
+   "audit": {
+    "A-final": [
+     {
+      "text": "Northstar Rental Equipment runs its rentals, dispatch and invoicing in SAP (as of Sept 28, 2026).",
+      "supported": false,
+      "reason": "Reference confirms that rentals, dispatch and invoicing are handled in SAP, but does not provide any date; the specific date Sept 28, 2026 is not mentioned and cannot be verified."
+     }
+    ],
+    "B-final": [
+     {
+      "text": "500 delivery trucks are on the road every working day",
+      "supported": true,
+      "reason": "Reference states Northstar has a fleet of 500 delivery trucks."
+     },
+     {
+      "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+      "supported": true,
+      "reason": "Sender's proof points include this exact result."
+     }
+    ],
+    "B-first": [
+     {
+      "text": "a fleet of 500 delivery trucks",
+      "supported": true,
+      "reason": "Reference states Northstar has 500 delivery trucks."
+     },
+     {
+      "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+      "supported": true,
+      "reason": "Sender's proof points include this exact result."
+     }
+    ]
+   },
    "preference": "scout",
    "preference_reason": "Email Y demonstrates specific knowledge of Northstar's SAP system and proposes a direct integration that aligns with fleet management needs, making it more relevant and credible than the generic pitch in Email X."
   }
