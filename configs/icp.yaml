@@ -1,0 +1,127 @@
+# Scout ICP and offer for the demo seller: Wayline, a fictional fleet-telematics company.
+# Everything Scout knows about "who to contact and what to say" lives here. Edit it (or use the Settings page),
+# then re-run qualification and drafting. Unknown keys fail at startup.
+
+seller:
+  company: Wayline
+  product: Wayline Fleet
+  one_liner: Fleet telematics and driver-safety coaching for mid-size fleets (40 to 2,000 vehicles).
+  sender_name: Dana Whitfield
+  sender_title: Account Executive
+  sender_email: dana@wayline.example
+  postal_address: Wayline Inc., 410 Harbor Street, Suite 300, Portland, OR 97209, USA
+  website: https://wayline.example
+  value_props:
+    - id: safety
+      text: In-cab coaching that cuts harsh-braking and speeding events, scored per driver.
+      fits_signals: [hiring, leadership_change]
+    - id: fuel
+      text: Idle-time and route reports that typically lower fuel spend.
+      fits_signals: [expansion, funding]
+    - id: integration
+      text: Two-way sync of vehicle locations and job status with field-service and ERP tools.
+      fits_signals: [tech_stack]
+    - id: rollout
+      text: Self-install devices, so a new depot or region is tracked from its first week.
+      fits_signals: [expansion]
+  proof_points:
+    # Fictional customers. A draft may only quote these numbers, exactly as written here.
+    - id: northbeam
+      text: Northbeam Logistics reduced idle time by 23% in the first six months.
+    - id: harlow
+      text: Harlow Plumbing & Heating cut harsh-braking events by 41% across 120 vans.
+  integrations: [ServiceTitan, Salesforce Field Service, SAP, Microsoft Dynamics 365, Oracle NetSuite]
+  customers: [Northbeam Logistics, Harlow Plumbing & Heating]
+  competitors: [TrackRight, GeoPulse]
+  meeting_minutes: 30
+  meeting_timezone: America/Los_Angeles
+  meeting_hours: [8, 16]
+
+icp:
+  target_segments:
+    # Segment names the research step maps a company to. Points for "industry" are given only for these.
+    - last_mile_delivery
+    - freight_trucking
+    - field_services
+    - utilities_contracting
+    - waste_management
+    - construction
+    - food_beverage_distribution
+    - wholesale_distribution
+    - equipment_rental
+    - passenger_transport
+    - mobile_healthcare
+  excluded_segments: [software, telematics_vendor, media, finance, restaurants, retail, healthcare_clinics, leisure_rental, travel, games, manufacturing, hardware]
+  employees: {min: 150, max: 5000, hard_min: 50}
+  fleet: {min: 40, hard_min: 15}
+  regions:
+    # ISO country codes where Wayline sells and supports devices.
+    allowed: [US, CA, GB, IE, DE, NL, BE, FR, AT, "NO", SE, DK, FI]
+  signals:
+    fleet_roles:
+      # A job posting counts as a buying signal only for roles the product helps.
+      - fleet manager
+      - fleet safety
+      - fleet coordinator
+      - fleet administrator
+      - fleet operations
+      - head of fleet
+      - transport manager
+      - transportation safety
+      - safety & training manager
+      - safety and training manager
+      - telematics
+      - dispatcher
+      - dispatch manager
+      - fleet & yard supervisor
+    windows_days: {hiring: 180, funding: 365, expansion: 365, leadership_change: 365, tech_stack: 730}
+
+rubric:
+  # Deterministic points. The LLM judgment may add or subtract at most `llm_adjustment_max` on top, with a cited
+  # reason; it can never override a disqualifier.
+  firmographic:
+    industry: 20
+    employees: 10
+    fleet: 10
+    region: 10
+  signals:
+    hiring: 15
+    funding: 10
+    expansion: 10
+    leadership_change: 8
+    tech_stack: 5
+    competitor_in_use: -10
+  signals_cap: 40
+  llm_adjustment_max: 10
+  routes:
+    qualified: 60
+    nurture: 35
+  min_facts_for_decision: 3
+  leadership_titles: [chief operating officer, coo, vp operations, vice president of operations, vp fleet, head of fleet, managing director, chief executive officer, ceo, director of operations]
+
+personas:
+  # Contact selection: the first persona with a matching person (and a published business email) wins.
+  - id: fleet_leader
+    titles: [head of fleet, fleet manager, director of fleet, vp fleet, fleet operations manager, transport manager, fleet director]
+  - id: operations_leader
+    titles: [chief operating officer, coo, vp operations, vice president of operations, director of operations, operations director, managing director]
+  - id: safety_leader
+    titles: [safety director, head of safety, safety & training manager, safety manager, health and safety]
+  - id: executive
+    titles: [chief executive officer, ceo, founder, president, owner]
+  never: [hr, human resources, marketing, recruiter, people, talent, finance, cfo, accountant]
+
+outreach:
+  tone: plain, specific, peer-to-peer; no hype, no exclamation marks
+  max_words_first: 140
+  max_words_followup: 90
+  sequence_steps: 3
+  cta: a 20-minute call to compare notes on their fleet
+  banned_phrases:
+    - I hope this email finds you well
+    - just checking in
+    - circle back
+    - touch base
+    - game-changer
+    - revolutionary
+    - guaranteed
