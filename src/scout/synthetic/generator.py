@@ -87,7 +87,8 @@ class _Writer:
         return self.spec.outdated.get(page) or (REFERENCE_DATE - dt.timedelta(days=self.rng.randint(3, 25)))
 
     def _signals(self, page: str, *types: str) -> list[SpecSignal]:
-        return [s for s in self.spec.signals if s.page == page and (not types or s.type in types)]
+        planted = [*self.spec.signals, *self.spec.decoys]
+        return [s for s in planted if s.page == page and (not types or s.type in types)]
 
     def _layout(self, page: str, title: str, body: str) -> str:
         s = self.spec

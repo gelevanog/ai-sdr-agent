@@ -109,7 +109,8 @@ personas:
     titles: [safety director, head of safety, safety & training manager, safety manager, health and safety]
   - id: executive
     titles: [chief executive officer, ceo, founder, president, owner]
-  never: [hr, human resources, marketing, recruiter, people, talent, finance, cfo, accountant]
+
+never_contact_titles: [hr, human resources, marketing, recruiter, people, talent, finance, cfo, accountant]
 
 outreach:
   tone: plain, specific, peer-to-peer; no hype, no exclamation marks

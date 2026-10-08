@@ -13,7 +13,8 @@
 #
 # Fields: segment (one of the ICP segment names), employees, fleet_size (vehicles; null = not stated), hq, country
 # (ISO), tz, founded, served (regions served), label (qualified | nurture | disqualified), signals[], injection,
-# robots, traps[], outdated (pages whose "last updated" date is old).
+# robots, traps[], outdated (pages whose "last updated" date is old), decoys (sentences that look like signals but
+# are not, e.g. an investment firm closing its own fund).
 
 - domain: brightwater-fs.example
   name: Brightwater Field Services
@@ -673,7 +674,8 @@
   served: institutional investors
   label: disqualified
   why: An investment firm on Fleet Street; its "fund close" is not a buying signal.
-  signals:
+  signals: []
+  decoys:
     - {type: funding, date: 2026-06-30, page: press, text: "Fleet Street Capital closed its fourth fund at £200 million."}
   traps: [keyword_wrong_segment]
 
@@ -829,8 +831,8 @@
   served: fleets across Europe
   label: disqualified
   why: A direct competitor.
-  signals:
-    - {type: hiring, date: 2026-09-09, page: careers, title: Telematics Support Engineer, text: "Telematics Support Engineer"}
+  signals: []
+  extra_jobs: [Telematics Support Engineer]
   traps: [competitor]
 
 - domain: northbeam-logistics.example
@@ -1035,8 +1037,8 @@
   served: western North Carolina
   label: disqualified
   why: A brewery with 12 trucks; too small a fleet.
-  signals:
-    - {type: hiring, date: 2026-09-02, page: careers, title: Delivery Driver, text: "Delivery Driver"}
+  signals: []
+  extra_jobs: [Delivery Driver]
   traps: [too_small]
 
 - domain: crescentcity-plumbing.example

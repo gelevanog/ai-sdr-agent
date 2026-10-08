@@ -61,6 +61,8 @@ class CompanySpec(BaseModel):
     traps: list[str] = Field(default_factory=list)
     outdated: dict[str, dt.date] = Field(default_factory=dict)
     extra_jobs: list[str] = Field(default_factory=list)
+    decoys: list[SpecSignal] = Field(default_factory=list)
+    """Rendered like signals, but not buying signals (the evaluation counts extracting them as false positives)."""
     benign_ai_text: str | None = None
     bike_fleet: int | None = None
 
