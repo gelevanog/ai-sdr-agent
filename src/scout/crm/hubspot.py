@@ -33,11 +33,16 @@ class CRMError(RuntimeError):
 
 
 def _assoc(from_type: str, to_type: str, to_id: str) -> dict[str, Any]:
-    return {"to": {"id": to_id}, "types": [{"associationCategory": "HUBSPOT_DEFINED", "associationTypeId": ASSOC[(from_type, to_type)]}]}
+    return {
+        "to": {"id": to_id},
+        "types": [{"associationCategory": "HUBSPOT_DEFINED", "associationTypeId": ASSOC[(from_type, to_type)]}],
+    }
 
 
 class HubSpotClient:
-    def __init__(self, *, base_url: str, token: str | None, transport: httpx.BaseTransport | None = None, timeout: float = 20.0) -> None:
+    def __init__(
+        self, *, base_url: str, token: str | None, transport: httpx.BaseTransport | None = None, timeout: float = 20.0
+    ) -> None:
         if not token:
             raise CRMError("HUBSPOT_TOKEN is not set (a private app token with CRM object write scopes)")
         self._client = httpx.Client(
@@ -61,7 +66,11 @@ class HubSpotClient:
         raise CRMError("HubSpot rate limit")
 
     def _search(self, object_type: str, prop: str, value: str) -> str | None:
-        body = {"filterGroups": [{"filters": [{"propertyName": prop, "operator": "EQ", "value": value}]}], "limit": 1, "properties": [prop]}
+        body = {
+            "filterGroups": [{"filters": [{"propertyName": prop, "operator": "EQ", "value": value}]}],
+            "limit": 1,
+            "properties": [prop],
+        }
         data = self._request("POST", f"/crm/v3/objects/{object_type}/search", body)
         results = data.get("results") or []
         return str(results[0]["id"]) if results else None
@@ -86,7 +95,9 @@ class HubSpotClient:
             self._request("PUT", f"/crm/v4/objects/contacts/{contact_id}/associations/default/companies/{company_id}")
         return contact_id
 
-    def log_email(self, *, contact_id: str, company_id: str | None, subject: str, text: str, direction: str, when: dt.datetime) -> str:
+    def log_email(
+        self, *, contact_id: str, company_id: str | None, subject: str, text: str, direction: str, when: dt.datetime
+    ) -> str:
         associations = [_assoc("emails", "contacts", contact_id)]
         if company_id:
             associations.append(_assoc("emails", "companies", company_id))
@@ -97,7 +108,9 @@ class HubSpotClient:
             "hs_email_subject": subject,
             "hs_email_text": text,
         }
-        return str(self._request("POST", "/crm/v3/objects/emails", {"properties": props, "associations": associations})["id"])
+        return str(
+            self._request("POST", "/crm/v3/objects/emails", {"properties": props, "associations": associations})["id"]
+        )
 
     def create_note(self, *, body: str, contact_id: str | None, company_id: str | None, when: dt.datetime) -> str:
         associations = []
@@ -106,7 +119,9 @@ class HubSpotClient:
         if company_id:
             associations.append(_assoc("notes", "companies", company_id))
         props = {"hs_note_body": body, "hs_timestamp": when.astimezone(dt.UTC).isoformat().replace("+00:00", "Z")}
-        return str(self._request("POST", "/crm/v3/objects/notes", {"properties": props, "associations": associations})["id"])
+        return str(
+            self._request("POST", "/crm/v3/objects/notes", {"properties": props, "associations": associations})["id"]
+        )
 
     def create_deal(self, *, name: str, stage: str, company_id: str | None, contact_id: str | None) -> str:
         associations = []
@@ -115,7 +130,9 @@ class HubSpotClient:
         if contact_id:
             associations.append(_assoc("deals", "contacts", contact_id))
         props = {"dealname": name, "pipeline": "default", "dealstage": stage}
-        return str(self._request("POST", "/crm/v3/objects/deals", {"properties": props, "associations": associations})["id"])
+        return str(
+            self._request("POST", "/crm/v3/objects/deals", {"properties": props, "associations": associations})["id"]
+        )
 
 
 class MockHubSpot:
@@ -135,28 +152,70 @@ class MockHubSpot:
 
     def handle(self, request: httpx.Request) -> httpx.Response:
         self.log.append((request.method, request.url.path))
-        if not request.headers.get("authorization", "").startswith("Bearer ") or len(request.headers["authorization"]) < 12:
-            return httpx.Response(401, json={"status": "error", "category": "INVALID_AUTHENTICATION", "message": "missing token"})
+        if (
+            not request.headers.get("authorization", "").startswith("Bearer ")
+            or len(request.headers["authorization"]) < 12
+        ):
+            return httpx.Response(
+                401, json={"status": "error", "category": "INVALID_AUTHENTICATION", "message": "missing token"}
+            )
         path = request.url.path
         body = json.loads(request.content) if request.content else {}
         now = dt.datetime.now(dt.UTC).isoformat().replace("+00:00", "Z")
         if m := re.fullmatch(r"/crm/v3/objects/(\w+)/search", path):
             f = body["filterGroups"][0]["filters"][0]
             found = self._find(m.group(1), f["propertyName"], f["value"])
-            results = [{"id": found, "properties": {f["propertyName"]: f["value"]}, "createdAt": now, "updatedAt": now, "archived": False}] if found else []
+            results = (
+                [
+                    {
+                        "id": found,
+                        "properties": {f["propertyName"]: f["value"]},
+                        "createdAt": now,
+                        "updatedAt": now,
+                        "archived": False,
+                    }
+                ]
+                if found
+                else []
+            )
             return httpx.Response(200, json={"total": len(results), "results": results})
         if (m := re.fullmatch(r"/crm/v3/objects/(\w+)", path)) and request.method == "POST":
             if "properties" not in body:
-                return httpx.Response(400, json={"status": "error", "category": "VALIDATION_ERROR", "message": "properties required"})
+                return httpx.Response(
+                    400, json={"status": "error", "category": "VALIDATION_ERROR", "message": "properties required"}
+                )
             new_id = self._insert(m.group(1), body["properties"], body.get("associations") or [])
-            return httpx.Response(201, json={"id": new_id, "properties": body["properties"], "createdAt": now, "updatedAt": now, "archived": False})
+            return httpx.Response(
+                201,
+                json={
+                    "id": new_id,
+                    "properties": body["properties"],
+                    "createdAt": now,
+                    "updatedAt": now,
+                    "archived": False,
+                },
+            )
         if (m := re.fullmatch(r"/crm/v3/objects/(\w+)/(\w+)", path)) and request.method == "PATCH":
             if not self._update(m.group(1), m.group(2), body.get("properties") or {}):
-                return httpx.Response(404, json={"status": "error", "category": "OBJECT_NOT_FOUND", "message": "not found"})
-            return httpx.Response(200, json={"id": m.group(2), "properties": body.get("properties") or {}, "updatedAt": now, "archived": False})
-        if (m := re.fullmatch(r"/crm/v4/objects/(\w+)/(\w+)/associations/default/(\w+)/(\w+)", path)) and request.method == "PUT":
+                return httpx.Response(
+                    404, json={"status": "error", "category": "OBJECT_NOT_FOUND", "message": "not found"}
+                )
+            return httpx.Response(
+                200,
+                json={
+                    "id": m.group(2),
+                    "properties": body.get("properties") or {},
+                    "updatedAt": now,
+                    "archived": False,
+                },
+            )
+        if (
+            m := re.fullmatch(r"/crm/v4/objects/(\w+)/(\w+)/associations/default/(\w+)/(\w+)", path)
+        ) and request.method == "PUT":
             self._associate(m.group(1), m.group(2), m.group(3), m.group(4))
-            return httpx.Response(200, json={"status": "COMPLETE", "results": [{"from": {"id": m.group(2)}, "to": {"id": m.group(4)}}]})
+            return httpx.Response(
+                200, json={"status": "COMPLETE", "results": [{"from": {"id": m.group(2)}, "to": {"id": m.group(4)}}]}
+            )
         return httpx.Response(404, json={"status": "error", "message": f"no mock route for {request.method} {path}"})
 
     def transport(self) -> httpx.MockTransport:
@@ -179,7 +238,14 @@ def memory_mock() -> tuple[MockHubSpot, dict[str, dict[str, Any]]]:
         return True
 
     def find(object_type: str, prop: str, value: str) -> str | None:
-        return next((k for k, v in objects.items() if v["type"] == object_type and str(v["properties"].get(prop, "")).lower() == value.lower()), None)
+        return next(
+            (
+                k
+                for k, v in objects.items()
+                if v["type"] == object_type and str(v["properties"].get(prop, "")).lower() == value.lower()
+            ),
+            None,
+        )
 
     def associate(from_type: str, from_id: str, to_type: str, to_id: str) -> None:
         objects[from_id]["associations"].append({"to": {"id": to_id}, "type": to_type})

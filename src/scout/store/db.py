@@ -209,7 +209,9 @@ def _adapt(value: Any) -> Any:
 class Store:
     def __init__(self, url: str, *, min_size: int = 1, max_size: int = 6) -> None:
         self.url = url
-        self.pool = ConnectionPool(url, min_size=min_size, max_size=max_size, kwargs={"row_factory": dict_row, "autocommit": False}, open=True)
+        self.pool = ConnectionPool(
+            url, min_size=min_size, max_size=max_size, kwargs={"row_factory": dict_row, "autocommit": False}, open=True
+        )
 
     def close(self) -> None:
         self.pool.close()
@@ -223,12 +225,12 @@ class Store:
     def migrate(self) -> None:
         with self.tx() as conn:
             conn.execute("SELECT pg_advisory_xact_lock(424242)")
-            conn.execute(SCHEMA)  # type: ignore[arg-type]
+            conn.execute(SCHEMA)
 
     def reset(self) -> None:
         with self.tx() as conn:
             for table in TABLES:
-                conn.execute(f"DROP TABLE IF EXISTS {table} CASCADE")  # noqa: S608 - fixed identifiers
+                conn.execute(f"DROP TABLE IF EXISTS {table} CASCADE")
         self.migrate()
 
     def truncate(self) -> None:
@@ -238,22 +240,24 @@ class Store:
     # ------------------------------------------------------------------ generic helpers
     def all(self, sql: str, params: Sequence[Any] | dict[str, Any] = ()) -> list[dict[str, Any]]:
         with self.tx() as conn:
-            return list(conn.execute(sql, _params(params)).fetchall())  # type: ignore[arg-type]
+            return list(conn.execute(sql, _params(params)).fetchall())
 
     def one(self, sql: str, params: Sequence[Any] | dict[str, Any] = ()) -> dict[str, Any] | None:
         with self.tx() as conn:
-            return conn.execute(sql, _params(params)).fetchone()  # type: ignore[arg-type]
+            return conn.execute(sql, _params(params)).fetchone()
 
     def run(self, sql: str, params: Sequence[Any] | dict[str, Any] = ()) -> int:
         with self.tx() as conn:
-            return conn.execute(sql, _params(params)).rowcount  # type: ignore[arg-type]
+            return conn.execute(sql, _params(params)).rowcount
 
     def scalar(self, sql: str, params: Sequence[Any] | dict[str, Any] = ()) -> Any:
         row = self.one(sql, params)
         return next(iter(row.values())) if row else None
 
     # ------------------------------------------------------------------ audit
-    def audit(self, actor: str, action: str, entity: str, entity_id: object = None, detail: dict[str, Any] | None = None) -> None:
+    def audit(
+        self, actor: str, action: str, entity: str, entity_id: object = None, detail: dict[str, Any] | None = None
+    ) -> None:
         self.run(
             "INSERT INTO audit_log (actor, action, entity, entity_id, detail) VALUES (%s, %s, %s, %s, %s)",
             (actor, action, entity, None if entity_id is None else str(entity_id), detail or {}),
@@ -318,9 +322,10 @@ def _params(params: Sequence[Any] | dict[str, Any]) -> Sequence[Any] | dict[str,
     return [_adapt(v) for v in params]
 
 
-def jsonable(value: Any) -> Any:
-    """Rows to JSON-safe dicts for the API (datetimes to ISO strings)."""
-    return json.loads(json.dumps(value, default=_default))
+def jsonable[T](value: T) -> T:
+    """Rows to JSON-safe dicts for the API (datetimes to ISO strings). Same shape in, same shape out."""
+    result: T = json.loads(json.dumps(value, default=_default))
+    return result
 
 
 def _default(value: Any) -> Any:

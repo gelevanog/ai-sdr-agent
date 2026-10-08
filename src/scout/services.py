@@ -9,9 +9,10 @@ import difflib
 import hashlib
 import io
 import time
-from functools import cached_property
 from pathlib import Path
 from typing import Any
+
+from psycopg.types.json import Jsonb
 
 from scout import compliance
 from scout.config import Settings
@@ -34,7 +35,6 @@ from scout.replies.meetings import find_slot
 from scout.research.agent import ResearchResult, research_account
 from scout.research.crawler import Crawler, Fetcher, FileFetcher, HttpFetcher, RateLimiter
 from scout.store.db import Store
-from psycopg.types.json import Jsonb
 from scout.synthetic.generator import write_web
 from scout.synthetic.spec import load_specs
 
@@ -116,7 +116,9 @@ class Scout:
     @property
     def mailer(self) -> Mailer:
         if self._mailer is None:
-            self._mailer = SmtpMailer(self.settings.smtp_host, self.settings.smtp_port, capture_only=self.settings.smtp_capture_only)
+            self._mailer = SmtpMailer(
+                self.settings.smtp_host, self.settings.smtp_port, capture_only=self.settings.smtp_capture_only
+            )
         return self._mailer
 
     def fetcher(self, live: bool) -> Fetcher:
@@ -126,12 +128,20 @@ class Scout:
         if live:
             return HttpFetcher(user_agent=s.crawl_user_agent, timeout_seconds=s.crawl_timeout_seconds)
         if s.synthetic_web_url:
-            return HttpFetcher(user_agent=s.crawl_user_agent, timeout_seconds=s.crawl_timeout_seconds, base_url=s.synthetic_web_url)
+            return HttpFetcher(
+                user_agent=s.crawl_user_agent, timeout_seconds=s.crawl_timeout_seconds, base_url=s.synthetic_web_url
+            )
         return FileFetcher(s.synthetic_web_dir)
 
     def crawler(self, live: bool) -> Crawler:
         limiter = RateLimiter(self.settings.crawl_min_seconds_per_domain if live else 0)
-        return Crawler(self.fetcher(live), user_agent=self.settings.crawl_user_agent, max_pages=self.settings.crawl_max_pages, limiter=limiter, live=live)
+        return Crawler(
+            self.fetcher(live),
+            user_agent=self.settings.crawl_user_agent,
+            max_pages=self.settings.crawl_max_pages,
+            limiter=limiter,
+            live=live,
+        )
 
     # ------------------------------------------------------------------ seeding and targets
     def ensure_synthetic_web(self, *, force: bool = False) -> int:
@@ -153,7 +163,9 @@ class Scout:
         self.store.audit(SYSTEM, "seed.demo", "accounts", None, {"accounts": added})
         return added
 
-    def add_account(self, url: str, name: str | None = None, *, source: str = "live", actor: str = "user") -> int | None:
+    def add_account(
+        self, url: str, name: str | None = None, *, source: str = "live", actor: str = "user"
+    ) -> int | None:
         url = url.strip()
         if not url.startswith(("http://", "https://")):
             url = "https://" + url
@@ -243,7 +255,13 @@ class Scout:
             },
         )
         for finding in profile.injection_findings:
-            self.store.audit(SYSTEM, "injection.quarantined", "page", finding.url, {"rules": finding.rules, "score": finding.score, "hidden": finding.hidden, "text": finding.text[:300]})
+            self.store.audit(
+                SYSTEM,
+                "injection.quarantined",
+                "page",
+                finding.url,
+                {"rules": finding.rules, "score": finding.score, "hidden": finding.hidden, "text": finding.text[:300]},
+            )
         return result
 
     def profile(self, account_id: int) -> CompanyProfile:
@@ -262,7 +280,9 @@ class Scout:
         if self.settings.llm_judgment:
             qualification, calls = apply_judgment(profile, qualification, config, self.model("judge"))
         client = [ClientContact(**c) for c in (self.store.get_setting("client_contacts") or [])]
-        selection = select_contact(profile, config, suppressed=self.store.suppressed_emails(), client_contacts=client or None)
+        selection = select_contact(
+            profile, config, suppressed=self.store.suppressed_emails(), client_contacts=client or None
+        )
         country = profile.fact("country")
         hq = profile.fact("hq")
         tz = guess_timezone(hq.value if hq else None, country.value if country else None)
@@ -325,10 +345,14 @@ class Scout:
             max_regenerations=self.settings.max_regenerations,
         )
         if result.error and not result.variants:
-            self.store.run("UPDATE accounts SET status = 'draft_failed', error = %s WHERE id = %s", (result.error, account_id))
+            self.store.run(
+                "UPDATE accounts SET status = 'draft_failed', error = %s WHERE id = %s", (result.error, account_id)
+            )
             self.store.audit(SYSTEM, "draft.failed", "account", account_id, {"error": result.error})
             raise ScoutError(result.error)
-        self.store.run("UPDATE drafts SET status = 'superseded' WHERE account_id = %s AND status = 'pending'", (account_id,))
+        self.store.run(
+            "UPDATE drafts SET status = 'superseded' WHERE account_id = %s AND status = 'pending'", (account_id,)
+        )
         ids = []
         firsts = {v.variant: v for v in result.first_drafts}
         for variant in result.variants:
@@ -380,7 +404,9 @@ class Scout:
         return out
 
     # ------------------------------------------------------------------ review
-    def approve(self, draft_id: int, *, reviewer: str, edits: list[dict[str, Any]] | None = None, note: str = "") -> dict[str, Any]:
+    def approve(
+        self, draft_id: int, *, reviewer: str, edits: list[dict[str, Any]] | None = None, note: str = ""
+    ) -> dict[str, Any]:
         draft = self.store.one("SELECT * FROM drafts WHERE id = %s", (draft_id,))
         if draft is None:
             raise ScoutError(f"draft {draft_id} not found")
@@ -410,7 +436,9 @@ class Scout:
                     continue
                 before = f"Subject: {email.subject}\n\n{email.body}"
                 after = f"Subject: {subject}\n\n{body}"
-                diff = "\n".join(difflib.unified_diff(before.splitlines(), after.splitlines(), "draft", "approved", lineterm=""))
+                diff = "\n".join(
+                    difflib.unified_diff(before.splitlines(), after.splitlines(), "draft", "approved", lineterm="")
+                )
                 stats = _diff_stats(before, after)
                 self.store.run(
                     "INSERT INTO feedback (draft_id, step, before, after, diff, stats) VALUES (%s, %s, %s, %s, %s, %s)",
@@ -423,26 +451,76 @@ class Scout:
             # The reviewer is accountable for edited text, but Scout still points out unverifiable details they added.
             edited = variant.model_copy(update={"emails": [e.model_copy(update={"claims": []}) for e in final]})
             ev = build_evidence(self.profile(acc["id"]), contact, self.config)
-            warnings = [i.message for i in deterministic_check(edited, ev, self.config) if i.kind in {"unknown_number", "unknown_name", "unknown_date"}]
+            warnings = [
+                i.message
+                for i in deterministic_check(edited, ev, self.config)
+                if i.kind in {"unknown_number", "unknown_name", "unknown_date"}
+            ]
         now = self.now()
         tz = acc["timezone"] or "UTC"
         s = self.settings
-        times = plan_sequence(now, tz, followup_business_days=s.followup_business_days[: len(final) - 1], start_hour=s.business_hours_start, end_hour=s.business_hours_end, key=str(acc["id"]))
+        times = plan_sequence(
+            now,
+            tz,
+            followup_business_days=s.followup_business_days[: len(final) - 1],
+            start_hour=s.business_hours_start,
+            end_hour=s.business_hours_end,
+            key=str(acc["id"]),
+        )
         with self.store.tx() as conn:
             conn.execute(
                 "UPDATE drafts SET status = 'approved', reviewer = %s, reviewed_at = %s, review_note = %s, edited = %s WHERE id = %s",
-                (reviewer, now, note or None, Jsonb([e.model_dump(mode="json") for e in final]) if diffs else None, draft_id),
+                (
+                    reviewer,
+                    now,
+                    note or None,
+                    Jsonb([e.model_dump(mode="json") for e in final]) if diffs else None,
+                    draft_id,
+                ),
             )
-            conn.execute("UPDATE drafts SET status = 'superseded' WHERE account_id = %s AND status = 'pending' AND id <> %s", (acc["id"], draft_id))
+            conn.execute(
+                "UPDATE drafts SET status = 'superseded' WHERE account_id = %s AND status = 'pending' AND id <> %s",
+                (acc["id"], draft_id),
+            )
             for email, when in zip(final, times, strict=False):
                 conn.execute(
                     "INSERT INTO messages (draft_id, account_id, step, to_email, to_name, subject, body, timezone, scheduled_at, approved, approved_by, unsubscribe_token) "
                     "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, true, %s, %s)",
-                    (draft_id, acc["id"], email.step, contact.email.lower(), contact.name, email.subject, email.body, tz, when, reviewer, new_token()),
+                    (
+                        draft_id,
+                        acc["id"],
+                        email.step,
+                        contact.email.lower(),
+                        contact.name,
+                        email.subject,
+                        email.body,
+                        tz,
+                        when,
+                        reviewer,
+                        new_token(),
+                    ),
                 )
             conn.execute("UPDATE accounts SET status = 'in_sequence', updated_at = now() WHERE id = %s", (acc["id"],))
-        self.store.audit(reviewer, "draft.approved", "draft", draft_id, {"account_id": acc["id"], "edits": diffs, "warnings": warnings, "schedule": [t.isoformat() for t in times], "timezone": tz})
-        return {"draft_id": draft_id, "scheduled": [t.isoformat() for t in times], "timezone": tz, "edits": diffs, "warnings": warnings}
+        self.store.audit(
+            reviewer,
+            "draft.approved",
+            "draft",
+            draft_id,
+            {
+                "account_id": acc["id"],
+                "edits": diffs,
+                "warnings": warnings,
+                "schedule": [t.isoformat() for t in times],
+                "timezone": tz,
+            },
+        )
+        return {
+            "draft_id": draft_id,
+            "scheduled": [t.isoformat() for t in times],
+            "timezone": tz,
+            "edits": diffs,
+            "warnings": warnings,
+        }
 
     def reject(self, draft_id: int, *, reviewer: str, reason: str = "") -> None:
         n = self.store.run(
@@ -468,9 +546,14 @@ class Scout:
             (as_of, limit),
         )
         for msg in rows:
-            earlier = self.store.all("SELECT status FROM messages WHERE draft_id = %s AND step < %s", (msg["draft_id"], msg["step"]))
+            earlier = self.store.all(
+                "SELECT status FROM messages WHERE draft_id = %s AND step < %s", (msg["draft_id"], msg["step"])
+            )
             if any(r["status"] in {"cancelled", "blocked"} for r in earlier):
-                self.store.run("UPDATE messages SET status = 'cancelled', status_reason = 'an earlier step did not go out' WHERE id = %s", (msg["id"],))
+                self.store.run(
+                    "UPDATE messages SET status = 'cancelled', status_reason = 'an earlier step did not go out' WHERE id = %s",
+                    (msg["id"],),
+                )
                 continue
             if any(r["status"] != "sent" for r in earlier):
                 counts["waiting"] += 1
@@ -478,24 +561,44 @@ class Scout:
             when = msg["scheduled_at"] if simulate else real_now
             gate = compliance.send_gate(self.store, msg, limits, when)
             if gate.action == "block":
-                self.store.run("UPDATE messages SET status = 'blocked', status_reason = %s WHERE id = %s", (gate.reason, msg["id"]))
-                self.store.audit(SYSTEM, "message.blocked", "message", msg["id"], {"reason": gate.reason, "to": msg["to_email"]})
+                self.store.run(
+                    "UPDATE messages SET status = 'blocked', status_reason = %s WHERE id = %s", (gate.reason, msg["id"])
+                )
+                self.store.audit(
+                    SYSTEM, "message.blocked", "message", msg["id"], {"reason": gate.reason, "to": msg["to_email"]}
+                )
                 counts["blocked"] += 1
                 continue
             if gate.action == "defer":
                 tomorrow = (when + dt.timedelta(days=1)).astimezone(dt.UTC).replace(hour=0, minute=0)
-                nxt = next_business_slot(tomorrow, msg["timezone"], start_hour=self.settings.business_hours_start, end_hour=self.settings.business_hours_end, jitter_key=str(msg["id"]))
-                self.store.run("UPDATE messages SET status = 'deferred', status_reason = %s, scheduled_at = %s WHERE id = %s", (gate.reason, nxt, msg["id"]))
-                self.store.audit(SYSTEM, "message.deferred", "message", msg["id"], {"reason": gate.reason, "until": nxt.isoformat()})
+                nxt = next_business_slot(
+                    tomorrow,
+                    msg["timezone"],
+                    start_hour=self.settings.business_hours_start,
+                    end_hour=self.settings.business_hours_end,
+                    jitter_key=str(msg["id"]),
+                )
+                self.store.run(
+                    "UPDATE messages SET status = 'deferred', status_reason = %s, scheduled_at = %s WHERE id = %s",
+                    (gate.reason, nxt, msg["id"]),
+                )
+                self.store.audit(
+                    SYSTEM, "message.deferred", "message", msg["id"], {"reason": gate.reason, "until": nxt.isoformat()}
+                )
                 counts["deferred"] += 1
                 continue
             domain = config.seller.sender_email.split("@")[-1]
             message_id = f"<scout-{msg['id']}-{msg['unsubscribe_token'][:10]}@{domain}>"
-            previous = self.store.one("SELECT message_id FROM messages WHERE draft_id = %s AND step = 1 AND status = 'sent'", (msg["draft_id"],))
+            previous = self.store.one(
+                "SELECT message_id FROM messages WHERE draft_id = %s AND step = 1 AND status = 'sent'",
+                (msg["draft_id"],),
+            )
             out = Outgoing(
                 to_email=msg["to_email"],
                 to_name=msg["to_name"],
-                subject=msg["subject"] if msg["step"] == 1 else f"Re: {self._first_subject(msg['draft_id']) or msg['subject']}",
+                subject=msg["subject"]
+                if msg["step"] == 1
+                else f"Re: {self._first_subject(msg['draft_id']) or msg['subject']}",
                 body=msg["body"],
                 unsubscribe_url=f"{self.settings.public_url.rstrip('/')}/u/{msg['unsubscribe_token']}",
                 from_address=self.settings.from_address,
@@ -509,7 +612,13 @@ class Scout:
                 "UPDATE messages SET status = 'sent', sent_at = %s, message_id = %s, status_reason = NULL WHERE id = %s",
                 (when, message_id, msg["id"]),
             )
-            self.store.audit(SYSTEM, "message.sent", "message", msg["id"], {"to": msg["to_email"], "step": msg["step"], "simulated_time": simulate})
+            self.store.audit(
+                SYSTEM,
+                "message.sent",
+                "message",
+                msg["id"],
+                {"to": msg["to_email"], "step": msg["step"], "simulated_time": simulate},
+            )
             counts["sent"] += 1
             self._crm_log_message(msg, when)
         return counts
@@ -519,18 +628,44 @@ class Scout:
         return row["subject"] if row else None
 
     # ------------------------------------------------------------------ replies
-    def ingest_reply(self, *, from_email: str, subject: str, body: str, in_reply_to: str | None = None, source: str = "inbox", received_at: dt.datetime | None = None) -> int:
+    def ingest_reply(
+        self,
+        *,
+        from_email: str,
+        subject: str,
+        body: str,
+        in_reply_to: str | None = None,
+        source: str = "inbox",
+        received_at: dt.datetime | None = None,
+    ) -> int:
         msg = None
         if in_reply_to:
             msg = self.store.one("SELECT * FROM messages WHERE message_id = %s", (in_reply_to.strip(),))
         if msg is None:
-            msg = self.store.one("SELECT * FROM messages WHERE lower(to_email) = %s AND status = 'sent' ORDER BY sent_at DESC LIMIT 1", (from_email.lower(),))
+            msg = self.store.one(
+                "SELECT * FROM messages WHERE lower(to_email) = %s AND status = 'sent' ORDER BY sent_at DESC LIMIT 1",
+                (from_email.lower(),),
+            )
         row = self.store.one(
             "INSERT INTO replies (message_id, account_id, from_email, subject, body, received_at, source) VALUES (%s, %s, %s, %s, %s, %s, %s) RETURNING id",
-            (msg["id"] if msg else None, msg["account_id"] if msg else None, from_email.lower(), subject, body, received_at or self.now(), source),
+            (
+                msg["id"] if msg else None,
+                msg["account_id"] if msg else None,
+                from_email.lower(),
+                subject,
+                body,
+                received_at or self.now(),
+                source,
+            ),
         )
         assert row is not None
-        self.store.audit(SYSTEM, "reply.received", "reply", row["id"], {"from": from_email.lower(), "matched_message": msg["id"] if msg else None, "source": source})
+        self.store.audit(
+            SYSTEM,
+            "reply.received",
+            "reply",
+            row["id"],
+            {"from": from_email.lower(), "matched_message": msg["id"] if msg else None, "source": source},
+        )
         return int(row["id"])
 
     def simulate_replies(self, *, count: int | None = None, cases: list[ReplyCase] | None = None) -> list[int]:
@@ -546,7 +681,16 @@ class Scout:
             sender = f"mailer-daemon@{msg['to_email'].split('@')[-1]}" if case.sender == "bounce" else msg["to_email"]
             subject = case.subject or f"Re: {msg['subject']}"
             received = (msg["sent_at"] or self.now()) + dt.timedelta(hours=3)
-            ids.append(self.ingest_reply(from_email=sender, subject=subject, body=case.body, in_reply_to=msg["message_id"], source="simulator", received_at=received))
+            ids.append(
+                self.ingest_reply(
+                    from_email=sender,
+                    subject=subject,
+                    body=case.body,
+                    in_reply_to=msg["message_id"],
+                    source="simulator",
+                    received_at=received,
+                )
+            )
         return ids
 
     def classify(self, reply_id: int) -> ReplyClassification:
@@ -554,34 +698,61 @@ class Scout:
         if reply is None:
             raise ScoutError(f"reply {reply_id} not found")
         result, calls = classify_reply(
-            reply["subject"], reply["body"] or "", reply["from_email"], model=self.model("classify_reply"), seller=self.config.seller.company, today=self.now().date()
+            reply["subject"],
+            reply["body"] or "",
+            reply["from_email"],
+            model=self.model("classify_reply"),
+            seller=self.config.seller.company,
+            today=self.now().date(),
         )
         actions = self.route_reply(reply, result)
         self.store.run(
             "UPDATE replies SET label = %s, classification = %s, actions = %s WHERE id = %s",
             (result.label, result.model_dump(mode="json"), Jsonb(actions), reply_id),
         )
-        self.store.audit(SYSTEM, "reply.classified", "reply", reply_id, {"label": result.label, "source": result.source, "objection": result.objection_type, "actions": actions, "model_calls": calls})
+        self.store.audit(
+            SYSTEM,
+            "reply.classified",
+            "reply",
+            reply_id,
+            {
+                "label": result.label,
+                "source": result.source,
+                "objection": result.objection_type,
+                "actions": actions,
+                "model_calls": calls,
+            },
+        )
         return result
 
     def route_reply(self, reply: dict[str, Any], result: ReplyClassification) -> list[str]:
         actions: list[str] = []
-        msg = self.store.one("SELECT * FROM messages WHERE id = %s", (reply["message_id"],)) if reply["message_id"] else None
+        msg = (
+            self.store.one("SELECT * FROM messages WHERE id = %s", (reply["message_id"],))
+            if reply["message_id"]
+            else None
+        )
         draft_id = msg["draft_id"] if msg else None
         account_id = reply["account_id"]
         contact_email = msg["to_email"] if msg else reply["from_email"]
         label = result.label
         if label == "unsubscribe":
-            n = compliance.suppress_email(self.store, contact_email, reason="asked not to be contacted (reply)", source="reply", actor="recipient")
+            n = compliance.suppress_email(
+                self.store, contact_email, reason="asked not to be contacted (reply)", source="reply", actor="recipient"
+            )
             actions.append(f"added {contact_email} to the suppression list; cancelled {n} scheduled message(s)")
         elif label == "bounce":
-            n = compliance.suppress_email(self.store, contact_email, reason="hard bounce", source="bounce", actor=SYSTEM)
+            n = compliance.suppress_email(
+                self.store, contact_email, reason="hard bounce", source="bounce", actor=SYSTEM
+            )
             actions.append(f"bounce: suppressed {contact_email}; cancelled {n} scheduled message(s)")
         elif label == "out_of_office" and draft_id:
             resume = result.resume_on or (self.now().date() + dt.timedelta(days=7))
             start = dt.datetime.combine(resume + dt.timedelta(days=1), dt.time(0, 0), dt.UTC)
             tz = msg["timezone"] if msg else "UTC"
-            nxt = next_business_slot(start, tz, start_hour=self.settings.business_hours_start, end_hour=self.settings.business_hours_end)
+            nxt = next_business_slot(
+                start, tz, start_hour=self.settings.business_hours_start, end_hour=self.settings.business_hours_end
+            )
             n = self.store.run(
                 "UPDATE messages SET scheduled_at = GREATEST(scheduled_at, %s), status_reason = 'out of office' WHERE draft_id = %s AND status IN ('scheduled', 'deferred')",
                 (nxt, draft_id),
@@ -592,15 +763,23 @@ class Scout:
                       "referral": "referred to a colleague", "objection": f"objection ({result.objection_type})"}[label]  # fmt: skip
             if label == "not_now":
                 resume = result.resume_on or (self.now().date() + dt.timedelta(days=90))
-                n = self.store.run("UPDATE messages SET status = 'paused', status_reason = %s WHERE draft_id = %s AND status IN ('scheduled', 'deferred')", (f"snoozed until {resume}", draft_id))
-                actions.append(f"snoozed the sequence until {resume} ({n} follow-up(s) paused); a human decides whether to re-engage")
+                n = self.store.run(
+                    "UPDATE messages SET status = 'paused', status_reason = %s WHERE draft_id = %s AND status IN ('scheduled', 'deferred')",
+                    (f"snoozed until {resume}", draft_id),
+                )
+                actions.append(
+                    f"snoozed the sequence until {resume} ({n} follow-up(s) paused); a human decides whether to re-engage"
+                )
             else:
                 n = compliance.stop_sequence(self.store, draft_id, reason)
                 actions.append(f"stopped the sequence ({n} follow-up(s) cancelled)")
         if label == "meeting_request" and account_id:
             acc = self.account(account_id)
             seller = self.config.seller
-            busy = [(r["starts_at"], r["ends_at"]) for r in self.store.all("SELECT starts_at, ends_at FROM meetings WHERE status = 'held'")]
+            busy = [
+                (r["starts_at"], r["ends_at"])
+                for r in self.store.all("SELECT starts_at, ends_at FROM meetings WHERE status = 'held'")
+            ]
             slot = find_slot(
                 self.now(),
                 seller_tz=seller.meeting_timezone,
@@ -614,20 +793,29 @@ class Scout:
                     "INSERT INTO meetings (account_id, reply_id, contact_email, starts_at, ends_at, timezone) VALUES (%s, %s, %s, %s, %s, %s)",
                     (account_id, reply["id"], contact_email, slot[0], slot[1], acc["timezone"] or "UTC"),
                 )
-                actions.append(f"held a {seller.meeting_minutes}-minute slot at {slot[0].isoformat()}; the confirmation email waits for approval")
+                actions.append(
+                    f"held a {seller.meeting_minutes}-minute slot at {slot[0].isoformat()}; the confirmation email waits for approval"
+                )
             else:
                 actions.append("no free slot in the next two weeks; flagged for a human")
         if label == "referral" and result.referral_email:
             if self.store.suppressed(result.referral_email):
                 actions.append(f"referral {result.referral_email} is suppressed; not added")
             else:
-                actions.append(f"referral to {result.referral_email}: added as a pending contact for review (not emailed automatically)")
+                actions.append(
+                    f"referral to {result.referral_email}: added as a pending contact for review (not emailed automatically)"
+                )
         if label in {"interested", "meeting_request"} and account_id:
             actions += self._crm_positive_reply(account_id, contact_email, label)
         if label == "objection":
             actions.append(f"objection ({result.objection_type}) logged for the account owner")
         if account_id:
-            status = {"meeting_request": "meeting", "interested": "engaged", "unsubscribe": "opted_out", "bounce": "bounced"}.get(label, "replied")
+            status = {
+                "meeting_request": "meeting",
+                "interested": "engaged",
+                "unsubscribe": "opted_out",
+                "bounce": "bounced",
+            }.get(label, "replied")
             self.store.run("UPDATE accounts SET status = %s, updated_at = now() WHERE id = %s", (status, account_id))
             self._crm_log_reply(account_id, contact_email, reply, label)
         return actions
@@ -645,7 +833,7 @@ class Scout:
         ids = []
         for path in sorted(folder.glob("*.eml")):
             msg = message_from_bytes(path.read_bytes(), policy=policy.default)
-            body_part = msg.get_body(preferencelist=("plain",))  # type: ignore[attr-defined]
+            body_part = msg.get_body(preferencelist=("plain",))
             body = body_part.get_content() if body_part else ""
             ids.append(
                 self.ingest_reply(
@@ -688,19 +876,34 @@ class Scout:
         store = self.store
 
         def insert(object_type: str, props: dict[str, Any], associations: list[dict[str, Any]]) -> str:
-            row = store.one("INSERT INTO mock_crm (object_type, properties, associations) VALUES (%s, %s, %s) RETURNING id", (object_type, props, associations))
+            row = store.one(
+                "INSERT INTO mock_crm (object_type, properties, associations) VALUES (%s, %s, %s) RETURNING id",
+                (object_type, props, associations),
+            )
             assert row is not None
             return str(row["id"])
 
         def update(object_type: str, object_id: str, props: dict[str, Any]) -> bool:
-            return store.run("UPDATE mock_crm SET properties = properties || %s, updated_at = now() WHERE id = %s AND object_type = %s", (props, int(object_id), object_type)) > 0
+            return (
+                store.run(
+                    "UPDATE mock_crm SET properties = properties || %s, updated_at = now() WHERE id = %s AND object_type = %s",
+                    (props, int(object_id), object_type),
+                )
+                > 0
+            )
 
         def find(object_type: str, prop: str, value: str) -> str | None:
-            row = store.one("SELECT id FROM mock_crm WHERE object_type = %s AND lower(properties->>%s) = lower(%s) ORDER BY id LIMIT 1", (object_type, prop, value))
+            row = store.one(
+                "SELECT id FROM mock_crm WHERE object_type = %s AND lower(properties->>%s) = lower(%s) ORDER BY id LIMIT 1",
+                (object_type, prop, value),
+            )
             return str(row["id"]) if row else None
 
         def associate(from_type: str, from_id: str, to_type: str, to_id: str) -> None:
-            store.run("UPDATE mock_crm SET associations = associations || %s WHERE id = %s", ([{"to": {"id": to_id}, "type": to_type}], int(from_id)))
+            store.run(
+                "UPDATE mock_crm SET associations = associations || %s WHERE id = %s",
+                ([{"to": {"id": to_id}, "type": to_type}], int(from_id)),
+            )
 
         return MockHubSpot(insert=insert, update=update, find=find, associate=associate)
 
@@ -725,7 +928,11 @@ class Scout:
             contact = acc["contact"] or {}
             name = str(contact.get("name") or "")
             first, _, last = name.partition(" ")
-            contact_id = client.upsert_contact(contact_email, {"firstname": first, "lastname": last, "jobtitle": contact.get("title") or ""}, company_id)
+            contact_id = client.upsert_contact(
+                contact_email,
+                {"firstname": first, "lastname": last, "jobtitle": contact.get("title") or ""},
+                company_id,
+            )
             self._link("contact", contact_email, contact_id)
         return client, company_id, contact_id
 
@@ -741,7 +948,14 @@ class Scout:
             if ids:
                 client, company_id, contact_id = ids
                 assert contact_id is not None
-                email_id = client.log_email(contact_id=contact_id, company_id=company_id, subject=msg["subject"], text=msg["body"], direction="EMAIL", when=when)
+                email_id = client.log_email(
+                    contact_id=contact_id,
+                    company_id=company_id,
+                    subject=msg["subject"],
+                    text=msg["body"],
+                    direction="EMAIL",
+                    when=when,
+                )
                 self._link("email", str(msg["id"]), email_id)
         except CRMError as exc:
             self.store.audit(SYSTEM, "crm.error", "message", msg["id"], {"error": str(exc)[:200]})
@@ -752,7 +966,14 @@ class Scout:
             if ids:
                 client, company_id, contact_id = ids
                 assert contact_id is not None
-                client.log_email(contact_id=contact_id, company_id=company_id, subject=reply["subject"], text=f"[{label}] {reply['body'] or ''}", direction="INCOMING_EMAIL", when=reply["received_at"])
+                client.log_email(
+                    contact_id=contact_id,
+                    company_id=company_id,
+                    subject=reply["subject"],
+                    text=f"[{label}] {reply['body'] or ''}",
+                    direction="INCOMING_EMAIL",
+                    when=reply["received_at"],
+                )
         except CRMError as exc:
             self.store.audit(SYSTEM, "crm.error", "reply", reply["id"], {"error": str(exc)[:200]})
 
@@ -762,7 +983,9 @@ class Scout:
             if not ids:
                 return []
             client, company_id, contact_id = ids
-            existing = self.store.one("SELECT crm_id FROM crm_links WHERE object_type = 'deal' AND local_ref = %s", (str(account_id),))
+            existing = self.store.one(
+                "SELECT crm_id FROM crm_links WHERE object_type = 'deal' AND local_ref = %s", (str(account_id),)
+            )
             if existing:
                 return [f"CRM deal {existing['crm_id']} already open"]
             stage = "appointmentscheduled" if label == "meeting_request" else "qualifiedtobuy"
@@ -779,22 +1002,82 @@ class Scout:
         buffer = io.StringIO()
         writer = csv.writer(buffer)
         if kind == "accounts":
-            writer.writerow(["domain", "name", "route", "score", "status", "do_not_contact", "contact_name", "contact_title", "contact_email", "top_signals"])
+            writer.writerow(
+                [
+                    "domain",
+                    "name",
+                    "route",
+                    "score",
+                    "status",
+                    "do_not_contact",
+                    "contact_name",
+                    "contact_title",
+                    "contact_email",
+                    "top_signals",
+                ]
+            )
             for r in self.store.all("SELECT * FROM accounts ORDER BY score DESC NULLS LAST, id"):
                 contact = r["contact"] or {}
                 signals = [s for s in ((r["profile"] or {}).get("signals") or []) if s.get("current")]
-                writer.writerow([r["domain"], r["name"], r["route"], r["score"], r["status"], r["do_not_contact"], contact.get("name"), contact.get("title"), contact.get("email"), "; ".join(f"{s['type']}: {s.get('detail') or ''}" for s in signals)])
+                writer.writerow(
+                    [
+                        r["domain"],
+                        r["name"],
+                        r["route"],
+                        r["score"],
+                        r["status"],
+                        r["do_not_contact"],
+                        contact.get("name"),
+                        contact.get("title"),
+                        contact.get("email"),
+                        "; ".join(f"{s['type']}: {s.get('detail') or ''}" for s in signals),
+                    ]
+                )
         elif kind == "contacts":
             writer.writerow(["domain", "name", "title", "email", "persona", "source", "suppressed"])
             for r in self.store.all("SELECT domain, contact FROM accounts WHERE contact IS NOT NULL ORDER BY id"):
                 c = r["contact"]
-                writer.writerow([r["domain"], c["name"], c["title"], c["email"], c["persona"], c["source"], bool(self.store.suppressed(c["email"] or ""))])
+                writer.writerow(
+                    [
+                        r["domain"],
+                        c["name"],
+                        c["title"],
+                        c["email"],
+                        c["persona"],
+                        c["source"],
+                        bool(self.store.suppressed(c["email"] or "")),
+                    ]
+                )
         elif kind == "activities":
             writer.writerow(["time", "type", "domain", "email", "step_or_label", "subject", "status"])
-            for r in self.store.all("SELECT m.*, a.domain FROM messages m JOIN accounts a ON a.id = m.account_id ORDER BY m.scheduled_at"):
-                writer.writerow([(r["sent_at"] or r["scheduled_at"]).isoformat(), "email", r["domain"], r["to_email"], r["step"], r["subject"], r["status"]])
-            for r in self.store.all("SELECT r.*, a.domain FROM replies r LEFT JOIN accounts a ON a.id = r.account_id ORDER BY r.received_at"):
-                writer.writerow([r["received_at"].isoformat(), "reply", r["domain"], r["from_email"], r["label"], r["subject"], "received"])
+            for r in self.store.all(
+                "SELECT m.*, a.domain FROM messages m JOIN accounts a ON a.id = m.account_id ORDER BY m.scheduled_at"
+            ):
+                writer.writerow(
+                    [
+                        (r["sent_at"] or r["scheduled_at"]).isoformat(),
+                        "email",
+                        r["domain"],
+                        r["to_email"],
+                        r["step"],
+                        r["subject"],
+                        r["status"],
+                    ]
+                )
+            for r in self.store.all(
+                "SELECT r.*, a.domain FROM replies r LEFT JOIN accounts a ON a.id = r.account_id ORDER BY r.received_at"
+            ):
+                writer.writerow(
+                    [
+                        r["received_at"].isoformat(),
+                        "reply",
+                        r["domain"],
+                        r["from_email"],
+                        r["label"],
+                        r["subject"],
+                        "received",
+                    ]
+                )
         else:
             raise ScoutError(f"unknown export {kind!r} (accounts, contacts, activities)")
         return buffer.getvalue()

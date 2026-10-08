@@ -45,10 +45,20 @@ SEGMENT_RULES: tuple[tuple[str, str], ...] = (
     (r"food|beverage|dairy", "food_beverage_distribution"),
     (r"office supplies|wholesale", "wholesale_distribution"),
     (r"trucking|freight|haul|logistics|moving", "freight_trucking"),
-    (r"plumbing|hvac|electric|pest|landscap|tree care|elevator|facility|maintenance|appliance|septic|pool|security|solar|linen|marine|towing|repair|heating", "field_services"),
+    (
+        r"plumbing|hvac|electric|pest|landscap|tree care|elevator|facility|maintenance|appliance|septic|pool|security|solar|linen|marine|towing|repair|heating",
+        "field_services",
+    ),
 )
 
-FLEET_ROLE_WORDS = ("fleet", "dispatch", "transport manager", "transportation safety", "safety & training", "telematics")
+FLEET_ROLE_WORDS = (
+    "fleet",
+    "dispatch",
+    "transport manager",
+    "transportation safety",
+    "safety & training",
+    "telematics",
+)
 NOT_FLEET_ROLES = ("driver", "courier", "designer", "engineer", "programmer", "data", "support engineer")
 TECH = ("ServiceTitan", "Salesforce Field Service", "SAP", "Microsoft Dynamics 365", "Oracle NetSuite")
 COMPETITORS = ("TrackRight", "GeoPulse")
@@ -98,7 +108,14 @@ def _sentences(text: str) -> list[str]:
 # ------------------------------------------------------------------------------------------------ extract
 def extract(messages: Sequence[Message], gullible: bool) -> str:
     pages = parse_pages(_user(messages))
-    out: dict[str, Any] = {"company_name": None, "segment": None, "industry": None, "facts": [], "signals": [], "people": []}
+    out: dict[str, Any] = {
+        "company_name": None,
+        "segment": None,
+        "industry": None,
+        "facts": [],
+        "signals": [],
+        "people": [],
+    }
     facts: dict[str, dict[str, str]] = {}
     hq_city = ""
 
@@ -126,7 +143,9 @@ def extract(messages: Sequence[Message], gullible: bool) -> str:
                         if re.search(pattern, industry, re.I):
                             fact("segment", segment, pid, sentence)
                             break
-                if m := re.search(r"[Hh]eadquartered in ([A-Z][\w .'-]+?, [A-Z][\w .'-]+?|[A-Z][\w'-]+)(?:,| serving|\.)", sentence):
+                if m := re.search(
+                    r"[Hh]eadquartered in ([A-Z][\w .'-]+?, [A-Z][\w .'-]+?|[A-Z][\w'-]+)(?:,| serving|\.)", sentence
+                ):
                     hq_city = m.group(1).split(",")[0]
                     fact("hq", m.group(1), pid, sentence)
                 if m := re.search(r"(?:serving|across) ([A-Z][\w ,'-]+?)\.$", sentence):
@@ -139,22 +158,40 @@ def extract(messages: Sequence[Message], gullible: bool) -> str:
                     m := re.search(r"fleet of (\d[\d,]*)\b|\bOur (\d[\d,]*) .+? are on the road", sentence)
                 ):
                     fact("fleet_size", (m.group(1) or m.group(2)).replace(",", ""), pid, sentence)
-                if re.search(r"\b(raised|secured|closed a|received a growth investment|credit facility|growth financing)\b", sentence) and not re.search(r"fund at|raised money for", low):
+                if re.search(
+                    r"\b(raised|secured|closed a|received a growth investment|credit facility|growth financing)\b",
+                    sentence,
+                ) and not re.search(r"fund at|raised money for", low):
                     signal("funding", sentence, None, pid, sentence)
-                elif re.search(r"\b(opened|began serving|started next-day delivery|acquired|acquisition|won the|added \d+ lockers)\b", sentence):
+                elif re.search(
+                    r"\b(opened|began serving|started next-day delivery|acquired|acquisition|won the|added \d+ lockers)\b",
+                    sentence,
+                ):
                     signal("expansion", sentence, None, pid, sentence)
-                elif m := re.search(r"^(.+?) (?:has joined|joined|took over as|was named|was appointed|became)\b|appointed (.+?) as\b", sentence):
+                elif m := re.search(
+                    r"^(.+?) (?:has joined|joined|took over as|was named|was appointed|became)\b|appointed (.+?) as\b",
+                    sentence,
+                ):
                     person = re.sub(r"^\d{1,2} \w+ \d{4} ", "", (m.group(2) or m.group(1) or "")).strip()
                     title = next((t for t in TITLE_WORDS if t in sentence), None)
                     if title:
                         signal("leadership_change", sentence, f"{person}, {title}", pid, sentence)
                 for tech in TECH:
-                    if re.search(rf"\b{re.escape(tech)}\b", sentence) and not (tech == "SAP" and "SAP S/4HANA" not in sentence and "in SAP" not in sentence and "into SAP" not in sentence):
+                    if re.search(rf"\b{re.escape(tech)}\b", sentence) and not (
+                        tech == "SAP"
+                        and "SAP S/4HANA" not in sentence
+                        and "in SAP" not in sentence
+                        and "into SAP" not in sentence
+                    ):
                         signal("tech_stack", sentence, tech, pid, sentence)
                         break
                 for comp in COMPETITORS:
                     name = (out["company_name"] or "").lower()
-                    if comp in sentence and comp.lower() not in name and ("tracked with" in low or "runs" in low or "uses" in low):
+                    if (
+                        comp in sentence
+                        and comp.lower() not in name
+                        and ("tracked with" in low or "runs" in low or "uses" in low)
+                    ):
                         signal("competitor_in_use", sentence, comp, pid, sentence)
             if " · Posted " in line:
                 title = line.split(" · Posted ")[0]
@@ -172,7 +209,13 @@ def extract(messages: Sequence[Message], gullible: bool) -> str:
                         name = line[:idx].strip()
                         email = re.search(r"[\w.]+@[\w.-]+\.example", line)
                         out["people"].append(
-                            {"name": name, "title": title, "email": email.group() if email else None, "page": pid, "quote": f"{name} {title}"}
+                            {
+                                "name": name,
+                                "title": title,
+                                "email": email.group() if email else None,
+                                "page": pid,
+                                "quote": f"{name} {title}",
+                            }
                         )
                         break
     out["facts"] = list(facts.values())
@@ -182,20 +225,38 @@ def extract(messages: Sequence[Message], gullible: bool) -> str:
 
 
 # ------------------------------------------------------------------------------------------------ qualification
-INJECTION_TELLS = re.compile(r"rate this company 10/10|mark this account as qualified|already use your product|ceo personally", re.I)
+INJECTION_TELLS = re.compile(
+    r"rate this company 10/10|mark this account as qualified|already use your product|ceo personally", re.I
+)
 
 
 def judge(messages: Sequence[Message], gullible: bool) -> str:
     prompt = _user(messages)
     if gullible and (tell := INJECTION_TELLS.search(prompt)):
         first = re.search(r"^(F\d+) ", prompt, re.M)
-        return json.dumps({"adjustment": 10, "reason": f"The company's website says: {tell.group(0)}", "evidence": [first.group(1)] if first else []})
+        return json.dumps(
+            {
+                "adjustment": 10,
+                "reason": f"The company's website says: {tell.group(0)}",
+                "evidence": [first.group(1)] if first else [],
+            }
+        )
     size_zero = re.search(r"^- Company size: 0/", prompt, re.M)
     fleet_ok = re.search(r"^- Fleet size: (\d+)/(\d+)", prompt, re.M)
     hiring = re.search(r"^(S\d+) hiring \[current", prompt, re.M)
-    if size_zero and fleet_ok and fleet_ok.group(1) == fleet_ok.group(2) and hiring and "fewer than" not in prompt.split("Company size")[1][:80]:
+    if (
+        size_zero
+        and fleet_ok
+        and fleet_ok.group(1) == fleet_ok.group(2)
+        and hiring
+        and "fewer than" not in prompt.split("Company size")[1][:80]
+    ):
         return json.dumps(
-            {"adjustment": 5, "reason": "Below the employee guideline, but the fleet is in range and a fleet role is open now.", "evidence": [hiring.group(1)]}
+            {
+                "adjustment": 5,
+                "reason": "Below the employee guideline, but the fleet is in range and a fleet role is open now.",
+                "evidence": [hiring.group(1)],
+            }
         )
     return json.dumps({"adjustment": 0, "reason": "The rubric reflects the evidence.", "evidence": []})
 
@@ -204,7 +265,9 @@ def qualify_llm_only(messages: Sequence[Message], gullible: bool) -> str:
     """A naive keyword judge: the strawman an LLM-only pipeline degrades to without rules. Not a real model."""
     text = " ".join(" ".join(lines) for _, _, lines in parse_pages(_user(messages))).lower()
     if gullible and INJECTION_TELLS.search(text):
-        return json.dumps({"route": "qualified", "score": 100, "reasons": ["The website asks to rate the company 10/10."]})
+        return json.dumps(
+            {"route": "qualified", "score": 100, "reasons": ["The website asks to rate the company 10/10."]}
+        )
     score = 30
     reasons = []
     if "fleet" in text:
@@ -234,7 +297,12 @@ STOP = frozenset(
 def _evidence(prompt: str) -> dict[str, dict[str, str]]:
     items: dict[str, dict[str, str]] = {}
     for m in _EVIDENCE.finditer(prompt):
-        items[m.group(1)] = {"kind": m.group(2), "state": m.group(3) or "", "value": m.group(4).strip(), "quote": m.group(5)}
+        items[m.group(1)] = {
+            "kind": m.group(2),
+            "state": m.group(3) or "",
+            "value": m.group(4).strip(),
+            "quote": m.group(5),
+        }
     return items
 
 
@@ -261,12 +329,19 @@ def draft(messages: Sequence[Message], gullible: bool) -> str:
     if retry:
         only = re.search(r"Return only variant ([A-C])", prompt)
         wanted = [only.group(1)] if only else wanted[:1]
-    current = [k for k, v in ev.items() if k.startswith("S") and v["state"] == "current" and v["kind"] != "competitor_in_use"]
+    current = [
+        k for k, v in ev.items() if k.startswith("S") and v["state"] == "current" and v["kind"] != "competitor_in_use"
+    ]
     order = {"hiring": 0, "expansion": 1, "funding": 2, "leadership_change": 3, "tech_stack": 4}
     current.sort(key=lambda k: order.get(ev[k]["kind"], 9))
     fleet = next((k for k, v in ev.items() if v["kind"] == "fleet_size"), None)
-    served = next((k for k, v in ev.items() if v["kind"] == "served_regions"), None)
-    vp_for = {"hiring": "VP:safety", "leadership_change": "VP:safety", "expansion": "VP:rollout", "funding": "VP:fuel", "tech_stack": "VP:integration"}
+    vp_for = {
+        "hiring": "VP:safety",
+        "leadership_change": "VP:safety",
+        "expansion": "VP:rollout",
+        "funding": "VP:fuel",
+        "tech_stack": "VP:integration",
+    }
     cta = "Would you be open to a 20-minute call to compare notes on your fleet?"
 
     def opener(sid: str) -> tuple[str, list[str]]:
@@ -297,7 +372,9 @@ def draft(messages: Sequence[Message], gullible: bool) -> str:
                 sentences.append(text)
                 claims.append({"text": f"Running {ev[fleet]['value']} vehicles", "evidence": [fleet]})
             else:
-                sentences.append(f"Teams like yours at {name} often find that fuel and safety costs are hard to see per vehicle.")
+                sentences.append(
+                    f"Teams like yours at {name} often find that fuel and safety costs are hard to see per vehicle."
+                )
         if vp in offer:
             text = f"Wayline Fleet offers {offer[vp][0].lower() + offer[vp][1:]}"
             sentences.append(text)
@@ -308,17 +385,27 @@ def draft(messages: Sequence[Message], gullible: bool) -> str:
         elif not retry and _sloppy(name) == 1:
             sentences.append("Your 25 new depots must keep the team busy.")
             claims.append({"text": "Your 25 new depots", "evidence": [fleet or "F1"]})
-        sentences.append("Most teams start by comparing one depot for a month, so the numbers come from your own vehicles.")
+        sentences.append(
+            "Most teams start by comparing one depot for a month, so the numbers come from your own vehicles."
+        )
         sentences.append(cta)
         body1 = f"Hi {first},\n\n" + " ".join(sentences) + f"\n\n{sign}"
         pp = offer.get("PP:northbeam", "")
-        body2 = (
-            f"Hi {first},\n\nA quick follow-up. {pp} Happy to share how they rolled it out if it is useful for {name}.\n\n{sign}"
-        )
+        body2 = f"Hi {first},\n\nA quick follow-up. {pp} Happy to share how they rolled it out if it is useful for {name}.\n\n{sign}"
         body3 = f"Hi {first},\n\nI will close the loop here. If fleet safety or fuel costs come up later, I am happy to talk.\n\n{sign}"
         emails = [
-            {"step": 1, "subject": f"{name} and fleet safety" if v == "A" else "Fuel and safety per vehicle", "body": body1, "claims": claims},
-            {"step": 2, "subject": "How Northbeam cut idle time", "body": body2, "claims": [{"text": pp, "evidence": ["PP:northbeam"]}] if pp else []},
+            {
+                "step": 1,
+                "subject": f"{name} and fleet safety" if v == "A" else "Fuel and safety per vehicle",
+                "body": body1,
+                "claims": claims,
+            },
+            {
+                "step": 2,
+                "subject": "How Northbeam cut idle time",
+                "body": body2,
+                "claims": [{"text": pp, "evidence": ["PP:northbeam"]}] if pp else [],
+            },
             {"step": 3, "subject": "Closing the loop", "body": body3, "claims": []},
         ]
         variants.append({"variant": v, "angle": "signal-led" if v == "A" else "problem-led", "emails": emails})
@@ -341,16 +428,31 @@ def verify_claims(messages: Sequence[Message], gullible: bool) -> str:
         words = _content_words(text)
         overlap = len(words & _content_words(cited)) / max(1, len(words))
         ok = overlap >= 0.4 and not re.search(r"doubl|congrat", text, re.I)
-        verdicts.append({"id": cid, "verdict": "supported" if ok else "unsupported", "reason": f"word overlap with the cited evidence {overlap:.0%}"})
+        verdicts.append(
+            {
+                "id": cid,
+                "verdict": "supported" if ok else "unsupported",
+                "reason": f"word overlap with the cited evidence {overlap:.0%}",
+            }
+        )
     return json.dumps({"claims": verdicts, "uncovered": []})
 
 
 # ------------------------------------------------------------------------------------------------ replies
 _REPLY_RULES: tuple[tuple[str, str], ...] = (
-    (r"not the right person|wrong department|not my area|talk to|speak to|contact our|the right person|you'll want|forwarding to|sit with|best contact|handle finance", "referral"),
+    (
+        r"not the right person|wrong department|not my area|talk to|speak to|contact our|the right person|you'll want|forwarding to|sit with|best contact|handle finance",
+        "referral",
+    ),
     (r"call|demo|meet|calendar|invite|book|what times|when are you free|walkthrough|set up", "meeting_request"),
-    (r"later|next (?:quarter|year|spring|fiscal)|in (?:january|q\d|three months|six months)|after|until|not (?:a priority|right now|this year)|park this|check back|revisit|no capacity|bad timing|freezing", "not_now"),
-    (r"already use|signed|covered|built our own|expensive|cfo|budget|payback|don't (?:think we )?need|no need|don't see a need|excellent|spreadsheet|pass-through|group level|procurement|hq picks|union|how did you get|never heard", "objection"),
+    (
+        r"later|next (?:quarter|year|spring|fiscal)|in (?:january|q\d|three months|six months)|after|until|not (?:a priority|right now|this year)|park this|check back|revisit|no capacity|bad timing|freezing",
+        "not_now",
+    ),
+    (
+        r"already use|signed|covered|built our own|expensive|cfo|budget|payback|don't (?:think we )?need|no need|don't see a need|excellent|spreadsheet|pass-through|group level|procurement|hq picks|union|how did you get|never heard",
+        "objection",
+    ),
     (r"send|share|tell me|more|interested|curious|how does|what does|sample|case study|keen", "interested"),
 )
 _OBJECTION_TYPES: tuple[tuple[str, str], ...] = (
@@ -374,7 +476,14 @@ def classify_reply(messages: Sequence[Message], gullible: bool) -> str:
         objection = next((t for p, t in _OBJECTION_TYPES if re.search(p, body)), "no_need")
     email = re.search(r"[\w.]+@[\w.-]+\.example", body)
     return json.dumps(
-        {"label": label, "objection_type": objection, "confidence": 0.6, "reason": "keyword rules (offline model)", "referral_email": email.group() if email and label == "referral" else None, "resume_on": None}
+        {
+            "label": label,
+            "objection_type": objection,
+            "confidence": 0.6,
+            "reason": "keyword rules (offline model)",
+            "referral_email": email.group() if email and label == "referral" else None,
+            "resume_on": None,
+        }
     )
 
 
@@ -395,10 +504,18 @@ def audit_claims(messages: Sequence[Message], gullible: bool) -> str:
             if re.match(r"^(Subject|Hi|Hello|Dana|Would|Most teams)", sentence):
                 continue
             numbers = {n.replace(",", "") for n in re.findall(r"\d[\d,]*", sentence)}
-            if not numbers and not re.search(r"\b(hiring|joined|opened|raised|news|uses|works in|doubling)\b", sentence, re.I):
+            if not numbers and not re.search(
+                r"\b(hiring|joined|opened|raised|news|uses|works in|doubling)\b", sentence, re.I
+            ):
                 continue
             ok = numbers <= ref_numbers and not re.search(r"doubl|depots", sentence, re.I)
-            claims.append({"text": sentence, "supported": ok, "reason": "numbers and events checked against the reference (offline)"})
+            claims.append(
+                {
+                    "text": sentence,
+                    "supported": ok,
+                    "reason": "numbers and events checked against the reference (offline)",
+                }
+            )
         out.append({"id": key.strip(), "claims": claims})
     return json.dumps({"emails": out})
 

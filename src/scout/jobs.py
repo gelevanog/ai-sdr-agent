@@ -50,7 +50,14 @@ def tick(scout: Scout, inbox: Path | None) -> dict[str, Any]:
     return out
 
 
-def work(scout: Scout, *, poll_seconds: float = 2.0, tick_seconds: float = 30.0, inbox: Path | None = None, once: bool = False) -> None:
+def work(
+    scout: Scout,
+    *,
+    poll_seconds: float = 2.0,
+    tick_seconds: float = 30.0,
+    inbox: Path | None = None,
+    once: bool = False,
+) -> None:
     last_tick = 0.0
     last_purge: dt.date | None = None
     log.info("worker.started", poll=poll_seconds, tick=tick_seconds)

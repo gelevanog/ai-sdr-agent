@@ -5,6 +5,7 @@ from __future__ import annotations
 import datetime as dt
 import time
 from dataclasses import dataclass, field
+from typing import Any
 
 from scout.icp import Config
 from scout.llm.base import ChatModel, LLMError, Message
@@ -26,7 +27,7 @@ class ResearchResult:
     guarded_pages: dict[str, ParsedPage] = field(default_factory=dict)
     """Page id -> the page text the model saw."""
     error: str | None = None
-    raw: dict[str, object] | None = None
+    raw: dict[str, Any] | None = None
     """The model's reply before validation (the evaluation measures citation validity on it)."""
 
 
@@ -47,7 +48,9 @@ def prepare_pages(crawl: CrawlResult, *, guard: bool) -> tuple[dict[str, ParsedP
     return pages, findings
 
 
-def complete_json(model: ChatModel, messages: list[Message], *, max_tokens: int, retries: int = 1) -> tuple[dict[str, object], int]:
+def complete_json(
+    model: ChatModel, messages: list[Message], *, max_tokens: int, retries: int = 1
+) -> tuple[dict[str, Any], int]:
     """One model call, plus one repair request if the reply is not a JSON object. Returns (data, calls)."""
     calls = 0
     convo = list(messages)
@@ -62,7 +65,10 @@ def complete_json(model: ChatModel, messages: list[Message], *, max_tokens: int,
             convo = [
                 *messages,
                 {"role": "assistant", "content": completion.text[:4000]},
-                {"role": "user", "content": "That was not a single valid JSON object. Reply again with the JSON object only."},
+                {
+                    "role": "user",
+                    "content": "That was not a single valid JSON object. Reply again with the JSON object only.",
+                },
             ]
     raise LLMError(f"no valid JSON after {calls} attempts: {last_error}")
 
@@ -76,7 +82,7 @@ def research_account(
     today: dt.date,
     guard: bool = True,
     live: bool = False,
-    max_tokens: int = 6000,
+    max_tokens: int = 16000,
 ) -> ResearchResult:
     started = time.monotonic()
     crawl = crawler.crawl(url)
@@ -91,7 +97,8 @@ def research_account(
         model=model.label,
         researched_at=dt.datetime.now(dt.UTC),
         pages=[
-            PageRef(url=p.url, title=p.parsed.title, page_date=p.parsed.page_date, fetched_at=p.fetched_at) for p in crawl.pages
+            PageRef(url=p.url, title=p.parsed.title, page_date=p.parsed.page_date, fetched_at=p.fetched_at)
+            for p in crawl.pages
         ],
     )
     if not crawl.pages:

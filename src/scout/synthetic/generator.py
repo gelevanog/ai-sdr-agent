@@ -17,7 +17,7 @@ import unicodedata
 from dataclasses import dataclass, field
 from pathlib import Path
 
-from scout.synthetic import content as C
+from scout.synthetic import content as C  # noqa: N812 - short alias for the wording pools
 from scout.synthetic.spec import CompanySpec, SpecSignal
 
 REFERENCE_DATE = dt.date(2026, 10, 1)
@@ -129,7 +129,9 @@ class _Writer:
     # ------------------------------------------------------------------ pages
     def about(self) -> str:
         s = self.spec
-        tagline = self.rng.choice(C.TAGLINES["fleet" if self.fleet else "other"]).format(served=s.served, founded=s.founded)
+        tagline = self.rng.choice(C.TAGLINES["fleet" if self.fleet else "other"]).format(
+            served=s.served, founded=s.founded
+        )
         intro_options = [
             f"{s.name} is a {s.industry} company headquartered in {s.hq}, serving {s.served}.",
             f"Headquartered in {s.hq}, {s.name} provides {s.industry} to customers across {s.served}.",
@@ -180,7 +182,11 @@ class _Writer:
         return self._layout("services", "Services", "\n".join(body))
 
     def pricing(self) -> str:
-        kind = "fleet" if self.fleet else ("software" if self.spec.segment in {"software", "telematics_vendor"} else "other")
+        kind = (
+            "fleet"
+            if self.fleet
+            else ("software" if self.spec.segment in {"software", "telematics_vendor"} else "other")
+        )
         lines = C.PRICING[kind]
         body = "<ul>" + "".join(f"<li>{_e(line)}</li>" for line in lines) + "</ul>"
         return self._layout("pricing", "Pricing", body)
@@ -270,16 +276,26 @@ class _Writer:
                     return name
             raise RuntimeError("name pool exhausted")
 
-        leaders = {sig.title: sig.person for sig in s.signals if sig.type == "leadership_change" and sig.person}
+        leaders: dict[str, str] = {
+            sig.title: sig.person for sig in s.signals if sig.type == "leadership_change" and sig.person and sig.title
+        }
         hiring = " ".join((sig.title or sig.text).lower() for sig in s.signals if sig.type == "hiring" and sig.current)
         roles: list[tuple[str, float]] = []
-        ceo_title = "Managing Director" if s.country in {"DE", "AT", "GB"} and self.rng.random() < 0.5 else "Chief Executive Officer"
+        ceo_title = (
+            "Managing Director"
+            if s.country in {"DE", "AT", "GB"} and self.rng.random() < 0.5
+            else "Chief Executive Officer"
+        )
         roles.append((ceo_title, 0.5))
         if self.fleet:
-            ops = self.rng.choice(["VP Operations", "Director of Operations", "Chief Operating Officer", "Operations Director"])
+            ops = self.rng.choice(
+                ["VP Operations", "Director of Operations", "Chief Operating Officer", "Operations Director"]
+            )
             roles.append((ops, 0.85))
             fleet_leader_hired = any("fleet" in t.lower() for t in leaders)
-            if not fleet_leader_hired and not any(k in hiring for k in ("fleet manager", "head of fleet", "transport manager")):
+            if not fleet_leader_hired and not any(
+                k in hiring for k in ("fleet manager", "head of fleet", "transport manager")
+            ):
                 roles.append((self.rng.choice(["Fleet Manager", "Head of Fleet", "Fleet Operations Manager"]), 0.85))
             if s.segment in {"passenger_transport", "freight_trucking", "waste_management"}:
                 roles.append(("Safety Director", 0.6))
@@ -291,9 +307,15 @@ class _Writer:
         for title, p_email in roles:
             name = None
             for leader_title, leader in leaders.items():
-                same_seat = leader_title == title or (
-                    leader_title in {"Chief Operating Officer", "Director of Operations"} and title in {"VP Operations", "Director of Operations", "Chief Operating Officer", "Operations Director"}
-                ) or (leader_title in {"Chief Executive Officer", "Managing Director"} and title == ceo_title)
+                same_seat = (
+                    leader_title == title
+                    or (
+                        leader_title in {"Chief Operating Officer", "Director of Operations"}
+                        and title
+                        in {"VP Operations", "Director of Operations", "Chief Operating Officer", "Operations Director"}
+                    )
+                    or (leader_title in {"Chief Executive Officer", "Managing Director"} and title == ceo_title)
+                )
                 if same_seat and leader_title not in replaced:
                     name, title = leader, leader_title
                     replaced.add(leader_title)
@@ -363,7 +385,9 @@ def write_web(specs: list[CompanySpec], out_dir: Path, seed: int) -> dict[str, s
         for name, text in files.items():
             (root / name).write_text(text, encoding="utf-8")
             manifest[f"{spec.domain}/{name}"] = hashlib.sha256(text.encode("utf-8")).hexdigest()
-        index_links.append(f'<li><a href="{spec.domain}/index.html">{_e(spec.name)}</a> <code>{spec.domain}</code></li>')
+        index_links.append(
+            f'<li><a href="{spec.domain}/index.html">{_e(spec.name)}</a> <code>{spec.domain}</code></li>'
+        )
     (out_dir / "index.html").write_text(
         "<!doctype html><html><head><meta charset='utf-8'><title>Scout synthetic web</title></head><body>"
         "<h1>Scout synthetic web</h1><p>Fictional companies generated by <code>scout seed</code>. Nothing here is a "

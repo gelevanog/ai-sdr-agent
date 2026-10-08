@@ -27,7 +27,11 @@ def list_free_models(settings: Settings) -> list[dict[str, Any]]:
     response = httpx.get(f"{settings.openrouter_base_url}/models", timeout=30)
     response.raise_for_status()
     models = [
-        {"id": m["id"], "context_length": m.get("context_length"), "structured_outputs": "response_format" in (m.get("supported_parameters") or [])}
+        {
+            "id": m["id"],
+            "context_length": m.get("context_length"),
+            "structured_outputs": "response_format" in (m.get("supported_parameters") or []),
+        }
         for m in response.json()["data"]
         if str(m["id"]).endswith(":free")
     ]
@@ -43,11 +47,21 @@ def smoke(settings: Settings, models: list[str]) -> None:
     crawler = Crawler(FileFetcher(settings.synthetic_web_dir), user_agent=settings.crawl_user_agent)
     results = []
     for model_id in models:
-        model = budgeted(build_chat_model(settings, provider="openrouter", model=model_id, fallback_models=[]), settings, tag=f"smoke:{model_id}")
+        model = budgeted(
+            build_chat_model(settings, provider="openrouter", model=model_id, fallback_models=[]),
+            settings,
+            tag=f"smoke:{model_id}",
+        )
         row: dict[str, Any] = {"model": model_id}
         t0 = time.monotonic()
         try:
-            res = research_account("https://brightwater-fs.example/", crawler=crawler, model=model, config=config, today=settings.research_today())
+            res = research_account(
+                "https://brightwater-fs.example/",
+                crawler=crawler,
+                model=model,
+                config=config,
+                today=settings.research_today(),
+            )
             p = res.profile
             row["extract"] = {
                 "ok": res.error is None,
@@ -61,13 +75,27 @@ def smoke(settings: Settings, models: list[str]) -> None:
             row["extract"] = {"ok": False, "error": str(exc)[:200]}
         t1 = time.monotonic()
         try:
-            label, _ = classify_reply("Re: fleet", "We already use TrackRight and we're happy with it.", "p@x.example", model=model, seller="Wayline", today=settings.research_today())
-            row["classify"] = {"label": label.label, "objection": label.objection_type, "seconds": round(time.monotonic() - t1, 1)}
+            label, _ = classify_reply(
+                "Re: fleet",
+                "We already use TrackRight and we're happy with it.",
+                "p@x.example",
+                model=model,
+                seller="Wayline",
+                today=settings.research_today(),
+            )
+            row["classify"] = {
+                "label": label.label,
+                "objection": label.objection_type,
+                "seconds": round(time.monotonic() - t1, 1),
+            }
         except LLMError as exc:
             row["classify"] = {"error": str(exc)[:200]}
         console.print(row)
         results.append(row)
     path = settings.results_dir / "smoke.json"
     previous = json.loads(path.read_text(encoding="utf-8")).get("runs", []) if path.exists() else []
-    path.write_text(json.dumps({"runs": [*previous, {"date": dt.date.today().isoformat(), "results": results}]}, indent=1), encoding="utf-8")
+    path.write_text(
+        json.dumps({"runs": [*previous, {"date": dt.date.today().isoformat(), "results": results}]}, indent=1),
+        encoding="utf-8",
+    )
     console.print(f"wrote {Path(path)}")

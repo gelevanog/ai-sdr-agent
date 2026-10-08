@@ -61,7 +61,9 @@ def select_contact(
             if persona is None:
                 notes.append(f"{cc.name} ({cc.title}): not a target persona")
                 continue
-            contact = Contact(name=cc.name, title=cc.title, email=cc.email.lower(), persona=persona, source="client_list")
+            contact = Contact(
+                name=cc.name, title=cc.title, email=cc.email.lower(), persona=persona, source="client_list"
+            )
             candidates.append((order[persona], contact))
     else:
         for person in profile.people:
@@ -72,7 +74,12 @@ def select_contact(
                 notes.append(f"{person.name} ({person.title}): no published email address; not guessed")
                 continue
             contact = Contact(
-                name=person.name, title=person.title, email=person.email, persona=persona, source="team_page", citation=person.citation
+                name=person.name,
+                title=person.title,
+                email=person.email,
+                persona=persona,
+                source="team_page",
+                citation=person.citation,
             )
             candidates.append((order[persona], contact))
     for _, contact in sorted(candidates, key=lambda item: item[0]):
@@ -84,5 +91,9 @@ def select_contact(
     if any("team" in url and reason == "robots.txt" for url, reason in profile.skipped):
         notes.append("the team page is disallowed by robots.txt, so it was not read; ask the client for a contact")
     if not candidates:
-        notes.append("no person on the site matches a target persona" if profile.mode == "synthetic" else "no client-supplied contact for this domain")
+        notes.append(
+            "no person on the site matches a target persona"
+            if profile.mode == "synthetic"
+            else "no client-supplied contact for this domain"
+        )
     return Selection(contact=None, notes=notes)

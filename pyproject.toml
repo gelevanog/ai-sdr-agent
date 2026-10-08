@@ -50,11 +50,11 @@ src = ["src", "tests"]
 
 [tool.ruff.lint]
 select = ["E", "W", "F", "I", "B", "UP", "SIM", "RUF", "PTH", "N", "C4", "PIE", "RET", "TC", "S608"]
-ignore = ["TC001", "TC002", "TC003", "RUF001", "RUF002", "RUF003", "SIM905"]
+# E501: `ruff format` owns line length; what it cannot wrap are long SQL, regex and prompt strings, kept intact on purpose.
+ignore = ["E501", "TC001", "TC002", "TC003", "RUF001", "RUF002", "RUF003", "SIM905"]
 
 [tool.ruff.lint.per-file-ignores]
 "tests/**" = ["S608"]
-"src/scout/synthetic/content.py" = ["E501"]
 
 [tool.ruff.lint.flake8-bugbear]
 extend-immutable-calls = ["fastapi.Depends", "fastapi.Header", "fastapi.Query", "fastapi.Body", "typer.Option", "typer.Argument"]

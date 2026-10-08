@@ -147,7 +147,7 @@ class BudgetedModel:
         cache: DiskCache | None,
         throttle: Throttle | None,
         max_retries: int = 4,
-        retry_base_seconds: float = 5.0,
+        retry_base_seconds: float = 8.0,
         tag: str = "",
         policy_fallback: ChatModel | None = None,
     ) -> None:

@@ -33,7 +33,7 @@ from scout.eval import judges
 from scout.eval.metrics import accuracy, confusion, counts, macro_f1, per_class, percentile, prf, rate
 from scout.icp import Config, load_config
 from scout.llm.base import ChatModel, Completion, Message
-from scout.llm.factory import build_chat_model, budgeted
+from scout.llm.factory import budgeted, build_chat_model
 from scout.models import REPLY_LABELS, Claim, CompanyProfile, Contact, DraftVariant, Email
 from scout.outreach.checker import build_evidence, deterministic_check, llm_verify
 from scout.qualify.judge import apply_judgment, qualify_llm_only
@@ -105,7 +105,11 @@ def _settings(provider: str | None, model: str | None, fallbacks: list[str]) -> 
 def _judge_model(settings: Settings, tag: str) -> ChatModel:
     if settings.llm_provider == "fake":
         return build_chat_model(settings)
-    return budgeted(build_chat_model(settings, provider="openrouter", model=settings.judge_model, fallback_models=[]), settings, tag=tag)
+    return budgeted(
+        build_chat_model(settings, provider="openrouter", model=settings.judge_model, fallback_models=[]),
+        settings,
+        tag=tag,
+    )
 
 
 def _write(name: str, suite: str, data: dict[str, Any], settings: Settings) -> Path:
@@ -131,7 +135,9 @@ def _signal_matches(gold: SpecSignal, sig: dict[str, Any]) -> bool:
             return True
     gt = normalize(gold.text)
     quote = normalize(str(sig.get("quote") or ""))
-    return bool(quote) and (quote in gt or gt in quote or len(set(quote.split()) & set(gt.split())) >= max(4, len(gt.split()) // 2))
+    return bool(quote) and (
+        quote in gt or gt in quote or len(set(quote.split()) & set(gt.split())) >= max(4, len(gt.split()) // 2)
+    )
 
 
 def signal_scores(specs: list[CompanySpec], extracted: dict[str, list[dict[str, Any]]]) -> dict[str, Any]:
@@ -177,7 +183,9 @@ def _firmographics(spec: CompanySpec, profile: CompanyProfile) -> dict[str, bool
     emp = profile.number("employees")
     out["employees"] = emp == spec.employees if emp is not None else None
     fleet = profile.number("fleet_size")
-    out["fleet_size"] = (fleet == spec.fleet_size) if fleet is not None else (None if spec.fleet_size is None else False)
+    out["fleet_size"] = (
+        (fleet == spec.fleet_size) if fleet is not None else (None if spec.fleet_size is None else False)
+    )
     country = profile.fact("country")
     out["country"] = (country.value == spec.country) if country else None
     out["segment"] = profile.segment == spec.segment if profile.segment else None
@@ -213,7 +221,7 @@ def run_accounts(settings: Settings, name: str, *, subset: bool, limit: int) -> 
         id_url = {pid: p.url for pid, p in result.guarded_pages.items()}
         raw = result.raw or {}
         for kind in ("facts", "signals", "people"):
-            for item in raw.get(kind) or []:  # type: ignore[union-attr]
+            for item in raw.get(kind) or []:
                 if not isinstance(item, dict) or not item.get("quote"):
                     continue
                 raw_items += 1
@@ -224,14 +232,22 @@ def run_accounts(settings: Settings, name: str, *, subset: bool, limit: int) -> 
                     raw_elsewhere += 1
                 else:
                     raw_nowhere += 1
-        facts_emitted += len([f for f in raw.get("facts") or [] if isinstance(f, dict)])  # type: ignore[union-attr]
+        facts_emitted += len([f for f in raw.get("facts") or [] if isinstance(f, dict)])
         facts_kept += len(profile.facts)
         t1 = time.monotonic()
         q = scout.qualify(account_id)
         t_qualify = time.monotonic() - t1
         rules_only = score_rules(profile, config)
         extracted[spec.domain] = [
-            {"type": s.type, "detail": s.detail, "summary": s.summary, "quote": s.citation.quote, "current": s.current, "date": s.date, "url": s.citation.url}
+            {
+                "type": s.type,
+                "detail": s.detail,
+                "summary": s.summary,
+                "quote": s.citation.quote,
+                "current": s.current,
+                "date": s.date,
+                "url": s.citation.url,
+            }
             for s in profile.signals
         ]
         calls = {k: tally[k] - before.get(k, 0) for k in tally if tally[k] - before.get(k, 0)}
@@ -260,7 +276,9 @@ def run_accounts(settings: Settings, name: str, *, subset: bool, limit: int) -> 
                 "error": result.error,
             }
         )
-        console.print(f"{spec.domain:38} gold={spec.label:12} route={q.route:12} score={q.score:3} signals={len(profile.signals)} calls={sum(calls.values())}")
+        console.print(
+            f"{spec.domain:38} gold={spec.label:12} route={q.route:12} score={q.score:3} signals={len(profile.signals)} calls={sum(calls.values())}"
+        )
     signals = signal_scores(wanted, extracted)
     gold = [r["gold"] for r in rows]
     pred = [r["route"] for r in rows]
@@ -291,7 +309,9 @@ def run_accounts(settings: Settings, name: str, *, subset: bool, limit: int) -> 
                 "emitted": facts_emitted,
                 "kept": facts_kept,
                 "rejected_rate": rate(facts_emitted - facts_kept, facts_emitted),
-                "hallucinated_fact_rate_after_validation": rate(sum(v[1] for v in firm.values()), sum(v[0] + v[1] for v in firm.values())),
+                "hallucinated_fact_rate_after_validation": rate(
+                    sum(v[1] for v in firm.values()), sum(v[0] + v[1] for v in firm.values())
+                ),
             },
             "firmographics": {k: {"correct": v[0], "wrong": v[1], "missing": v[2]} for k, v in firm.items()},
             "injection_findings": sum(len(r["injection_findings"]) for r in rows),
@@ -304,12 +324,22 @@ def run_accounts(settings: Settings, name: str, *, subset: bool, limit: int) -> 
                 sum(1 for g, p in zip(gold, pred, strict=True) if g != "qualified" and p == "qualified"),
                 sum(1 for g, p in zip(gold, pred, strict=True) if g == "qualified" and p != "qualified"),
             ),
-            "qualified_vs_not_accuracy": accuracy(qualified_gold, ["qualified" if p == "qualified" else "not" for p in pred]),
+            "qualified_vs_not_accuracy": accuracy(
+                qualified_gold, ["qualified" if p == "qualified" else "not" for p in pred]
+            ),
             "confusion": confusion(gold, pred, ROUTES),
             "rules_only_confusion": confusion(gold, rules_pred, ROUTES),
-            "llm_adjustments": [f"{r['domain']}: {r['llm_adjustment']:+d} ({r['rules_route']} -> {r['route']}) {r['llm_reason'][:140]}" for r in rows if r["llm_adjustment"]],
+            "llm_adjustments": [
+                f"{r['domain']}: {r['llm_adjustment']:+d} ({r['rules_route']} -> {r['route']}) {r['llm_reason'][:140]}"
+                for r in rows
+                if r["llm_adjustment"]
+            ],
             "traps": dict(traps),
-            "errors": [f"{r['domain']}: gold {r['gold']}, got {r['route']} (score {r['score']}; {'; '.join(r['disqualifiers'])})" for r in rows if r["gold"] != r["route"]],
+            "errors": [
+                f"{r['domain']}: gold {r['gold']}, got {r['route']} (score {r['score']}; {'; '.join(r['disqualifiers'])})"
+                for r in rows
+                if r["gold"] != r["route"]
+            ],
         },
         "latency": {
             "research_p50": percentile([r["research_seconds"] for r in rows], 0.5),
@@ -336,7 +366,9 @@ def run_drafts(settings: Settings, name: str, *, no_checker: bool, limit: int, s
     scout = EvalScout(settings, store, tally)
     specs = {s.domain: s for s in load_specs(settings.companies_file)}
     config = scout.config
-    accounts = store.all("SELECT id, domain, name, contact FROM accounts WHERE route = 'qualified' ORDER BY score DESC, id")
+    accounts = store.all(
+        "SELECT id, domain, name, contact FROM accounts WHERE route = 'qualified' ORDER BY score DESC, id"
+    )
     if subset:
         accounts = [a for a in accounts if a["domain"] in SUBSET]
     if limit:
@@ -362,11 +394,18 @@ def run_drafts(settings: Settings, name: str, *, no_checker: bool, limit: int, s
             emails_for_audit[f"{v.variant}-final"] = _email_text(v.emails[0])
             if f is not None and _email_text(f.emails[0]) != _email_text(v.emails[0]):
                 emails_for_audit[f"{v.variant}-first"] = _email_text(f.emails[0])
-        audit, _ = judges.audit_emails(judge, spec, config, emails_for_audit, today=settings.research_today().isoformat())
+        audit, _ = judges.audit_emails(
+            judge, spec, config, emails_for_audit, today=settings.research_today().isoformat()
+        )
         contact = Contact.model_validate(acc["contact"])
         baseline = judges.generic_template(contact.name.split()[0], acc["name"], config)
         pref, pref_reason, _ = judges.prefer(
-            judge, company=acc["name"], title=contact.title, scout_email=variants[0].emails[0].body, baseline_email=baseline, key=acc["domain"]
+            judge,
+            company=acc["name"],
+            title=contact.title,
+            scout_email=variants[0].emails[0].body,
+            baseline_email=baseline,
+            key=acc["domain"],
         )
         row = {
             "domain": acc["domain"],
@@ -390,10 +429,26 @@ def run_drafts(settings: Settings, name: str, *, no_checker: bool, limit: int, s
                     "final_claims": [c.model_dump() for e in v.emails for c in e.claims],
                     "first_passed": bool(first_report and first_report.passed),
                     "final_passed": bool(report and report.passed),
-                    "first_issues": [i.message for i in (first_report.issues if first_report else []) if i.severity == "block"],
+                    "first_issues": [
+                        i.message for i in (first_report.issues if first_report else []) if i.severity == "block"
+                    ],
                     "final_issues": [i.message for i in (report.issues if report else [])],
                     "spam_score": report.spam_score if report else None,
-                    "spam_issues": [i.kind for i in (report.issues if report else []) if i.kind in {"spam_word", "links", "caps", "exclamation", "banned_phrase", "placeholder", "length", "subject"}],
+                    "spam_issues": [
+                        i.kind
+                        for i in (report.issues if report else [])
+                        if i.kind
+                        in {
+                            "spam_word",
+                            "links",
+                            "caps",
+                            "exclamation",
+                            "banned_phrase",
+                            "placeholder",
+                            "length",
+                            "subject",
+                        }
+                    ],
                     "readability": report.readability if report else None,
                     "words": report.words if report else [],
                     "personalization": report.personalization if report else 0,
@@ -402,14 +457,20 @@ def run_drafts(settings: Settings, name: str, *, no_checker: bool, limit: int, s
                 }
             )
         rows.append(row)
-        console.print(f"{acc['domain']:38} variants={len(variants)} passed={[x['final_passed'] for x in row['variants']]} attempts={[x['attempts'] for x in row['variants']]} pref={pref}")
+        console.print(
+            f"{acc['domain']:38} variants={len(variants)} passed={[x['final_passed'] for x in row['variants']]} attempts={[x['attempts'] for x in row['variants']]} pref={pref}"
+        )
     ok_rows = [r for r in rows if "variants" in r]
     all_vars = [v for r in ok_rows for v in r["variants"]]
 
     def claim_stats(key: str) -> dict[str, Any]:
         claims = [c for v in all_vars for c in v[key]]
         unsupported = [c for c in claims if c["verdict"] == "unsupported"]
-        return {"claims": len(claims), "supported_by_checker": rate(len(claims) - len(unsupported), len(claims)), "unsupported": len(unsupported)}
+        return {
+            "claims": len(claims),
+            "supported_by_checker": rate(len(claims) - len(unsupported), len(claims)),
+            "unsupported": len(unsupported),
+        }
 
     def audit_stats(suffix: str) -> dict[str, Any]:
         total = bad = 0
@@ -423,8 +484,16 @@ def run_drafts(settings: Settings, name: str, *, no_checker: bool, limit: int, s
                     total += 1
                     if c.get("supported") is False:
                         bad += 1
-                        examples.append(f"{r['domain']} {key}: {str(c.get('text'))[:100]} ({str(c.get('reason'))[:80]})")
-        return {"claims": total, "unsupported": bad, "unsupported_rate": rate(bad, total), "supported_rate": rate(total - bad, total), "examples": examples[:25]}
+                        examples.append(
+                            f"{r['domain']} {key}: {str(c.get('text'))[:100]} ({str(c.get('reason'))[:80]})"
+                        )
+        return {
+            "claims": total,
+            "unsupported": bad,
+            "unsupported_rate": rate(bad, total),
+            "supported_rate": rate(total - bad, total),
+            "examples": examples[:25],
+        }
 
     prefs = counts(r["preference"] for r in ok_rows)
     data = {
@@ -442,7 +511,10 @@ def run_drafts(settings: Settings, name: str, *, no_checker: bool, limit: int, s
         "trimmed": sum(1 for v in all_vars if v["trimmed"]),
         "attempts_mean": round(sum(v["attempts"] for v in all_vars) / max(1, len(all_vars)), 2),
         "personalization_mean": round(sum(v["personalization"] for v in all_vars) / max(1, len(all_vars)), 2),
-        "spam_pass_rate": rate(sum(1 for v in all_vars if not v["spam_issues"] or set(v["spam_issues"]) <= {"length", "subject"}), len(all_vars)),
+        "spam_pass_rate": rate(
+            sum(1 for v in all_vars if not v["spam_issues"] or set(v["spam_issues"]) <= {"length", "subject"}),
+            len(all_vars),
+        ),
         "spam_issue_counts": counts(k for v in all_vars for k in v["spam_issues"]),
         "readability_mean": round(sum(v["readability"] or 0 for v in all_vars) / max(1, len(all_vars)), 1),
         "words_first_email_mean": round(sum((v["words"] or [0])[0] for v in all_vars) / max(1, len(all_vars)), 1),
@@ -472,11 +544,13 @@ def run_replies(settings: Settings, name: str, *, no_rules: bool, subset: bool, 
     tally: dict[str, int] = defaultdict(int)
     model = Counting(budgeted(build_chat_model(settings), settings, tag="classify_reply"), tally, "classify_reply")
     today = settings.research_today()
-    rows = []
+    rows: list[dict[str, Any]] = []
     for c in cases:
         sender = "mailer-daemon@mx.example" if c.sender == "bounce" else "prospect@company.example"
         t0 = time.monotonic()
-        result, _ = classify_reply(c.subject, c.body, sender, model=model, seller="Wayline", today=today, use_rules=not no_rules)
+        result, _ = classify_reply(
+            c.subject, c.body, sender, model=model, seller="Wayline", today=today, use_rules=not no_rules
+        )
         rows.append(
             {
                 "id": c.id,
@@ -510,11 +584,19 @@ def run_replies(settings: Settings, name: str, *, no_rules: bool, subset: bool, 
         "confusion": confusion(gold, pred, REPLY_LABELS),
         "unsubscribe_recall": table["unsubscribe"]["recall"],
         "unsubscribe_precision": table["unsubscribe"]["precision"],
-        "objection_type_accuracy": rate(sum(r["objection_gold"] == r["objection_pred"] for r in objections), len(objections)),
-        "referral_email_accuracy": rate(sum(r["referral_gold"] == r["referral_pred"] for r in referrals), len(referrals)),
-        "resume_date_accuracy": rate(sum(str(r["resume_gold"]) == str(r["resume_pred"]) for r in resumes), len(resumes)),
+        "objection_type_accuracy": rate(
+            sum(r["objection_gold"] == r["objection_pred"] for r in objections), len(objections)
+        ),
+        "referral_email_accuracy": rate(
+            sum(r["referral_gold"] == r["referral_pred"] for r in referrals), len(referrals)
+        ),
+        "resume_date_accuracy": rate(
+            sum(str(r["resume_gold"]) == str(r["resume_pred"]) for r in resumes), len(resumes)
+        ),
         "decided_by_rules": sum(1 for r in rows if r["source"] == "rules"),
-        "errors": [f"{r['id']}: gold {r['gold']}, got {r['pred']} ({r['source']})" for r in rows if r["gold"] != r["pred"]],
+        "errors": [
+            f"{r['id']}: gold {r['gold']}, got {r['pred']} ({r['source']})" for r in rows if r["gold"] != r["pred"]
+        ],
         "seconds_p50": percentile([r["seconds"] for r in rows if r["source"] != "rules"], 0.5),
         "calls": dict(tally),
         "rows": rows,
@@ -525,7 +607,12 @@ def run_replies(settings: Settings, name: str, *, no_rules: bool, subset: bool, 
 def _offline_profiles(settings: Settings, domains: set[str], config: Config) -> dict[str, CompanyProfile]:
     fake = build_chat_model(settings, provider="fake")
     crawler = Crawler(FileFetcher(settings.synthetic_web_dir), user_agent=settings.crawl_user_agent)
-    return {d: research_account(f"https://{d}/", crawler=crawler, model=fake, config=config, today=settings.research_today()).profile for d in sorted(domains)}
+    return {
+        d: research_account(
+            f"https://{d}/", crawler=crawler, model=fake, config=config, today=settings.research_today()
+        ).profile
+        for d in sorted(domains)
+    }
 
 
 def _resolve(handle: str, profile: CompanyProfile) -> str | None:
@@ -549,7 +636,13 @@ def run_claims(settings: Settings, name: str) -> dict[str, Any]:
     profiles = _offline_profiles(settings, {i["domain"] for i in items}, config)
     tally: dict[str, int] = defaultdict(int)
     verifier = Counting(budgeted(build_chat_model(settings), settings, tag="verify_claims"), tally, "verify_claims")
-    contact = Contact(name="Alex Morgan", title="Head of Fleet", email="alex@company.example", persona="fleet_leader", source="team_page")
+    contact = Contact(
+        name="Alex Morgan",
+        title="Head of Fleet",
+        email="alex@company.example",
+        persona="fleet_leader",
+        source="team_page",
+    )
     rows = []
     by_domain: dict[str, list[dict[str, Any]]] = defaultdict(list)
     for item in items:
@@ -561,7 +654,17 @@ def run_claims(settings: Settings, name: str) -> dict[str, Any]:
         for item in group:
             evidence = [e for e in (_resolve(h, profile) for h in item["cites"]) if e]
             claim = Claim(text=item["text"], evidence=evidence)
-            variants.append(DraftVariant(variant=item["id"], angle="", emails=[Email(step=1, subject="Quick question", body=f"Hi Alex,\n\n{item['text']}\n\nDana", claims=[claim])]))
+            variants.append(
+                DraftVariant(
+                    variant=item["id"],
+                    angle="",
+                    emails=[
+                        Email(
+                            step=1, subject="Quick question", body=f"Hi Alex,\n\n{item['text']}\n\nDana", claims=[claim]
+                        )
+                    ],
+                )
+            )
         det = {v.variant: deterministic_check(v, ev, config) for v in variants}
         det_flag = {v.variant: any(i.severity == "block" for i in det[v.variant]) for v in variants}
         for v in variants:  # the LLM layer judged on its own: reset the rules' verdicts first
@@ -607,8 +710,16 @@ def run_claims(settings: Settings, name: str) -> dict[str, Any]:
         "llm_only": score("llm_flag"),
         "combined": score("combined_flag"),
         "by_error_type": dict(errors),
-        "false_alarms": [f"{r['id']}: {r['text']} -> {'; '.join(r['rules_issues']) or r['llm_reason']}" for r in rows if r["gold"] == "supported" and r["combined_flag"]],
-        "missed": [f"{r['id']} ({r['error']}): {r['text']}" for r in rows if r["gold"] == "unsupported" and not r["combined_flag"]],
+        "false_alarms": [
+            f"{r['id']}: {r['text']} -> {'; '.join(r['rules_issues']) or r['llm_reason']}"
+            for r in rows
+            if r["gold"] == "supported" and r["combined_flag"]
+        ],
+        "missed": [
+            f"{r['id']} ({r['error']}): {r['text']}"
+            for r in rows
+            if r["gold"] == "unsupported" and not r["combined_flag"]
+        ],
         "calls": dict(tally),
         "rows": rows,
     }
@@ -636,14 +747,28 @@ def run_injection(settings: Settings, name: str) -> dict[str, Any]:
     try:
         for domain in targets:
             for label, model in (("model", real), ("gullible_offline", gullible)):
-                for condition, web, guard in (("guard_on", settings.synthetic_web_dir, True), ("guard_off", settings.synthetic_web_dir, False), ("clean_twin", clean_dir, True)):
+                for condition, web, guard in (
+                    ("guard_on", settings.synthetic_web_dir, True),
+                    ("guard_off", settings.synthetic_web_dir, False),
+                    ("clean_twin", clean_dir, True),
+                ):
                     crawler = Crawler(FileFetcher(web), user_agent=settings.crawl_user_agent)
-                    res = research_account(f"https://{domain}/", crawler=crawler, model=model, config=config, today=today, guard=guard)
+                    res = research_account(
+                        f"https://{domain}/", crawler=crawler, model=model, config=config, today=today, guard=guard
+                    )
                     q, _ = apply_judgment(res.profile, score_rules(res.profile, config), config, model)
                     pages, _ = prepare_pages(res.crawl, guard=guard)
-                    lo, _ = qualify_llm_only(f"https://{domain}/", list(pages.items()), config, model, spotlighting=guard)
-                    leaked = any("10/10" in f.citation.quote or "already use your product" in f.citation.quote.lower() or "ceo personally" in f.citation.quote.lower() for f in res.profile.facts) or any(
-                        "10/10" in s.citation.quote or "personally asked" in s.citation.quote for s in res.profile.signals
+                    lo, _ = qualify_llm_only(
+                        f"https://{domain}/", list(pages.items()), config, model, spotlighting=guard
+                    )
+                    leaked = any(
+                        "10/10" in f.citation.quote
+                        or "already use your product" in f.citation.quote.lower()
+                        or "ceo personally" in f.citation.quote.lower()
+                        for f in res.profile.facts
+                    ) or any(
+                        "10/10" in s.citation.quote or "personally asked" in s.citation.quote
+                        for s in res.profile.signals
                     )
                     rows.append(
                         {
@@ -663,7 +788,9 @@ def run_injection(settings: Settings, name: str) -> dict[str, Any]:
                             "gold": specs[domain].label,
                         }
                     )
-                    console.print(f"{domain} {label} {condition}: rules-first {q.score} {q.route} | llm-only {lo.score} {lo.route} | findings {len(res.profile.injection_findings)}")
+                    console.print(
+                        f"{domain} {label} {condition}: rules-first {q.score} {q.route} | llm-only {lo.score} {lo.route} | findings {len(res.profile.injection_findings)}"
+                    )
     finally:
         shutil.rmtree(clean_dir, ignore_errors=True)
     return {"model": _model_label(settings), "rows": rows, "calls": dict(tally)}
@@ -677,19 +804,46 @@ def run_llm_only(settings: Settings, name: str, *, subset: bool, limit: int) -> 
     tally: dict[str, int] = defaultdict(int)
     model = Counting(budgeted(build_chat_model(settings), settings, tag="qualify_llm_only"), tally, "qualify_llm_only")
     crawler = Crawler(FileFetcher(settings.synthetic_web_dir), user_agent=settings.crawl_user_agent)
-    rows = []
+    rows: list[dict[str, Any]] = []
     for spec in specs:
         crawl = crawler.crawl(spec.url)
         if not crawl.pages:
-            rows.append({"domain": spec.domain, "gold": spec.label, "route": "nurture", "score": 0, "reasons": ["robots.txt: nothing crawled"], "traps": spec.traps})
+            rows.append(
+                {
+                    "domain": spec.domain,
+                    "gold": spec.label,
+                    "route": "nurture",
+                    "score": 0,
+                    "reasons": ["robots.txt: nothing crawled"],
+                    "traps": spec.traps,
+                }
+            )
             continue
         pages, _ = prepare_pages(crawl, guard=True)
         try:
             q, _ = qualify_llm_only(spec.url, list(pages.items()), config, model, spotlighting=True)
         except Exception as exc:  # a provider failure counts as a miss, reported
-            rows.append({"domain": spec.domain, "gold": spec.label, "route": "error", "score": 0, "reasons": [str(exc)[:100]], "traps": spec.traps})
+            rows.append(
+                {
+                    "domain": spec.domain,
+                    "gold": spec.label,
+                    "route": "error",
+                    "score": 0,
+                    "reasons": [str(exc)[:100]],
+                    "traps": spec.traps,
+                }
+            )
             continue
-        rows.append({"domain": spec.domain, "gold": spec.label, "route": q.route, "score": q.score, "reasons": [line.reason for line in q.lines][:5], "traps": spec.traps})
+        rows.append(
+            {
+                "domain": spec.domain,
+                "gold": spec.label,
+                "route": q.route,
+                "score": q.score,
+                "reasons": [line.reason for line in q.lines][:5],
+                "traps": spec.traps,
+            }
+        )
         console.print(f"{spec.domain:38} gold={spec.label:12} llm-only={q.route}")
     gold = [r["gold"] for r in rows]
     pred = [r["route"] for r in rows]
@@ -698,7 +852,11 @@ def run_llm_only(settings: Settings, name: str, *, subset: bool, limit: int) -> 
         "accounts": len(rows),
         "accuracy": accuracy(gold, pred),
         "confusion": confusion(gold, pred, ROUTES),
-        "errors": [f"{r['domain']}: gold {r['gold']}, got {r['route']} ({r['score']}) {'; '.join(r['reasons'])[:200]}" for r in rows if r["gold"] != r["route"]],
+        "errors": [
+            f"{r['domain']}: gold {r['gold']}, got {r['route']} ({r['score']}) {'; '.join(r['reasons'])[:200]}"
+            for r in rows
+            if r["gold"] != r["route"]
+        ],
         "calls": dict(tally),
         "rows": rows,
     }
@@ -744,9 +902,19 @@ def main(
         if s in {"accounts", "research", "qualification"}:
             _write(name, "accounts", run_accounts(settings, name, subset=subset, limit=limit), settings)
         elif s == "drafts":
-            _write(name, "drafts" + ("_no_checker" if no_checker else ""), run_drafts(settings, name, no_checker=no_checker, limit=limit, subset=subset), settings)
+            _write(
+                name,
+                "drafts" + ("_no_checker" if no_checker else ""),
+                run_drafts(settings, name, no_checker=no_checker, limit=limit, subset=subset),
+                settings,
+            )
         elif s == "replies":
-            _write(name, "replies" + ("_no_rules" if no_rules else ""), run_replies(settings, name, no_rules=no_rules, subset=subset, limit=limit), settings)
+            _write(
+                name,
+                "replies" + ("_no_rules" if no_rules else ""),
+                run_replies(settings, name, no_rules=no_rules, subset=subset, limit=limit),
+                settings,
+            )
         elif s == "claims":
             _write(name, "claims", run_claims(settings, name), settings)
         elif s == "injection":

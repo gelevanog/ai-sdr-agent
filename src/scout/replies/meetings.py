@@ -35,7 +35,10 @@ def find_slot(
                 local_start.weekday() < 5
                 and local_start.date() == local_end.date()
                 and prospect_hours[0] <= local_start.hour
-                and (local_end.hour < prospect_hours[1] or (local_end.hour == prospect_hours[1] and local_end.minute == 0))
+                and (
+                    local_end.hour < prospect_hours[1]
+                    or (local_end.hour == prospect_hours[1] and local_end.minute == 0)
+                )
             )
             clash = any(slot < b_end and b_start < end for b_start, b_end in busy)
             if in_hours and not clash:

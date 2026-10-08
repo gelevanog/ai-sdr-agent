@@ -189,11 +189,13 @@ def validate_extraction(
         cited = page_ids.get(str(item.get("page") or "").strip())
         url = cited.url if cited else str(item.get("page") or "")
         if not quote:
-            rejected.append(Rejected(kind=kind, value=value, url=url, quote="", reason="no quote"))  # type: ignore[arg-type]
+            rejected.append(Rejected(kind=kind, value=value, url=url, quote="", reason="no quote"))
             return None
         located = locate(quote, cited, pages)
         if located is None:
-            rejected.append(Rejected(kind=kind, value=value, url=url, quote=quote, reason="quote not on any crawled page"))  # type: ignore[arg-type]
+            rejected.append(
+                Rejected(kind=kind, value=value, url=url, quote=quote, reason="quote not on any crawled page")
+            )
             return None
         date, _ = _date_for(located, quote)
         citation = Citation(url=located.page.url, quote=quote, date=date, page_date=located.page.page_date)
@@ -216,16 +218,30 @@ def validate_extraction(
             number = parse_number(value)
             if number is None or number not in numbers_in(citation.quote):
                 rejected.append(
-                    Rejected(kind="fact", value=f"{field}={value}", url=citation.url, quote=citation.quote, reason="number not in the quote")
+                    Rejected(
+                        kind="fact",
+                        value=f"{field}={value}",
+                        url=citation.url,
+                        quote=citation.quote,
+                        reason="number not in the quote",
+                    )
                 )
                 continue
         if field == "segment" and value not in config.segments:
-            rejected.append(Rejected(kind="fact", value=f"segment={value}", url=citation.url, quote=citation.quote, reason="unknown segment"))
+            rejected.append(
+                Rejected(
+                    kind="fact",
+                    value=f"segment={value}",
+                    url=citation.url,
+                    quote=citation.quote,
+                    reason="unknown segment",
+                )
+            )
             continue
         if field == "country":
             value = value.upper()[:2]
         seen_fields.add(field)
-        facts.append(Fact(id=f"F{len(facts) + 1}", field=field, value=value, number=number, citation=citation))  # type: ignore[arg-type]
+        facts.append(Fact(id=f"F{len(facts) + 1}", field=field, value=value, number=number, citation=citation))
 
     segment = next((f.value for f in facts if f.field == "segment"), None)
     if segment is None:
@@ -259,11 +275,11 @@ def validate_extraction(
         signals.append(
             Signal(
                 id=f"S{len(signals) + 1}",
-                type=kind,  # type: ignore[arg-type]
+                type=kind,
                 summary=summary[:300],
                 detail=detail,
                 date=date,
-                date_source=source,  # type: ignore[arg-type]
+                date_source=source,
                 age_days=age,
                 current=current,
                 citation=citation,
@@ -284,17 +300,35 @@ def validate_extraction(
                 continue
             citation, located = resolved
             if normalize(name) not in normalize(citation.quote) and normalize(name) not in normalize(located.page.text):
-                rejected.append(Rejected(kind="person", value=name, url=citation.url, quote=citation.quote, reason="name not on the page"))
+                rejected.append(
+                    Rejected(
+                        kind="person", value=name, url=citation.url, quote=citation.quote, reason="name not on the page"
+                    )
+                )
                 continue
             email_raw = item.get("email")
             email = str(email_raw).strip().lower() if email_raw else None
             if email and (not _EMAIL.fullmatch(email) or email not in located.page.text.lower()):
                 rejected.append(
-                    Rejected(kind="person", value=f"{name} <{email}>", url=citation.url, quote=citation.quote, reason="email not printed on the page")
+                    Rejected(
+                        kind="person",
+                        value=f"{name} <{email}>",
+                        url=citation.url,
+                        quote=citation.quote,
+                        reason="email not printed on the page",
+                    )
                 )
                 email = None
             seen_people.add(normalize(name))
             people.append(Person(name=name, title=title, email=email, citation=citation))
 
-    name = str(data.get("company_name") or "").strip() or None
-    return Extracted(name=name, segment=segment, industry=industry, facts=facts, signals=signals, people=people, rejected=rejected)
+    company_name = str(data.get("company_name") or "").strip() or None
+    return Extracted(
+        name=company_name,
+        segment=segment,
+        industry=industry,
+        facts=facts,
+        signals=signals,
+        people=people,
+        rejected=rejected,
+    )

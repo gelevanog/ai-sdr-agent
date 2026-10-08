@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /team/private
+Crawl-delay: 5
+
+User-agent: ScoutResearchBot
+Disallow: /careers/archive

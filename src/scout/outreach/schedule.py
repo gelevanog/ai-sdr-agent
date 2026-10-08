@@ -26,7 +26,9 @@ def add_business_days(day: dt.date, n: int) -> dt.date:
     return current
 
 
-def next_business_slot(after: dt.datetime, tz: str, *, start_hour: int = 9, end_hour: int = 17, jitter_key: str = "") -> dt.datetime:
+def next_business_slot(
+    after: dt.datetime, tz: str, *, start_hour: int = 9, end_hour: int = 17, jitter_key: str = ""
+) -> dt.datetime:
     """The first moment at or after `after` that is a weekday between start_hour and end_hour local time
     (returned in UTC). The jitter (0-45 minutes, stable per key) is added to the start of a business day."""
     if after.tzinfo is None:
@@ -66,7 +68,9 @@ def plan_sequence(
     for n in followup_business_days:
         day = add_business_days(first_local.date(), n)
         local = dt.datetime.combine(day, first_local.time(), zone)
-        times.append(next_business_slot(local.astimezone(dt.UTC), tz, start_hour=start_hour, end_hour=end_hour, jitter_key=key))
+        times.append(
+            next_business_slot(local.astimezone(dt.UTC), tz, start_hour=start_hour, end_hour=end_hour, jitter_key=key)
+        )
     return times
 
 

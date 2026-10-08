@@ -131,5 +131,4 @@ def parse_html(url: str, raw: str) -> ParsedPage:
 
 def same_site(url: str, other: str) -> bool:
     a, b = urlsplit(url).hostname or "", urlsplit(other).hostname or ""
-    strip = lambda h: h[4:] if h.startswith("www.") else h  # noqa: E731
-    return strip(a) == strip(b)
+    return a.removeprefix("www.") == b.removeprefix("www.")

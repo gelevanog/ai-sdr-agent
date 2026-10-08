@@ -13,7 +13,9 @@ from typing import Any
 
 import structlog
 
-_SENSITIVE_KEYS = frozenset({"text", "content", "messages", "body", "prompt", "answer", "rows", "result", "context", "html", "quote", "reply"})
+_SENSITIVE_KEYS = frozenset(
+    {"text", "content", "messages", "body", "prompt", "answer", "rows", "result", "context", "html", "quote", "reply"}
+)
 
 
 def _drop_sensitive(_: Any, __: str, event_dict: MutableMapping[str, Any]) -> MutableMapping[str, Any]:

@@ -1,15 +1,15 @@
 """Compliance controls, honoured everywhere a message can be scheduled or sent:
 
-  * human approval: a message row is created only from an approved draft, and the database refuses status 'sent'
-    without an approver (CHECK constraint); the sender re-checks before every send;
-  * suppression list (addresses and whole domains): checked when a sequence is planned, by a database trigger on
-    insert and update, and again right before each send; an unsubscribe cancels every scheduled message to that
-    address in every sequence;
-  * do-not-contact flag per account;
-  * daily and per-domain send caps (excess messages are deferred to the next business slot, not dropped);
-  * an unsubscribe link and the sender's postal address in every email (mailer.compose);
-  * data retention: raw page text, reply bodies and rejected drafts are purged after configurable periods;
-  * an audit log of every decision (research, qualification, approval, edits, sends, blocks, unsubscribes, purges).
+* human approval: a message row is created only from an approved draft, and the database refuses status 'sent'
+  without an approver (CHECK constraint); the sender re-checks before every send;
+* suppression list (addresses and whole domains): checked when a sequence is planned, by a database trigger on
+  insert and update, and again right before each send; an unsubscribe cancels every scheduled message to that
+  address in every sequence;
+* do-not-contact flag per account;
+* daily and per-domain send caps (excess messages are deferred to the next business slot, not dropped);
+* an unsubscribe link and the sender's postal address in every email (mailer.compose);
+* data retention: raw page text, reply bodies and rejected drafts are purged after configurable periods;
+* an audit log of every decision (research, qualification, approval, edits, sends, blocks, unsubscribes, purges).
 """
 
 from __future__ import annotations
@@ -51,7 +51,9 @@ def send_gate(store: Store, msg: dict[str, Any], limits: Limits, now: dt.datetim
     if account and account["do_not_contact"]:
         return GateResult(False, "block", "account marked do-not-contact")
     day_start = now.astimezone(dt.UTC).replace(hour=0, minute=0, second=0, microsecond=0)
-    sent_today = int(store.scalar("SELECT count(*) FROM messages WHERE status = 'sent' AND sent_at >= %s", (day_start,)) or 0)
+    sent_today = int(
+        store.scalar("SELECT count(*) FROM messages WHERE status = 'sent' AND sent_at >= %s", (day_start,)) or 0
+    )
     if sent_today >= limits.daily_send_cap:
         return GateResult(False, "defer", f"daily cap of {limits.daily_send_cap} reached")
     domain = msg["to_email"].split("@")[-1].lower()
@@ -92,14 +94,26 @@ def stop_sequence(store: Store, draft_id: int, reason: str) -> int:
 def suppress_email(store: Store, email: str, *, reason: str, source: str, actor: str) -> int:
     added = store.suppress(email, kind="email", reason=reason, source=source)
     cancelled = cancel_for_email(store, email, f"suppressed: {reason}")
-    store.audit(actor, "suppression.add", "email", email.lower(), {"reason": reason, "source": source, "new": added, "cancelled": cancelled})
+    store.audit(
+        actor,
+        "suppression.add",
+        "email",
+        email.lower(),
+        {"reason": reason, "source": source, "new": added, "cancelled": cancelled},
+    )
     return cancelled
 
 
 def suppress_domain(store: Store, domain: str, *, reason: str, source: str, actor: str) -> int:
     added = store.suppress(domain, kind="domain", reason=reason, source=source)
     cancelled = cancel_for_domain(store, domain, f"suppressed domain: {reason}")
-    store.audit(actor, "suppression.add", "domain", domain.lower(), {"reason": reason, "source": source, "new": added, "cancelled": cancelled})
+    store.audit(
+        actor,
+        "suppression.add",
+        "domain",
+        domain.lower(),
+        {"reason": reason, "source": source, "new": added, "cancelled": cancelled},
+    )
     return cancelled
 
 

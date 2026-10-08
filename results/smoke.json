@@ -1,0 +1,154 @@
+{
+ "runs": [
+  {
+   "date": "2026-10-08",
+   "results": [
+    {
+     "model": "nvidia/nemotron-3-super-120b-a12b:free",
+     "extract": {
+      "ok": false,
+      "facts": 0,
+      "signals": [],
+      "rejected": 0,
+      "seconds": 47.0,
+      "error": "empty answer: max_tokens reached before any output"
+     },
+     "classify": {
+      "label": "objection",
+      "objection": "competitor",
+      "seconds": 2.6
+     }
+    },
+    {
+     "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+     "extract": {
+      "ok": true,
+      "facts": 8,
+      "signals": [
+       "hiring",
+       "tech_stack"
+      ],
+      "rejected": 0,
+      "seconds": 80.5,
+      "error": null
+     },
+     "classify": {
+      "label": "objection",
+      "objection": "competitor",
+      "seconds": 11.3
+     }
+    },
+    {
+     "model": "dots-studio/dots-3-note-preview:free",
+     "extract": {
+      "ok": false,
+      "facts": 0,
+      "signals": [],
+      "rejected": 0,
+      "seconds": 87.8,
+      "error": "empty answer: max_tokens reached before any output"
+     },
+     "classify": {
+      "label": "objection",
+      "objection": "competitor",
+      "seconds": 41.8
+     }
+    },
+    {
+     "model": "thinkingmachines/inkling:free",
+     "extract": {
+      "ok": false,
+      "facts": 0,
+      "signals": [],
+      "rejected": 0,
+      "seconds": 0.5,
+      "error": "upstream 403: thinkingmachines/inkling:free is only available on agentic harnesses. Try plugging it into a coding agent or productivity app listed on https://openrouter.ai/apps"
+     },
+     "classify": {
+      "label": "not_now",
+      "objection": null,
+      "seconds": 2.9
+     }
+    },
+    {
+     "model": "google/gemma-4-31b-it:free",
+     "extract": {
+      "ok": false,
+      "facts": 0,
+      "signals": [],
+      "rejected": 0,
+      "seconds": 88.8,
+      "error": "rate limited: google/gemma-4-31b-it:free is temporarily rate-limited upstream. Please retry shortly, or add your own key to accumulate your rate limits: https://openrouter.ai/settings/integrations"
+     },
+     "classify": {
+      "label": "not_now",
+      "objection": null,
+      "seconds": 74.8
+     }
+    },
+    {
+     "model": "inclusionai/ling-3.0-flash-sante:free",
+     "extract": {
+      "ok": true,
+      "facts": 6,
+      "signals": [
+       "hiring",
+       "tech_stack"
+      ],
+      "rejected": 4,
+      "seconds": 13.0,
+      "error": null
+     },
+     "classify": {
+      "label": "objection",
+      "objection": "competitor",
+      "seconds": 1.6
+     }
+    }
+   ]
+  },
+  {
+   "date": "2026-10-08",
+   "results": [
+    {
+     "model": "nvidia/nemotron-3-super-120b-a12b:free",
+     "extract": {
+      "ok": true,
+      "facts": 8,
+      "signals": [
+       "hiring",
+       "tech_stack"
+      ],
+      "rejected": 0,
+      "seconds": 46.2,
+      "error": null
+     },
+     "classify": {
+      "label": "objection",
+      "objection": "competitor",
+      "seconds": 2.5
+     }
+    },
+    {
+     "model": "dots-studio/dots-3-note-preview:free",
+     "extract": {
+      "ok": true,
+      "facts": 8,
+      "signals": [
+       "hiring",
+       "tech_stack"
+      ],
+      "rejected": 4,
+      "seconds": 95.6,
+      "error": null
+     },
+     "classify": {
+      "label": "objection",
+      "objection": "competitor",
+      "seconds": 13.1
+     }
+    }
+   ]
+  }
+ ]
+}

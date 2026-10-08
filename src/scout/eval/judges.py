@@ -45,7 +45,9 @@ def reference_facts(spec: CompanySpec, config: Config) -> str:
         when = f" (dated {sig.date.isoformat()})" if sig.date else ""
         rows.append(f"Website says{when}: {sig.text}" + ("" if sig.current else " [old news]"))
     rows.append("Sender's proof points: " + " | ".join(p.text for p in config.seller.proof_points))
-    rows.append("Sender's product: " + config.seller.one_liner + " " + " ".join(v.text for v in config.seller.value_props))
+    rows.append(
+        "Sender's product: " + config.seller.one_liner + " " + " ".join(v.text for v in config.seller.value_props)
+    )
     return "\n".join(rows)
 
 
@@ -59,11 +61,11 @@ def audit_emails(
         {"role": "user", "content": f"Reference facts:\n{reference_facts(spec, config)}\n\nEmails:\n{body}"},
     ]
     try:
-        data, calls = complete_json(model, messages, max_tokens=5000)
+        data, calls = complete_json(model, messages, max_tokens=12000)
     except LLMError:
         return {}, 1
     out: dict[str, list[dict[str, Any]]] = {}
-    for item in data.get("emails") or []:  # type: ignore[union-attr]
+    for item in data.get("emails") or []:
         if isinstance(item, dict) and str(item.get("id")) in emails:
             out[str(item["id"])] = [c for c in item.get("claims") or [] if isinstance(c, dict)]
     return out, calls
@@ -78,16 +80,21 @@ def generic_template(first_name: str, company: str, config: Config) -> str:
     )
 
 
-def prefer(model: ChatModel, *, company: str, title: str, scout_email: str, baseline_email: str, key: str) -> tuple[str, str, int]:
+def prefer(
+    model: ChatModel, *, company: str, title: str, scout_email: str, baseline_email: str, key: str
+) -> tuple[str, str, int]:
     """Returns ('scout' | 'baseline' | 'tie' | 'error', reason, calls). Order is decided by a hash of `key`."""
     scout_first = int(hashlib.sha256(key.encode()).hexdigest(), 16) % 2 == 0
     x, y = (scout_email, baseline_email) if scout_first else (baseline_email, scout_email)
     messages: list[Message] = [
         {"role": "system", "content": PREFERENCE_SYSTEM},
-        {"role": "user", "content": f"Your company: {company}. Your role: {title}.\n\n=== Email X\n{x}\n\n=== Email Y\n{y}"},
+        {
+            "role": "user",
+            "content": f"Your company: {company}. Your role: {title}.\n\n=== Email X\n{x}\n\n=== Email Y\n{y}",
+        },
     ]
     try:
-        data, calls = complete_json(model, messages, max_tokens=1500)
+        data, calls = complete_json(model, messages, max_tokens=6000)
     except LLMError as exc:
         return "error", str(exc)[:100], 1
     winner = str(data.get("winner") or "").strip().upper()

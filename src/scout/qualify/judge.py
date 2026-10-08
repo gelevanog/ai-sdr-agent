@@ -53,7 +53,9 @@ def evidence_lines(profile: CompanyProfile) -> str:
     for s in profile.signals:
         when = f"{s.date} ({s.age_days} days ago)" if s.date else "undated"
         state = "current" if s.current else "stale"
-        rows.append(f'{s.id} {s.type} [{state}, {when}] {s.detail or s.summary} | "{s.citation.quote}" ({s.citation.url})')
+        rows.append(
+            f'{s.id} {s.type} [{state}, {when}] {s.detail or s.summary} | "{s.citation.quote}" ({s.citation.url})'
+        )
     return "\n".join(rows) or "(none)"
 
 
@@ -61,7 +63,9 @@ def build_judge_messages(profile: CompanyProfile, qualification: Qualification, 
     system = JUDGE_SYSTEM.format(
         seller=config.seller.company, one_liner=config.seller.one_liner, max_adj=config.rubric.llm_adjustment_max
     )
-    rubric = "\n".join(f"- {line.criterion}: {line.points}/{line.max_points} ({line.reason})" for line in qualification.lines)
+    rubric = "\n".join(
+        f"- {line.criterion}: {line.points}/{line.max_points} ({line.reason})" for line in qualification.lines
+    )
     user = (
         f"Account: {profile.name} ({profile.url})\n"
         f"Rubric score: {qualification.rules_score} -> route '{qualification.route}' "
@@ -72,7 +76,7 @@ def build_judge_messages(profile: CompanyProfile, qualification: Qualification, 
 
 
 def apply_judgment(
-    profile: CompanyProfile, qualification: Qualification, config: Config, model: ChatModel, *, max_tokens: int = 2500
+    profile: CompanyProfile, qualification: Qualification, config: Config, model: ChatModel, *, max_tokens: int = 8000
 ) -> tuple[Qualification, int]:
     """Returns the adjusted qualification and the number of model calls (0 when skipped)."""
     if qualification.route == "disqualified" and qualification.disqualifiers:
@@ -89,7 +93,7 @@ def apply_judgment(
     except ValueError:
         raw = 0
     adjustment = max(-limit, min(limit, raw))
-    evidence_ids = [str(e) for e in data.get("evidence") or [] if isinstance(e, str | int)]  # type: ignore[union-attr]
+    evidence_ids = [str(e) for e in data.get("evidence") or [] if isinstance(e, str | int)]
     known = profile.evidence()
     valid = [e for e in evidence_ids if e in known]
     reason = str(data.get("reason") or "").strip()[:600]
@@ -99,7 +103,9 @@ def apply_judgment(
     score = max(0, min(100, qualification.rules_score + adjustment))
     lines = list(qualification.lines)
     if adjustment:
-        lines.append(RubricLine(criterion="LLM judgment", points=adjustment, max_points=limit, reason=reason, evidence=valid))
+        lines.append(
+            RubricLine(criterion="LLM judgment", points=adjustment, max_points=limit, reason=reason, evidence=valid)
+        )
     return (
         qualification.model_copy(
             update={
@@ -136,7 +142,13 @@ def icp_summary(config: Config) -> str:
 
 
 def qualify_llm_only(
-    url: str, pages: list[tuple[str, ParsedPage]], config: Config, model: ChatModel, *, spotlighting: bool = True, max_tokens: int = 3000
+    url: str,
+    pages: list[tuple[str, ParsedPage]],
+    config: Config,
+    model: ChatModel,
+    *,
+    spotlighting: bool = True,
+    max_tokens: int = 12000,
 ) -> tuple[Qualification, int]:
     system = LLM_ONLY_SYSTEM.format(
         seller=config.seller.company,
@@ -144,8 +156,13 @@ def qualify_llm_only(
         icp=icp_summary(config),
         note=SPOTLIGHT_NOTE if spotlighting else "The website pages follow.",
     )
-    body = "\n\n".join(spotlight(pid, page) if spotlighting else f"PAGE {pid} {page.url}\n{page.text}" for pid, page in pages)
-    messages: list[Message] = [{"role": "system", "content": system}, {"role": "user", "content": f"Company website: {url}\n\n{body}"}]
+    body = "\n\n".join(
+        spotlight(pid, page) if spotlighting else f"PAGE {pid} {page.url}\n{page.text}" for pid, page in pages
+    )
+    messages: list[Message] = [
+        {"role": "system", "content": system},
+        {"role": "user", "content": f"Company website: {url}\n\n{body}"},
+    ]
     data, calls = complete_json(model, messages, max_tokens=max_tokens)
     route = str(data.get("route") or "").strip().lower()
     if route not in {"qualified", "nurture", "disqualified"}:
@@ -154,9 +171,9 @@ def qualify_llm_only(
         score = max(0, min(100, int(float(str(data.get("score", 0))))))
     except ValueError:
         score = 0
-    reasons = [str(r) for r in data.get("reasons") or []][:8]  # type: ignore[union-attr]
+    reasons = [str(r) for r in data.get("reasons") or []][:8]
     lines = [RubricLine(criterion="LLM-only", points=0, max_points=0, reason=r) for r in reasons]
     return (
-        Qualification(score=score, route=route, lines=lines, rules_score=0, mode="llm_only", model=model.label),  # type: ignore[arg-type]
+        Qualification(score=score, route=route, lines=lines, rules_score=0, mode="llm_only", model=model.label),
         calls,
     )

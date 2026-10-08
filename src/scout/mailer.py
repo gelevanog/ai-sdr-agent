@@ -4,14 +4,13 @@ unsubscribe link (RFC 8058 headers), the sender's postal address and a stable Me
 
 from __future__ import annotations
 
+import datetime as dt
 import smtplib
 import uuid
 from dataclasses import dataclass, field
 from email.message import EmailMessage
 from email.utils import format_datetime, formataddr, make_msgid, parseaddr
 from typing import Protocol
-
-import datetime as dt
 
 CAPTURE_HOSTS = frozenset({"localhost", "127.0.0.1", "::1", "mailpit", "scout-mailpit"})
 

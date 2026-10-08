@@ -103,7 +103,9 @@ class Settings(BaseSettings):
     # ---- CRM
     crm_mode: CrmMode = "mock"
     hubspot_base_url: str = "https://api.hubapi.com"
-    hubspot_token: str | None = Field(default=None, validation_alias=AliasChoices("HUBSPOT_TOKEN", "SCOUT_HUBSPOT_TOKEN"))
+    hubspot_token: str | None = Field(
+        default=None, validation_alias=AliasChoices("HUBSPOT_TOKEN", "SCOUT_HUBSPOT_TOKEN")
+    )
 
     # ---- LLM
     llm_provider: LLMProviderKind = "fake"
@@ -113,7 +115,8 @@ class Settings(BaseSettings):
     judge_model: str = "dots-studio/dots-3-note-preview:free"
     """A different free model for the blind preference judge and the independent claim audit in the evaluation."""
     llm_timeout_seconds: float = 180.0
-    llm_max_tokens: int = 6000
+    llm_max_tokens: int = 16000
+    """A ceiling, not a target: free reasoning models spend thousands of tokens thinking before the JSON."""
     llm_temperature: float = 0.0
     llm_reasoning_effort: str = "low"
     require_free_models: bool = True
@@ -135,9 +138,9 @@ class Settings(BaseSettings):
     llm_cache: bool = True
     llm_cache_dir: Path = Path(".cache/llm")
     llm_ledger: Path | None = Path("results/calls.jsonl")
-    llm_max_calls: int = 480
+    llm_max_calls: int = 495
     llm_min_seconds_between_requests: float = 3.0
-    llm_max_retries: int = 4
+    llm_max_retries: int = 3
 
     # ---- API
     cors_origins: Annotated[list[str], NoDecode] = Field(default_factory=lambda: ["http://localhost:3000"])

@@ -16,7 +16,11 @@ from rich.table import Table
 from scout.config import Settings, get_settings
 from scout.logging_config import configure_logging
 
-app = typer.Typer(no_args_is_help=True, add_completion=False, help="Scout: an AI SDR with citations, a claim checker and human approval.")
+app = typer.Typer(
+    no_args_is_help=True,
+    add_completion=False,
+    help="Scout: an AI SDR with citations, a claim checker and human approval.",
+)
 replies_app = typer.Typer(no_args_is_help=True, help="Reply inbox: simulate, ingest a folder of .eml files, classify.")
 app.add_typer(replies_app, name="replies")
 console = Console()
@@ -81,13 +85,19 @@ def import_contacts(csv_file: Path) -> None:
 
 
 @app.command()
-def research(account: Account = None, all_: All = False, no_guard: Annotated[bool, typer.Option(help="Ablation: no injection guard.")] = False) -> None:
+def research(
+    account: Account = None,
+    all_: All = False,
+    no_guard: Annotated[bool, typer.Option(help="Ablation: no injection guard.")] = False,
+) -> None:
     """Crawl and extract cited facts and signals."""
     scout = _scout()
     for account_id in _ids(scout, account, all_):
         result = scout.research(account_id, guard=False if no_guard else None)
         p = result.profile
-        console.print(f"{account_id} {p.domain}: {len(p.pages)} pages, {len(p.facts)} facts, {len(p.signals)} signals, {len(p.rejected)} rejected, {len(p.injection_findings)} injection findings {result.error or ''}")
+        console.print(
+            f"{account_id} {p.domain}: {len(p.pages)} pages, {len(p.facts)} facts, {len(p.signals)} signals, {len(p.rejected)} rejected, {len(p.injection_findings)} injection findings {result.error or ''}"
+        )
 
 
 @app.command()
@@ -97,12 +107,22 @@ def qualify(account: Account = None, all_: All = False) -> None:
     table = Table("id", "account", "route", "score", "disqualifiers / adjustment")
     for account_id in _ids(scout, account, all_, "profile IS NOT NULL"):
         q = scout.qualify(account_id)
-        table.add_row(str(account_id), scout.account(account_id)["name"], q.route, str(q.score), "; ".join(q.disqualifiers) or (f"{q.llm_adjustment:+d} {q.llm_reason[:60]}" if q.llm_adjustment else ""))
+        table.add_row(
+            str(account_id),
+            scout.account(account_id)["name"],
+            q.route,
+            str(q.score),
+            "; ".join(q.disqualifiers) or (f"{q.llm_adjustment:+d} {q.llm_reason[:60]}" if q.llm_adjustment else ""),
+        )
     console.print(table)
 
 
 @app.command()
-def draft(account: Account = None, all_: All = False, no_checker: Annotated[bool, typer.Option(help="Ablation: skip the claim checker.")] = False) -> None:
+def draft(
+    account: Account = None,
+    all_: All = False,
+    no_checker: Annotated[bool, typer.Option(help="Ablation: skip the claim checker.")] = False,
+) -> None:
     """Draft the email and two follow-ups (A/B variants) for qualified accounts."""
     from scout.services import ScoutError
 
@@ -124,14 +144,18 @@ def pipeline(account: Account = None, all_: All = False) -> None:
 
 
 @app.command()
-def approve(draft_id: int, reviewer: Annotated[str, typer.Option(help="Your name (recorded in the audit log).")]) -> None:
+def approve(
+    draft_id: int, reviewer: Annotated[str, typer.Option(help="Your name (recorded in the audit log).")]
+) -> None:
     """Approve a draft as written and schedule its sequence."""
     scout = _scout()
     console.print_json(json.dumps(scout.approve(draft_id, reviewer=reviewer)))
 
 
 @app.command()
-def reject(draft_id: int, reviewer: Annotated[str, typer.Option()], reason: Annotated[str, typer.Option()] = "") -> None:
+def reject(
+    draft_id: int, reviewer: Annotated[str, typer.Option()], reason: Annotated[str, typer.Option()] = ""
+) -> None:
     """Reject a draft."""
     _scout().reject(draft_id, reviewer=reviewer, reason=reason)
 
@@ -141,9 +165,17 @@ def queue() -> None:
     """List drafts waiting for approval."""
     scout = _scout()
     table = Table("draft", "account", "variant", "subject", "checker")
-    for r in scout.store.all("SELECT d.id, a.name, d.variant, d.data FROM drafts d JOIN accounts a ON a.id = d.account_id WHERE d.status = 'pending' ORDER BY d.id"):
+    for r in scout.store.all(
+        "SELECT d.id, a.name, d.variant, d.data FROM drafts d JOIN accounts a ON a.id = d.account_id WHERE d.status = 'pending' ORDER BY d.id"
+    ):
         report = r["data"].get("report") or {}
-        table.add_row(str(r["id"]), r["name"], r["variant"], r["data"]["emails"][0]["subject"], "passed" if report.get("passed") else "issues")
+        table.add_row(
+            str(r["id"]),
+            r["name"],
+            r["variant"],
+            r["data"]["emails"][0]["subject"],
+            "passed" if report.get("passed") else "issues",
+        )
     console.print(table)
 
 
@@ -178,7 +210,11 @@ def replies_process() -> None:
 
 
 @app.command()
-def suppress(value: str, domain: Annotated[bool, typer.Option(help="Suppress a whole domain.")] = False, reason: str = "added manually") -> None:
+def suppress(
+    value: str,
+    domain: Annotated[bool, typer.Option(help="Suppress a whole domain.")] = False,
+    reason: str = "added manually",
+) -> None:
     """Add an address (or a domain) to the suppression list and cancel its scheduled messages."""
     from scout import compliance
 
@@ -204,7 +240,7 @@ def export(kind: str, out: Annotated[Path | None, typer.Option()] = None) -> Non
 
 
 @app.command()
-def serve(host: str = "0.0.0.0", port: int = 8000) -> None:  # noqa: S104 - a dev server
+def serve(host: str = "0.0.0.0", port: int = 8000) -> None:
     """Run the API."""
     import uvicorn
 
@@ -212,7 +248,10 @@ def serve(host: str = "0.0.0.0", port: int = 8000) -> None:  # noqa: S104 - a de
 
 
 @app.command()
-def worker(once: Annotated[bool, typer.Option(help="Process one job (or one tick) and exit.")] = False, inbox: Annotated[Path | None, typer.Option(help="Folder with .eml replies.")] = None) -> None:
+def worker(
+    once: Annotated[bool, typer.Option(help="Process one job (or one tick) and exit.")] = False,
+    inbox: Annotated[Path | None, typer.Option(help="Folder with .eml replies.")] = None,
+) -> None:
     """Run the background worker (queued jobs, due sends, reply classification, retention)."""
     from scout.jobs import work
 
@@ -221,13 +260,20 @@ def worker(once: Annotated[bool, typer.Option(help="Process one job (or one tick
 
 @app.command("eval")
 def evaluate(
-    suite: Annotated[str, typer.Argument(help="all | research | qualification | drafts | replies | compliance | claims | injection | summary | free-models | smoke")] = "all",
+    suite: Annotated[
+        str,
+        typer.Argument(
+            help="all | research | qualification | drafts | replies | compliance | claims | injection | summary | free-models | smoke"
+        ),
+    ] = "all",
     name: Annotated[str, typer.Option(help="Run name (results/<name>_*.json).")] = "offline",
     provider: Annotated[str | None, typer.Option()] = None,
     model: Annotated[str | None, typer.Option()] = None,
     fallbacks: Annotated[str | None, typer.Option(help="Comma-separated free fallbacks.")] = None,
     limit: Annotated[int, typer.Option(help="Only the first N items (0 = all).")] = 0,
-    subset: Annotated[bool, typer.Option(help="The stratified subset used for ablations and model comparison.")] = False,
+    subset: Annotated[
+        bool, typer.Option(help="The stratified subset used for ablations and model comparison.")
+    ] = False,
     no_checker: Annotated[bool, typer.Option()] = False,
     llm_only: Annotated[bool, typer.Option(help="Qualification ablation: LLM only, no rules.")] = False,
     no_rules: Annotated[bool, typer.Option(help="Reply ablation: LLM only, no rules.")] = False,

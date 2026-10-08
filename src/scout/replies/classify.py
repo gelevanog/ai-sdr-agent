@@ -22,7 +22,10 @@ _BOUNCE_SUBJECT = re.compile(
     r"delivery status notification \(failure\)|undeliverable|undelivered mail|returned mail|mail delivery failed|message not delivered|delivery failure",
     re.I,
 )
-_BOUNCE_BODY = re.compile(r"\b5\d\d[ -]?5\.\d+\.\d+\b|\buser unknown\b|address not found|does not exist|mailbox (?:unavailable|full)|nxdomain|recipient address rejected", re.I)
+_BOUNCE_BODY = re.compile(
+    r"\b5\d\d[ -]?5\.\d+\.\d+\b|\buser unknown\b|address not found|does not exist|mailbox (?:unavailable|full)|nxdomain|recipient address rejected",
+    re.I,
+)
 _OOO = re.compile(
     r"^(?:automatic reply|auto-?reply|automatische antwort|out of (?:the )?office)\b|\bout of (?:the )?office\b|\bon (?:annual|parental|sick) leave\b|"
     r"\bje suis absent\b|\bnicht im b[üu]ro\b|\blimited access to (?:my )?email\b|\bmailbox is checked\b|\boff sick\b|\bat a conference until\b|\baway until\b",
@@ -99,7 +102,10 @@ Reply with JSON only: {{"label": "...", "objection_type": null, "confidence": 0.
 
 def build_classify_messages(subject: str, body: str, sender: str, *, seller: str, today: dt.date) -> list[Message]:
     user = f"From: {sender}\nSubject: {subject}\n\n<<REPLY>>\n{body}\n<</REPLY>>"
-    return [{"role": "system", "content": CLASSIFY_SYSTEM.format(seller=seller, today=today.isoformat())}, {"role": "user", "content": user}]
+    return [
+        {"role": "system", "content": CLASSIFY_SYSTEM.format(seller=seller, today=today.isoformat())},
+        {"role": "user", "content": user},
+    ]
 
 
 def _validated(data: dict[str, object], body: str, today: dt.date) -> ReplyClassification:
@@ -107,7 +113,15 @@ def _validated(data: dict[str, object], body: str, today: dt.date) -> ReplyClass
     if label not in REPLY_LABELS:
         label = "objection" if "object" in label else "interested" if "interest" in label else "not_now"
     objection = str(data.get("objection_type") or "").strip().lower() or None
-    if label != "objection" or objection not in {"price", "competitor", "no_need", "timing", "authority", "trust", "other"}:
+    if label != "objection" or objection not in {
+        "price",
+        "competitor",
+        "no_need",
+        "timing",
+        "authority",
+        "trust",
+        "other",
+    }:
         objection = "other" if label == "objection" else None
     email = str(data.get("referral_email") or "").strip().lower() or None
     if email and email not in body.lower():
@@ -120,8 +134,8 @@ def _validated(data: dict[str, object], body: str, today: dt.date) -> ReplyClass
     except ValueError:
         confidence = 0.0
     return ReplyClassification(
-        label=label,  # type: ignore[arg-type]
-        objection_type=objection,  # type: ignore[arg-type]
+        label=label,
+        objection_type=objection,
         confidence=max(0.0, min(1.0, confidence)),
         reason=str(data.get("reason") or "")[:300],
         referral_email=email,
@@ -130,18 +144,29 @@ def _validated(data: dict[str, object], body: str, today: dt.date) -> ReplyClass
 
 
 def classify_reply(
-    subject: str, body: str, sender: str, *, model: ChatModel | None, seller: str, today: dt.date, use_rules: bool = True
+    subject: str,
+    body: str,
+    sender: str,
+    *,
+    model: ChatModel | None,
+    seller: str,
+    today: dt.date,
+    use_rules: bool = True,
 ) -> tuple[ReplyClassification, int]:
     """Returns (classification, model calls). `use_rules=False` is the LLM-only ablation."""
     rule = rule_label(subject, body, sender) if use_rules else None
     if rule is not None:
-        return ReplyClassification(label=rule, confidence=1.0, reason="matched a deterministic rule", source="rules"), 0  # type: ignore[arg-type]
+        return ReplyClassification(label=rule, confidence=1.0, reason="matched a deterministic rule", source="rules"), 0
     if model is None:
         return ReplyClassification(label="not_now", confidence=0.0, reason="no model configured", source="rules"), 0
     try:
-        data, calls = complete_json(model, build_classify_messages(subject, body, sender, seller=seller, today=today), max_tokens=1500)
+        data, calls = complete_json(
+            model, build_classify_messages(subject, body, sender, seller=seller, today=today), max_tokens=6000
+        )
     except LLMError as exc:
-        return ReplyClassification(label="not_now", confidence=0.0, reason=f"classifier unavailable: {str(exc)[:100]}", source="llm"), 1
+        return ReplyClassification(
+            label="not_now", confidence=0.0, reason=f"classifier unavailable: {str(exc)[:100]}", source="llm"
+        ), 1
     result = _validated(data, body, today)
     result.model = model.label
     return result, calls

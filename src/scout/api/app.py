@@ -114,7 +114,11 @@ def create_app(scout: Scout) -> FastAPI:
     def overview(s: S) -> dict[str, Any]:
         return {
             "funnel": s.funnel(),
-            "model": {"provider": settings.llm_provider, "model": settings.llm_model or "(default)", "free_only": settings.require_free_models},
+            "model": {
+                "provider": settings.llm_provider,
+                "model": settings.llm_model or "(default)",
+                "free_only": settings.require_free_models,
+            },
             "crawl_mode": settings.crawl_mode,
             "crm_mode": settings.crm_mode,
             "capture_only": settings.smtp_capture_only,
@@ -127,14 +131,14 @@ def create_app(scout: Scout) -> FastAPI:
     @app.get("/api/accounts")
     def accounts(s: S, route: str | None = None) -> list[dict[str, Any]]:
         rows = store.all(
-            "SELECT id, domain, url, name, source, status, route, score, timezone, do_not_contact, contact, error, "
+            "SELECT id, domain, url, name, source, status, route, score, timezone, do_not_contact, contact, error, "  # noqa: S608 - fixed clauses, values are parameters
             "profile->'signals' AS signals, profile->>'segment' AS segment, profile->'injection_findings' AS injections, "
             "qualification->'disqualifiers' AS disqualifiers, updated_at FROM accounts "
             + ("WHERE route = %s " if route else "")
             + "ORDER BY score DESC NULLS LAST, name",
             (route,) if route else (),
         )
-        return jsonable(rows)  # type: ignore[no-any-return]
+        return jsonable(rows)
 
     @app.post("/api/accounts")
     def add_account(body: AddAccount, s: S) -> dict[str, Any]:
@@ -152,12 +156,27 @@ def create_app(scout: Scout) -> FastAPI:
         return jsonable(
             {
                 "account": acc,
-                "drafts": store.all("SELECT id, variant, status, reviewer, reviewed_at, created_at, model, calls FROM drafts WHERE account_id = %s ORDER BY id DESC", (account_id,)),
-                "messages": store.all("SELECT id, draft_id, step, to_email, subject, status, status_reason, scheduled_at, sent_at, timezone FROM messages WHERE account_id = %s ORDER BY step, id", (account_id,)),
-                "replies": store.all("SELECT id, from_email, subject, body, label, classification, actions, received_at FROM replies WHERE account_id = %s ORDER BY id", (account_id,)),
-                "pages": store.all("SELECT url, fetched_at, purged_at, (text IS NOT NULL) AS has_text FROM pages WHERE account_id = %s ORDER BY id", (account_id,)),
+                "drafts": store.all(
+                    "SELECT id, variant, status, reviewer, reviewed_at, created_at, model, calls FROM drafts WHERE account_id = %s ORDER BY id DESC",
+                    (account_id,),
+                ),
+                "messages": store.all(
+                    "SELECT id, draft_id, step, to_email, subject, status, status_reason, scheduled_at, sent_at, timezone FROM messages WHERE account_id = %s ORDER BY step, id",
+                    (account_id,),
+                ),
+                "replies": store.all(
+                    "SELECT id, from_email, subject, body, label, classification, actions, received_at FROM replies WHERE account_id = %s ORDER BY id",
+                    (account_id,),
+                ),
+                "pages": store.all(
+                    "SELECT url, fetched_at, purged_at, (text IS NOT NULL) AS has_text FROM pages WHERE account_id = %s ORDER BY id",
+                    (account_id,),
+                ),
                 "meetings": store.all("SELECT * FROM meetings WHERE account_id = %s", (account_id,)),
-                "audit": store.all("SELECT * FROM audit_log WHERE entity = 'account' AND entity_id = %s ORDER BY id DESC LIMIT 30", (str(account_id),)),
+                "audit": store.all(
+                    "SELECT * FROM audit_log WHERE entity = 'account' AND entity_id = %s ORDER BY id DESC LIMIT 30",
+                    (str(account_id),),
+                ),
                 "source_base": settings.synthetic_web_public_url if acc["source"] == "synthetic" else None,
             }
         )
@@ -205,17 +224,19 @@ def create_app(scout: Scout) -> FastAPI:
         row = store.one("SELECT * FROM jobs WHERE id = %s", (job_id,))
         if row is None:
             raise HTTPException(404, "job not found")
-        return jsonable(row)  # type: ignore[no-any-return]
+        return jsonable(row)
 
     @app.get("/api/source")
     def source(account_id: int, url: str, quote: str = "") -> dict[str, Any]:
         """The stored page text behind a citation, with the quote located (for the dossier and review screens)."""
-        row = store.one("SELECT url, fetched_at, text, purged_at FROM pages WHERE account_id = %s AND url = %s", (account_id, url))
+        row = store.one(
+            "SELECT url, fetched_at, text, purged_at FROM pages WHERE account_id = %s AND url = %s", (account_id, url)
+        )
         if row is None:
             raise HTTPException(404, "page not crawled")
         text = row["text"] or ""
         found = bool(quote) and normalize(quote) in normalize(text)
-        return jsonable({**row, "quote_found": found, "purged": row["purged_at"] is not None})  # type: ignore[no-any-return]
+        return jsonable({**row, "quote_found": found, "purged": row["purged_at"] is not None})
 
     # ------------------------------------------------------------------ drafts and approval
     @app.get("/api/drafts")
@@ -227,7 +248,7 @@ def create_app(scout: Scout) -> FastAPI:
             "WHERE d.status = %s ORDER BY a.score DESC NULLS LAST, d.account_id, d.variant",
             (status,),
         )
-        return jsonable(rows)  # type: ignore[no-any-return]
+        return jsonable(rows)
 
     @app.get("/api/drafts/{draft_id}")
     def draft(draft_id: int, s: S) -> dict[str, Any]:
@@ -235,15 +256,24 @@ def create_app(scout: Scout) -> FastAPI:
         if row is None:
             raise HTTPException(404, "draft not found")
         acc = s.account(row["account_id"])
-        siblings = store.all("SELECT id, variant, status FROM drafts WHERE account_id = %s AND created_at = %s ORDER BY variant", (row["account_id"], row["created_at"]))
+        siblings = store.all(
+            "SELECT id, variant, status FROM drafts WHERE account_id = %s AND created_at = %s ORDER BY variant",
+            (row["account_id"], row["created_at"]),
+        )
         return jsonable(
             {
                 "draft": row,
-                "account": {k: acc[k] for k in ("id", "domain", "name", "url", "score", "route", "timezone", "source", "qualification")},
+                "account": {
+                    k: acc[k]
+                    for k in ("id", "domain", "name", "url", "score", "route", "timezone", "source", "qualification")
+                },
                 "profile": acc["profile"],
                 "siblings": siblings,
                 "feedback": store.all("SELECT * FROM feedback WHERE draft_id = %s ORDER BY id", (draft_id,)),
-                "messages": store.all("SELECT id, step, status, scheduled_at, sent_at, timezone, status_reason FROM messages WHERE draft_id = %s ORDER BY step", (draft_id,)),
+                "messages": store.all(
+                    "SELECT id, step, status, scheduled_at, sent_at, timezone, status_reason FROM messages WHERE draft_id = %s ORDER BY step",
+                    (draft_id,),
+                ),
                 "seller": {"company": s.config.seller.company, "postal_address": s.config.seller.postal_address},
                 "source_base": settings.synthetic_web_public_url if acc["source"] == "synthetic" else None,
             }
@@ -252,7 +282,12 @@ def create_app(scout: Scout) -> FastAPI:
     @app.post("/api/drafts/{draft_id}/approve")
     def approve(draft_id: int, body: Approve, s: S) -> dict[str, Any]:
         try:
-            return s.approve(draft_id, reviewer=body.reviewer or settings.reviewer_name, edits=[e.model_dump() for e in body.edits], note=body.note)
+            return s.approve(
+                draft_id,
+                reviewer=body.reviewer or settings.reviewer_name,
+                edits=[e.model_dump() for e in body.edits],
+                note=body.note,
+            )
         except ScoutError as exc:
             raise fail(exc) from exc
 
@@ -266,12 +301,16 @@ def create_app(scout: Scout) -> FastAPI:
 
     @app.get("/api/feedback")
     def feedback() -> list[dict[str, Any]]:
-        return jsonable(store.all("SELECT f.*, a.name FROM feedback f JOIN drafts d ON d.id = f.draft_id JOIN accounts a ON a.id = d.account_id ORDER BY f.id DESC"))  # type: ignore[no-any-return]
+        return jsonable(
+            store.all(
+                "SELECT f.*, a.name FROM feedback f JOIN drafts d ON d.id = f.draft_id JOIN accounts a ON a.id = d.account_id ORDER BY f.id DESC"
+            )
+        )
 
     # ------------------------------------------------------------------ sequences and sending
     @app.get("/api/messages")
     def messages() -> list[dict[str, Any]]:
-        return jsonable(  # type: ignore[no-any-return]
+        return jsonable(
             store.all(
                 "SELECT m.id, m.draft_id, m.account_id, m.step, m.to_email, m.to_name, m.subject, m.status, m.status_reason, m.scheduled_at, m.sent_at, "
                 "m.timezone, m.approved_by, a.name FROM messages m JOIN accounts a ON a.id = m.account_id ORDER BY m.draft_id DESC, m.step"
@@ -289,7 +328,7 @@ def create_app(scout: Scout) -> FastAPI:
     # ------------------------------------------------------------------ replies
     @app.get("/api/replies")
     def replies() -> list[dict[str, Any]]:
-        return jsonable(  # type: ignore[no-any-return]
+        return jsonable(
             store.all(
                 "SELECT r.*, a.name, a.domain, m.step, m.subject AS sent_subject FROM replies r LEFT JOIN accounts a ON a.id = r.account_id "
                 "LEFT JOIN messages m ON m.id = r.message_id ORDER BY r.received_at DESC, r.id DESC"
@@ -314,21 +353,27 @@ def create_app(scout: Scout) -> FastAPI:
 
     @app.get("/api/meetings")
     def meetings() -> list[dict[str, Any]]:
-        return jsonable(store.all("SELECT m.*, a.name FROM meetings m JOIN accounts a ON a.id = m.account_id ORDER BY starts_at"))  # type: ignore[no-any-return]
+        return jsonable(
+            store.all("SELECT m.*, a.name FROM meetings m JOIN accounts a ON a.id = m.account_id ORDER BY starts_at")
+        )
 
     # ------------------------------------------------------------------ compliance
     @app.get("/api/suppression")
     def suppression() -> list[dict[str, Any]]:
-        return jsonable(store.all("SELECT * FROM suppression ORDER BY created_at DESC"))  # type: ignore[no-any-return]
+        return jsonable(store.all("SELECT * FROM suppression ORDER BY created_at DESC"))
 
     @app.post("/api/suppression")
     def add_suppression(body: SuppressionIn, s: S) -> dict[str, Any]:
         from scout import compliance
 
         if body.kind == "domain":
-            cancelled = compliance.suppress_domain(store, body.value, reason=body.reason, source="manual", actor=settings.reviewer_name)
+            cancelled = compliance.suppress_domain(
+                store, body.value, reason=body.reason, source="manual", actor=settings.reviewer_name
+            )
         else:
-            cancelled = compliance.suppress_email(store, body.value, reason=body.reason, source="manual", actor=settings.reviewer_name)
+            cancelled = compliance.suppress_email(
+                store, body.value, reason=body.reason, source="manual", actor=settings.reviewer_name
+            )
         return {"cancelled": cancelled}
 
     @app.post("/api/retention/purge")
@@ -357,7 +402,11 @@ def create_app(scout: Scout) -> FastAPI:
     @app.get("/api/settings/icp")
     def get_icp(s: S) -> dict[str, Any]:
         override = store.get_setting("icp_yaml")
-        return {"yaml": override or settings.icp_file.read_text(encoding="utf-8"), "overridden": bool(override), "config": s.config.model_dump(mode="json")}
+        return {
+            "yaml": override or settings.icp_file.read_text(encoding="utf-8"),
+            "overridden": bool(override),
+            "config": s.config.model_dump(mode="json"),
+        }
 
     @app.put("/api/settings/icp")
     def put_icp(body: IcpYaml) -> dict[str, Any]:
@@ -366,7 +415,9 @@ def create_app(scout: Scout) -> FastAPI:
         except Exception as exc:
             raise HTTPException(422, f"invalid ICP YAML: {str(exc)[:400]}") from exc
         store.set_setting("icp_yaml", dump_config(config))
-        store.audit(settings.reviewer_name, "settings.icp_updated", "settings", "icp", {"segments": config.icp.target_segments})
+        store.audit(
+            settings.reviewer_name, "settings.icp_updated", "settings", "icp", {"segments": config.icp.target_segments}
+        )
         return {"ok": True}
 
     @app.get("/api/settings/compliance")
@@ -385,12 +436,16 @@ def create_app(scout: Scout) -> FastAPI:
     @app.get("/api/audit")
     def audit(limit: int = Query(200, le=2000), action: str | None = None) -> list[dict[str, Any]]:
         if action:
-            return jsonable(store.all("SELECT * FROM audit_log WHERE action LIKE %s ORDER BY id DESC LIMIT %s", (action + "%", limit)))  # type: ignore[no-any-return]
-        return jsonable(store.all("SELECT * FROM audit_log ORDER BY id DESC LIMIT %s", (limit,)))  # type: ignore[no-any-return]
+            return jsonable(
+                store.all(
+                    "SELECT * FROM audit_log WHERE action LIKE %s ORDER BY id DESC LIMIT %s", (action + "%", limit)
+                )
+            )
+        return jsonable(store.all("SELECT * FROM audit_log ORDER BY id DESC LIMIT %s", (limit,)))
 
     @app.get("/api/crm/objects")
     def crm_objects() -> list[dict[str, Any]]:
-        return jsonable(store.all("SELECT * FROM mock_crm ORDER BY id DESC LIMIT 500"))  # type: ignore[no-any-return]
+        return jsonable(store.all("SELECT * FROM mock_crm ORDER BY id DESC LIMIT 500"))
 
     @app.get("/api/export/{kind}.csv", response_class=PlainTextResponse)
     def export(kind: str, s: S) -> PlainTextResponse:
@@ -398,7 +453,9 @@ def create_app(scout: Scout) -> FastAPI:
             text = s.export_csv(kind)
         except ScoutError as exc:
             raise HTTPException(404, str(exc)) from exc
-        return PlainTextResponse(text, media_type="text/csv", headers={"Content-Disposition": f'attachment; filename="scout-{kind}.csv"'})
+        return PlainTextResponse(
+            text, media_type="text/csv", headers={"Content-Disposition": f'attachment; filename="scout-{kind}.csv"'}
+        )
 
     @app.get("/api/evaluation")
     def evaluation() -> dict[str, Any]:
@@ -420,4 +477,3 @@ def create_default_app() -> FastAPI:
     configure_logging(fmt="json" if Path("/.dockerenv").exists() else "console")
     store = Store(settings.database_url)
     return create_app(Scout(settings, store))
-

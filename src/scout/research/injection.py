@@ -38,10 +38,17 @@ class Rule:
 RULES: tuple[Rule, ...] = (
     Rule(
         "address.ai",
-        re.compile(rf"\b(?:note|message|instructions?|attention|notice|reminder)\s+(?:to|for)\s+(?:all\s+|any\s+)?(?:automated\s+)?{_AI}", _I),
+        re.compile(
+            rf"\b(?:note|message|instructions?|attention|notice|reminder)\s+(?:to|for)\s+(?:all\s+|any\s+)?(?:automated\s+)?{_AI}",
+            _I,
+        ),
         0.6,
     ),
-    Rule("address.ai_prefix", re.compile(rf"(?:^|[.!?]\s+)(?:dear\s+)?(?:automated\s+)?{_AI}(?:\s+\w+){{0,2}}\s*[:,]", _I), 0.45),
+    Rule(
+        "address.ai_prefix",
+        re.compile(rf"(?:^|[.!?]\s+)(?:dear\s+)?(?:automated\s+)?{_AI}(?:\s+\w+){{0,2}}\s*[:,]", _I),
+        0.45,
+    ),
     Rule("address.ai_instruction", re.compile(rf"\b{_AI}\s+(?:instructions?|directive|command|note)\s*:", _I), 0.7),
     Rule(
         "override.ignore",
@@ -52,12 +59,40 @@ RULES: tuple[Rule, ...] = (
         ),
         0.8,
     ),
-    Rule("steer.rating", re.compile(r"\b(?:rate|score|rank|grade)\s+(?:this|our|us|the)\b.{0,30}?\b(?:\d+\s*/\s*10|\d+\s*out of\s*\d+|highest|maximum|top)", _I), 0.7),
-    Rule("steer.qualify", re.compile(r"\bmark\s+(?:this|our|the)\s+(?:account|company|lead|prospect)\s+as\s+\w+", _I), 0.7),
-    Rule("steer.claim", re.compile(r"\b(?:say|state|claim|mention|write|tell (?:them|the user|your user))\s+(?:that\s+)?(?:we|our|this company|the ceo|our ceo)\b", _I), 0.5),
-    Rule("steer.already_customer", re.compile(r"\balready\s+(?:use|uses|using|a customer of)\s+your\s+(?:product|service|platform)", _I), 0.4),
-    Rule("role.reassign", re.compile(r"\b(?:you are now|from now on you|act as|pretend to be|new instructions)\b", _I), 0.6),
-    Rule("exfil.link", re.compile(r"\b(?:include|add|insert|put)\s+(?:this|the following|our)\s+(?:link|url)\b", _I), 0.5),
+    Rule(
+        "steer.rating",
+        re.compile(
+            r"\b(?:rate|score|rank|grade)\s+(?:this|our|us|the)\b.{0,30}?\b(?:\d+\s*/\s*10|\d+\s*out of\s*\d+|highest|maximum|top)",
+            _I,
+        ),
+        0.7,
+    ),
+    Rule(
+        "steer.qualify",
+        re.compile(r"\bmark\s+(?:this|our|the)\s+(?:account|company|lead|prospect)\s+as\s+\w+", _I),
+        0.7,
+    ),
+    Rule(
+        "steer.claim",
+        re.compile(
+            r"\b(?:say|state|claim|mention|write|tell (?:them|the user|your user))\s+(?:that\s+)?(?:we|our|this company|the ceo|our ceo)\b",
+            _I,
+        ),
+        0.5,
+    ),
+    Rule(
+        "steer.already_customer",
+        re.compile(r"\balready\s+(?:use|uses|using|a customer of)\s+your\s+(?:product|service|platform)", _I),
+        0.4,
+    ),
+    Rule(
+        "role.reassign",
+        re.compile(r"\b(?:you are now|from now on you|act as|pretend to be|new instructions)\b", _I),
+        0.6,
+    ),
+    Rule(
+        "exfil.link", re.compile(r"\b(?:include|add|insert|put)\s+(?:this|the following|our)\s+(?:link|url)\b", _I), 0.5
+    ),
     Rule("prompt.leak", re.compile(r"\b(?:system prompt|your instructions|reveal your)\b", _I), 0.5),
 )
 THRESHOLD = 0.6
