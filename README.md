@@ -12,6 +12,10 @@
 ![mypy strict](https://img.shields.io/badge/mypy-strict-2a6db2)
 ![License: MIT](https://img.shields.io/badge/License-MIT-green)
 
+https://github.com/user-attachments/assets/49ce8c74-9755-43bd-a230-24a4d37c8756
+
+<sub>62-second walkthrough with voiceover. Can't play it? [Download the MP4](docs/demo.mp4).</sub>
+
 ![The draft review screen: an email to a fleet manager with each personalized claim highlighted; the selected claim shows the quote and the page it came from, the checker's verdicts, and the approve, edit and reject controls](docs/screenshots/hero.png)
 
 <sub>A real draft by the free `nvidia/nemotron-3-super-120b-a12b:free` for a fictional trucking company that posted a Fleet Safety Lead role 26 days earlier. Each highlighted phrase is a declared claim; the selected one shows the job post it rests on (quote, page, posting date, page date) and the verifier's note; the proof-point numbers are tied to the seller's approved offer text. The checks passed without a rewrite, and the email waits for a person to approve, edit or reject it.</sub>
