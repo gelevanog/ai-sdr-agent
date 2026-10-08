@@ -88,8 +88,11 @@ def parse_pages(prompt: str) -> list[tuple[str, str, list[str]]]:
     return pages
 
 
+_LEADING_DATE = re.compile(r"^\d{1,2} [A-Z][a-z]+ \d{4} ")
+
+
 def _sentences(text: str) -> list[str]:
-    return [s.strip() for s in re.split(r"(?<=[.!?])\s+(?=[A-Z])", text) if s.strip()]
+    return [_LEADING_DATE.sub("", s.strip()) for s in re.split(r"(?<=[.!?])\s+(?=[A-Z])", text) if s.strip()]
 
 
 # ------------------------------------------------------------------------------------------------ extract
@@ -342,7 +345,82 @@ def verify_claims(messages: Sequence[Message], gullible: bool) -> str:
     return json.dumps({"claims": verdicts, "uncovered": []})
 
 
+# ------------------------------------------------------------------------------------------------ replies
+_REPLY_RULES: tuple[tuple[str, str], ...] = (
+    (r"not the right person|wrong department|not my area|talk to|speak to|contact our|the right person|you'll want|forwarding to|sit with|best contact|handle finance", "referral"),
+    (r"call|demo|meet|calendar|invite|book|what times|when are you free|walkthrough|set up", "meeting_request"),
+    (r"later|next (?:quarter|year|spring|fiscal)|in (?:january|q\d|three months|six months)|after|until|not (?:a priority|right now|this year)|park this|check back|revisit|no capacity|bad timing|freezing", "not_now"),
+    (r"already use|signed|covered|built our own|expensive|cfo|budget|payback|don't (?:think we )?need|no need|don't see a need|excellent|spreadsheet|pass-through|group level|procurement|hq picks|union|how did you get|never heard", "objection"),
+    (r"send|share|tell me|more|interested|curious|how does|what does|sample|case study|keen", "interested"),
+)
+_OBJECTION_TYPES: tuple[tuple[str, str], ...] = (
+    (r"already use|signed|covered|built our own|manufacturer", "competitor"),
+    (r"expensive|cfo|budget|payback|dollars|fees", "price"),
+    (r"group level|procurement|hq picks|parent company", "authority"),
+    (r"union|how did you get|never heard|comfortable", "trust"),
+)
+
+
+def classify_reply(messages: Sequence[Message], gullible: bool) -> str:
+    prompt = _user(messages)
+    body = prompt.split("<<REPLY>>", 1)[-1].split("<</REPLY>>", 1)[0].lower()
+    label = "not_now"
+    for pattern, name in _REPLY_RULES:
+        if re.search(pattern, body):
+            label = name
+            break
+    objection = None
+    if label == "objection":
+        objection = next((t for p, t in _OBJECTION_TYPES if re.search(p, body)), "no_need")
+    email = re.search(r"[\w.]+@[\w.-]+\.example", body)
+    return json.dumps(
+        {"label": label, "objection_type": objection, "confidence": 0.6, "reason": "keyword rules (offline model)", "referral_email": email.group() if email and label == "referral" else None, "resume_on": None}
+    )
+
+
+# ------------------------------------------------------------------------------------------------ evaluation judges
+def audit_claims(messages: Sequence[Message], gullible: bool) -> str:
+    """Offline audit: sentences with a number or a name are claims; supported if their numbers are in the reference
+    facts and they make no growth or depot claims the facts lack."""
+    prompt = _user(messages)
+    reference, _, emails_part = prompt.partition("\n\nEmails:\n")
+    ref_numbers = {n.replace(",", "") for n in re.findall(r"\d[\d,]*", reference)}
+    out = []
+    for block in re.split(r"^=== Email ", emails_part, flags=re.M):
+        if not block.strip():
+            continue
+        key, _, text = block.partition("\n")
+        claims = []
+        for sentence in _sentences(text.replace("\n", " ")):
+            if re.match(r"^(Subject|Hi|Hello|Dana|Would|Most teams)", sentence):
+                continue
+            numbers = {n.replace(",", "") for n in re.findall(r"\d[\d,]*", sentence)}
+            if not numbers and not re.search(r"\b(hiring|joined|opened|raised|news|uses|works in|doubling)\b", sentence, re.I):
+                continue
+            ok = numbers <= ref_numbers and not re.search(r"doubl|depots", sentence, re.I)
+            claims.append({"text": sentence, "supported": ok, "reason": "numbers and events checked against the reference (offline)"})
+        out.append({"id": key.strip(), "claims": claims})
+    return json.dumps({"emails": out})
+
+
+def preference(messages: Sequence[Message], gullible: bool) -> str:
+    """Offline preference: the email with more specific details (numbers, names, quoted news) wins."""
+    prompt = _user(messages)
+    x = prompt.split("=== Email X", 1)[-1].split("=== Email Y", 1)[0]
+    y = prompt.split("=== Email Y", 1)[-1]
+
+    def specificity(text: str) -> int:
+        return len(re.findall(r"\d", text)) + len(re.findall(r"\b(hiring|joined|opened|news|raised)\b", text, re.I)) * 3
+
+    sx, sy = specificity(x), specificity(y)
+    winner = "X" if sx > sy else "Y" if sy > sx else "tie"
+    return json.dumps({"winner": winner, "reason": "more specific details (offline heuristic)"})
+
+
 HANDLERS: dict[str, FakeHandler] = {
+    "audit_claims": audit_claims,
+    "preference": preference,
+    "classify_reply": classify_reply,
     "extract": extract,
     "judge": judge,
     "qualify_llm_only": qualify_llm_only,

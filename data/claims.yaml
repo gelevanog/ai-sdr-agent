@@ -1,0 +1,62 @@
+# Hand-written claims for testing the claim checker on its own, written by me (an AI agent) for this repository.
+# Each claim is what a draft might say about a synthetic company, the evidence it cites (resolved to the offline
+# research profile of that company: `signal:<type>`, `fact:<field>`, `pp:<proof point>`, `vp:<value prop>`), and
+# whether the evidence really supports it. Unsupported claims carry the kind of error a sloppy model makes.
+
+- {id: c01, domain: brightwater-fs.example, label: supported, cites: [signal:hiring], text: "I noticed Brightwater is hiring a Fleet Safety Manager."}
+- {id: c02, domain: brightwater-fs.example, label: supported, cites: [fact:fleet_size], text: "With 310 service vans on the road, small changes add up."}
+- {id: c03, domain: brightwater-fs.example, label: supported, cites: [signal:tech_stack], text: "I saw that your dispatch board runs on ServiceTitan."}
+- {id: c04, domain: brightwater-fs.example, label: unsupported, error: wrong_number, cites: [fact:fleet_size], text: "With 350 service vans on the road, small changes add up."}
+- {id: c05, domain: brightwater-fs.example, label: unsupported, error: invented_detail, cites: [signal:hiring], text: "I saw Brightwater just opened a depot in Indianapolis."}
+- {id: c06, domain: brightwater-fs.example, label: unsupported, error: wrong_role, cites: [signal:hiring], text: "I noticed Brightwater is hiring a Head of Fleet."}
+- {id: c07, domain: brightwater-fs.example, label: unsupported, error: exaggeration, cites: [fact:fleet_size], text: "Congrats on doubling your fleet this year."}
+- {id: c08, domain: brightwater-fs.example, label: supported, cites: [fact:founded], text: "Brightwater has been serving customers since 1998."}
+- {id: c09, domain: coldline-distribution.example, label: supported, cites: [signal:expansion], text: "Congrats on opening the Antwerp depot in July."}
+- {id: c10, domain: coldline-distribution.example, label: supported, cites: [signal:expansion], text: "Adding 60 refrigerated trucks for Flanders is a big step."}
+- {id: c11, domain: coldline-distribution.example, label: supported, cites: [signal:leadership_change], text: "I saw that Sanne de Vries joined as Chief Operating Officer."}
+- {id: c12, domain: coldline-distribution.example, label: unsupported, error: wrong_date, cites: [signal:expansion], text: "Congrats on opening the Antwerp depot in March."}
+- {id: c13, domain: coldline-distribution.example, label: unsupported, error: wrong_number, cites: [signal:expansion], text: "Adding 80 refrigerated trucks for Flanders is a big step."}
+- {id: c14, domain: coldline-distribution.example, label: unsupported, error: wrong_person, cites: [signal:leadership_change], text: "I saw that Pieter Bakker joined as Chief Operating Officer."}
+- {id: c15, domain: coldline-distribution.example, label: unsupported, error: wrong_place, cites: [signal:expansion], text: "Congrats on opening the Brussels depot."}
+- {id: c16, domain: tallgrass-couriers.example, label: supported, cites: [signal:funding], text: "Congratulations on the £18 million Series B."}
+- {id: c17, domain: tallgrass-couriers.example, label: supported, cites: [signal:funding], text: "I read about the Series B led by Moorland Ventures."}
+- {id: c18, domain: tallgrass-couriers.example, label: supported, cites: [signal:expansion], text: "Your new Manchester hub must keep the team busy."}
+- {id: c19, domain: tallgrass-couriers.example, label: unsupported, error: wrong_number, cites: [signal:funding], text: "Congratulations on the £25 million Series B."}
+- {id: c20, domain: tallgrass-couriers.example, label: unsupported, error: wrong_detail, cites: [signal:funding], text: "Congratulations on closing your Series C."}
+- {id: c21, domain: tallgrass-couriers.example, label: unsupported, error: wrong_number, cites: [signal:expansion], text: "The Manchester hub with 100 electric vans is impressive."}
+- {id: c22, domain: tallgrass-couriers.example, label: supported, cites: [signal:expansion], text: "You added 40 new electric vans in Manchester."}
+- {id: c23, domain: ridgeway-utility.example, label: supported, cites: [signal:leadership_change], text: "Marcus Okafor started as VP Fleet Operations in September."}
+- {id: c24, domain: ridgeway-utility.example, label: unsupported, error: wrong_date, cites: [signal:leadership_change], text: "Marcus Okafor started as VP Fleet Operations in January."}
+- {id: c25, domain: ridgeway-utility.example, label: supported, cites: [signal:hiring], text: "I noticed you are hiring a night-shift dispatcher."}
+- {id: c26, domain: ridgeway-utility.example, label: unsupported, error: invented_detail, cites: [fact:industry], text: "Since Ridgeway already runs GPS trackers on every truck, the switch is easy."}
+- {id: c27, domain: ridgeway-utility.example, label: supported, cites: [fact:fleet_size], text: "Running 700 trucks and service vehicles takes a lot of coordination."}
+- {id: c28, domain: meridian-mobile-medical.example, label: supported, cites: [signal:funding], text: "Congratulations on the $22 million Series C."}
+- {id: c29, domain: meridian-mobile-medical.example, label: unsupported, error: wrong_detail, cites: [signal:funding], text: "Congratulations on the €22 million Series C."}
+- {id: c30, domain: meridian-mobile-medical.example, label: supported, cites: [signal:hiring], text: "I saw you're hiring a Fleet Coordinator."}
+- {id: c31, domain: meridian-mobile-medical.example, label: unsupported, error: invented_detail, cites: [signal:funding], text: "Your plan to double the imaging fleet by 2027 is ambitious."}
+- {id: c32, domain: swiftmark-parcel.example, label: supported, cites: [signal:funding], text: "Congrats on the €40 million growth financing."}
+- {id: c33, domain: swiftmark-parcel.example, label: supported, cites: [signal:expansion], text: "You started next-day delivery in Berlin in August."}
+- {id: c34, domain: swiftmark-parcel.example, label: unsupported, error: wrong_place, cites: [signal:expansion], text: "You started next-day delivery in Munich in August."}
+- {id: c35, domain: swiftmark-parcel.example, label: unsupported, error: wrong_number, cites: [fact:fleet_size], text: "Your 800 vans cover a lot of ground."}
+- {id: c36, domain: swiftmark-parcel.example, label: supported, cites: [fact:fleet_size, fact:served_regions], text: "Your 600 vans cover northern Germany."}
+- {id: c37, domain: sterling-septic.example, label: unsupported, error: stale_as_recent, cites: [signal:hiring], text: "I saw you're currently hiring a Fleet Manager."}
+- {id: c38, domain: sterling-septic.example, label: unsupported, error: stale_as_recent, cites: [signal:hiring], text: "I saw the new Fleet Manager opening on your site."}
+- {id: c39, domain: sterling-septic.example, label: supported, cites: [fact:fleet_size, fact:served_regions], text: "Sterling runs 70 pump trucks across the Carolinas."}
+- {id: c40, domain: westbrook-logistics.example, label: unsupported, error: stale_as_recent, cites: [signal:funding], text: "Congrats on the recent $12 million Series A."}
+- {id: c41, domain: westbrook-logistics.example, label: supported, cites: [signal:funding], text: "After your 2023 Series A, the fleet has had time to grow."}
+- {id: c42, domain: westbrook-logistics.example, label: supported, cites: [fact:fleet_size, fact:served_regions], text: "You run 300 trucks across the Midwest."}
+- {id: c43, domain: redwood-facility.example, label: supported, cites: [signal:competitor_in_use], text: "I know your vans already run TrackRight telematics."}
+- {id: c44, domain: redwood-facility.example, label: unsupported, error: invented_detail, cites: [signal:competitor_in_use], text: "I heard your team is unhappy with TrackRight."}
+- {id: c45, domain: glenmore-security.example, label: unsupported, error: stale_as_recent, cites: [signal:leadership_change], text: "Congrats to Callum Reid on the new Director of Operations role."}
+- {id: c46, domain: glenmore-security.example, label: supported, cites: [fact:fleet_size, fact:served_regions], text: "Your 120 patrol cars cover Scotland."}
+- {id: c47, domain: crescentcity-plumbing.example, label: unsupported, error: stale_as_recent, cites: [signal:hiring], text: "I see you're hiring a Fleet Manager right now."}
+- {id: c48, domain: nordlicht-kurier.example, label: supported, cites: [signal:expansion], text: "Nordlicht now serves Salzburg and Innsbruck."}
+- {id: c49, domain: nordlicht-kurier.example, label: supported, cites: [signal:leadership_change], text: "Katrin Vogel became Managing Director in April."}
+- {id: c50, domain: nordlicht-kurier.example, label: unsupported, error: wrong_place, cites: [signal:expansion], text: "Nordlicht now serves Vienna and Graz."}
+- {id: c51, domain: nordlicht-kurier.example, label: unsupported, error: wrong_role, cites: [signal:leadership_change], text: "Katrin Vogel became the company's CFO in April."}
+- {id: c52, domain: brightwater-fs.example, label: supported, cites: [pp:northbeam], text: "Northbeam Logistics reduced idle time by 23% in the first six months."}
+- {id: c53, domain: brightwater-fs.example, label: unsupported, error: wrong_number, cites: [pp:northbeam], text: "Northbeam Logistics reduced idle time by 32% in the first six months."}
+- {id: c54, domain: coldline-distribution.example, label: supported, cites: [pp:harlow], text: "Harlow Plumbing & Heating cut harsh-braking events by 41% across 120 vans."}
+- {id: c55, domain: coldline-distribution.example, label: unsupported, error: invented_customer, cites: [pp:harlow], text: "Pinecrest Waste already uses Wayline across 260 trucks."}
+- {id: c56, domain: tallgrass-couriers.example, label: unsupported, error: wrong_attribution, cites: [pp:harlow], text: "Harlow Plumbing & Heating reduced idle time by 23%."}
+- {id: c57, domain: swiftmark-parcel.example, label: unsupported, error: invented_customer, cites: [vp:safety], text: "Delivery leaders like Amazon coach their drivers with Wayline."}

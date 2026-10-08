@@ -1,0 +1,362 @@
+# Hand-written prospect replies for the reply simulator and the classifier evaluation. Written by me (an AI agent)
+# for this repository; every name and address is fictional (.example domains). `label` is the ground truth;
+# `objection_type`, `resume_on` and `referral_email` are checked where present. A few are deliberately hard:
+# polite opt-outs without the word "unsubscribe", an objection that ends with an opt-out, an out-of-office that
+# names a colleague, a "not now" that sounds like interest, a meeting request inside a forwarded thread.
+# `sender: bounce` replies come from a mail server, not from the prospect.
+
+- id: r001
+  label: interested
+  body: "Thanks Dana, the driver coaching piece sounds relevant. Can you send me a short overview and pricing for around 300 vans?"
+- id: r002
+  label: interested
+  body: "Hi Dana, timely email. We're reviewing how we track harsh braking right now. What does a rollout usually look like?"
+- id: r003
+  label: interested
+  body: "Interesting. How does the ServiceTitan sync work in practice? Does job status flow both ways?"
+- id: r004
+  label: interested
+  body: "This could be useful for our new depot. Send over a case study from a company our size please."
+- id: r005
+  label: interested
+  body: "Hi, I'm open to learning more. Our idle time is a known problem. What kind of savings do customers see in the first quarter?"
+- id: r006
+  label: interested
+  body: "Could you share a one-pager I can pass to our COO? Fuel costs are on our list this year."
+- id: r007
+  label: interested
+  body: "Appreciate the note. We have a mix of leased and owned trucks; would the devices work across both? Keen to understand more."
+- id: r008
+  label: interested
+  body: "Yes, this is on my radar. Do you support tachograph data for our UK vehicles? If so I'd like more details."
+- id: r009
+  label: interested
+  body: "Nice timing. Can you send a sample of the per-driver safety report?"
+- id: r010
+  label: interested
+  body: "Hello Dana. We're evaluating options for Q1. Please send the product sheet and a reference customer in waste collection."
+- id: r011
+  label: interested
+  body: "Sounds promising. What's the install time per vehicle? Our techs can't lose a full day."
+- id: r012
+  label: interested
+  body: "I'd like to hear more, but by email first please. What does it cost per vehicle per month?"
+- id: r013
+  label: interested
+  body: "We've been meaning to look at this. Can you tell me which ERP integrations you have besides SAP?"
+- id: r014
+  label: interested
+  body: "Hi Dana, forwarded your note to our fleet lead and we're both curious. What do you need from us to put together a proposal?"
+- id: r015
+  label: meeting_request
+  body: "Let's talk. Does Thursday at 10am my time work for a 20-minute call?"
+- id: r016
+  label: meeting_request
+  body: "Happy to compare notes. Send me a calendar invite for next Tuesday afternoon."
+- id: r017
+  label: meeting_request
+  body: "Sure, book 30 minutes with me next week. Mornings are best."
+- id: r018
+  label: meeting_request
+  body: "Good timing. Can we set up a call with me and our VP Operations? Any slot Wednesday or Thursday."
+- id: r019
+  label: meeting_request
+  body: "Yes, let's do the 20 minutes. What times do you have on Monday?"
+- id: r020
+  label: meeting_request
+  body: "I'm interested. Please grab a time on my calendar, I'm free most afternoons this week."
+- id: r021
+  label: meeting_request
+  body: "OK, you got my attention. Call me Friday at 2pm."
+- id: r022
+  label: meeting_request
+  body: "We'd like a demo for the dispatch team. Can you do early next week?"
+- id: r023
+  label: meeting_request
+  body: "Let's set up a quick call. I can do 9:30 tomorrow or any time Thursday."
+- id: r024
+  label: meeting_request
+  body: "Hi Dana — yes to a call. Please propose two times next week and include our fleet manager."
+- id: r025
+  label: meeting_request
+  body: "Thanks. Before we go further I'd like a 30-minute walkthrough. When are you free?"
+- id: r026
+  label: meeting_request
+  body: "---------- Forwarded message ----------\nFrom: Fleet desk\nCan we get this person on a call?\n\nDana, see above. Can you do Wednesday 11am?"
+- id: r027
+  label: meeting_request
+  body: "Sounds good, let's meet. I'm in Leeds on the 20th if you happen to be around, otherwise a video call is fine."
+- id: r028
+  label: meeting_request
+  body: "Agreed, worth a conversation. Send an invite for 20 minutes, any day except Monday."
+- id: r029
+  label: not_now
+  body: "Not a priority this quarter. Reach out again in January."
+  resume_on: 2027-01-04
+- id: r030
+  label: not_now
+  body: "We're in the middle of a depot move. Can you check back in three months?"
+- id: r031
+  label: not_now
+  body: "Interesting, but our budget for next year is already set. Try me in Q2."
+  resume_on: 2027-04-01
+- id: r032
+  label: not_now
+  body: "Bad timing, we're closing the year. Follow up after the holidays."
+- id: r033
+  label: not_now
+  body: "Thanks Dana. We'll revisit telematics when our lease renewals come up next spring."
+- id: r034
+  label: not_now
+  body: "Not right now. Ping me in six months."
+- id: r035
+  label: not_now
+  body: "I'd love to look at this, honestly, but we have a system migration until March. Please come back after that."
+  resume_on: 2027-03-01
+- id: r036
+  label: not_now
+  body: "We're mid-acquisition and nothing new gets approved until it closes. Let's talk later in the year."
+- id: r037
+  label: not_now
+  body: "No capacity to evaluate anything new before November."
+  resume_on: 2026-11-02
+- id: r038
+  label: not_now
+  body: "Park this for now please, maybe next fiscal year."
+- id: r039
+  label: not_now
+  body: "Our new COO starts next month and will want to set priorities. Reach out to me again in December."
+  resume_on: 2026-12-01
+- id: r040
+  label: not_now
+  body: "Not this year. Happy to hear from you in 2027."
+  resume_on: 2027-01-04
+- id: r041
+  label: not_now
+  body: "We're freezing spend until the new depot is profitable. Check in next quarter."
+- id: r042
+  label: referral
+  body: "I'm not the right person. Talk to Priya Shah, our Fleet Manager: priya.shah@brightwater-fs.example"
+  referral_email: priya.shah@brightwater-fs.example
+- id: r043
+  label: referral
+  body: "Fleet decisions sit with our transport manager, Owen Price (owen.price@bluebell-linen.example). I've copied him."
+  referral_email: owen.price@bluebell-linen.example
+- id: r044
+  label: referral
+  body: "Wrong department, sorry. Please contact our operations director, Lena Hartmann, at lena.hartmann@swiftmark-parcel.example."
+  referral_email: lena.hartmann@swiftmark-parcel.example
+- id: r045
+  label: referral
+  body: "Thanks, but this is for our Head of Fleet. Her name is Mara Lindgren, mara.lindgren@halvorsen-freight.example."
+  referral_email: mara.lindgren@halvorsen-freight.example
+- id: r046
+  label: referral
+  body: "I handle finance. The person you want is Tom Reyes in operations: tom.reyes@meridian-mobile-medical.example"
+  referral_email: tom.reyes@meridian-mobile-medical.example
+- id: r047
+  label: referral
+  body: "Please speak to Gareth Lloyd who runs our vans — gareth.lloyd@copperline-electrical.example. He'll know if it fits."
+  referral_email: gareth.lloyd@copperline-electrical.example
+- id: r048
+  label: referral
+  body: "Not my area. Our fleet coordinator, Jess Moreno, is the best contact (jess.moreno@ironbridge-plumbing.example)."
+  referral_email: jess.moreno@ironbridge-plumbing.example
+- id: r049
+  label: referral
+  body: "Forwarding to Ana Costa, our safety lead. ana.costa@harborview-shuttle.example"
+  referral_email: ana.costa@harborview-shuttle.example
+- id: r050
+  label: referral
+  body: "You'll want Marcus in fleet ops for this: marcus.okafor@ridgeway-utility.example. I'm in HR."
+  referral_email: marcus.okafor@ridgeway-utility.example
+- id: r051
+  label: referral
+  body: "The right person is our dispatch manager, Kelly Wu — kelly.wu@metro-medtransport.example. Good luck."
+  referral_email: kelly.wu@metro-medtransport.example
+- id: r052
+  label: objection
+  objection_type: competitor
+  body: "We already use TrackRight across the fleet and we're happy with it."
+- id: r053
+  label: objection
+  objection_type: competitor
+  body: "Thanks but we signed a three-year deal with GeoPulse last year."
+- id: r054
+  label: objection
+  objection_type: competitor
+  body: "Our vans came with a manufacturer telematics package, so we're covered."
+- id: r055
+  label: objection
+  objection_type: competitor
+  body: "We built our own GPS tracking with our IT team. Not looking to replace it."
+- id: r056
+  label: objection
+  objection_type: price
+  body: "We looked at telematics before and it was far too expensive per vehicle for our margins."
+- id: r057
+  label: objection
+  objection_type: price
+  body: "Unless this is under five dollars a vehicle it won't get past our CFO."
+- id: r058
+  label: objection
+  objection_type: price
+  body: "Hardware plus monthly fees for 300 trucks is a big number. I don't see the payback."
+- id: r059
+  label: objection
+  objection_type: price
+  body: "Budget is the issue. Every vendor promises fuel savings and none of them pay for themselves."
+- id: r060
+  label: objection
+  objection_type: no_need
+  body: "Our drivers are mostly local and we know where they are. I don't think we need this."
+- id: r061
+  label: objection
+  objection_type: no_need
+  body: "Honestly our safety record is excellent. We don't have a problem to solve here."
+- id: r062
+  label: objection
+  objection_type: no_need
+  body: "We only run 40 vans on fixed routes. A spreadsheet does the job."
+- id: r063
+  label: objection
+  objection_type: no_need
+  body: "Fuel is a pass-through cost for us, so idle reports don't move the needle."
+- id: r064
+  label: objection
+  objection_type: authority
+  body: "Telematics is decided at group level by our parent company, not here."
+- id: r065
+  label: objection
+  objection_type: authority
+  body: "Any new system has to go through our procurement framework. We can't just take a call with a vendor."
+- id: r066
+  label: objection
+  objection_type: authority
+  body: "Our franchise agreement means HQ picks the fleet tools. Nothing I can do locally."
+- id: r067
+  label: objection
+  objection_type: trust
+  body: "Our drivers' union pushed back hard on in-cab cameras last time. We're not going there again."
+- id: r068
+  label: objection
+  objection_type: trust
+  body: "How did you get my email? I'm not comfortable with vendors tracking our hiring pages."
+- id: r069
+  label: objection
+  objection_type: trust
+  body: "I've never heard of Wayline. We only work with vendors who have been around for a decade."
+- id: r070
+  label: objection
+  objection_type: no_need
+  body: "Thanks but no thanks. We don't see a need for it."
+- id: r071
+  label: unsubscribe
+  body: "Unsubscribe."
+- id: r072
+  label: unsubscribe
+  body: "Please remove me from your mailing list."
+- id: r073
+  label: unsubscribe
+  body: "Take me off your list."
+- id: r074
+  label: unsubscribe
+  body: "Do not contact me again."
+- id: r075
+  label: unsubscribe
+  body: "STOP"
+- id: r076
+  label: unsubscribe
+  body: "Not interested, and please don't email me again."
+- id: r077
+  label: unsubscribe
+  body: "I never signed up for this. Delete my details and stop emailing."
+- id: r078
+  label: unsubscribe
+  body: "Under GDPR I'm asking you to erase my personal data and not contact me further."
+- id: r079
+  label: unsubscribe
+  body: "We already use TrackRight. Also, please stop sending me these emails."
+- id: r080
+  label: unsubscribe
+  body: "Opt me out of all future messages, thanks."
+- id: r081
+  label: unsubscribe
+  body: "Kindly leave me out of future emails."
+- id: r082
+  label: unsubscribe
+  body: "No more emails please."
+- id: r083
+  label: unsubscribe
+  body: "Remove this address from your outreach. This mailbox is not for sales."
+- id: r084
+  label: out_of_office
+  body: "Automatic reply: I am out of the office until 14 October with limited access to email. I will reply when I return."
+  resume_on: 2026-10-14
+- id: r085
+  label: out_of_office
+  body: "Thank you for your message. I'm on annual leave and back on Monday 19 October."
+  resume_on: 2026-10-19
+- id: r086
+  label: out_of_office
+  body: "Auto-reply: I'm travelling this week. For urgent fleet matters contact the dispatch desk on extension 220."
+- id: r087
+  label: out_of_office
+  body: "I am currently out of office on parental leave until January 2027. My emails are not forwarded."
+  resume_on: 2027-01-01
+- id: r088
+  label: out_of_office
+  body: "Out of office: back 12 October. If urgent, please contact Sam Hughes at sam.hughes@evergreen-lawntree.example."
+  resume_on: 2026-10-12
+- id: r089
+  label: out_of_office
+  body: "Automatische Antwort: Ich bin bis zum 16. Oktober nicht im Büro. I am out of the office until October 16."
+  resume_on: 2026-10-16
+- id: r090
+  label: out_of_office
+  body: "I'm at a conference until Thursday and will respond to emails after that."
+- id: r091
+  label: out_of_office
+  body: "Autoreply: this mailbox is checked twice a week. Expect a delay in my response."
+- id: r092
+  label: out_of_office
+  body: "Je suis absent jusqu'au 20 octobre. I'm away until 20 October and will reply on my return."
+  resume_on: 2026-10-20
+- id: r093
+  label: out_of_office
+  body: "Thanks for your email. I'm off sick this week; I'll get back to you when I'm back."
+- id: r094
+  label: bounce
+  sender: bounce
+  subject: "Delivery Status Notification (Failure)"
+  body: "Address not found. Your message wasn't delivered because the address couldn't be found, or is unable to receive mail. 550 5.1.1 The email account that you tried to reach does not exist."
+- id: r095
+  label: bounce
+  sender: bounce
+  subject: "Undelivered Mail Returned to Sender"
+  body: "This is the mail system at host mx.example. I'm sorry to have to inform you that your message could not be delivered to one or more recipients. <user>: host said: 550 User unknown"
+- id: r096
+  label: bounce
+  sender: bounce
+  subject: "Mail delivery failed: returning message to sender"
+  body: "A message that you sent could not be delivered to one or more of its recipients. This is a permanent error. mailbox unavailable"
+- id: r097
+  label: bounce
+  sender: bounce
+  subject: "Undeliverable: Fleet safety"
+  body: "Delivery has failed to these recipients or groups. The recipient's mailbox is full and can't accept messages now."
+- id: r098
+  label: bounce
+  sender: bounce
+  subject: "Returned mail: see transcript for details"
+  body: "The original message was received but could not be delivered. 554 5.7.1 Recipient address rejected: access denied"
+- id: r099
+  label: bounce
+  sender: bounce
+  subject: "Delivery Status Notification (Failure)"
+  body: "This is an automatically generated Delivery Status Notification. Delivery to the following recipient failed permanently after 48 hours of retries."
+- id: r100
+  label: bounce
+  sender: bounce
+  subject: "Message not delivered"
+  body: "Your message to the recipient could not be delivered: the domain does not exist (NXDOMAIN)."

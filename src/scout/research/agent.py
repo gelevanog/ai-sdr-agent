@@ -26,6 +26,8 @@ class ResearchResult:
     guarded_pages: dict[str, ParsedPage] = field(default_factory=dict)
     """Page id -> the page text the model saw."""
     error: str | None = None
+    raw: dict[str, object] | None = None
+    """The model's reply before validation (the evaluation measures citation validity on it)."""
 
 
 def prepare_pages(crawl: CrawlResult, *, guard: bool) -> tuple[dict[str, ParsedPage], list[InjectionFinding]]:
@@ -124,4 +126,4 @@ def research_account(
         injections=len(findings),
         seconds=profile.seconds,
     )
-    return ResearchResult(profile=profile, crawl=crawl, guarded_pages=pages)
+    return ResearchResult(profile=profile, crawl=crawl, guarded_pages=pages, raw=data)

@@ -35,7 +35,7 @@ seller:
   competitors: [TrackRight, GeoPulse]
   meeting_minutes: 30
   meeting_timezone: America/Los_Angeles
-  meeting_hours: [8, 16]
+  meeting_hours: [7, 16]
 
 icp:
   target_segments:

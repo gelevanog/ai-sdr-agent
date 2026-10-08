@@ -27,7 +27,7 @@ from scout.research.extract import normalize
 
 _NUMBER = re.compile(r"(?<![\w.])(\d{1,3}(?:,\d{3})+|\d+(?:\.\d+)?)(?![\w])")
 _PROPER = re.compile(r"\b[A-Z][a-zA-Z'&.-]*(?:\s+(?:&\s+)?[A-Z][a-zA-Z'&.-]*)*")
-_RECENCY = re.compile(r"\b(recent|recently|just|new|newly|latest|this (?:week|month|quarter|year)|congrat\w*)\b", re.I)
+_RECENCY = re.compile(r"\b(recent|recently|just|new|newly|latest|currently|right now|this (?:week|month|quarter|year)|congrat\w*)\b", re.I)
 _YEAR = re.compile(r"\b(19|20)\d{2}\b")
 _MONTHS = ("january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december")
 COMMON_CAPITALIZED = frozenset(
