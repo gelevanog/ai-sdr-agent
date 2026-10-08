@@ -315,7 +315,9 @@ def run_accounts(settings: Settings, name: str, *, subset: bool, limit: int) -> 
             "facts": {
                 "emitted": facts_emitted,
                 "kept": facts_kept,
-                "rejected_rate": rate(facts_emitted - facts_kept, facts_emitted),
+                "rejected_rate": rate(
+                    sum(len([x for x in r["rejected"] if x["kind"] == "fact"]) for r in rows), facts_emitted
+                ),
                 "firmographic_disagreement_rate": rate(
                     sum(v[1] for v in firm.values()), sum(v[0] + v[1] for v in firm.values())
                 ),
