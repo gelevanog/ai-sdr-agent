@@ -93,8 +93,18 @@ services:
 
   synthetic-web:
     image: nginx:1.29-alpine
+    # The API generates the sites into the shared volume on first start; nginx only reads them. `nocopy` keeps
+    # nginx's default pages out of the volume, and starting after the API lets the API own it.
     volumes:
-      - synthweb:/usr/share/nginx/html:ro
+      - type: volume
+        source: synthweb
+        target: /usr/share/nginx/html
+        read_only: true
+        volume:
+          nocopy: true
+    depends_on:
+      api:
+        condition: service_started
     ports:
       - "${SYNTHETIC_WEB_PORT:-8090}:80"
     restart: unless-stopped
