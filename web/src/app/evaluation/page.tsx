@@ -62,7 +62,9 @@ function Rows({ rows }: { rows: [ReactNode, ReactNode][] }) {
 export default function EvaluationPage() {
   const { data, error } = useApi<Summary>("/api/evaluation");
   const main = data?.runs?.main ?? data?.runs?.offline ?? {};
-  const acc = main.accounts;
+  const fixed = data?.runs?.main_fixed?.accounts;
+  const firstRun = main.accounts;
+  const acc = fixed ?? firstRun;
   const drafts = main.drafts;
   const replies = main.replies;
   const repliesLlm = main.replies_no_rules;
@@ -101,7 +103,7 @@ export default function EvaluationPage() {
                 ["... found on another crawled page (re-attributed)", pct(acc.research.citations.quote_on_another_page)],
                 ["... found nowhere (rejected)", pct(acc.research.citations.quote_not_found)],
                 ["Facts rejected by validation", `${pct(acc.research.facts.rejected_rate)} of ${acc.research.facts.emitted}`],
-                ["Firmographics that disagree with my labels", pct(acc.research.facts.firmographic_disagreement_rate)],
+                ["Firmographics that disagree with my labels", pct(acc.research.facts.firmographic_disagreement_rate ?? acc.research.facts.hallucinated_fact_rate_after_validation)],
                 ["Injection attempts quarantined", acc.research.injection_findings],
                 ["Research latency p50 / p95", `${acc.latency.research_p50} s / ${acc.latency.research_p95} s`],
                 ["Model calls per account (research + judgment)", acc.calls.per_account],
@@ -114,6 +116,7 @@ export default function EvaluationPage() {
             <Rows
               rows={[
                 ["Route accuracy (3 routes)", pct(acc.qualification.accuracy)],
+                ...(fixed && firstRun ? ([["... in the first run, before the country fallback", pct(firstRun.qualification.accuracy)]] as [ReactNode, ReactNode][]) : []),
                 ["Rules only, before the LLM judgment", pct(acc.qualification.rules_only_accuracy)],
                 ["'Qualified' precision / recall", `${pct(acc.qualification.qualified_vs_not.precision)} / ${pct(acc.qualification.qualified_vs_not.recall)}`],
                 ["LLM-only qualification (ablation)", llmOnly ? `${pct(llmOnly.accuracy)} on ${llmOnly.accounts} accounts` : "-"],

@@ -1,0 +1,36 @@
+{
+ "requests": 462,
+ "ok": 433,
+ "retried": 15,
+ "errors": 14,
+ "requested_models": {
+  "nvidia/nemotron-3-super-120b-a12b:free": 344,
+  "nvidia/nemotron-3-ultra-550b-a55b:free": 30,
+  "dots-studio/dots-3-note-preview:free": 49,
+  "thinkingmachines/inkling:free": 2,
+  "google/gemma-4-31b-it:free": 10,
+  "inclusionai/ling-3.0-flash-sante:free": 27
+ },
+ "served_models": {
+  "nvidia/nemotron-3-super-120b-a12b:free": 337,
+  "nvidia/nemotron-3-ultra-550b-a55b:free": 28,
+  "dots-studio/dots-3-note-preview:free": 42,
+  "inclusionai/ling-3.0-flash-sante:free": 26
+ },
+ "by_tag": {
+  "smoke": 26,
+  "judge": 47,
+  "draft": 50,
+  "verify_claims": 64,
+  "extract": 74,
+  "classify_reply": 137,
+  "qualify_llm_only": 14,
+  "injection": 6,
+  "eval_judge": 44
+ },
+ "all_free": true,
+ "first": "2026-10-08T02:14:41+00:00",
+ "last": "2026-10-08T05:16:57+00:00",
+ "input_tokens": 483735,
+ "output_tokens": 1009313
+}

@@ -63,7 +63,11 @@ for (const shot of shots) {
     await full(page, "replies", { maxHeight: 1800 });
   } else if (shot === "mailpit") {
     const page = await open(mailpit, { height: 900 });
-    await page.evaluate(() => document.querySelector(".message")?.click() ?? document.querySelector("a[href*='/view/']")?.click());
+    await page.evaluate(() => {
+      const links = [...document.querySelectorAll("a[href*='/view/']")];
+      const first = links.find((a) => !a.innerText.includes("Re: ")) ?? links[0];
+      first?.click();
+    });
     await sleep(1500);
     await page.screenshot({ path: `${out}mailpit.png` });
     console.log("mailpit.png");

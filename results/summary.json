@@ -1,0 +1,2812 @@
+{
+ "generated": "2026-10-08",
+ "runs": {
+  "main": {
+   "accounts": {
+    "name": "main",
+    "suite": "accounts",
+    "date": "2026-10-08",
+    "model": "openrouter/nvidia/nemotron-3-super-120b-a12b:free",
+    "accounts": 60,
+    "research": {
+     "signals": {
+      "overall": {
+       "tp": 59,
+       "fp": 4,
+       "fn": 0,
+       "precision": 0.9365,
+       "recall": 1.0,
+       "f1": 0.9672
+      },
+      "by_type": {
+       "competitor_in_use": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+       },
+       "expansion": {
+        "tp": 11,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+       },
+       "funding": {
+        "tp": 9,
+        "fp": 1,
+        "fn": 0,
+        "precision": 0.9,
+        "recall": 1.0,
+        "f1": 0.9474
+       },
+       "hiring": {
+        "tp": 20,
+        "fp": 2,
+        "fn": 0,
+        "precision": 0.9091,
+        "recall": 1.0,
+        "f1": 0.9524
+       },
+       "leadership_change": {
+        "tp": 8,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+       },
+       "tech_stack": {
+        "tp": 10,
+        "fp": 1,
+        "fn": 0,
+        "precision": 0.9091,
+        "recall": 1.0,
+        "f1": 0.9524
+       }
+      },
+      "freshness_accuracy": 1.0,
+      "freshness_checked": 59,
+      "missed": [],
+      "false_positives": [
+       "redwood-facility.example: tech_stack 'TrackRight'",
+       "convoy-analytics.example: hiring 'Fleet Data Engineer'",
+       "fleetstreet-capital.example: funding '£200 million'",
+       "geopulse-fleet.example: hiring 'Telematics Support Engineer'"
+      ]
+     },
+     "citations": {
+      "items_with_quotes": 844,
+      "quote_on_cited_page": 1.0,
+      "quote_on_another_page": 0.0,
+      "quote_not_found": 0.0
+     },
+     "facts": {
+      "emitted": 439,
+      "kept": 438,
+      "rejected_rate": 0.0023,
+      "hallucinated_fact_rate_after_validation": 0.0553
+     },
+     "firmographics": {
+      "employees": {
+       "correct": 59,
+       "wrong": 0,
+       "missing": 1
+      },
+      "fleet_size": {
+       "correct": 47,
+       "wrong": 2,
+       "missing": 11
+      },
+      "country": {
+       "correct": 50,
+       "wrong": 0,
+       "missing": 10
+      },
+      "segment": {
+       "correct": 49,
+       "wrong": 10,
+       "missing": 1
+      }
+     },
+     "injection_findings": 2
+    },
+    "qualification": {
+     "accuracy": 0.9167,
+     "rules_only_accuracy": 0.9167,
+     "qualified_vs_not": {
+      "tp": 19,
+      "fp": 0,
+      "fn": 3,
+      "precision": 1.0,
+      "recall": 0.8636,
+      "f1": 0.9268
+     },
+     "qualified_vs_not_accuracy": 0.95,
+     "confusion": {
+      "qualified": {
+       "qualified": 19,
+       "nurture": 2,
+       "disqualified": 1
+      },
+      "nurture": {
+       "qualified": 0,
+       "nurture": 17,
+       "disqualified": 0
+      },
+      "disqualified": {
+       "qualified": 0,
+       "nurture": 2,
+       "disqualified": 19
+      }
+     },
+     "rules_only_confusion": {
+      "qualified": {
+       "qualified": 19,
+       "nurture": 2,
+       "disqualified": 1
+      },
+      "nurture": {
+       "qualified": 0,
+       "nurture": 17,
+       "disqualified": 0
+      },
+      "disqualified": {
+       "qualified": 0,
+       "nurture": 2,
+       "disqualified": 19
+      }
+     },
+     "llm_adjustments": [
+      "thornbury-waste.example: +5 (nurture -> nurture) Evidence shows the company is headquartered in Manchester and serves Greater Manchester and Lancashire, indicating a UK location that satisf",
+      "andes-cargo.example: +5 (nurture -> nurture) Rubric gave 0/10 for region because country was not stated, but evidence shows HQ in Lima (Peru) and service across Peru and Bolivia, provid",
+      "parcelpoint-lockers.example: -3 (nurture -> nurture) The expansion signal (S1) reflects growth in locker count, not fleet activity, and the company explicitly states it does not operate deliver",
+      "bramble-landscaping.example: +5 (nurture -> nurture) Employee count of 120 is just below the 150‑5,000 guideline but close; combined with fleet size of 45 (≥40) and a recent hiring signal for a",
+      "vantage-office.example: +5 (nurture -> nurture) Evidence of HQ in Cleveland, Ohio and service to northeast Ohio indicates a US region, satisfying the region criterion that the rubric score"
+     ],
+     "traps": {
+      "benign_ai_mention": {
+       "total": 1,
+       "correct": 1,
+       "accounts": [
+        "coldline-distribution.example: gold qualified, got qualified (68)"
+       ]
+      },
+      "robots_disallow_team": {
+       "total": 1,
+       "correct": 1,
+       "accounts": [
+        "pinecrest-waste.example: gold qualified, got qualified (70)"
+       ]
+      },
+      "stale_careers": {
+       "total": 3,
+       "correct": 3,
+       "accounts": [
+        "sterling-septic.example: gold nurture, got nurture (50)",
+        "silverline-repair.example: gold nurture, got nurture (50)",
+        "crescentcity-plumbing.example: gold nurture, got nurture (40)"
+       ]
+      },
+      "outdated_page": {
+       "total": 2,
+       "correct": 2,
+       "accounts": [
+        "westbrook-logistics.example: gold nurture, got nurture (50)",
+        "silverline-repair.example: gold nurture, got nurture (50)"
+       ]
+      },
+      "injection": {
+       "total": 2,
+       "correct": 2,
+       "accounts": [
+        "sunridge-solar.example: gold nurture, got nurture (55)",
+        "thornbury-waste.example: gold nurture, got nurture (45)"
+       ]
+      },
+      "hidden_text": {
+       "total": 1,
+       "correct": 1,
+       "accounts": [
+        "thornbury-waste.example: gold nurture, got nurture (45)"
+       ]
+      },
+      "robots_disallow_all": {
+       "total": 1,
+       "correct": 1,
+       "accounts": [
+        "duneview-pools.example: gold nurture, got nurture (0)"
+       ]
+      },
+      "keyword_wrong_segment": {
+       "total": 9,
+       "correct": 8,
+       "accounts": [
+        "fleetforge-games.example: gold disqualified, got disqualified (0)",
+        "routenine-diners.example: gold disqualified, got disqualified (0)",
+        "convoy-analytics.example: gold disqualified, got disqualified (0)",
+        "dispatch-daily.example: gold disqualified, got disqualified (0)",
+        "fleetstreet-capital.example: gold disqualified, got disqualified (0)",
+        "truckstop-coffee.example: gold disqualified, got disqualified (0)",
+        "fleetwood-dental.example: gold disqualified, got disqualified (0)",
+        "parcelpoint-lockers.example: gold disqualified, got nurture (47)",
+        "greenway-bikes.example: gold disqualified, got disqualified (30)"
+       ]
+      },
+      "too_small": {
+       "total": 5,
+       "correct": 5,
+       "accounts": [
+        "truckstop-coffee.example: gold disqualified, got disqualified (0)",
+        "brightspark-electric.example: gold disqualified, got disqualified (0)",
+        "tworivers-towing.example: gold disqualified, got disqualified (0)",
+        "littlelane-florist.example: gold disqualified, got disqualified (0)",
+        "hollowbrook-brewing.example: gold disqualified, got disqualified (0)"
+       ]
+      },
+      "wrong_region": {
+       "total": 3,
+       "correct": 2,
+       "accounts": [
+        "southerncross-haulage.example: gold disqualified, got disqualified (0)",
+        "andes-cargo.example: gold disqualified, got nurture (45)",
+        "sakura-homeservices.example: gold disqualified, got disqualified (0)"
+       ]
+      },
+      "competitor": {
+       "total": 2,
+       "correct": 2,
+       "accounts": [
+        "trackright.example: gold disqualified, got disqualified (0)",
+        "geopulse-fleet.example: gold disqualified, got disqualified (0)"
+       ]
+      },
+      "existing_customer": {
+       "total": 2,
+       "correct": 2,
+       "accounts": [
+        "northbeam-logistics.example: gold disqualified, got disqualified (0)",
+        "harlow-plumbing.example: gold disqualified, got disqualified (0)"
+       ]
+      },
+      "borderline": {
+       "total": 2,
+       "correct": 1,
+       "accounts": [
+        "bramble-landscaping.example: gold qualified, got nurture (50)",
+        "quayside-marine.example: gold nurture, got nurture (48)"
+       ]
+      }
+     },
+     "errors": [
+      "fernhill-foods.example: gold qualified, got nurture (score 53; )",
+      "andes-cargo.example: gold disqualified, got nurture (score 45; )",
+      "parcelpoint-lockers.example: gold disqualified, got nurture (score 47; )",
+      "bramble-landscaping.example: gold qualified, got nurture (score 50; )",
+      "metro-medtransport.example: gold qualified, got disqualified (score 0; segment 'finance' is excluded)"
+     ]
+    },
+    "latency": {
+     "research_p50": 38.33,
+     "research_p95": 74.0,
+     "qualify_p50": 3.41,
+     "qualify_p95": 10.75
+    },
+    "calls": {
+     "total": {
+      "extract": 59,
+      "judge": 40
+     },
+     "per_account": 1.65
+    }
+   },
+   "claims": {
+    "name": "main",
+    "suite": "claims",
+    "date": "2026-10-08",
+    "model": "openrouter/nvidia/nemotron-3-super-120b-a12b:free",
+    "claims": 57,
+    "unsupported": 29,
+    "rules_only": {
+     "tp": 25,
+     "fp": 0,
+     "fn": 4,
+     "precision": 1.0,
+     "recall": 0.8621,
+     "f1": 0.9259
+    },
+    "llm_only": {
+     "tp": 26,
+     "fp": 3,
+     "fn": 3,
+     "precision": 0.8966,
+     "recall": 0.8966,
+     "f1": 0.8966
+    },
+    "combined": {
+     "tp": 29,
+     "fp": 3,
+     "fn": 0,
+     "precision": 0.9062,
+     "recall": 1.0,
+     "f1": 0.9508
+    },
+    "by_error_type": {
+     "wrong_number": {
+      "total": 6,
+      "rules": 6,
+      "llm": 6,
+      "combined": 6
+     },
+     "invented_detail": {
+      "total": 4,
+      "rules": 3,
+      "llm": 4,
+      "combined": 4
+     },
+     "wrong_role": {
+      "total": 2,
+      "rules": 1,
+      "llm": 2,
+      "combined": 2
+     },
+     "exaggeration": {
+      "total": 1,
+      "rules": 0,
+      "llm": 1,
+      "combined": 1
+     },
+     "wrong_date": {
+      "total": 2,
+      "rules": 2,
+      "llm": 2,
+      "combined": 2
+     },
+     "wrong_person": {
+      "total": 1,
+      "rules": 1,
+      "llm": 1,
+      "combined": 1
+     },
+     "wrong_place": {
+      "total": 3,
+      "rules": 3,
+      "llm": 3,
+      "combined": 3
+     },
+     "invented_customer": {
+      "total": 2,
+      "rules": 2,
+      "llm": 2,
+      "combined": 2
+     },
+     "wrong_detail": {
+      "total": 2,
+      "rules": 1,
+      "llm": 2,
+      "combined": 2
+     },
+     "wrong_attribution": {
+      "total": 1,
+      "rules": 1,
+      "llm": 1,
+      "combined": 1
+     },
+     "stale_as_recent": {
+      "total": 5,
+      "rules": 5,
+      "llm": 2,
+      "combined": 5
+     }
+    },
+    "false_alarms": [
+     "c18: Your new Manchester hub must keep the team busy. -> Evidence S1 only notes the Manchester hub opened with 40 electric vans; it does not state that the hub keeps the team busy.",
+     "c27: Running 700 trucks and service vehicles takes a lot of coordination. -> Evidence F6 confirms a fleet of 700 trucks and service vehicles, but does not state that running them takes a lot of coordination; that detail is added and not implied.",
+     "c41: After your 2023 Series A, the fleet has had time to grow. -> The claim states that after the 2023 Series A the fleet has had time to grow. Evidence (S1) only mentions the funding was to modernise the fleet; it does not mention or imply any fleet growth or that time has passed for growth."
+    ],
+    "missed": [],
+    "calls": {
+     "verify_claims": 12
+    }
+   },
+   "compliance": {
+    "name": "main",
+    "suite": "compliance",
+    "date": "2026-10-08",
+    "checks": [
+     {
+      "check": "An unapproved message is not sent (send gate)",
+      "passed": true,
+      "detail": "status=blocked"
+     },
+     {
+      "check": "The database refuses status 'sent' without an approver",
+      "passed": true,
+      "detail": "CHECK sent_requires_approval"
+     },
+     {
+      "check": "Pending drafts have no outgoing messages",
+      "passed": true,
+      "detail": ""
+     },
+     {
+      "check": "Unsubscribing from one sequence stops every sequence to that address",
+      "passed": true,
+      "detail": "2 sequences, 0 still scheduled, sent 6 -> 6"
+     },
+     {
+      "check": "A suppressed address cannot be scheduled (database trigger)",
+      "passed": true,
+      "detail": ""
+     },
+     {
+      "check": "Drafting for a suppressed contact is refused",
+      "passed": true,
+      "detail": "ruth.delgado@brightwater-fs.example is suppressed"
+     },
+     {
+      "check": "An opt-out reply suppresses the address and cancels its follow-ups",
+      "passed": true,
+      "detail": ""
+     },
+     {
+      "check": "Do-not-contact cancels scheduled messages",
+      "passed": true,
+      "detail": "cancelled 3, {'sent': 0, 'deferred': 0, 'blocked': 0, 'waiting': 0}"
+     },
+     {
+      "check": "Drafting for a do-not-contact account is refused",
+      "passed": true,
+      "detail": ""
+     },
+     {
+      "check": "Daily and per-domain caps are never exceeded (excess is deferred)",
+      "passed": true,
+      "detail": "max/day 2, max/domain/day 1, deferrals 61, still waiting 0"
+     },
+     {
+      "check": "Every sent email has an unsubscribe link, RFC 8058 headers and the postal address",
+      "passed": true,
+      "detail": "22/22"
+     },
+     {
+      "check": "The mailer refuses a real SMTP server in capture-only mode",
+      "passed": true,
+      "detail": ""
+     },
+     {
+      "check": "Retention purges old page text and reply bodies",
+      "passed": true,
+      "detail": "{'pages_purged': 10, 'reply_bodies_purged': 1, 'rejected_drafts_deleted': 0}"
+     },
+     {
+      "check": "Every decision is in the audit log",
+      "passed": true,
+      "detail": "missing: []"
+     }
+    ],
+    "passed": 14,
+    "total": 14,
+    "emails_captured": 22
+   },
+   "drafts": {
+    "name": "main",
+    "suite": "drafts",
+    "date": "2026-10-08",
+    "model": "openrouter/nvidia/nemotron-3-super-120b-a12b:free",
+    "judge_model": "openrouter/dots-studio/dots-3-note-preview:free",
+    "checker": true,
+    "accounts": 18,
+    "variants": 36,
+    "errors": [
+     {
+      "domain": "pinecrest-waste.example",
+      "error": "no contact with a published or supplied email address; add one before drafting"
+     }
+    ],
+    "checker_view": {
+     "first_drafts": {
+      "claims": 152,
+      "supported_by_checker": 0.9408,
+      "unsupported": 9
+     },
+     "final_drafts": {
+      "claims": 158,
+      "supported_by_checker": 1.0,
+      "unsupported": 0
+     }
+    },
+    "independent_audit": {
+     "first_drafts": {
+      "claims": 78,
+      "unsupported": 9,
+      "unsupported_rate": 0.1154,
+      "supported_rate": 0.8846,
+      "examples": [
+       "meridian-mobile-medical.example A-final: That role owns vehicle maintenance schedules, driver safety reviews and fleet cost reporting. (Reference facts do not include the specific responsibilities of the Fleet Coordi)",
+       "meridian-mobile-medical.example B-final: maintained in house (Reference facts do not mention whether the fleet is maintained in house or outso)",
+       "tallgrass-couriers.example A-first: Tallgrass Couriers opened a Manchester hub with 40 new electric vans last month. (Reference states the hub opened in August 2026; 'last month' is ambiguous and do)",
+       "tallgrass-couriers.example A-first: you can start tracking those vehicles from day one using self‑install devices (Reference product description says self‑install devices allow tracking from the )",
+       "tallgrass-couriers.example A-first: ensuring the new depot is visible in your fleet data right away (Reference states tracking begins in the first week, not immediately.)",
+       "swiftmark-parcel.example A-final: That expansion puts more vans on the road. (Reference facts do not mention that the expansion puts more vans on the road.)",
+       "aldergrove-bus.example A-first: which can help the new officer focus on proactive safety rather than reactive checks. (No reference fact supports this specific benefit; product description does not m)",
+       "aldergrove-bus.example B-first: Northbeam Logistics reduced idle time by 23% in the first six months using Wayline’s idle‑time and r (Proof point confirms the reduction but does not specify using Wayline's idle-tim)",
+       "northstar-rental.example A-final: Northstar Rental Equipment runs its rentals, dispatch and invoicing in SAP (as of Sept 28, 2026). (Reference confirms that rentals, dispatch and invoicing are handled in SAP, but )"
+      ]
+     },
+     "final_drafts": {
+      "claims": 79,
+      "unsupported": 6,
+      "unsupported_rate": 0.0759,
+      "supported_rate": 0.9241,
+      "examples": [
+       "meridian-mobile-medical.example A-final: That role owns vehicle maintenance schedules, driver safety reviews and fleet cost reporting. (Reference facts do not include the specific responsibilities of the Fleet Coordi)",
+       "meridian-mobile-medical.example B-final: maintained in house (Reference facts do not mention whether the fleet is maintained in house or outso)",
+       "tallgrass-couriers.example A-final: you can start tracking those vehicles from day one using self‑install devices (Reference product description says self‑install devices allow tracking from the )",
+       "tallgrass-couriers.example A-final: ensuring the new depot is visible in your fleet data right away (Reference states tracking begins in the first week, not immediately.)",
+       "swiftmark-parcel.example A-final: That expansion puts more vans on the road. (Reference facts do not mention that the expansion puts more vans on the road.)",
+       "northstar-rental.example A-final: Northstar Rental Equipment runs its rentals, dispatch and invoicing in SAP (as of Sept 28, 2026). (Reference confirms that rentals, dispatch and invoicing are handled in SAP, but )"
+      ]
+     }
+    },
+    "first_draft_pass_rate": 0.6667,
+    "final_pass_rate": 1.0,
+    "regenerated": 12,
+    "trimmed": 2,
+    "attempts_mean": 1.33,
+    "personalization_mean": 1.08,
+    "spam_pass_rate": 1.0,
+    "spam_issue_counts": {
+     "length": 2
+    },
+    "readability_mean": 64.5,
+    "words_first_email_mean": 49.2,
+    "preference_vs_template": {
+     "scout": 15,
+     "baseline": 3,
+     "scout_win_rate": 0.8333
+    },
+    "seconds_p50": 0.03,
+    "seconds_p95": 84.98,
+    "calls": {
+     "total": {
+      "draft": 30,
+      "verify_claims": 30
+     },
+     "per_account": 3.33
+    }
+   },
+   "injection": {
+    "name": "main",
+    "suite": "injection",
+    "date": "2026-10-08",
+    "model": "openrouter/nvidia/nemotron-3-super-120b-a12b:free",
+    "calls": {
+     "injection": 18
+    }
+   },
+   "llm_only": {
+    "name": "main",
+    "suite": "llm_only",
+    "date": "2026-10-08",
+    "model": "openrouter/nvidia/nemotron-3-super-120b-a12b:free",
+    "accounts": 14,
+    "accuracy": 0.6429,
+    "confusion": {
+     "qualified": {
+      "qualified": 2,
+      "nurture": 1,
+      "disqualified": 0
+     },
+     "nurture": {
+      "qualified": 4,
+      "nurture": 2,
+      "disqualified": 0
+     },
+     "disqualified": {
+      "qualified": 0,
+      "nurture": 0,
+      "disqualified": 5
+     }
+    },
+    "errors": [
+     "westbrook-logistics.example: gold nurture, got qualified (88) Employee count 650 within ICP range (150-5000).; Fleet size 300 vehicles exceeds minimum of 40.; Headquartered in Kansas City, Missouri, USA – within target countries.; Operates as a truckload freight",
+     "sunridge-solar.example: gold nurture, got qualified (85) Operates in the field_services target segment (solar installation, inspections, maintenance, emergency call-outs).; Fleet size of 110 install trucks meets the minimum of 40 vehicles (absolute min 15).",
+     "thornbury-waste.example: gold nurture, got qualified (88) Target segment: waste_management (explicitly listed in ideal profile).; Employee count ~1,300, within 150‑5,000 range (above absolute minimum of 50).; Fleet size 410 collection vehicles, exceeds minim",
+     "bramble-landscaping.example: gold qualified, got nurture (70) Employee count 120 is below the ideal minimum of 150 (but above the absolute minimum of 50); Fleet size of 45 trucks meets the minimum requirement of 40 vehicles; Headquartered in Bristol, United King",
+     "quayside-marine.example: gold nurture, got qualified (78) Headquartered in Southampton, United Kingdom (GB) – an allowed country.; Employee count of 200 falls within the 150‑5000 range (above absolute minimum of 50).; Fleet of 30 vans meets the absolute mini"
+    ],
+    "calls": {
+     "qualify_llm_only": 14
+    }
+   },
+   "replies": {
+    "name": "main",
+    "suite": "replies",
+    "date": "2026-10-08",
+    "model": "openrouter/nvidia/nemotron-3-super-120b-a12b:free",
+    "rules": true,
+    "replies": 100,
+    "accuracy": 1.0,
+    "macro_f1": 1.0,
+    "per_class": {
+     "interested": {
+      "tp": 14,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 14
+     },
+     "meeting_request": {
+      "tp": 14,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 14
+     },
+     "not_now": {
+      "tp": 13,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 13
+     },
+     "referral": {
+      "tp": 10,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 10
+     },
+     "objection": {
+      "tp": 19,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 19
+     },
+     "unsubscribe": {
+      "tp": 13,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 13
+     },
+     "out_of_office": {
+      "tp": 10,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 10
+     },
+     "bounce": {
+      "tp": 7,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 7
+     }
+    },
+    "confusion": {
+     "interested": {
+      "interested": 14,
+      "meeting_request": 0,
+      "not_now": 0,
+      "referral": 0,
+      "objection": 0,
+      "unsubscribe": 0,
+      "out_of_office": 0,
+      "bounce": 0
+     },
+     "meeting_request": {
+      "interested": 0,
+      "meeting_request": 14,
+      "not_now": 0,
+      "referral": 0,
+      "objection": 0,
+      "unsubscribe": 0,
+      "out_of_office": 0,
+      "bounce": 0
+     },
+     "not_now": {
+      "interested": 0,
+      "meeting_request": 0,
+      "not_now": 13,
+      "referral": 0,
+      "objection": 0,
+      "unsubscribe": 0,
+      "out_of_office": 0,
+      "bounce": 0
+     },
+     "referral": {
+      "interested": 0,
+      "meeting_request": 0,
+      "not_now": 0,
+      "referral": 10,
+      "objection": 0,
+      "unsubscribe": 0,
+      "out_of_office": 0,
+      "bounce": 0
+     },
+     "objection": {
+      "interested": 0,
+      "meeting_request": 0,
+      "not_now": 0,
+      "referral": 0,
+      "objection": 19,
+      "unsubscribe": 0,
+      "out_of_office": 0,
+      "bounce": 0
+     },
+     "unsubscribe": {
+      "interested": 0,
+      "meeting_request": 0,
+      "not_now": 0,
+      "referral": 0,
+      "objection": 0,
+      "unsubscribe": 13,
+      "out_of_office": 0,
+      "bounce": 0
+     },
+     "out_of_office": {
+      "interested": 0,
+      "meeting_request": 0,
+      "not_now": 0,
+      "referral": 0,
+      "objection": 0,
+      "unsubscribe": 0,
+      "out_of_office": 10,
+      "bounce": 0
+     },
+     "bounce": {
+      "interested": 0,
+      "meeting_request": 0,
+      "not_now": 0,
+      "referral": 0,
+      "objection": 0,
+      "unsubscribe": 0,
+      "out_of_office": 0,
+      "bounce": 7
+     }
+    },
+    "unsubscribe_recall": 1.0,
+    "unsubscribe_precision": 1.0,
+    "objection_type_accuracy": 0.9474,
+    "referral_email_accuracy": 1.0,
+    "resume_date_accuracy": 0.8333,
+    "resume_month_accuracy": 1.0,
+    "decided_by_rules": 30,
+    "errors": [],
+    "seconds_p50": 0.0,
+    "calls": {
+     "classify_reply": 70
+    }
+   },
+   "replies_no_rules": {
+    "name": "main",
+    "suite": "replies_no_rules",
+    "date": "2026-10-08",
+    "model": "openrouter/nvidia/nemotron-3-super-120b-a12b:free",
+    "rules": false,
+    "replies": 100,
+    "accuracy": 1.0,
+    "macro_f1": 1.0,
+    "per_class": {
+     "interested": {
+      "tp": 14,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 14
+     },
+     "meeting_request": {
+      "tp": 14,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 14
+     },
+     "not_now": {
+      "tp": 13,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 13
+     },
+     "referral": {
+      "tp": 10,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 10
+     },
+     "objection": {
+      "tp": 19,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 19
+     },
+     "unsubscribe": {
+      "tp": 13,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 13
+     },
+     "out_of_office": {
+      "tp": 10,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 10
+     },
+     "bounce": {
+      "tp": 7,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 7
+     }
+    },
+    "confusion": {
+     "interested": {
+      "interested": 14,
+      "meeting_request": 0,
+      "not_now": 0,
+      "referral": 0,
+      "objection": 0,
+      "unsubscribe": 0,
+      "out_of_office": 0,
+      "bounce": 0
+     },
+     "meeting_request": {
+      "interested": 0,
+      "meeting_request": 14,
+      "not_now": 0,
+      "referral": 0,
+      "objection": 0,
+      "unsubscribe": 0,
+      "out_of_office": 0,
+      "bounce": 0
+     },
+     "not_now": {
+      "interested": 0,
+      "meeting_request": 0,
+      "not_now": 13,
+      "referral": 0,
+      "objection": 0,
+      "unsubscribe": 0,
+      "out_of_office": 0,
+      "bounce": 0
+     },
+     "referral": {
+      "interested": 0,
+      "meeting_request": 0,
+      "not_now": 0,
+      "referral": 10,
+      "objection": 0,
+      "unsubscribe": 0,
+      "out_of_office": 0,
+      "bounce": 0
+     },
+     "objection": {
+      "interested": 0,
+      "meeting_request": 0,
+      "not_now": 0,
+      "referral": 0,
+      "objection": 19,
+      "unsubscribe": 0,
+      "out_of_office": 0,
+      "bounce": 0
+     },
+     "unsubscribe": {
+      "interested": 0,
+      "meeting_request": 0,
+      "not_now": 0,
+      "referral": 0,
+      "objection": 0,
+      "unsubscribe": 13,
+      "out_of_office": 0,
+      "bounce": 0
+     },
+     "out_of_office": {
+      "interested": 0,
+      "meeting_request": 0,
+      "not_now": 0,
+      "referral": 0,
+      "objection": 0,
+      "unsubscribe": 0,
+      "out_of_office": 10,
+      "bounce": 0
+     },
+     "bounce": {
+      "interested": 0,
+      "meeting_request": 0,
+      "not_now": 0,
+      "referral": 0,
+      "objection": 0,
+      "unsubscribe": 0,
+      "out_of_office": 0,
+      "bounce": 7
+     }
+    },
+    "unsubscribe_recall": 1.0,
+    "unsubscribe_precision": 1.0,
+    "objection_type_accuracy": 0.9474,
+    "referral_email_accuracy": 1.0,
+    "resume_date_accuracy": 0.8333,
+    "resume_month_accuracy": 1.0,
+    "decided_by_rules": 0,
+    "errors": [],
+    "seconds_p50": 0.0,
+    "calls": {
+     "classify_reply": 100
+    }
+   }
+  },
+  "main_fixed": {
+   "accounts": {
+    "name": "main_fixed",
+    "suite": "accounts",
+    "date": "2026-10-08",
+    "model": "openrouter/nvidia/nemotron-3-super-120b-a12b:free",
+    "accounts": 60,
+    "research": {
+     "signals": {
+      "overall": {
+       "tp": 59,
+       "fp": 4,
+       "fn": 0,
+       "precision": 0.9365,
+       "recall": 1.0,
+       "f1": 0.9672
+      },
+      "by_type": {
+       "competitor_in_use": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+       },
+       "expansion": {
+        "tp": 11,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+       },
+       "funding": {
+        "tp": 9,
+        "fp": 1,
+        "fn": 0,
+        "precision": 0.9,
+        "recall": 1.0,
+        "f1": 0.9474
+       },
+       "hiring": {
+        "tp": 20,
+        "fp": 2,
+        "fn": 0,
+        "precision": 0.9091,
+        "recall": 1.0,
+        "f1": 0.9524
+       },
+       "leadership_change": {
+        "tp": 8,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+       },
+       "tech_stack": {
+        "tp": 10,
+        "fp": 1,
+        "fn": 0,
+        "precision": 0.9091,
+        "recall": 1.0,
+        "f1": 0.9524
+       }
+      },
+      "freshness_accuracy": 1.0,
+      "freshness_checked": 59,
+      "missed": [],
+      "false_positives": [
+       "redwood-facility.example: tech_stack 'TrackRight'",
+       "convoy-analytics.example: hiring 'Fleet Data Engineer'",
+       "fleetstreet-capital.example: funding '£200 million'",
+       "geopulse-fleet.example: hiring 'Telematics Support Engineer'"
+      ]
+     },
+     "citations": {
+      "items_with_quotes": 844,
+      "quote_on_cited_page": 1.0,
+      "quote_on_another_page": 0.0,
+      "quote_not_found": 0.0
+     },
+     "facts": {
+      "emitted": 439,
+      "kept": 447,
+      "rejected_rate": -0.0182,
+      "firmographic_disagreement_rate": 0.0446
+     },
+     "firmographics": {
+      "employees": {
+       "correct": 59,
+       "wrong": 0,
+       "missing": 1
+      },
+      "fleet_size": {
+       "correct": 47,
+       "wrong": 0,
+       "missing": 13
+      },
+      "country": {
+       "correct": 59,
+       "wrong": 0,
+       "missing": 1
+      },
+      "segment": {
+       "correct": 49,
+       "wrong": 10,
+       "missing": 1
+      }
+     },
+     "injection_findings": 2
+    },
+    "qualification": {
+     "accuracy": 0.9667,
+     "rules_only_accuracy": 0.95,
+     "qualified_vs_not": {
+      "tp": 21,
+      "fp": 0,
+      "fn": 1,
+      "precision": 1.0,
+      "recall": 0.9545,
+      "f1": 0.9767
+     },
+     "qualified_vs_not_accuracy": 0.9833,
+     "confusion": {
+      "qualified": {
+       "qualified": 21,
+       "nurture": 0,
+       "disqualified": 1
+      },
+      "nurture": {
+       "qualified": 0,
+       "nurture": 17,
+       "disqualified": 0
+      },
+      "disqualified": {
+       "qualified": 0,
+       "nurture": 1,
+       "disqualified": 20
+      }
+     },
+     "rules_only_confusion": {
+      "qualified": {
+       "qualified": 20,
+       "nurture": 1,
+       "disqualified": 1
+      },
+      "nurture": {
+       "qualified": 0,
+       "nurture": 17,
+       "disqualified": 0
+      },
+      "disqualified": {
+       "qualified": 0,
+       "nurture": 1,
+       "disqualified": 20
+      }
+     },
+     "llm_adjustments": [
+      "ridgeway-utility.example: -10 (qualified -> qualified) Region points incorrectly awarded; evidence shows headquarters in Calgary, Alberta, Canada, not California.",
+      "fernhill-foods.example: +2 (qualified -> qualified) The leadership change (new COO) and recent SAP S/4HANA migration together form a coherent story of technology-driven operational modernizati",
+      "ironbridge-plumbing.example: -10 (qualified -> qualified) Rubric awarded region points for being in CA (California), but evidence shows headquarters in Toronto, Ontario, Canada (F5, F8), so region d",
+      "parcelpoint-lockers.example: -3 (nurture -> nurture) The expansion signal (S1) reflects growth in locker count, not fleet activity, and the company explicitly states it does not operate deliver",
+      "bramble-landscaping.example: +5 (nurture -> qualified) Company size is 120 employees, just below the 150-5,000 guideline, but they operate a fleet of 45 vehicles and are actively hiring a Fleet &"
+     ],
+     "traps": {
+      "benign_ai_mention": {
+       "total": 1,
+       "correct": 1,
+       "accounts": [
+        "coldline-distribution.example: gold qualified, got qualified (68)"
+       ]
+      },
+      "robots_disallow_team": {
+       "total": 1,
+       "correct": 1,
+       "accounts": [
+        "pinecrest-waste.example: gold qualified, got qualified (70)"
+       ]
+      },
+      "stale_careers": {
+       "total": 3,
+       "correct": 3,
+       "accounts": [
+        "sterling-septic.example: gold nurture, got nurture (50)",
+        "silverline-repair.example: gold nurture, got nurture (50)",
+        "crescentcity-plumbing.example: gold nurture, got nurture (50)"
+       ]
+      },
+      "outdated_page": {
+       "total": 2,
+       "correct": 2,
+       "accounts": [
+        "westbrook-logistics.example: gold nurture, got nurture (50)",
+        "silverline-repair.example: gold nurture, got nurture (50)"
+       ]
+      },
+      "injection": {
+       "total": 2,
+       "correct": 2,
+       "accounts": [
+        "sunridge-solar.example: gold nurture, got nurture (55)",
+        "thornbury-waste.example: gold nurture, got nurture (50)"
+       ]
+      },
+      "hidden_text": {
+       "total": 1,
+       "correct": 1,
+       "accounts": [
+        "thornbury-waste.example: gold nurture, got nurture (50)"
+       ]
+      },
+      "robots_disallow_all": {
+       "total": 1,
+       "correct": 1,
+       "accounts": [
+        "duneview-pools.example: gold nurture, got nurture (0)"
+       ]
+      },
+      "keyword_wrong_segment": {
+       "total": 9,
+       "correct": 8,
+       "accounts": [
+        "fleetforge-games.example: gold disqualified, got disqualified (0)",
+        "routenine-diners.example: gold disqualified, got disqualified (0)",
+        "convoy-analytics.example: gold disqualified, got disqualified (0)",
+        "dispatch-daily.example: gold disqualified, got disqualified (0)",
+        "fleetstreet-capital.example: gold disqualified, got disqualified (0)",
+        "truckstop-coffee.example: gold disqualified, got disqualified (0)",
+        "fleetwood-dental.example: gold disqualified, got disqualified (0)",
+        "parcelpoint-lockers.example: gold disqualified, got nurture (47)",
+        "greenway-bikes.example: gold disqualified, got disqualified (30)"
+       ]
+      },
+      "too_small": {
+       "total": 5,
+       "correct": 5,
+       "accounts": [
+        "truckstop-coffee.example: gold disqualified, got disqualified (0)",
+        "brightspark-electric.example: gold disqualified, got disqualified (0)",
+        "tworivers-towing.example: gold disqualified, got disqualified (0)",
+        "littlelane-florist.example: gold disqualified, got disqualified (0)",
+        "hollowbrook-brewing.example: gold disqualified, got disqualified (0)"
+       ]
+      },
+      "wrong_region": {
+       "total": 3,
+       "correct": 3,
+       "accounts": [
+        "southerncross-haulage.example: gold disqualified, got disqualified (0)",
+        "andes-cargo.example: gold disqualified, got disqualified (0)",
+        "sakura-homeservices.example: gold disqualified, got disqualified (0)"
+       ]
+      },
+      "competitor": {
+       "total": 2,
+       "correct": 2,
+       "accounts": [
+        "trackright.example: gold disqualified, got disqualified (0)",
+        "geopulse-fleet.example: gold disqualified, got disqualified (0)"
+       ]
+      },
+      "existing_customer": {
+       "total": 2,
+       "correct": 2,
+       "accounts": [
+        "northbeam-logistics.example: gold disqualified, got disqualified (0)",
+        "harlow-plumbing.example: gold disqualified, got disqualified (0)"
+       ]
+      },
+      "borderline": {
+       "total": 2,
+       "correct": 2,
+       "accounts": [
+        "bramble-landscaping.example: gold qualified, got qualified (60)",
+        "quayside-marine.example: gold nurture, got nurture (48)"
+       ]
+      }
+     },
+     "errors": [
+      "parcelpoint-lockers.example: gold disqualified, got nurture (score 47; )",
+      "metro-medtransport.example: gold qualified, got disqualified (score 0; segment 'finance' is excluded)"
+     ]
+    },
+    "latency": {
+     "research_p50": 0.03,
+     "research_p95": 0.03,
+     "qualify_p50": 0.01,
+     "qualify_p95": 6.01
+    },
+    "calls": {
+     "total": {
+      "extract": 59,
+      "judge": 39
+     },
+     "per_account": 1.63
+    }
+   }
+  },
+  "model_ling": {
+   "accounts": {
+    "name": "model_ling",
+    "suite": "accounts",
+    "date": "2026-10-08",
+    "model": "openrouter/inclusionai/ling-3.0-flash-sante:free",
+    "accounts": 8,
+    "research": {
+     "signals": {
+      "overall": {
+       "tp": 9,
+       "fp": 0,
+       "fn": 0,
+       "precision": 1.0,
+       "recall": 1.0,
+       "f1": 1.0
+      },
+      "by_type": {
+       "competitor_in_use": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+       },
+       "expansion": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+       },
+       "funding": {
+        "tp": 2,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+       },
+       "hiring": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+       },
+       "tech_stack": {
+        "tp": 2,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+       }
+      },
+      "freshness_accuracy": 1.0,
+      "freshness_checked": 9,
+      "missed": [],
+      "false_positives": []
+     },
+     "citations": {
+      "items_with_quotes": 106,
+      "quote_on_cited_page": 0.9528,
+      "quote_on_another_page": 0.0,
+      "quote_not_found": 0.0472
+     },
+     "facts": {
+      "emitted": 51,
+      "kept": 50,
+      "rejected_rate": 0.0196,
+      "hallucinated_fact_rate_after_validation": 0.0
+     },
+     "firmographics": {
+      "employees": {
+       "correct": 8,
+       "wrong": 0,
+       "missing": 0
+      },
+      "fleet_size": {
+       "correct": 6,
+       "wrong": 0,
+       "missing": 2
+      },
+      "country": {
+       "correct": 8,
+       "wrong": 0,
+       "missing": 0
+      },
+      "segment": {
+       "correct": 8,
+       "wrong": 0,
+       "missing": 0
+      }
+     },
+     "injection_findings": 1
+    },
+    "qualification": {
+     "accuracy": 0.875,
+     "rules_only_accuracy": 0.875,
+     "qualified_vs_not": {
+      "tp": 2,
+      "fp": 0,
+      "fn": 1,
+      "precision": 1.0,
+      "recall": 0.6667,
+      "f1": 0.8
+     },
+     "qualified_vs_not_accuracy": 0.875,
+     "confusion": {
+      "qualified": {
+       "qualified": 2,
+       "nurture": 1,
+       "disqualified": 0
+      },
+      "nurture": {
+       "qualified": 0,
+       "nurture": 3,
+       "disqualified": 0
+      },
+      "disqualified": {
+       "qualified": 0,
+       "nurture": 0,
+       "disqualified": 2
+      }
+     },
+     "rules_only_confusion": {
+      "qualified": {
+       "qualified": 2,
+       "nurture": 1,
+       "disqualified": 0
+      },
+      "nurture": {
+       "qualified": 0,
+       "nurture": 3,
+       "disqualified": 0
+      },
+      "disqualified": {
+       "qualified": 0,
+       "nurture": 0,
+       "disqualified": 2
+      }
+     },
+     "llm_adjustments": [],
+     "traps": {
+      "stale_careers": {
+       "total": 1,
+       "correct": 1,
+       "accounts": [
+        "sterling-septic.example: gold nurture, got nurture (50)"
+       ]
+      },
+      "injection": {
+       "total": 1,
+       "correct": 1,
+       "accounts": [
+        "sunridge-solar.example: gold nurture, got nurture (55)"
+       ]
+      },
+      "keyword_wrong_segment": {
+       "total": 1,
+       "correct": 1,
+       "accounts": [
+        "fleetforge-games.example: gold disqualified, got disqualified (0)"
+       ]
+      },
+      "competitor": {
+       "total": 1,
+       "correct": 1,
+       "accounts": [
+        "trackright.example: gold disqualified, got disqualified (0)"
+       ]
+      },
+      "borderline": {
+       "total": 1,
+       "correct": 0,
+       "accounts": [
+        "bramble-landscaping.example: gold qualified, got nurture (55)"
+       ]
+      }
+     },
+     "errors": [
+      "bramble-landscaping.example: gold qualified, got nurture (score 55; )"
+     ]
+    },
+    "latency": {
+     "research_p50": 9.07,
+     "research_p95": 12.95,
+     "qualify_p50": 0.01,
+     "qualify_p95": 0.02
+    },
+    "calls": {
+     "total": {
+      "extract": 8
+     },
+     "per_account": 1.0
+    }
+   },
+   "replies_no_rules": {
+    "name": "model_ling",
+    "suite": "replies_no_rules",
+    "date": "2026-10-08",
+    "model": "openrouter/inclusionai/ling-3.0-flash-sante:free",
+    "rules": false,
+    "replies": 16,
+    "accuracy": 1.0,
+    "macro_f1": 1.0,
+    "per_class": {
+     "interested": {
+      "tp": 2,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 2
+     },
+     "meeting_request": {
+      "tp": 2,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 2
+     },
+     "not_now": {
+      "tp": 2,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 2
+     },
+     "referral": {
+      "tp": 2,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 2
+     },
+     "objection": {
+      "tp": 2,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 2
+     },
+     "unsubscribe": {
+      "tp": 2,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 2
+     },
+     "out_of_office": {
+      "tp": 2,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 2
+     },
+     "bounce": {
+      "tp": 2,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 2
+     }
+    },
+    "confusion": {
+     "interested": {
+      "interested": 2,
+      "meeting_request": 0,
+      "not_now": 0,
+      "referral": 0,
+      "objection": 0,
+      "unsubscribe": 0,
+      "out_of_office": 0,
+      "bounce": 0
+     },
+     "meeting_request": {
+      "interested": 0,
+      "meeting_request": 2,
+      "not_now": 0,
+      "referral": 0,
+      "objection": 0,
+      "unsubscribe": 0,
+      "out_of_office": 0,
+      "bounce": 0
+     },
+     "not_now": {
+      "interested": 0,
+      "meeting_request": 0,
+      "not_now": 2,
+      "referral": 0,
+      "objection": 0,
+      "unsubscribe": 0,
+      "out_of_office": 0,
+      "bounce": 0
+     },
+     "referral": {
+      "interested": 0,
+      "meeting_request": 0,
+      "not_now": 0,
+      "referral": 2,
+      "objection": 0,
+      "unsubscribe": 0,
+      "out_of_office": 0,
+      "bounce": 0
+     },
+     "objection": {
+      "interested": 0,
+      "meeting_request": 0,
+      "not_now": 0,
+      "referral": 0,
+      "objection": 2,
+      "unsubscribe": 0,
+      "out_of_office": 0,
+      "bounce": 0
+     },
+     "unsubscribe": {
+      "interested": 0,
+      "meeting_request": 0,
+      "not_now": 0,
+      "referral": 0,
+      "objection": 0,
+      "unsubscribe": 2,
+      "out_of_office": 0,
+      "bounce": 0
+     },
+     "out_of_office": {
+      "interested": 0,
+      "meeting_request": 0,
+      "not_now": 0,
+      "referral": 0,
+      "objection": 0,
+      "unsubscribe": 0,
+      "out_of_office": 2,
+      "bounce": 0
+     },
+     "bounce": {
+      "interested": 0,
+      "meeting_request": 0,
+      "not_now": 0,
+      "referral": 0,
+      "objection": 0,
+      "unsubscribe": 0,
+      "out_of_office": 0,
+      "bounce": 2
+     }
+    },
+    "unsubscribe_recall": 1.0,
+    "unsubscribe_precision": 1.0,
+    "objection_type_accuracy": 1.0,
+    "referral_email_accuracy": 1.0,
+    "resume_date_accuracy": 0.6667,
+    "resume_month_accuracy": 1.0,
+    "decided_by_rules": 0,
+    "errors": [],
+    "seconds_p50": 3.04,
+    "calls": {
+     "classify_reply": 16
+    }
+   }
+  },
+  "model_ultra": {
+   "accounts": {
+    "name": "model_ultra",
+    "suite": "accounts",
+    "date": "2026-10-08",
+    "model": "openrouter/nvidia/nemotron-3-ultra-550b-a55b:free",
+    "accounts": 8,
+    "research": {
+     "signals": {
+      "overall": {
+       "tp": 9,
+       "fp": 0,
+       "fn": 0,
+       "precision": 1.0,
+       "recall": 1.0,
+       "f1": 1.0
+      },
+      "by_type": {
+       "competitor_in_use": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+       },
+       "expansion": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+       },
+       "funding": {
+        "tp": 2,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+       },
+       "hiring": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+       },
+       "tech_stack": {
+        "tp": 2,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+       }
+      },
+      "freshness_accuracy": 1.0,
+      "freshness_checked": 9,
+      "missed": [],
+      "false_positives": []
+     },
+     "citations": {
+      "items_with_quotes": 117,
+      "quote_on_cited_page": 1.0,
+      "quote_on_another_page": 0.0,
+      "quote_not_found": 0.0
+     },
+     "facts": {
+      "emitted": 62,
+      "kept": 62,
+      "rejected_rate": 0.0,
+      "hallucinated_fact_rate_after_validation": 0.0
+     },
+     "firmographics": {
+      "employees": {
+       "correct": 8,
+       "wrong": 0,
+       "missing": 0
+      },
+      "fleet_size": {
+       "correct": 6,
+       "wrong": 0,
+       "missing": 2
+      },
+      "country": {
+       "correct": 8,
+       "wrong": 0,
+       "missing": 0
+      },
+      "segment": {
+       "correct": 8,
+       "wrong": 0,
+       "missing": 0
+      }
+     },
+     "injection_findings": 1
+    },
+    "qualification": {
+     "accuracy": 0.875,
+     "rules_only_accuracy": 0.875,
+     "qualified_vs_not": {
+      "tp": 2,
+      "fp": 0,
+      "fn": 1,
+      "precision": 1.0,
+      "recall": 0.6667,
+      "f1": 0.8
+     },
+     "qualified_vs_not_accuracy": 0.875,
+     "confusion": {
+      "qualified": {
+       "qualified": 2,
+       "nurture": 1,
+       "disqualified": 0
+      },
+      "nurture": {
+       "qualified": 0,
+       "nurture": 3,
+       "disqualified": 0
+      },
+      "disqualified": {
+       "qualified": 0,
+       "nurture": 0,
+       "disqualified": 2
+      }
+     },
+     "rules_only_confusion": {
+      "qualified": {
+       "qualified": 2,
+       "nurture": 1,
+       "disqualified": 0
+      },
+      "nurture": {
+       "qualified": 0,
+       "nurture": 3,
+       "disqualified": 0
+      },
+      "disqualified": {
+       "qualified": 0,
+       "nurture": 0,
+       "disqualified": 2
+      }
+     },
+     "llm_adjustments": [],
+     "traps": {
+      "stale_careers": {
+       "total": 1,
+       "correct": 1,
+       "accounts": [
+        "sterling-septic.example: gold nurture, got nurture (50)"
+       ]
+      },
+      "injection": {
+       "total": 1,
+       "correct": 1,
+       "accounts": [
+        "sunridge-solar.example: gold nurture, got nurture (55)"
+       ]
+      },
+      "keyword_wrong_segment": {
+       "total": 1,
+       "correct": 1,
+       "accounts": [
+        "fleetforge-games.example: gold disqualified, got disqualified (0)"
+       ]
+      },
+      "competitor": {
+       "total": 1,
+       "correct": 1,
+       "accounts": [
+        "trackright.example: gold disqualified, got disqualified (0)"
+       ]
+      },
+      "borderline": {
+       "total": 1,
+       "correct": 0,
+       "accounts": [
+        "bramble-landscaping.example: gold qualified, got nurture (55)"
+       ]
+      }
+     },
+     "errors": [
+      "bramble-landscaping.example: gold qualified, got nurture (score 55; )"
+     ]
+    },
+    "latency": {
+     "research_p50": 69.82,
+     "research_p95": 105.86,
+     "qualify_p50": 0.01,
+     "qualify_p95": 0.02
+    },
+    "calls": {
+     "total": {
+      "extract": 8
+     },
+     "per_account": 1.0
+    }
+   },
+   "replies_no_rules": {
+    "name": "model_ultra",
+    "suite": "replies_no_rules",
+    "date": "2026-10-08",
+    "model": "openrouter/nvidia/nemotron-3-ultra-550b-a55b:free",
+    "rules": false,
+    "replies": 16,
+    "accuracy": 1.0,
+    "macro_f1": 1.0,
+    "per_class": {
+     "interested": {
+      "tp": 2,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 2
+     },
+     "meeting_request": {
+      "tp": 2,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 2
+     },
+     "not_now": {
+      "tp": 2,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 2
+     },
+     "referral": {
+      "tp": 2,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 2
+     },
+     "objection": {
+      "tp": 2,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 2
+     },
+     "unsubscribe": {
+      "tp": 2,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 2
+     },
+     "out_of_office": {
+      "tp": 2,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 2
+     },
+     "bounce": {
+      "tp": 2,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 2
+     }
+    },
+    "confusion": {
+     "interested": {
+      "interested": 2,
+      "meeting_request": 0,
+      "not_now": 0,
+      "referral": 0,
+      "objection": 0,
+      "unsubscribe": 0,
+      "out_of_office": 0,
+      "bounce": 0
+     },
+     "meeting_request": {
+      "interested": 0,
+      "meeting_request": 2,
+      "not_now": 0,
+      "referral": 0,
+      "objection": 0,
+      "unsubscribe": 0,
+      "out_of_office": 0,
+      "bounce": 0
+     },
+     "not_now": {
+      "interested": 0,
+      "meeting_request": 0,
+      "not_now": 2,
+      "referral": 0,
+      "objection": 0,
+      "unsubscribe": 0,
+      "out_of_office": 0,
+      "bounce": 0
+     },
+     "referral": {
+      "interested": 0,
+      "meeting_request": 0,
+      "not_now": 0,
+      "referral": 2,
+      "objection": 0,
+      "unsubscribe": 0,
+      "out_of_office": 0,
+      "bounce": 0
+     },
+     "objection": {
+      "interested": 0,
+      "meeting_request": 0,
+      "not_now": 0,
+      "referral": 0,
+      "objection": 2,
+      "unsubscribe": 0,
+      "out_of_office": 0,
+      "bounce": 0
+     },
+     "unsubscribe": {
+      "interested": 0,
+      "meeting_request": 0,
+      "not_now": 0,
+      "referral": 0,
+      "objection": 0,
+      "unsubscribe": 2,
+      "out_of_office": 0,
+      "bounce": 0
+     },
+     "out_of_office": {
+      "interested": 0,
+      "meeting_request": 0,
+      "not_now": 0,
+      "referral": 0,
+      "objection": 0,
+      "unsubscribe": 0,
+      "out_of_office": 2,
+      "bounce": 0
+     },
+     "bounce": {
+      "interested": 0,
+      "meeting_request": 0,
+      "not_now": 0,
+      "referral": 0,
+      "objection": 0,
+      "unsubscribe": 0,
+      "out_of_office": 0,
+      "bounce": 2
+     }
+    },
+    "unsubscribe_recall": 1.0,
+    "unsubscribe_precision": 1.0,
+    "objection_type_accuracy": 1.0,
+    "referral_email_accuracy": 1.0,
+    "resume_date_accuracy": 0.6667,
+    "resume_month_accuracy": 1.0,
+    "decided_by_rules": 0,
+    "errors": [],
+    "seconds_p50": 10.96,
+    "calls": {
+     "classify_reply": 16
+    }
+   }
+  },
+  "offline": {
+   "accounts": {
+    "name": "offline",
+    "suite": "accounts",
+    "date": "2026-10-08",
+    "model": "fake/default",
+    "accounts": 60,
+    "research": {
+     "signals": {
+      "overall": {
+       "tp": 59,
+       "fp": 0,
+       "fn": 0,
+       "precision": 1.0,
+       "recall": 1.0,
+       "f1": 1.0
+      },
+      "by_type": {
+       "competitor_in_use": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+       },
+       "expansion": {
+        "tp": 11,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+       },
+       "funding": {
+        "tp": 9,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+       },
+       "hiring": {
+        "tp": 20,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+       },
+       "leadership_change": {
+        "tp": 8,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+       },
+       "tech_stack": {
+        "tp": 10,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+       }
+      },
+      "freshness_accuracy": 1.0,
+      "freshness_checked": 59,
+      "missed": [],
+      "false_positives": []
+     },
+     "citations": {
+      "items_with_quotes": 819,
+      "quote_on_cited_page": 1.0,
+      "quote_on_another_page": 0.0,
+      "quote_not_found": 0.0
+     },
+     "facts": {
+      "emitted": 418,
+      "kept": 418,
+      "rejected_rate": 0.0,
+      "hallucinated_fact_rate_after_validation": 0.0044
+     },
+     "firmographics": {
+      "employees": {
+       "correct": 59,
+       "wrong": 0,
+       "missing": 1
+      },
+      "fleet_size": {
+       "correct": 48,
+       "wrong": 1,
+       "missing": 11
+      },
+      "country": {
+       "correct": 59,
+       "wrong": 0,
+       "missing": 1
+      },
+      "segment": {
+       "correct": 59,
+       "wrong": 0,
+       "missing": 1
+      }
+     },
+     "injection_findings": 2
+    },
+    "qualification": {
+     "accuracy": 1.0,
+     "rules_only_accuracy": 0.9833,
+     "qualified_vs_not": {
+      "tp": 22,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+     },
+     "qualified_vs_not_accuracy": 1.0,
+     "confusion": {
+      "qualified": {
+       "qualified": 22,
+       "nurture": 0,
+       "disqualified": 0
+      },
+      "nurture": {
+       "qualified": 0,
+       "nurture": 17,
+       "disqualified": 0
+      },
+      "disqualified": {
+       "qualified": 0,
+       "nurture": 0,
+       "disqualified": 21
+      }
+     },
+     "rules_only_confusion": {
+      "qualified": {
+       "qualified": 21,
+       "nurture": 1,
+       "disqualified": 0
+      },
+      "nurture": {
+       "qualified": 0,
+       "nurture": 17,
+       "disqualified": 0
+      },
+      "disqualified": {
+       "qualified": 0,
+       "nurture": 0,
+       "disqualified": 21
+      }
+     },
+     "llm_adjustments": [
+      "bramble-landscaping.example: +5 (nurture -> qualified) Below the employee guideline, but the fleet is in range and a fleet role is open now."
+     ],
+     "traps": {
+      "benign_ai_mention": {
+       "total": 1,
+       "correct": 1,
+       "accounts": [
+        "coldline-distribution.example: gold qualified, got qualified (68)"
+       ]
+      },
+      "robots_disallow_team": {
+       "total": 1,
+       "correct": 1,
+       "accounts": [
+        "pinecrest-waste.example: gold qualified, got qualified (70)"
+       ]
+      },
+      "stale_careers": {
+       "total": 3,
+       "correct": 3,
+       "accounts": [
+        "sterling-septic.example: gold nurture, got nurture (50)",
+        "silverline-repair.example: gold nurture, got nurture (50)",
+        "crescentcity-plumbing.example: gold nurture, got nurture (50)"
+       ]
+      },
+      "outdated_page": {
+       "total": 2,
+       "correct": 2,
+       "accounts": [
+        "westbrook-logistics.example: gold nurture, got nurture (50)",
+        "silverline-repair.example: gold nurture, got nurture (50)"
+       ]
+      },
+      "injection": {
+       "total": 2,
+       "correct": 2,
+       "accounts": [
+        "sunridge-solar.example: gold nurture, got nurture (55)",
+        "thornbury-waste.example: gold nurture, got nurture (50)"
+       ]
+      },
+      "hidden_text": {
+       "total": 1,
+       "correct": 1,
+       "accounts": [
+        "thornbury-waste.example: gold nurture, got nurture (50)"
+       ]
+      },
+      "robots_disallow_all": {
+       "total": 1,
+       "correct": 1,
+       "accounts": [
+        "duneview-pools.example: gold nurture, got nurture (0)"
+       ]
+      },
+      "keyword_wrong_segment": {
+       "total": 9,
+       "correct": 9,
+       "accounts": [
+        "fleetforge-games.example: gold disqualified, got disqualified (0)",
+        "routenine-diners.example: gold disqualified, got disqualified (0)",
+        "convoy-analytics.example: gold disqualified, got disqualified (0)",
+        "dispatch-daily.example: gold disqualified, got disqualified (0)",
+        "fleetstreet-capital.example: gold disqualified, got disqualified (0)",
+        "truckstop-coffee.example: gold disqualified, got disqualified (0)",
+        "fleetwood-dental.example: gold disqualified, got disqualified (0)",
+        "parcelpoint-lockers.example: gold disqualified, got disqualified (0)",
+        "greenway-bikes.example: gold disqualified, got disqualified (0)"
+       ]
+      },
+      "too_small": {
+       "total": 5,
+       "correct": 5,
+       "accounts": [
+        "truckstop-coffee.example: gold disqualified, got disqualified (0)",
+        "brightspark-electric.example: gold disqualified, got disqualified (0)",
+        "tworivers-towing.example: gold disqualified, got disqualified (0)",
+        "littlelane-florist.example: gold disqualified, got disqualified (0)",
+        "hollowbrook-brewing.example: gold disqualified, got disqualified (0)"
+       ]
+      },
+      "wrong_region": {
+       "total": 3,
+       "correct": 3,
+       "accounts": [
+        "southerncross-haulage.example: gold disqualified, got disqualified (0)",
+        "andes-cargo.example: gold disqualified, got disqualified (0)",
+        "sakura-homeservices.example: gold disqualified, got disqualified (0)"
+       ]
+      },
+      "competitor": {
+       "total": 2,
+       "correct": 2,
+       "accounts": [
+        "trackright.example: gold disqualified, got disqualified (0)",
+        "geopulse-fleet.example: gold disqualified, got disqualified (0)"
+       ]
+      },
+      "existing_customer": {
+       "total": 2,
+       "correct": 2,
+       "accounts": [
+        "northbeam-logistics.example: gold disqualified, got disqualified (0)",
+        "harlow-plumbing.example: gold disqualified, got disqualified (0)"
+       ]
+      },
+      "borderline": {
+       "total": 2,
+       "correct": 2,
+       "accounts": [
+        "bramble-landscaping.example: gold qualified, got qualified (60)",
+        "quayside-marine.example: gold nurture, got nurture (48)"
+       ]
+      }
+     },
+     "errors": []
+    },
+    "latency": {
+     "research_p50": 0.02,
+     "research_p95": 0.02,
+     "qualify_p50": 0.01,
+     "qualify_p95": 0.01
+    },
+    "calls": {
+     "total": {
+      "extract": 59,
+      "judge": 38
+     },
+     "per_account": 1.62
+    }
+   },
+   "claims": {
+    "name": "offline",
+    "suite": "claims",
+    "date": "2026-10-08",
+    "model": "fake/default",
+    "claims": 57,
+    "unsupported": 29,
+    "rules_only": {
+     "tp": 25,
+     "fp": 0,
+     "fn": 4,
+     "precision": 1.0,
+     "recall": 0.8621,
+     "f1": 0.9259
+    },
+    "llm_only": {
+     "tp": 22,
+     "fp": 11,
+     "fn": 7,
+     "precision": 0.6667,
+     "recall": 0.7586,
+     "f1": 0.7097
+    },
+    "combined": {
+     "tp": 28,
+     "fp": 11,
+     "fn": 1,
+     "precision": 0.7179,
+     "recall": 0.9655,
+     "f1": 0.8235
+    },
+    "by_error_type": {
+     "wrong_number": {
+      "total": 6,
+      "rules": 6,
+      "llm": 3,
+      "combined": 6
+     },
+     "invented_detail": {
+      "total": 4,
+      "rules": 3,
+      "llm": 4,
+      "combined": 4
+     },
+     "wrong_role": {
+      "total": 2,
+      "rules": 1,
+      "llm": 0,
+      "combined": 1
+     },
+     "exaggeration": {
+      "total": 1,
+      "rules": 0,
+      "llm": 1,
+      "combined": 1
+     },
+     "wrong_date": {
+      "total": 2,
+      "rules": 2,
+      "llm": 2,
+      "combined": 2
+     },
+     "wrong_person": {
+      "total": 1,
+      "rules": 1,
+      "llm": 0,
+      "combined": 1
+     },
+     "wrong_place": {
+      "total": 3,
+      "rules": 3,
+      "llm": 2,
+      "combined": 3
+     },
+     "invented_customer": {
+      "total": 2,
+      "rules": 2,
+      "llm": 2,
+      "combined": 2
+     },
+     "wrong_detail": {
+      "total": 2,
+      "rules": 1,
+      "llm": 2,
+      "combined": 2
+     },
+     "wrong_attribution": {
+      "total": 1,
+      "rules": 1,
+      "llm": 1,
+      "combined": 1
+     },
+     "stale_as_recent": {
+      "total": 5,
+      "rules": 5,
+      "llm": 5,
+      "combined": 5
+     }
+    },
+    "false_alarms": [
+     "c08: Brightwater has been serving customers since 1998. -> word overlap with the cited evidence 25%",
+     "c09: Congrats on opening the Antwerp depot in July. -> word overlap with the cited evidence 50%",
+     "c16: Congratulations on the £18 million Series B. -> word overlap with the cited evidence 100%",
+     "c17: I read about the Series B led by Moorland Ventures. -> word overlap with the cited evidence 0%",
+     "c18: Your new Manchester hub must keep the team busy. -> word overlap with the cited evidence 0%",
+     "c23: Marcus Okafor started as VP Fleet Operations in September. -> word overlap with the cited evidence 0%",
+     "c25: I noticed you are hiring a night-shift dispatcher. -> word overlap with the cited evidence 33%",
+     "c28: Congratulations on the $22 million Series C. -> word overlap with the cited evidence 100%",
+     "c32: Congrats on the €40 million growth financing. -> word overlap with the cited evidence 100%",
+     "c43: I know your vans already run TrackRight telematics. -> word overlap with the cited evidence 25%",
+     "c48: Nordlicht now serves Salzburg and Innsbruck. -> word overlap with the cited evidence 0%"
+    ],
+    "missed": [
+     "c06 (wrong_role): I noticed Brightwater is hiring a Head of Fleet."
+    ],
+    "calls": {
+     "verify_claims": 12
+    }
+   },
+   "drafts": {
+    "name": "offline",
+    "suite": "drafts",
+    "date": "2026-10-08",
+    "model": "fake/default",
+    "judge_model": "fake/rules",
+    "checker": true,
+    "accounts": 21,
+    "variants": 42,
+    "errors": [
+     {
+      "domain": "pinecrest-waste.example",
+      "error": "no contact with a published or supplied email address; add one before drafting"
+     }
+    ],
+    "checker_view": {
+     "first_drafts": {
+      "claims": 154,
+      "supported_by_checker": 0.8117,
+      "unsupported": 29
+     },
+     "final_drafts": {
+      "claims": 125,
+      "supported_by_checker": 1.0,
+      "unsupported": 0
+     }
+    },
+    "independent_audit": {
+     "first_drafts": {
+      "claims": 29,
+      "unsupported": 28,
+      "unsupported_rate": 0.9655,
+      "supported_rate": 0.0345,
+      "examples": [
+       "meridian-mobile-medical.example A-first: Congrats on doubling the fleet this year. (numbers and events checked against the reference (offline))",
+       "meridian-mobile-medical.example B-first: Congrats on doubling the fleet this year. (numbers and events checked against the reference (offline))",
+       "ironbridge-plumbing.example A-first: Congrats on doubling the fleet this year. (numbers and events checked against the reference (offline))",
+       "ironbridge-plumbing.example B-first: Congrats on doubling the fleet this year. (numbers and events checked against the reference (offline))",
+       "ridgeway-utility.example A-first: Your 25 new depots must keep the team busy. (numbers and events checked against the reference (offline))",
+       "ridgeway-utility.example B-first: Your 25 new depots must keep the team busy. (numbers and events checked against the reference (offline))",
+       "bluebell-linen.example A-first: Your 25 new depots must keep the team busy. (numbers and events checked against the reference (offline))",
+       "bluebell-linen.example B-first: Your 25 new depots must keep the team busy. (numbers and events checked against the reference (offline))",
+       "brightwater-fs.example A-first: Your 25 new depots must keep the team busy. (numbers and events checked against the reference (offline))",
+       "brightwater-fs.example B-first: Your 25 new depots must keep the team busy. (numbers and events checked against the reference (offline))",
+       "coldline-distribution.example A-first: Your 25 new depots must keep the team busy. (numbers and events checked against the reference (offline))",
+       "coldline-distribution.example B-first: Your 25 new depots must keep the team busy. (numbers and events checked against the reference (offline))",
+       "nordlicht-kurier.example A-first: Congrats on doubling the fleet this year. (numbers and events checked against the reference (offline))",
+       "nordlicht-kurier.example B-first: Congrats on doubling the fleet this year. (numbers and events checked against the reference (offline))",
+       "granitepeak-construction.example A-first: Congrats on doubling the fleet this year. (numbers and events checked against the reference (offline))",
+       "granitepeak-construction.example B-first: Congrats on doubling the fleet this year. (numbers and events checked against the reference (offline))",
+       "evergreen-lawntree.example A-first: Your 25 new depots must keep the team busy. (numbers and events checked against the reference (offline))",
+       "evergreen-lawntree.example B-first: Your 25 new depots must keep the team busy. (numbers and events checked against the reference (offline))",
+       "clearwater-pest.example A-first: Congrats on doubling the fleet this year. (numbers and events checked against the reference (offline))",
+       "clearwater-pest.example B-first: Congrats on doubling the fleet this year. (numbers and events checked against the reference (offline))",
+       "aldergrove-bus.example A-first: Congrats on doubling the fleet this year. (numbers and events checked against the reference (offline))",
+       "aldergrove-bus.example B-first: Congrats on doubling the fleet this year. (numbers and events checked against the reference (offline))",
+       "northstar-rental.example A-first: Congrats on doubling the fleet this year. (numbers and events checked against the reference (offline))",
+       "northstar-rental.example B-first: Congrats on doubling the fleet this year. (numbers and events checked against the reference (offline))",
+       "fernhill-foods.example A-first: Your 25 new depots must keep the team busy. (numbers and events checked against the reference (offline))"
+      ]
+     },
+     "final_drafts": {
+      "claims": 1,
+      "unsupported": 0,
+      "unsupported_rate": 0.0,
+      "supported_rate": 1.0,
+      "examples": []
+     }
+    },
+    "first_draft_pass_rate": 0.3333,
+    "final_pass_rate": 1.0,
+    "regenerated": 28,
+    "trimmed": 1,
+    "attempts_mean": 1.69,
+    "personalization_mean": 0.98,
+    "spam_pass_rate": 1.0,
+    "spam_issue_counts": {
+     "length": 42
+    },
+    "readability_mean": 71.7,
+    "words_first_email_mean": 60.6,
+    "preference_vs_template": {
+     "scout": 20,
+     "tie": 1,
+     "scout_win_rate": 0.9524
+    },
+    "seconds_p50": 0.02,
+    "seconds_p95": 0.02,
+    "calls": {
+     "total": {
+      "draft": 50,
+      "verify_claims": 50
+     },
+     "per_account": 4.76
+    }
+   },
+   "injection": {
+    "name": "offline",
+    "suite": "injection",
+    "date": "2026-10-08",
+    "model": "fake/default",
+    "calls": {
+     "injection": 18
+    }
+   },
+   "llm_only": {
+    "name": "offline",
+    "suite": "llm_only",
+    "date": "2026-10-08",
+    "model": "fake/default",
+    "accounts": 14,
+    "accuracy": 0.5,
+    "confusion": {
+     "qualified": {
+      "qualified": 3,
+      "nurture": 0,
+      "disqualified": 0
+     },
+     "nurture": {
+      "qualified": 2,
+      "nurture": 4,
+      "disqualified": 0
+     },
+     "disqualified": {
+      "qualified": 4,
+      "nurture": 1,
+      "disqualified": 0
+     }
+    },
+    "errors": [
+     "sterling-septic.example: gold nurture, got qualified (60) mentions a fleet; hiring for fleet roles",
+     "redwood-facility.example: gold nurture, got qualified (70) mentions a fleet; hiring for fleet roles; funding news",
+     "fleetforge-games.example: gold disqualified, got qualified (60) mentions a fleet; hiring for fleet roles",
+     "convoy-analytics.example: gold disqualified, got qualified (80) mentions a fleet; hiring for fleet roles; funding news; expansion news",
+     "fleetstreet-capital.example: gold disqualified, got nurture (55) mentions a fleet; funding news",
+     "trackright.example: gold disqualified, got qualified (80) mentions a fleet; hiring for fleet roles; funding news; expansion news",
+     "northbeam-logistics.example: gold disqualified, got qualified (60) mentions a fleet; hiring for fleet roles"
+    ],
+    "calls": {
+     "qualify_llm_only": 14
+    }
+   },
+   "replies": {
+    "name": "offline",
+    "suite": "replies",
+    "date": "2026-10-08",
+    "model": "fake/default",
+    "rules": true,
+    "replies": 100,
+    "accuracy": 0.96,
+    "macro_f1": 0.9646,
+    "per_class": {
+     "interested": {
+      "tp": 13,
+      "fp": 0,
+      "fn": 1,
+      "precision": 1.0,
+      "recall": 0.9286,
+      "f1": 0.963,
+      "support": 14
+     },
+     "meeting_request": {
+      "tp": 14,
+      "fp": 2,
+      "fn": 0,
+      "precision": 0.875,
+      "recall": 1.0,
+      "f1": 0.9333,
+      "support": 14
+     },
+     "not_now": {
+      "tp": 13,
+      "fp": 2,
+      "fn": 0,
+      "precision": 0.8667,
+      "recall": 1.0,
+      "f1": 0.9286,
+      "support": 13
+     },
+     "referral": {
+      "tp": 9,
+      "fp": 0,
+      "fn": 1,
+      "precision": 1.0,
+      "recall": 0.9,
+      "f1": 0.9474,
+      "support": 10
+     },
+     "objection": {
+      "tp": 17,
+      "fp": 0,
+      "fn": 2,
+      "precision": 1.0,
+      "recall": 0.8947,
+      "f1": 0.9444,
+      "support": 19
+     },
+     "unsubscribe": {
+      "tp": 13,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 13
+     },
+     "out_of_office": {
+      "tp": 10,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 10
+     },
+     "bounce": {
+      "tp": 7,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 7
+     }
+    },
+    "confusion": {
+     "interested": {
+      "interested": 13,
+      "meeting_request": 0,
+      "not_now": 1,
+      "referral": 0,
+      "objection": 0,
+      "unsubscribe": 0,
+      "out_of_office": 0,
+      "bounce": 0
+     },
+     "meeting_request": {
+      "interested": 0,
+      "meeting_request": 14,
+      "not_now": 0,
+      "referral": 0,
+      "objection": 0,
+      "unsubscribe": 0,
+      "out_of_office": 0,
+      "bounce": 0
+     },
+     "not_now": {
+      "interested": 0,
+      "meeting_request": 0,
+      "not_now": 13,
+      "referral": 0,
+      "objection": 0,
+      "unsubscribe": 0,
+      "out_of_office": 0,
+      "bounce": 0
+     },
+     "referral": {
+      "interested": 0,
+      "meeting_request": 0,
+      "not_now": 1,
+      "referral": 9,
+      "objection": 0,
+      "unsubscribe": 0,
+      "out_of_office": 0,
+      "bounce": 0
+     },
+     "objection": {
+      "interested": 0,
+      "meeting_request": 2,
+      "not_now": 0,
+      "referral": 0,
+      "objection": 17,
+      "unsubscribe": 0,
+      "out_of_office": 0,
+      "bounce": 0
+     },
+     "unsubscribe": {
+      "interested": 0,
+      "meeting_request": 0,
+      "not_now": 0,
+      "referral": 0,
+      "objection": 0,
+      "unsubscribe": 13,
+      "out_of_office": 0,
+      "bounce": 0
+     },
+     "out_of_office": {
+      "interested": 0,
+      "meeting_request": 0,
+      "not_now": 0,
+      "referral": 0,
+      "objection": 0,
+      "unsubscribe": 0,
+      "out_of_office": 10,
+      "bounce": 0
+     },
+     "bounce": {
+      "interested": 0,
+      "meeting_request": 0,
+      "not_now": 0,
+      "referral": 0,
+      "objection": 0,
+      "unsubscribe": 0,
+      "out_of_office": 0,
+      "bounce": 7
+     }
+    },
+    "unsubscribe_recall": 1.0,
+    "unsubscribe_precision": 1.0,
+    "objection_type_accuracy": 1.0,
+    "referral_email_accuracy": 0.9,
+    "resume_date_accuracy": 0.8333,
+    "resume_month_accuracy": 1.0,
+    "decided_by_rules": 30,
+    "errors": [
+     "r011: gold interested, got not_now (llm)",
+     "r045: gold referral, got not_now (llm)",
+     "r065: gold objection, got meeting_request (llm)",
+     "r066: gold objection, got meeting_request (llm)"
+    ],
+    "seconds_p50": 0.0,
+    "calls": {
+     "classify_reply": 70
+    }
+   }
+  }
+ },
+ "calls": {
+  "requests": 462,
+  "ok": 433,
+  "retried": 15,
+  "errors": 14,
+  "requested_models": {
+   "nvidia/nemotron-3-super-120b-a12b:free": 344,
+   "nvidia/nemotron-3-ultra-550b-a55b:free": 30,
+   "dots-studio/dots-3-note-preview:free": 49,
+   "thinkingmachines/inkling:free": 2,
+   "google/gemma-4-31b-it:free": 10,
+   "inclusionai/ling-3.0-flash-sante:free": 27
+  },
+  "served_models": {
+   "nvidia/nemotron-3-super-120b-a12b:free": 337,
+   "nvidia/nemotron-3-ultra-550b-a55b:free": 28,
+   "dots-studio/dots-3-note-preview:free": 42,
+   "inclusionai/ling-3.0-flash-sante:free": 26
+  },
+  "by_tag": {
+   "smoke": 26,
+   "judge": 47,
+   "draft": 50,
+   "verify_claims": 64,
+   "extract": 74,
+   "classify_reply": 137,
+   "qualify_llm_only": 14,
+   "injection": 6,
+   "eval_judge": 44
+  },
+  "all_free": true,
+  "first": "2026-10-08T02:14:41+00:00",
+  "last": "2026-10-08T05:16:57+00:00",
+  "input_tokens": 483735,
+  "output_tokens": 1009313
+ }
+}
