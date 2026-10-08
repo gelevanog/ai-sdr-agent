@@ -208,3 +208,17 @@ def test_meeting_slot_overlaps_both_calendars() -> None:
     )
     assert nxt is not None and nxt[0] >= end
     assert find_slot(after, seller_tz="America/Los_Angeles", seller_hours=(7, 8), prospect_tz="Asia/Tokyo") is None
+
+
+def test_name_check_handles_hyphens_possessives_and_titles(profile: CompanyProfile, config: Config) -> None:
+    from scout.outreach.checker import _words, unknown_names
+
+    vocabulary = _words("Harborview Shuttle won the Sea-Tac rental-car shuttle contract")
+    assert (
+        unknown_names(
+            "Hi Grace,\n\nCongrats on the Sea-Tac contract. Wayline's VP of sales says hello.",
+            vocabulary | {"wayline", "grace"},
+        )
+        == []
+    )
+    assert unknown_names("Hi Grace,\n\nI met Bob at the depot.", vocabulary) == ["Grace", "Bob"]

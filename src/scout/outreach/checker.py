@@ -50,7 +50,7 @@ COMMON_CAPITALIZED = frozenset(
     if when would could should happy glad worth quick one two a an the and or but so also as at in on of for to with
     is are was were do does did no yes ps p.s. monday tuesday wednesday thursday friday saturday sunday
     january february march april may june july august september october november december
-    jan feb mar apr jun jul aug sep sept oct nov dec q1 q2 q3 q4 re fwd sure great noticed saw congrats congratulations since given that this these those there here
+    jan feb mar apr jun jul aug sep sept oct nov dec q1 q2 q3 q4 re fwd vp ceo coo cfo cto svp evp sure great noticed saw congrats congratulations since given that this these those there here
     many most some any every each how what why who where which my me let let's just looking open free talk call
     following following-up follow-up following up quick-question question last next today tomorrow week month year
     fleet safety team teams drivers driver ops operations""".split()
@@ -104,7 +104,7 @@ def build_evidence(profile: CompanyProfile, contact: Contact | None, config: Con
     if contact:
         always += [contact.name, contact.title]
     for item in always:
-        ev.names.update(w.lower().strip(".,'") for w in item.split())
+        ev.names.update(_words(item))
     # Short forms of the prospect's name ("Brightwater" for "Brightwater Field Services").
     ev.texts["NAME"] = " ".join(always)
     return ev
@@ -154,6 +154,16 @@ def _restates(claim: str, offer_text: str) -> bool:
     return len(words_a & words_b) >= max(5, int(0.7 * len(words_a)))
 
 
+def _words(text: str) -> set[str]:
+    """Lower-case words for the name check, also split at hyphens and slashes ("Sea-Tac" gives sea, tac, sea-tac)."""
+    out: set[str] = set()
+    for raw in text.split():
+        word = re.sub(r"['\u2019]s$", "", raw.lower().strip(".,'()\"\u2019:;"))
+        out.add(word)
+        out.update(part for part in re.split(r"[-/\u2011\u2013]", word) if part)
+    return out
+
+
 def unknown_names(text: str, vocabulary: set[str]) -> list[str]:
     starts = _sentence_starts(text)
     unknown = []
@@ -161,7 +171,7 @@ def unknown_names(text: str, vocabulary: set[str]) -> list[str]:
         tokens = [t.strip(".,'") for t in m.group(0).split() if t not in {"&"}]
         candidates = tokens[1:] if m.start() in starts else tokens
         for token in candidates:
-            low = token.lower().strip(".'")
+            low = re.sub(r"['\u2019]s$", "", token.lower()).strip(".'\u2019")
             if not low or low in COMMON_CAPITALIZED or low in vocabulary or low.rstrip("s") in vocabulary:
                 continue
             unknown.append(token)
@@ -172,7 +182,7 @@ def deterministic_check(variant: DraftVariant, ev: Evidence, config: Config) -> 
     issues: list[CheckIssue] = []
     vocabulary = set(ev.names)
     for text in ev.texts.values():
-        vocabulary.update(w.lower().strip(".,'()\"") for w in text.split())
+        vocabulary.update(_words(text))
     known_numbers = _known_numbers([*ev.texts.values(), config.outreach.cta]) | {"1", "2", "3"}
     known_dates = (
         " ".join(ev.texts.values()).lower()
