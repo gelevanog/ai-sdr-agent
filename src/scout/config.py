@@ -44,6 +44,9 @@ class Settings(BaseSettings):
     database_url: str = "postgresql://scout:scout@localhost:5432/scout"
     seed_demo: bool = True
     """On API startup: generate the synthetic web (if missing) and load the demo accounts when the database is empty."""
+    seed_pipeline: Literal["auto", "always", "never"] = "auto"
+    """After seeding, queue the research-qualify-draft pipeline for every demo account. auto = only with the offline
+    model (a real model would spend ~160 calls on 60 accounts without being asked)."""
     demo_seed: int = 7
     """Seed of the synthetic web generator (the company specs are hand-written; the seed picks wording and layout)."""
 

@@ -1,0 +1,106 @@
+# Scout: PostgreSQL, the API, the worker, the dashboard, Mailpit (the capture SMTP server: nothing leaves your
+# machine) and a static server for the synthetic web (60 fictional company websites).
+#   docker compose up --build
+#     dashboard     http://localhost:3000
+#     API           http://localhost:8000   (OpenAPI docs at /docs)
+#     Mailpit       http://localhost:8025   (every email Scout "sends")
+#     synthetic web http://localhost:8090
+# With no keys the offline model runs the whole pipeline. For free cloud models put OPENROUTER_API_KEY and
+# SCOUT_LLM_PROVIDER=openrouter in .env (see README > Run with free models via OpenRouter).
+name: scout
+
+x-backend: &backend
+  build: .
+  image: scout-api:latest
+  env_file:
+    - path: .env
+      required: false
+  environment: &backend-env
+    SCOUT_DATABASE_URL: postgresql://scout:${POSTGRES_PASSWORD:-scout}@postgres:5432/scout
+    SCOUT_LLM_PROVIDER: ${SCOUT_LLM_PROVIDER:-fake}
+    SCOUT_SYNTHETIC_WEB_URL: http://synthetic-web:80
+    SCOUT_SYNTHETIC_WEB_PUBLIC_URL: http://localhost:${SYNTHETIC_WEB_PORT:-8090}
+    SCOUT_SMTP_HOST: mailpit
+    SCOUT_SMTP_PORT: "1025"
+    SCOUT_PUBLIC_URL: http://localhost:${API_PORT:-8000}
+    SCOUT_CORS_ORIGINS: http://localhost:${WEB_PORT:-3000}
+    SCOUT_CRM_MODE: ${SCOUT_CRM_MODE:-mock}
+  volumes:
+    - synthweb:/app/data/synthetic_web
+    - inbox:/app/data/inbox
+    - llmcache:/home/app/.cache
+  restart: unless-stopped
+
+services:
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: scout
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-scout}
+      POSTGRES_DB: scout
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U scout -d scout"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped
+
+  api:
+    <<: *backend
+    environment:
+      <<: *backend-env
+      SCOUT_SEED_DEMO: "true"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "${API_PORT:-8000}:8000"
+
+  worker:
+    <<: *backend
+    command: ["scout", "--log-level", "INFO", "worker", "--inbox", "/app/data/inbox"]
+    healthcheck:
+      disable: true
+    depends_on:
+      api:
+        condition: service_healthy
+      mailpit:
+        condition: service_started
+
+  web:
+    build:
+      context: ./web
+      args:
+        NEXT_PUBLIC_API_URL: http://localhost:${API_PORT:-8000}
+    image: scout-web:latest
+    depends_on:
+      api:
+        condition: service_healthy
+    ports:
+      - "${WEB_PORT:-3000}:3000"
+    restart: unless-stopped
+
+  mailpit:
+    image: axllent/mailpit:v1.27
+    environment:
+      MP_SMTP_AUTH_ACCEPT_ANY: "true"
+      MP_SMTP_AUTH_ALLOW_INSECURE: "true"
+    ports:
+      - "${MAILPIT_UI_PORT:-8025}:8025"
+    restart: unless-stopped
+
+  synthetic-web:
+    image: nginx:1.29-alpine
+    volumes:
+      - synthweb:/usr/share/nginx/html:ro
+    ports:
+      - "${SYNTHETIC_WEB_PORT:-8090}:80"
+    restart: unless-stopped
+
+volumes:
+  pgdata:
+  synthweb:
+  inbox:
+  llmcache:

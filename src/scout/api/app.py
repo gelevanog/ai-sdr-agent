@@ -96,6 +96,12 @@ def create_app(scout: Scout) -> FastAPI:
             added = scout.seed_demo()
             if added:
                 log.info("seed.demo", accounts=added)
+                run = settings.seed_pipeline == "always" or (
+                    settings.seed_pipeline == "auto" and settings.llm_provider == "fake"
+                )
+                if run:
+                    for row in store.all("SELECT id FROM accounts ORDER BY id"):
+                        store.enqueue("pipeline", {"account_id": row["id"]})
         yield
 
     app = FastAPI(title="Scout API", version="0.1.0", lifespan=lifespan)

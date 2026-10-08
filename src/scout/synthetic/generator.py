@@ -372,9 +372,12 @@ def render_site(spec: CompanySpec, seed: int) -> Site:
 
 def write_web(specs: list[CompanySpec], out_dir: Path, seed: int) -> dict[str, str]:
     """Writes every site under out_dir/<domain>/ and returns {relative path: sha256} (also saved as manifest.json)."""
-    if out_dir.exists():
-        shutil.rmtree(out_dir)
-    out_dir.mkdir(parents=True)
+    out_dir.mkdir(parents=True, exist_ok=True)
+    for child in out_dir.iterdir():  # clear the contents, not the directory (it may be a mounted volume)
+        if child.is_dir():
+            shutil.rmtree(child)
+        else:
+            child.unlink()
     manifest: dict[str, str] = {}
     index_links = []
     for spec in specs:

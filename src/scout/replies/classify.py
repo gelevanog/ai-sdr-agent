@@ -69,7 +69,20 @@ def load_replies(path: Path) -> list[ReplyCase]:
     ]
 
 
-_MONTHS = ("january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december")
+_MONTHS = (
+    "january",
+    "february",
+    "march",
+    "april",
+    "may",
+    "june",
+    "july",
+    "august",
+    "september",
+    "october",
+    "november",
+    "december",
+)
 _RETURN = re.compile(
     r"\b(?:until|till|back(?: on)?|return(?:ing)? (?:on)?|away until|bis zum|jusqu'au)\s+(?:\w+day\s+)?(\d{1,2})(?:st|nd|rd|th)?\.?\s+([a-zé]+)|"
     r"\b(?:until|till|back(?: on)?|returning(?: on)?)\s+(?:\w+day\s+)?([a-z]+)\s+(\d{1,2})\b",
