@@ -274,7 +274,15 @@ def create_app(scout: Scout) -> FastAPI:
                     "SELECT id, step, status, scheduled_at, sent_at, timezone, status_reason FROM messages WHERE draft_id = %s ORDER BY step",
                     (draft_id,),
                 ),
-                "seller": {"company": s.config.seller.company, "postal_address": s.config.seller.postal_address},
+                "seller": {
+                    "company": s.config.seller.company,
+                    "postal_address": s.config.seller.postal_address,
+                    "from": settings.from_address,
+                    "offer": {
+                        **{f"VP:{vp.id}": vp.text for vp in s.config.seller.value_props},
+                        **{f"PP:{pp.id}": pp.text for pp in s.config.seller.proof_points},
+                    },
+                },
                 "source_base": settings.synthetic_web_public_url if acc["source"] == "synthetic" else None,
             }
         )

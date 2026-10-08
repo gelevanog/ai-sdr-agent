@@ -56,7 +56,16 @@ SUBSET = (
     "convoy-analytics.example", "fleetstreet-capital.example", "trackright.example", "northbeam-logistics.example",
     "southerncross-haulage.example", "crescentcity-plumbing.example", "tworivers-towing.example", "duneview-pools.example",
 )  # fmt: skip
-MODEL_SUBSET = SUBSET[:12]
+MODEL_SUBSET = (
+    "brightwater-fs.example", "tallgrass-couriers.example", "bramble-landscaping.example", "sterling-septic.example",
+    "redwood-facility.example", "sunridge-solar.example", "fleetforge-games.example", "trackright.example",
+)  # fmt: skip
+LLM_ONLY_SUBSET = (
+    "brightwater-fs.example", "tallgrass-couriers.example", "bramble-landscaping.example", "quayside-marine.example",
+    "sterling-septic.example", "westbrook-logistics.example", "redwood-facility.example", "sunridge-solar.example",
+    "thornbury-waste.example", "fleetforge-games.example", "convoy-analytics.example", "fleetstreet-capital.example",
+    "trackright.example", "northbeam-logistics.example",
+)  # fmt: skip
 
 
 class Counting:
@@ -535,7 +544,7 @@ def run_replies(settings: Settings, name: str, *, no_rules: bool, subset: bool, 
         per: dict[str, int] = defaultdict(int)
         picked = []
         for c in cases:
-            if per[c.label] < 3:
+            if per[c.label] < 2:
                 picked.append(c)
                 per[c.label] += 1
         cases = picked
@@ -592,6 +601,9 @@ def run_replies(settings: Settings, name: str, *, no_rules: bool, subset: bool, 
         ),
         "resume_date_accuracy": rate(
             sum(str(r["resume_gold"]) == str(r["resume_pred"]) for r in resumes), len(resumes)
+        ),
+        "resume_month_accuracy": rate(
+            sum(str(r["resume_gold"])[:7] == str(r["resume_pred"])[:7] for r in resumes), len(resumes)
         ),
         "decided_by_rules": sum(1 for r in rows if r["source"] == "rules"),
         "errors": [
@@ -798,7 +810,7 @@ def run_injection(settings: Settings, name: str) -> dict[str, Any]:
 
 def run_llm_only(settings: Settings, name: str, *, subset: bool, limit: int) -> dict[str, Any]:
     config = load_config(settings.icp_file)
-    specs = [s for s in load_specs(settings.companies_file) if not subset or s.domain in SUBSET]
+    specs = [s for s in load_specs(settings.companies_file) if not subset or s.domain in LLM_ONLY_SUBSET]
     if limit:
         specs = specs[:limit]
     tally: dict[str, int] = defaultdict(int)
