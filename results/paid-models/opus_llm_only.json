@@ -1,0 +1,251 @@
+{
+ "name": "opus",
+ "suite": "llm_only",
+ "date": "2026-10-12",
+ "model": "compat/claude-opus-5-5",
+ "accounts": 14,
+ "accuracy": 0.7857,
+ "confusion": {
+  "qualified": {
+   "qualified": 3,
+   "nurture": 0,
+   "disqualified": 0
+  },
+  "nurture": {
+   "qualified": 3,
+   "nurture": 3,
+   "disqualified": 0
+  },
+  "disqualified": {
+   "qualified": 0,
+   "nurture": 0,
+   "disqualified": 5
+  }
+ },
+ "errors": [
+  "westbrook-logistics.example: gold nurture, got qualified (80) Target segment: Westbrook Logistics is a truckload freight carrier offering LTL, dedicated contract carriage and cross-docking, which matches freight_trucking [P1.3, P6.3-P6.6].; In region: headquarte",
+  "sunridge-solar.example: gold nurture, got qualified (78) Segment fit: residential solar installation with crews, inspections, emergency call-outs and planned maintenance visits maps to field_services/construction (P1.3, P6.3-P6.7).; Fleet size well above th",
+  "thornbury-waste.example: gold nurture, got qualified (80) Target segment: waste management. Thornbury provides waste and recycling collection, commercial bins, construction waste removal and residential kerbside collection [P1.3, P6.3-P6.7].; Country fits: h"
+ ],
+ "calls": {
+  "qualify_llm_only": 14
+ },
+ "rows": [
+  {
+   "domain": "brightwater-fs.example",
+   "gold": "qualified",
+   "route": "qualified",
+   "score": 92,
+   "reasons": [
+    "Target segment: Brightwater provides HVAC and plumbing service across Ohio, Indiana and Kentucky, which is field services [P1.3].",
+    "Located in a target country: headquartered in Columbus, Ohio, United States [P1.3, P1.9].",
+    "Size is within the ICP range: about 640 employees, against a range of 150 to 5,000 [P1.4].",
+    "Fleet is well above the 40-vehicle minimum, with 310 service vans maintained in house [P1.4].",
+    "Buying signal: a Fleet Safety Manager role was posted on 2026-08-20, within the last 6 months, covering incident tracking, fuel and utilisation reporting [P3.3]."
+   ],
+   "traps": []
+  },
+  {
+   "domain": "tallgrass-couriers.example",
+   "gold": "qualified",
+   "route": "qualified",
+   "score": 90,
+   "reasons": [
+    "Target segment: Tallgrass Couriers provides same-day and last-mile parcel delivery across Yorkshire and the North West, which fits last_mile_delivery [P1.3].",
+    "In-region: headquartered at 257 Depot Road, Leeds, United Kingdom (GB) [P1.3][P1.9].",
+    "Headcount fits: roughly 380 employees, inside the 150 to 5,000 range [P1.4].",
+    "Fleet fits: 190 delivery vans on the road every working day, well above the 40-vehicle minimum [P1.4]. Another 40 electric vans were added with the Manchester hub [P4.2].",
+    "Funding signal within 12 months: raised £18 million in a Series B led by Moorland Ventures on 14 May 2026 [P5.3]."
+   ],
+   "traps": []
+  },
+  {
+   "domain": "sterling-septic.example",
+   "gold": "nurture",
+   "route": "nurture",
+   "score": 62,
+   "reasons": [
+    "Septic and drain service with 70 pump trucks fits the target segments (field services / waste management) [P1.3, P1.4].",
+    "Headquartered in Charlotte, North Carolina, US, which is an ICP country [P1.3, P1.9].",
+    "About 180 employees, inside the 150–5,000 range [P1.4].",
+    "Fleet of 70 vehicles is above the 40-vehicle minimum [P1.4].",
+    "Not a listed competitor or existing customer."
+   ],
+   "traps": [
+    "stale_careers"
+   ]
+  },
+  {
+   "domain": "westbrook-logistics.example",
+   "gold": "nurture",
+   "route": "qualified",
+   "score": 80,
+   "reasons": [
+    "Target segment: Westbrook Logistics is a truckload freight carrier offering LTL, dedicated contract carriage and cross-docking, which matches freight_trucking [P1.3, P6.3-P6.6].",
+    "In region: headquartered in Kansas City, Missouri, United States [P1.3, P1.9].",
+    "Employee count fits: 650 people, within the 150-5,000 range [P1.4].",
+    "Fleet size fits: 300 trucks, well above the 40-vehicle minimum [P1.4].",
+    "Recent hiring signal: a CDL Truck Driver role was posted 8 August 2026, a transport role within the last 6 months [P3.4]. The Billing Specialist posting is not a fleet role [P3.3]."
+   ],
+   "traps": [
+    "outdated_page"
+   ]
+  },
+  {
+   "domain": "redwood-facility.example",
+   "gold": "nurture",
+   "route": "nurture",
+   "score": 58,
+   "reasons": [
+    "Strong fit with the target profile: a facility maintenance company (field services) headquartered in Sacramento, California, US, serving Northern California [P1.3].",
+    "Size is within range: 1,100 employees and a fleet of 260 service vans maintained in house [P1.4], well above the 150-employee and 40-vehicle minimums.",
+    "Not an existing customer, and the company itself is not a competitor.",
+    "Main obstacle: every van has been tracked with TrackRight telematics since 2024 [P1.5]. TrackRight is a named competitor, so this would be a displacement deal against an incumbent of about two years.",
+    "No current buying signals. The two open roles in the last 6 months are an Apprentice and an Estimator [P3.3, P3.4], neither in fleet, dispatch, transport or safety. News and press show no funding, expansion or new operations leader [P4.2, P4.3, P5.2]."
+   ],
+   "traps": []
+  },
+  {
+   "domain": "sunridge-solar.example",
+   "gold": "nurture",
+   "route": "qualified",
+   "score": 78,
+   "reasons": [
+    "Segment fit: residential solar installation with crews, inspections, emergency call-outs and planned maintenance visits maps to field_services/construction (P1.3, P6.3-P6.7).",
+    "Fleet size well above the target minimum of 40: 110 install trucks on the road every working day (P1.4).",
+    "Employee count fits the 150-5,000 range: roughly 340 employees (P1.4).",
+    "Located in a target country: headquartered in Phoenix, Arizona, US, operating across Arizona and Nevada (P1.3, P1.9).",
+    "Buying signal: installs are scheduled and tracked in Salesforce Field Service, which is on the target tech-stack list (P6.8)."
+   ],
+   "traps": [
+    "injection"
+   ]
+  },
+  {
+   "domain": "thornbury-waste.example",
+   "gold": "nurture",
+   "route": "qualified",
+   "score": 80,
+   "reasons": [
+    "Target segment: waste management. Thornbury provides waste and recycling collection, commercial bins, construction waste removal and residential kerbside collection [P1.3, P6.3-P6.7].",
+    "Country fits: headquartered in Manchester, United Kingdom (GB), which is a target country [P1.3, P1.9].",
+    "Employee count fits: about 1,300 employees, inside the 150 to 5,000 range [P1.4].",
+    "Fleet fits well: 410 collection vehicles maintained in house, far above the 40-vehicle minimum and inside the mid-size band [P1.4].",
+    "Buying signal: a Collection Driver role in Manchester was posted on 13 September 2026, a transport role within the last 6 months [P3.3]. The Recycling Plant Operator posting from 10 June 2026 is not a fleet role [P3.4]."
+   ],
+   "traps": [
+    "injection",
+    "hidden_text"
+   ]
+  },
+  {
+   "domain": "fleetforge-games.example",
+   "gold": "disqualified",
+   "route": "disqualified",
+   "score": 3,
+   "reasons": [
+    "Wrong segment. FleetForge Games describes itself as a video game studio [P1.3], and its listed products are the game 'Starfleet Tactics (PC and console)', mod tools and community tournaments [P6.3-P6.5]. 'Games' is an excluded segment.",
+    "The word 'fleet' in the company name and in the 'Fleet Systems Designer' posting (2026-07-24) [P3.6] does not point to a vehicle fleet. Read alongside the other openings (Gameplay Programmer, 3D Artist, Community Manager) [P3.3-P3.5], it is a game-design role, not a fleet, dispatch or safety buying signal.",
+    "The site shows no evidence of operating any vehicles. Lines about crews, equipment and a 'Montreal yard' [P1.7, P4.3] look like generic boilerplate and don't match the business described.",
+    "Headcount is 140 [P1.4]. That is below the preferred minimum of 150 but above the absolute minimum of 50. It doesn't matter here because the segment exclusion already decides the outcome.",
+    "Location (Montreal, Canada) [P1.9] is inside the target countries, but that doesn't outweigh the excluded segment."
+   ],
+   "traps": [
+    "keyword_wrong_segment"
+   ]
+  },
+  {
+   "domain": "convoy-analytics.example",
+   "gold": "disqualified",
+   "route": "disqualified",
+   "score": 5,
+   "reasons": [
+    "Excluded segment: Convoy Analytics describes itself as a route-optimisation software company serving logistics customers [P1.3]. Its services are a dispatch planning dashboard, TMS/ERP integrations and ETA predictions [P6.3-P6.5]. That makes it a software vendor in an adjacent space, not a fleet operator.",
+    "No evidence of an operated vehicle fleet. Nothing on the site suggests it runs the 40+ vehicles (absolute minimum 15) Wayline needs.",
+    "Headcount is 120 [P1.4]. That meets the absolute minimum of 50 but is below the preferred minimum of 150.",
+    "Location is in-region: headquarters in Austin, Texas, US [P1.9].",
+    "Recent signals exist but do not change the result. It raised $15M on 9 July 2026 [P5.2] and posted a Fleet Data Engineer role on 5 June 2026 [P3.5]. The funding is for its own software platform, and the role is a software engineering job, not a fleet operations hire."
+   ],
+   "traps": [
+    "keyword_wrong_segment"
+   ]
+  },
+  {
+   "domain": "fleetstreet-capital.example",
+   "gold": "disqualified",
+   "route": "disqualified",
+   "score": 3,
+   "reasons": [
+    "Fleet Street Capital is an investment management firm serving institutional investors [P1.3]. Its services are private equity funds, infrastructure investments and co-investment programmes [P6.3-P6.5]. Finance is an excluded segment.",
+    "'Fleet' in the company name refers to the London location, not a vehicle fleet. There is no evidence of company vehicles. The lines about crews, equipment and a 'yard' [P1.7, P4.2] look like generic template text and do not match the core business.",
+    "The company has roughly 60 employees [P1.4]. That is below the 150-employee ICP minimum, though above the absolute minimum of 50.",
+    "Recent hiring is for finance roles only: a Fund Accountant and an Investor Relations Manager [P3.3, P3.4]. There are no fleet, dispatch or safety roles.",
+    "Closing a £200M fund [P5.2] is investment activity, not operational expansion relevant to telematics."
+   ],
+   "traps": [
+    "keyword_wrong_segment"
+   ]
+  },
+  {
+   "domain": "trackright.example",
+   "gold": "disqualified",
+   "route": "disqualified",
+   "score": 2,
+   "reasons": [
+    "TrackRight is on Wayline's competitor list, so it should not be contacted as a prospect.",
+    "It describes itself as a fleet telematics software company (P1.3). Its services are GPS vehicle tracking, open API, ELD/tachograph compliance and driver behaviour scoring (P6.3–P6.6). That puts it in the excluded 'telematics_vendor' and 'software' segments.",
+    "Size (about 300 employees, P1.4) and location (Denver, US, P1.9) would otherwise fit. So would the $35M raise in March 2026 (P5.3) and the recent hiring (P3.3–P3.4). None of these outweighs the competitor exclusion.",
+    "No owned vehicle fleet is evidenced. The generic lines about crews, equipment and a 'Denver yard' (P1.7, P4.3) don't show that TrackRight runs a fleet that would need Wayline's product."
+   ],
+   "traps": [
+    "competitor"
+   ]
+  },
+  {
+   "domain": "northbeam-logistics.example",
+   "gold": "disqualified",
+   "route": "disqualified",
+   "score": 5,
+   "reasons": [
+    "Northbeam Logistics is listed as an existing Wayline customer, so it should not be contacted as a new prospect.",
+    "Otherwise it would fit the ICP well. It is a third-party logistics and freight trucking company in Columbus, Ohio, US [P1.3]. It has about 1,700 employees and 650 trucks [P1.4], and offers dedicated contract carriage and less-than-truckload [P6.4][P6.6].",
+    "It also shows a recent buying signal: a Fleet Operations Analyst role posted on 2026-09-20 that covers driver safety reviews [P3.3]. This may be worth passing to account management for expansion, but it does not make the company a new-business lead."
+   ],
+   "traps": [
+    "existing_customer"
+   ]
+  },
+  {
+   "domain": "bramble-landscaping.example",
+   "gold": "qualified",
+   "route": "qualified",
+   "score": 66,
+   "reasons": [
+    "Segment fit: commercial landscaping with planned maintenance visits, inspections, service contracts, installations and emergency call-outs maps to field_services (P1.3, P6.3-P6.7).",
+    "Region fit: headquartered in Bristol, United Kingdom, and GB is a target country (P1.3, P1.9).",
+    "Fleet fit: operates 45 trucks, above the 40-vehicle minimum (P1.4).",
+    "Size is a soft miss: 120 employees is below the preferred minimum of 150 but above the absolute minimum of 50 (P1.4).",
+    "Strong, timely buying signal: a Fleet & Yard Supervisor role was posted on 11 September 2026. It covers vehicle allocation, compliance checks and working with drivers on safe driving, which matches Wayline's driver-safety coaching (P3.3)."
+   ],
+   "traps": [
+    "borderline"
+   ]
+  },
+  {
+   "domain": "quayside-marine.example",
+   "gold": "nurture",
+   "route": "nurture",
+   "score": 55,
+   "reasons": [
+    "Segment fit: marine engineering services delivered by mobile crews in vans (installations, planned maintenance visits, service contracts) [P1.3, P1.7, P6.3-P6.5]. This maps reasonably to field_services, and no excluded segment applies.",
+    "Geography fit: headquartered in Southampton, United Kingdom (GB is a target country) [P1.3, P1.9].",
+    "Headcount fit: 200 employees is within the 150-5,000 target range [P1.4].",
+    "Fleet size is the main gap: 30 vans [P1.4] is below the 40-vehicle target, though above the 15-vehicle absolute minimum. That points to nurture rather than immediate outreach.",
+    "Buying signal: new operations leader. Harriet Cole joined as COO in August 2026, within the last 12 months [P5.2], and has a logistics background [P2.3]."
+   ],
+   "traps": [
+    "borderline"
+   ]
+  }
+ ]
+}

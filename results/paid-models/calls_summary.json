@@ -1,0 +1,32 @@
+{
+ "requests": 699,
+ "ok": 680,
+ "retried": 4,
+ "errors": 15,
+ "requested_models": {
+  "claude-haiku-5-5": 289,
+  "qwen3.7-plus": 258,
+  "claude-opus-5-5": 152
+ },
+ "served_models": {
+  "claude-haiku-5-5": 281,
+  "qwen3.7-plus": 253,
+  "claude-opus-5-5": 146
+ },
+ "by_tag": {
+  "extract": 127,
+  "judge": 79,
+  "classify_reply": 220,
+  "verify_claims": 75,
+  "injection": 18,
+  "qualify_llm_only": 41,
+  "draft": 38,
+  "eval_judge": 62,
+  "eval_judge_rejudge": 39
+ },
+ "all_free": false,
+ "first": "2026-10-12T08:47:52+00:00",
+ "last": "2026-10-12T10:09:29+00:00",
+ "input_tokens": 907293,
+ "output_tokens": 538322
+}

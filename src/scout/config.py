@@ -10,7 +10,7 @@ from typing import Annotated, Literal
 from pydantic import AliasChoices, Field, field_validator
 from pydantic_settings import BaseSettings, NoDecode, SettingsConfigDict
 
-LLMProviderKind = Literal["fake", "openrouter", "qwen", "openai", "anthropic"]
+LLMProviderKind = Literal["fake", "openrouter", "qwen", "openai", "anthropic", "compat"]
 CrawlMode = Literal["synthetic", "live"]
 CrmMode = Literal["off", "mock", "hubspot"]
 
@@ -28,6 +28,7 @@ DEFAULT_MODELS: dict[str, str] = {
     "qwen": DEFAULT_QWEN_MODEL,
     "openai": "gpt-5-mini",
     "anthropic": "claude-sonnet-5",
+    "compat": "",  # any OpenAI-compatible endpoint: the model must be named explicitly
 }
 
 
@@ -117,6 +118,8 @@ class Settings(BaseSettings):
     llm_fallback_models: Annotated[list[str], NoDecode] = Field(default_factory=list)
     judge_model: str = "dots-studio/dots-3-note-preview:free"
     """A different free model for the blind preference judge and the independent claim audit in the evaluation."""
+    judge_provider: LLMProviderKind = "openrouter"
+    """Provider of the evaluation judge (the same guards apply to it as to the main model)."""
     llm_timeout_seconds: float = 180.0
     llm_max_tokens: int = 16000
     """A ceiling, not a target: free reasoning models spend thousands of tokens thinking before the JSON."""
@@ -124,6 +127,11 @@ class Settings(BaseSettings):
     llm_reasoning_effort: str = "low"
     require_free_models: bool = True
     """Refuse any OpenRouter model id that does not end in ":free" (requests and the model that answered)."""
+    allow_paid_models: bool = Field(
+        default=False, validation_alias=AliasChoices("SCOUT_ALLOW_PAID_MODELS", "ALLOW_PAID_MODELS")
+    )
+    """Explicit opt-in for the `compat` provider (any OpenAI-compatible endpoint, e.g. a local budget proxy): without
+    it, `compat` refuses every model id that does not end in ":free", exactly like the OpenRouter guard."""
 
     openrouter_api_key: str | None = Field(default=None, validation_alias=AliasChoices("OPENROUTER_API_KEY"))
     openrouter_base_url: str = Field(
@@ -136,6 +144,13 @@ class Settings(BaseSettings):
     openai_base_url: str = "https://api.openai.com/v1"
     anthropic_api_key: str | None = Field(default=None, validation_alias=AliasChoices("ANTHROPIC_API_KEY"))
     anthropic_effort: str = "low"
+    compat_base_url: str = ""
+    """Base URL of the `compat` provider's OpenAI-compatible API, e.g. http://127.0.0.1:8787/v1."""
+    compat_api_key: str | None = Field(
+        default=None, validation_alias=AliasChoices("SCOUT_COMPAT_API_KEY", "COMPAT_API_KEY")
+    )
+    compat_send_temperature: bool = True
+    """Some models behind OpenAI-compatible gateways reject `temperature` (e.g. newer Claude models): set false."""
 
     # ---- budget for real API calls
     llm_cache: bool = True

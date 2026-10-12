@@ -8,7 +8,7 @@ from scout.llm.anthropic_provider import AnthropicModel
 from scout.llm.base import ChatModel
 from scout.llm.budget import BudgetedModel, DiskCache, shared_ledger, shared_throttle
 from scout.llm.fake import FakeModel
-from scout.llm.guards import ensure_free_models
+from scout.llm.guards import COMPAT_HINT, ensure_free_models
 from scout.llm.openai_compat import OpenAICompatibleModel
 
 
@@ -26,6 +26,10 @@ def build_chat_model(
     # Guards first: nothing is constructed (no client, no key read) for a refused model.
     if kind == "openrouter" and settings.require_free_models:
         ensure_free_models([name, *fallbacks])
+    if kind == "compat" and not settings.allow_paid_models:
+        ensure_free_models(
+            [name], hint=COMPAT_HINT
+        )  # a generic endpoint is free-only unless paid models are explicitly allowed
     if kind == "fake":
         from scout.fake_tasks import HANDLERS  # the rule-based tasks import the pipeline modules
 
@@ -41,11 +45,13 @@ def build_chat_model(
         "openrouter": settings.openrouter_base_url,
         "qwen": settings.qwen_base_url,
         "openai": settings.openai_base_url,
+        "compat": settings.compat_base_url,
     }[kind]
     api_key = {
         "openrouter": settings.openrouter_api_key,
         "qwen": settings.qwen_api_key,
         "openai": settings.openai_api_key,
+        "compat": settings.compat_api_key,
     }[kind]
     return OpenAICompatibleModel(
         kind=kind,
@@ -53,10 +59,11 @@ def build_chat_model(
         model=name,
         api_key=api_key,
         fallback_models=fallbacks if kind == "openrouter" else (),
-        require_free=settings.require_free_models,
+        require_free=not settings.allow_paid_models if kind == "compat" else settings.require_free_models,
         timeout_seconds=settings.llm_timeout_seconds,
         reasoning_effort=settings.llm_reasoning_effort if kind == "openrouter" else "",
         enable_thinking=settings.qwen_enable_thinking if kind == "qwen" else None,
+        send_temperature=settings.compat_send_temperature if kind == "compat" else True,
     )
 
 

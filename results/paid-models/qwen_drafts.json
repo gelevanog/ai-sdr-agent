@@ -1,0 +1,3860 @@
+{
+ "name": "qwen",
+ "suite": "drafts",
+ "date": "2026-10-12",
+ "model": "compat/qwen3.7-plus",
+ "judge_model": "compat/claude-opus-5-5",
+ "checker": true,
+ "accounts": 9,
+ "variants": 18,
+ "errors": [
+  {
+   "domain": "lakeshore-beverage.example",
+   "error": "no contact with a published or supplied email address; add one before drafting"
+  },
+  {
+   "domain": "metro-medtransport.example",
+   "error": "no contact with a published or supplied email address; add one before drafting"
+  },
+  {
+   "domain": "pinecrest-waste.example",
+   "error": "no contact with a published or supplied email address; add one before drafting"
+  }
+ ],
+ "checker_view": {
+  "first_drafts": {
+   "claims": 114,
+   "supported_by_checker": 1.0,
+   "unsupported": 0
+  },
+  "final_drafts": {
+   "claims": 118,
+   "supported_by_checker": 1.0,
+   "unsupported": 0
+  }
+ },
+ "independent_audit": {
+  "first_drafts": {
+   "claims": 54,
+   "unsupported": 9,
+   "unsupported_rate": 0.1667,
+   "supported_rate": 0.8333,
+   "examples": [
+    "meridian-mobile-medical.example A-final: The Fleet Coordinator role is to support vehicle maintenance schedules (The reference facts list only the job title. They do not describe the role's dut)",
+    "meridian-mobile-medical.example B-final: The vans are maintained in house (The reference facts say nothing about how or by whom the vans are maintained.)",
+    "meridian-mobile-medical.example B-final: Meridian's vans idle during patient wait times (The reference facts say nothing about vehicle idling or patient wait practices.)",
+    "harborview-shuttle.example B-final: Harlow's 41% reduction was achieved using Wayline's in-cab coaching (The proof point does not say which feature produced the result. Attributing it s)",
+    "bluebell-linen.example A-final: The Transport Manager job description mentions owning driver safety reviews. (The reference facts give only the role title, not anything in its description.)",
+    "swiftmark-parcel.example A-final: Swiftmark has an upcoming Berlin launch timeline that could be delayed (The Berlin next-day service already started on 5 August 2026. The reference fact)",
+    "swiftmark-parcel.example B-final: The 600 vans are maintained in house (The reference facts do not say how Swiftmark maintains its fleet.)",
+    "coldline-distribution.example B-final: The fleet is maintained in house (The reference facts do not say how or by whom the fleet is maintained.)",
+    "nordlicht-kurier.example B-final: Nordlicht Kurier's operations have significant operational blind spots and lack real-time data (The reference facts say nothing about Nordlicht's current visibility, tracking t)"
+   ]
+  },
+  "final_drafts": {
+   "claims": 54,
+   "unsupported": 9,
+   "unsupported_rate": 0.1667,
+   "supported_rate": 0.8333,
+   "examples": [
+    "meridian-mobile-medical.example A-final: The Fleet Coordinator role is to support vehicle maintenance schedules (The reference facts list only the job title. They do not describe the role's dut)",
+    "meridian-mobile-medical.example B-final: The vans are maintained in house (The reference facts say nothing about how or by whom the vans are maintained.)",
+    "meridian-mobile-medical.example B-final: Meridian's vans idle during patient wait times (The reference facts say nothing about vehicle idling or patient wait practices.)",
+    "harborview-shuttle.example B-final: Harlow's 41% reduction was achieved using Wayline's in-cab coaching (The proof point does not say which feature produced the result. Attributing it s)",
+    "bluebell-linen.example A-final: The Transport Manager job description mentions owning driver safety reviews. (The reference facts give only the role title, not anything in its description.)",
+    "swiftmark-parcel.example A-final: Swiftmark has an upcoming Berlin launch timeline that could be delayed (The Berlin next-day service already started on 5 August 2026. The reference fact)",
+    "swiftmark-parcel.example B-final: The 600 vans are maintained in house (The reference facts do not say how Swiftmark maintains its fleet.)",
+    "coldline-distribution.example B-final: The fleet is maintained in house (The reference facts do not say how or by whom the fleet is maintained.)",
+    "nordlicht-kurier.example B-final: Nordlicht Kurier's operations have significant operational blind spots and lack real-time data (The reference facts say nothing about Nordlicht's current visibility, tracking t)"
+   ]
+  }
+ },
+ "first_draft_pass_rate": 0.8333,
+ "final_pass_rate": 1.0,
+ "regenerated": 3,
+ "trimmed": 1,
+ "attempts_mean": 1.17,
+ "personalization_mean": 1.56,
+ "spam_pass_rate": 1.0,
+ "spam_issue_counts": {},
+ "readability_mean": 48.3,
+ "words_first_email_mean": 68.9,
+ "preference_vs_template": {
+  "scout": 9,
+  "scout_win_rate": 1.0
+ },
+ "seconds_p50": 42.12,
+ "seconds_p95": 86.79,
+ "calls": {
+  "total": {
+   "draft": 12,
+   "verify_claims": 12
+  },
+  "per_account": 2.67
+ },
+ "rows": [
+  {
+   "domain": "meridian-mobile-medical.example",
+   "contact": "Head of Fleet",
+   "seconds": 42.12,
+   "calls": {
+    "draft": 1,
+    "verify_claims": 1
+   },
+   "variants": [
+    {
+     "variant": "A",
+     "attempts": 1,
+     "trimmed": false,
+     "first_claims": [
+      {
+       "text": "open Fleet Coordinator role posted on September 1",
+       "evidence": [
+        "S1"
+       ],
+       "verdict": "supported",
+       "reason": "S1 explicitly states 'Fleet Coordinator Denver · Posted 1 September 2026'.",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "support for vehicle maintenance schedules",
+       "evidence": [
+        "S1"
+       ],
+       "verdict": "supported",
+       "reason": "S1 states 'You will own vehicle maintenance schedules', implying the role supports this function.",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "in-cab coaching that cuts harsh-braking and speeding events, scored per driver",
+       "evidence": [
+        "VP:safety"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "85 imaging vans maintained in house",
+       "evidence": [
+        "F5"
+       ],
+       "verdict": "supported",
+       "reason": "F5 states 'Customers are served by a fleet of 85 imaging vans, maintained in house.'",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Harlow Plumbing & Heating cut harsh-braking events by 41% across 120 vans",
+       "evidence": [
+        "PP:harlow"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "add imaging vans across the Mountain West",
+       "evidence": [
+        "S3"
+       ],
+       "verdict": "supported",
+       "reason": "S3 states 'Adding imaging vans across the Mountain West' and links it to the Series C funding.",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "self-install devices, so a new depot or region is tracked from its first week",
+       "evidence": [
+        "VP:rollout"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      }
+     ],
+     "final_claims": [
+      {
+       "text": "open Fleet Coordinator role posted on September 1",
+       "evidence": [
+        "S1"
+       ],
+       "verdict": "supported",
+       "reason": "S1 explicitly states 'Fleet Coordinator Denver · Posted 1 September 2026'.",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "support for vehicle maintenance schedules",
+       "evidence": [
+        "S1"
+       ],
+       "verdict": "supported",
+       "reason": "S1 states 'You will own vehicle maintenance schedules', implying the role supports this function.",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "in-cab coaching that cuts harsh-braking and speeding events, scored per driver",
+       "evidence": [
+        "VP:safety"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "85 imaging vans maintained in house",
+       "evidence": [
+        "F5"
+       ],
+       "verdict": "supported",
+       "reason": "F5 states 'Customers are served by a fleet of 85 imaging vans, maintained in house.'",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Harlow Plumbing & Heating cut harsh-braking events by 41% across 120 vans",
+       "evidence": [
+        "PP:harlow"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "add imaging vans across the Mountain West",
+       "evidence": [
+        "S3"
+       ],
+       "verdict": "supported",
+       "reason": "S3 states 'Adding imaging vans across the Mountain West' and links it to the Series C funding.",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "self-install devices, so a new depot or region is tracked from its first week",
+       "evidence": [
+        "VP:rollout"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      }
+     ],
+     "first_passed": true,
+     "final_passed": true,
+     "first_issues": [],
+     "final_issues": [],
+     "spam_score": 0.0,
+     "spam_issues": [],
+     "readability": 46.5,
+     "words": [
+      68,
+      55,
+      52
+     ],
+     "personalization": 1,
+     "email1": "Subject: Fleet Coordinator role and driver safety\n\nHi Ethan,\n\nI saw your open Fleet Coordinator role posted on September 1. As you bring on support for vehicle maintenance schedules, scaling safety protocols across a growing fleet often becomes a priority.\n\nWayline provides in-cab coaching that cuts harsh-braking and speeding events, scored per driver. This helps new coordinators manage risk without constant manual oversight.\n\nCould we schedule a 20-minute call to compare notes on your fleet?\n\nDana",
+     "email1_first": "Subject: Fleet Coordinator role and driver safety\n\nHi Ethan,\n\nI saw your open Fleet Coordinator role posted on September 1. As you bring on support for vehicle maintenance schedules, scaling safety protocols across a growing fleet often becomes a priority.\n\nWayline provides in-cab coaching that cuts harsh-braking and speeding events, scored per driver. This helps new coordinators manage risk without constant manual oversight.\n\nCould we schedule a 20-minute call to compare notes on your fleet?\n\nDana"
+    },
+    {
+     "variant": "B",
+     "attempts": 1,
+     "trimmed": false,
+     "first_claims": [
+      {
+       "text": "fleet of 85 imaging vans maintained in house",
+       "evidence": [
+        "F5"
+       ],
+       "verdict": "supported",
+       "reason": "F5 states 'fleet of 85 imaging vans, maintained in house.'",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Colorado, Utah and Wyoming",
+       "evidence": [
+        "F6"
+       ],
+       "verdict": "supported",
+       "reason": "F6 states Meridian provides imaging 'across Colorado, Utah and Wyoming.'",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "idle-time and route reports that typically lower fuel spend",
+       "evidence": [
+        "VP:fuel"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "roughly 450 employees",
+       "evidence": [
+        "F4"
+       ],
+       "verdict": "supported",
+       "reason": "F4 states 'grown to a team of roughly 450 employees.'",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "in-cab coaching that cuts harsh-braking and speeding events, scored per driver",
+       "evidence": [
+        "VP:safety"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "expand across the Mountain West",
+       "evidence": [
+        "S3"
+       ],
+       "verdict": "supported",
+       "reason": "S3 states 'Adding imaging vans across the Mountain West,' which constitutes expanding across that region.",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "self-install devices, so a new depot or region is tracked from its first week",
+       "evidence": [
+        "VP:rollout"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      }
+     ],
+     "final_claims": [
+      {
+       "text": "fleet of 85 imaging vans maintained in house",
+       "evidence": [
+        "F5"
+       ],
+       "verdict": "supported",
+       "reason": "F5 states 'fleet of 85 imaging vans, maintained in house.'",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Colorado, Utah and Wyoming",
+       "evidence": [
+        "F6"
+       ],
+       "verdict": "supported",
+       "reason": "F6 states Meridian provides imaging 'across Colorado, Utah and Wyoming.'",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "idle-time and route reports that typically lower fuel spend",
+       "evidence": [
+        "VP:fuel"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "roughly 450 employees",
+       "evidence": [
+        "F4"
+       ],
+       "verdict": "supported",
+       "reason": "F4 states 'grown to a team of roughly 450 employees.'",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "in-cab coaching that cuts harsh-braking and speeding events, scored per driver",
+       "evidence": [
+        "VP:safety"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "expand across the Mountain West",
+       "evidence": [
+        "S3"
+       ],
+       "verdict": "supported",
+       "reason": "S3 states 'Adding imaging vans across the Mountain West,' which constitutes expanding across that region.",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "self-install devices, so a new depot or region is tracked from its first week",
+       "evidence": [
+        "VP:rollout"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      }
+     ],
+     "first_passed": true,
+     "final_passed": true,
+     "first_issues": [],
+     "final_issues": [
+      "claim not found verbatim in the email: 'in-cab coaching that cuts harsh-braking and speeding events, scored per driver'"
+     ],
+     "spam_score": 0.0,
+     "spam_issues": [],
+     "readability": 52.2,
+     "words": [
+      67,
+      51,
+      51
+     ],
+     "personalization": 2,
+     "email1": "Subject: Idle time in your imaging vans\n\nHi Ethan,\n\nManaging a fleet of 85 imaging vans maintained in house means idle time directly impacts your bottom line. Unnecessary idling during patient wait times can add up quickly across Colorado, Utah and Wyoming.\n\nWayline provides idle-time and route reports that typically lower fuel spend. Northbeam Logistics reduced idle time by 23% in the first six months.\n\nCan we find 20 minutes to compare notes on your fleet?\n\nDana",
+     "email1_first": "Subject: Idle time in your imaging vans\n\nHi Ethan,\n\nManaging a fleet of 85 imaging vans maintained in house means idle time directly impacts your bottom line. Unnecessary idling during patient wait times can add up quickly across Colorado, Utah and Wyoming.\n\nWayline provides idle-time and route reports that typically lower fuel spend. Northbeam Logistics reduced idle time by 23% in the first six months.\n\nCan we find 20 minutes to compare notes on your fleet?\n\nDana"
+    }
+   ],
+   "audit": {
+    "A-final": [
+     {
+      "text": "Meridian has an open Fleet Coordinator role posted on September 1",
+      "supported": true,
+      "reason": "The website lists a Fleet Coordinator role dated 2026-09-01."
+     },
+     {
+      "text": "The Fleet Coordinator role is to support vehicle maintenance schedules",
+      "supported": false,
+      "reason": "The reference facts list only the job title. They do not describe the role's duties, including maintenance scheduling."
+     },
+     {
+      "text": "Meridian has a growing fleet",
+      "supported": true,
+      "reason": "The website (2026-04-30) says Meridian closed a $22 million Series C to add imaging vans across the Mountain West."
+     }
+    ],
+    "B-final": [
+     {
+      "text": "Meridian operates a fleet of 85 imaging vans",
+      "supported": true,
+      "reason": "The reference facts list the fleet as 85 imaging vans."
+     },
+     {
+      "text": "The vans are maintained in house",
+      "supported": false,
+      "reason": "The reference facts say nothing about how or by whom the vans are maintained."
+     },
+     {
+      "text": "Meridian's vans idle during patient wait times",
+      "supported": false,
+      "reason": "The reference facts say nothing about vehicle idling or patient wait practices."
+     },
+     {
+      "text": "Meridian operates across Colorado, Utah and Wyoming",
+      "supported": true,
+      "reason": "The reference facts state Meridian serves Colorado, Utah and Wyoming."
+     },
+     {
+      "text": "Northbeam Logistics reduced idle time by 23% in the first six months",
+      "supported": true,
+      "reason": "This matches the sender's proof point exactly."
+     }
+    ]
+   },
+   "preference": "scout",
+   "preference_reason": "Y gives me a concrete reason to read it now. It cites our actual Fleet Coordinator posting from September 1 and ties it to a real problem: keeping safety consistent while the fleet grows and a new coordinator ramps up. It also names a specific capability, in-cab coaching that cuts harsh-braking and "
+  },
+  {
+   "domain": "lakeshore-beverage.example",
+   "error": "no contact with a published or supplied email address; add one before drafting"
+  },
+  {
+   "domain": "copperline-electrical.example",
+   "contact": "Fleet Operations Manager",
+   "seconds": 70.96,
+   "calls": {
+    "draft": 2,
+    "verify_claims": 2
+   },
+   "variants": [
+    {
+     "variant": "A",
+     "attempts": 2,
+     "trimmed": true,
+     "first_claims": [
+      {
+       "text": "Copperline is hiring a Fleet Administrator",
+       "evidence": [
+        "S1"
+       ],
+       "verdict": "supported",
+       "reason": "S1 explicitly states there is an open role for a Fleet Administrator posted on 18 September 2026.",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "new Bristol branch opening recently",
+       "evidence": [
+        "S2"
+       ],
+       "verdict": "supported",
+       "reason": "S2 states Copperline opened a Bristol branch on 1 September 2026. Given the current date is 2026-10-01, 'recently' is an accurate temporal descriptor.",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "managing 210 vans",
+       "evidence": [
+        "F3"
+       ],
+       "verdict": "supported",
+       "reason": "F3 explicitly states 'Our 210 vans are on the road every working day.'",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "self-install devices, so a new depot or region is tracked from its first week",
+       "evidence": [
+        "VP:rollout"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "Adding 25 engineers in Bristol",
+       "evidence": [
+        "S2"
+       ],
+       "verdict": "supported",
+       "reason": "S2 explicitly states the Bristol branch opened 'with 25 engineers'.",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "in-cab coaching cuts harsh-braking and speeding events, scored per driver",
+       "evidence": [
+        "VP:safety"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "Idle-time and route reports typically lower fuel spend",
+       "evidence": [
+        "VP:fuel"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      }
+     ],
+     "final_claims": [
+      {
+       "text": "Copperline is hiring a Fleet Administrator",
+       "evidence": [
+        "S1"
+       ],
+       "verdict": "supported",
+       "reason": "S1 explicitly states there is an 'Open role for Fleet Administrator' posted on 18 September 2026.",
+       "checked_by": [
+        "rules",
+        "llm",
+        "rules"
+       ]
+      },
+      {
+       "text": "new Bristol branch opening recently",
+       "evidence": [
+        "S2"
+       ],
+       "verdict": "supported",
+       "reason": "S2 states Copperline opened a Bristol branch on 1 September 2026. Given the current date is 2026-10-01, describing this as 'recently' is accurate and supported by the evidence.",
+       "checked_by": [
+        "rules",
+        "llm",
+        "rules"
+       ]
+      },
+      {
+       "text": "managing 210 vans",
+       "evidence": [
+        "F3"
+       ],
+       "verdict": "supported",
+       "reason": "F3 explicitly states 'Our 210 vans are on the road every working day'.",
+       "checked_by": [
+        "rules",
+        "llm",
+        "rules"
+       ]
+      },
+      {
+       "text": "Wayline offers self-install devices, so a new depot or region is tracked from its first week",
+       "evidence": [
+        "VP:rollout"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer",
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "Adding 25 engineers in Bristol",
+       "evidence": [
+        "S2"
+       ],
+       "verdict": "supported",
+       "reason": "S2 explicitly states the Bristol branch opened 'with 25 engineers'.",
+       "checked_by": [
+        "rules",
+        "llm",
+        "rules"
+       ]
+      },
+      {
+       "text": "in-cab coaching cuts harsh-braking and speeding events, scored per driver",
+       "evidence": [
+        "VP:safety"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer",
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "Idle-time and route reports typically lower fuel spend",
+       "evidence": [
+        "VP:fuel"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer",
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer",
+        "rules",
+        "offer"
+       ]
+      }
+     ],
+     "first_passed": false,
+     "final_passed": true,
+     "first_issues": [
+      "'Admin' is not a name found in the research or the offer"
+     ],
+     "final_issues": [
+      "no greeting"
+     ],
+     "spam_score": 0.0,
+     "spam_issues": [],
+     "readability": 50.7,
+     "words": [
+      66,
+      58,
+      40
+     ],
+     "personalization": 3,
+     "email1": "Subject: Fleet Administrator role and Bristol expansion\n\nHi Liam,\nI saw Copperline is hiring a Fleet Administrator. With the new Bristol branch opening recently, managing 210 vans across expanding regions likely adds complexity. Wayline offers self-install devices, so a new depot or region is tracked from its first week. This helps maintain visibility without heavy IT lift during growth phases. Are you open to a 20-minute call to compare notes on your fleet? Dana",
+     "email1_first": "Subject: Fleet Admin role and Bristol expansion\n\nHi Liam,\n\nI saw Copperline is hiring a Fleet Administrator. With the new Bristol branch opening recently, managing 210 vans across expanding regions likely adds complexity.\n\nWayline offers self-install devices, so a new depot or region is tracked from its first week. This helps maintain visibility without heavy IT lift during growth phases.\n\nAre you open to a 20-minute call to compare notes on your fleet?\n\nDana"
+    },
+    {
+     "variant": "B",
+     "attempts": 1,
+     "trimmed": false,
+     "first_claims": [
+      {
+       "text": "Managing 210 vans",
+       "evidence": [
+        "F3"
+       ],
+       "verdict": "supported",
+       "reason": "F3 explicitly states 'Our 210 vans are on the road every working day.'",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "across the Midlands and South West",
+       "evidence": [
+        "F7"
+       ],
+       "verdict": "supported",
+       "reason": "F7 explicitly states the company is 'serving the Midlands and the South West'.",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Harlow Plumbing & Heating cut harsh-braking events by 41% across 120 vans",
+       "evidence": [
+        "PP:harlow"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "in-cab coaching scores each driver",
+       "evidence": [
+        "VP:safety"
+       ],
+       "verdict": "supported",
+       "reason": "VP:safety explicitly describes the product as having coaching that is 'scored per driver'.",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "recent Bristol expansion",
+       "evidence": [
+        "S2"
+       ],
+       "verdict": "supported",
+       "reason": "S2 confirms the opening of a new branch in Bristol on 1 September 2026, which constitutes a recent expansion relative to the current date (2026-10-01).",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "self-install devices, so a new depot or region is tracked from its first week",
+       "evidence": [
+        "VP:rollout"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "team grows to 480 employees",
+       "evidence": [
+        "F2"
+       ],
+       "verdict": "supported",
+       "reason": "F2 explicitly states the team has grown to 'roughly 480 employees'.",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "210 vehicles",
+       "evidence": [
+        "F3"
+       ],
+       "verdict": "supported",
+       "reason": "F3 explicitly states 'Our 210 vans are on the road every working day.'",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "idle-time and route reports typically lower fuel spend",
+       "evidence": [
+        "VP:fuel"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      }
+     ],
+     "final_claims": [
+      {
+       "text": "Managing 210 vans",
+       "evidence": [
+        "F3"
+       ],
+       "verdict": "supported",
+       "reason": "F3 explicitly states 'Our 210 vans are on the road every working day.'",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "across the Midlands and South West",
+       "evidence": [
+        "F7"
+       ],
+       "verdict": "supported",
+       "reason": "F7 explicitly states the company is 'serving the Midlands and the South West'.",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Harlow Plumbing & Heating cut harsh-braking events by 41% across 120 vans",
+       "evidence": [
+        "PP:harlow"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "in-cab coaching scores each driver",
+       "evidence": [
+        "VP:safety"
+       ],
+       "verdict": "supported",
+       "reason": "VP:safety explicitly describes the product as having coaching that is 'scored per driver'.",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "recent Bristol expansion",
+       "evidence": [
+        "S2"
+       ],
+       "verdict": "supported",
+       "reason": "S2 confirms the opening of a new branch in Bristol on 1 September 2026, which constitutes a recent expansion relative to the current date (2026-10-01).",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "self-install devices, so a new depot or region is tracked from its first week",
+       "evidence": [
+        "VP:rollout"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "team grows to 480 employees",
+       "evidence": [
+        "F2"
+       ],
+       "verdict": "supported",
+       "reason": "F2 explicitly states the team has grown to 'roughly 480 employees'.",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "210 vehicles",
+       "evidence": [
+        "F3"
+       ],
+       "verdict": "supported",
+       "reason": "F3 explicitly states 'Our 210 vans are on the road every working day.'",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "idle-time and route reports typically lower fuel spend",
+       "evidence": [
+        "VP:fuel"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      }
+     ],
+     "first_passed": true,
+     "final_passed": true,
+     "first_issues": [],
+     "final_issues": [],
+     "spam_score": 0.0,
+     "spam_issues": [],
+     "readability": 48.1,
+     "words": [
+      61,
+      59,
+      56
+     ],
+     "personalization": 2,
+     "email1": "Subject: Safety consistency across 210 vans\n\nHi Liam,\n\nManaging 210 vans across the Midlands and South West creates variability in driver behavior. Consistent safety coaching is difficult when teams are spread across multiple depots.\n\nHarlow Plumbing & Heating cut harsh-braking events by 41% across 120 vans using Wayline. Our in-cab coaching scores each driver, helping standardize performance regardless of location.\n\nCould we spare 20 minutes to compare notes on your fleet?\n\nDana",
+     "email1_first": "Subject: Safety consistency across 210 vans\n\nHi Liam,\n\nManaging 210 vans across the Midlands and South West creates variability in driver behavior. Consistent safety coaching is difficult when teams are spread across multiple depots.\n\nHarlow Plumbing & Heating cut harsh-braking events by 41% across 120 vans using Wayline. Our in-cab coaching scores each driver, helping standardize performance regardless of location.\n\nCould we spare 20 minutes to compare notes on your fleet?\n\nDana"
+    }
+   ],
+   "audit": {
+    "A-final": [
+     {
+      "text": "Copperline is hiring a Fleet Administrator",
+      "supported": true,
+      "reason": "The website lists a Fleet Administrator role, dated 2026-09-18."
+     },
+     {
+      "text": "The new Bristol branch opened recently",
+      "supported": true,
+      "reason": "The Bristol branch opened on 1 September 2026, one month before the reference date, so 'new' and 'recently' fit."
+     },
+     {
+      "text": "Copperline manages 210 vans",
+      "supported": true,
+      "reason": "The reference facts state a fleet of 210 vans."
+     }
+    ],
+    "A-first": [
+     {
+      "text": "Copperline is hiring a Fleet Administrator",
+      "supported": true,
+      "reason": "The website lists a Fleet Administrator role, dated 2026-09-18."
+     },
+     {
+      "text": "The new Bristol branch opened recently",
+      "supported": true,
+      "reason": "The Bristol branch opened on 1 September 2026, one month before the reference date, so 'new' and 'recently' fit."
+     },
+     {
+      "text": "Copperline manages 210 vans",
+      "supported": true,
+      "reason": "The reference facts state a fleet of 210 vans."
+     }
+    ],
+    "B-final": [
+     {
+      "text": "Copperline manages 210 vans across the Midlands and South West",
+      "supported": true,
+      "reason": "The reference facts state 210 vans and that Copperline serves the Midlands and the South West."
+     },
+     {
+      "text": "Copperline's teams are spread across multiple depots",
+      "supported": true,
+      "reason": "There is a Birmingham headquarters plus a Bristol branch, so at least two sites exist. 'Depots' is a loose word for these, but it is consistent with the facts."
+     },
+     {
+      "text": "Harlow Plumbing & Heating cut harsh-braking events by 41% across 120 vans using Wayline",
+      "supported": true,
+      "reason": "This matches the sender's proof point exactly."
+     }
+    ]
+   },
+   "preference": "scout",
+   "preference_reason": "X refers to things I can check: our Fleet Administrator opening, the new Bristol branch and our fleet of about 210 vans. It also ties self-install devices to a real problem for us, which is getting new depots tracked quickly without much IT work. That makes it look researched and relevant to us. Y i"
+  },
+  {
+   "domain": "harborview-shuttle.example",
+   "contact": "Fleet Operations Manager",
+   "seconds": 34.8,
+   "calls": {
+    "draft": 1,
+    "verify_claims": 1
+   },
+   "variants": [
+    {
+     "variant": "A",
+     "attempts": 1,
+     "trimmed": false,
+     "first_claims": [
+      {
+       "text": "I saw your opening for a Safety & Training Manager posted on September 3.",
+       "evidence": [
+        "S1"
+       ],
+       "verdict": "supported",
+       "reason": "Evidence S1 confirms the Safety & Training Manager role was posted on September 3, 2026.",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Harborview Shuttle adding 30 buses for the new Sea-Tac rental-car shuttle contract",
+       "evidence": [
+        "S2"
+       ],
+       "verdict": "supported",
+       "reason": "Evidence S2 states Harborview Shuttle won the Sea-Tac rental-car shuttle contract and is adding 30 buses.",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline provides in-cab coaching that cuts harsh-braking and speeding events, scored per driver.",
+       "evidence": [
+        "VP:safety"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "Harlow Plumbing & Heating cut harsh-braking events by 41% across 120 vans using this approach.",
+       "evidence": [
+        "PP:harlow"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      }
+     ],
+     "final_claims": [
+      {
+       "text": "I saw your opening for a Safety & Training Manager posted on September 3.",
+       "evidence": [
+        "S1"
+       ],
+       "verdict": "supported",
+       "reason": "Evidence S1 confirms the Safety & Training Manager role was posted on September 3, 2026.",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Harborview Shuttle adding 30 buses for the new Sea-Tac rental-car shuttle contract",
+       "evidence": [
+        "S2"
+       ],
+       "verdict": "supported",
+       "reason": "Evidence S2 states Harborview Shuttle won the Sea-Tac rental-car shuttle contract and is adding 30 buses.",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline provides in-cab coaching that cuts harsh-braking and speeding events, scored per driver.",
+       "evidence": [
+        "VP:safety"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "Harlow Plumbing & Heating cut harsh-braking events by 41% across 120 vans using this approach.",
+       "evidence": [
+        "PP:harlow"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      }
+     ],
+     "first_passed": true,
+     "final_passed": true,
+     "first_issues": [],
+     "final_issues": [],
+     "spam_score": 0.0,
+     "spam_issues": [],
+     "readability": 43.1,
+     "words": [
+      90,
+      81,
+      68
+     ],
+     "personalization": 2,
+     "email1": "Subject: Safety & Training Manager role\n\nHi Grace,\n\nI saw your opening for a Safety & Training Manager posted on September 3. With Harborview Shuttle adding 30 buses for the new Sea-Tac rental-car shuttle contract, scaling safety protocols across a growing fleet is likely top of mind.\n\nWayline provides in-cab coaching that cuts harsh-braking and speeding events, scored per driver. This supports training initiatives by giving managers objective data on driver behavior rather than relying solely on manual observation.\n\nCould we schedule a 20-minute call to compare notes on how you are structuring safety for the expanded fleet?\n\nDana",
+     "email1_first": "Subject: Safety & Training Manager role\n\nHi Grace,\n\nI saw your opening for a Safety & Training Manager posted on September 3. With Harborview Shuttle adding 30 buses for the new Sea-Tac rental-car shuttle contract, scaling safety protocols across a growing fleet is likely top of mind.\n\nWayline provides in-cab coaching that cuts harsh-braking and speeding events, scored per driver. This supports training initiatives by giving managers objective data on driver behavior rather than relying solely on manual observation.\n\nCould we schedule a 20-minute call to compare notes on how you are structuring safety for the expanded fleet?\n\nDana"
+    },
+    {
+     "variant": "B",
+     "attempts": 1,
+     "trimmed": false,
+     "first_claims": [
+      {
+       "text": "Adding 30 buses for the Sea-Tac rental-car shuttle contract",
+       "evidence": [
+        "S2"
+       ],
+       "verdict": "supported",
+       "reason": "Evidence S2 confirms the addition of 30 buses for the Sea-Tac rental-car shuttle contract.",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "140-vehicle fleet",
+       "evidence": [
+        "F5"
+       ],
+       "verdict": "supported",
+       "reason": "Evidence F5 states the fleet consists of 140 buses and vans.",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline offers self-install devices, so a new depot or region is tracked from its first week.",
+       "evidence": [
+        "VP:rollout"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "Harlow Plumbing & Heating cut harsh-braking events by 41% across 120 vans using our in-cab coaching.",
+       "evidence": [
+        "PP:harlow"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "Our self-install devices ensure that new vehicles are tracked from their first week of service.",
+       "evidence": [
+        "VP:rollout"
+       ],
+       "verdict": "supported",
+       "reason": "Evidence VP:rollout states that self-install devices allow a new depot or region to be tracked from its first week.",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "final_claims": [
+      {
+       "text": "Adding 30 buses for the Sea-Tac rental-car shuttle contract",
+       "evidence": [
+        "S2"
+       ],
+       "verdict": "supported",
+       "reason": "Evidence S2 confirms the addition of 30 buses for the Sea-Tac rental-car shuttle contract.",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "140-vehicle fleet",
+       "evidence": [
+        "F5"
+       ],
+       "verdict": "supported",
+       "reason": "Evidence F5 states the fleet consists of 140 buses and vans.",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline offers self-install devices, so a new depot or region is tracked from its first week.",
+       "evidence": [
+        "VP:rollout"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "Harlow Plumbing & Heating cut harsh-braking events by 41% across 120 vans using our in-cab coaching.",
+       "evidence": [
+        "PP:harlow"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "Our self-install devices ensure that new vehicles are tracked from their first week of service.",
+       "evidence": [
+        "VP:rollout"
+       ],
+       "verdict": "supported",
+       "reason": "Evidence VP:rollout states that self-install devices allow a new depot or region to be tracked from its first week.",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "first_passed": true,
+     "final_passed": true,
+     "first_issues": [],
+     "final_issues": [],
+     "spam_score": 0.0,
+     "spam_issues": [],
+     "readability": 40.2,
+     "words": [
+      94,
+      79,
+      71
+     ],
+     "personalization": 2,
+     "email1": "Subject: Scaling safety with 30 new buses\n\nHi Grace,\n\nAdding 30 buses for the Sea-Tac rental-car shuttle contract increases the complexity of maintaining consistent safety standards across your 140-vehicle fleet. Rapid expansion often leads to gaps in driver coaching if processes rely heavily on manual oversight.\n\nWayline offers self-install devices, so a new depot or region is tracked from its first week. This allows immediate visibility into driving behaviors without lengthy installation delays. Harlow Plumbing & Heating cut harsh-braking events by 41% across 120 vans using our in-cab coaching.\n\nCould we schedule a 20-minute call to discuss how this might support your current expansion?\n\nDana",
+     "email1_first": "Subject: Scaling safety with 30 new buses\n\nHi Grace,\n\nAdding 30 buses for the Sea-Tac rental-car shuttle contract increases the complexity of maintaining consistent safety standards across your 140-vehicle fleet. Rapid expansion often leads to gaps in driver coaching if processes rely heavily on manual oversight.\n\nWayline offers self-install devices, so a new depot or region is tracked from its first week. This allows immediate visibility into driving behaviors without lengthy installation delays. Harlow Plumbing & Heating cut harsh-braking events by 41% across 120 vans using our in-cab coaching.\n\nCould we schedule a 20-minute call to discuss how this might support your current expansion?\n\nDana"
+    }
+   ],
+   "audit": {
+    "A-final": [
+     {
+      "text": "Harborview Shuttle posted an opening for a Safety & Training Manager on September 3",
+      "supported": true,
+      "reason": "The website lists a Safety & Training Manager posting dated 2026-09-03."
+     },
+     {
+      "text": "Harborview Shuttle is adding 30 buses",
+      "supported": true,
+      "reason": "The website (2026-08-12) says Harborview is adding 30 buses."
+     },
+     {
+      "text": "The 30 buses are for the new Sea-Tac rental-car shuttle contract",
+      "supported": true,
+      "reason": "Harborview won the Sea-Tac rental-car shuttle contract in August 2026, so 'new' fits as of October 2026. The same post mentions the 30 added buses."
+     },
+     {
+      "text": "Harborview has a growing/expanded fleet",
+      "supported": true,
+      "reason": "This follows from the facts that Harborview is adding 30 buses to its 140-vehicle fleet."
+     }
+    ],
+    "B-final": [
+     {
+      "text": "Harborview is adding 30 buses for the Sea-Tac rental-car shuttle contract",
+      "supported": true,
+      "reason": "The website (2026-08-12) says Harborview won the Sea-Tac rental-car shuttle contract and is adding 30 buses."
+     },
+     {
+      "text": "Harborview has a 140-vehicle fleet",
+      "supported": true,
+      "reason": "The reference facts list a fleet of 140 buses and vans."
+     },
+     {
+      "text": "Harborview is in a current expansion",
+      "supported": true,
+      "reason": "Adding 30 buses for a contract won in August 2026 is a current expansion."
+     },
+     {
+      "text": "Harlow Plumbing & Heating cut harsh-braking events by 41% across 120 vans",
+      "supported": true,
+      "reason": "This matches the sender's proof point exactly."
+     },
+     {
+      "text": "Harlow's 41% reduction was achieved using Wayline's in-cab coaching",
+      "supported": false,
+      "reason": "The proof point does not say which feature produced the result. Attributing it specifically to in-cab coaching goes beyond the reference."
+     }
+    ]
+   },
+   "preference": "scout",
+   "preference_reason": "Y cites things specific to my operation: the Safety & Training Manager posting on September 3 and the 30 buses being added for the Sea-Tac rental-car shuttle contract. It ties per-driver coaching data directly to a real problem I'd have while scaling and hiring, and its ask to compare notes on struc"
+  },
+  {
+   "domain": "metro-medtransport.example",
+   "error": "no contact with a published or supplied email address; add one before drafting"
+  },
+  {
+   "domain": "bluebell-linen.example",
+   "contact": "Director of Operations",
+   "seconds": 35.71,
+   "calls": {
+    "draft": 1,
+    "verify_claims": 1
+   },
+   "variants": [
+    {
+     "variant": "A",
+     "attempts": 1,
+     "trimmed": false,
+     "first_claims": [
+      {
+       "text": "open Transport Manager role posted on 10 September 2026",
+       "evidence": [
+        "S1"
+       ],
+       "verdict": "supported",
+       "reason": "Evidence S1 confirms an open job for 'Transport Manager' posted on '10 September 2026'.",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "The description mentions owning driver safety reviews",
+       "evidence": [
+        "S1"
+       ],
+       "verdict": "supported",
+       "reason": "Evidence S1 states the role involves owning 'driver safety reviews'.",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "in-cab coaching that cuts harsh-braking and speeding events, scored per driver",
+       "evidence": [
+        "VP:safety"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "140 route trucks across Ireland",
+       "evidence": [
+        "F4",
+        "F6"
+       ],
+       "verdict": "supported",
+       "reason": "Evidence F4 states '140 route trucks' and Evidence F6 states service is provided 'across Ireland'.",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Harlow Plumbing & Heating cut harsh-braking events by 41% across 120 vans",
+       "evidence": [
+        "PP:harlow"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "Aoife Brennan taking over as Chief Executive Officer in March 2026",
+       "evidence": [
+        "S2"
+       ],
+       "verdict": "supported",
+       "reason": "Evidence S2 states 'Aoife Brennan took over as Chief Executive Officer... in March 2026'.",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "final_claims": [
+      {
+       "text": "open Transport Manager role posted on 10 September 2026",
+       "evidence": [
+        "S1"
+       ],
+       "verdict": "supported",
+       "reason": "Evidence S1 confirms an open job for 'Transport Manager' posted on '10 September 2026'.",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "The description mentions owning driver safety reviews",
+       "evidence": [
+        "S1"
+       ],
+       "verdict": "supported",
+       "reason": "Evidence S1 states the role involves owning 'driver safety reviews'.",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "in-cab coaching that cuts harsh-braking and speeding events, scored per driver",
+       "evidence": [
+        "VP:safety"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "140 route trucks across Ireland",
+       "evidence": [
+        "F4",
+        "F6"
+       ],
+       "verdict": "supported",
+       "reason": "Evidence F4 states '140 route trucks' and Evidence F6 states service is provided 'across Ireland'.",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Harlow Plumbing & Heating cut harsh-braking events by 41% across 120 vans",
+       "evidence": [
+        "PP:harlow"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "Aoife Brennan taking over as Chief Executive Officer in March 2026",
+       "evidence": [
+        "S2"
+       ],
+       "verdict": "supported",
+       "reason": "Evidence S2 states 'Aoife Brennan took over as Chief Executive Officer... in March 2026'.",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "first_passed": true,
+     "final_passed": true,
+     "first_issues": [],
+     "final_issues": [],
+     "spam_score": 0.0,
+     "spam_issues": [],
+     "readability": 43.4,
+     "words": [
+      59,
+      53,
+      54
+     ],
+     "personalization": 1,
+     "email1": "Subject: Transport Manager role and fleet safety\n\nHi Megan,\n\nI saw your open Transport Manager role posted on 10 September 2026. The description mentions owning driver safety reviews.\n\nWayline provides in-cab coaching that cuts harsh-braking and speeding events, scored per driver. This supports safety leaders by automating the review process and highlighting specific coaching opportunities.\n\nCould we schedule a 20-minute call to compare notes on your fleet?\n\nDana",
+     "email1_first": "Subject: Transport Manager role and fleet safety\n\nHi Megan,\n\nI saw your open Transport Manager role posted on 10 September 2026. The description mentions owning driver safety reviews.\n\nWayline provides in-cab coaching that cuts harsh-braking and speeding events, scored per driver. This supports safety leaders by automating the review process and highlighting specific coaching opportunities.\n\nCould we schedule a 20-minute call to compare notes on your fleet?\n\nDana"
+    },
+    {
+     "variant": "B",
+     "attempts": 1,
+     "trimmed": false,
+     "first_claims": [
+      {
+       "text": "fleet of 140 route trucks",
+       "evidence": [
+        "F4"
+       ],
+       "verdict": "supported",
+       "reason": "Evidence F4 states 'We operate a fleet of 140 route trucks'.",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "idle-time and route reports that typically lower fuel spend",
+       "evidence": [
+        "VP:fuel"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "Bluebell Linen & Uniform has been operating since 1965",
+       "evidence": [
+        "F5"
+       ],
+       "verdict": "supported",
+       "reason": "Evidence F5 states the team has been at it 'since 1965'.",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "devices are self-install, so a new depot or region is tracked from its first week",
+       "evidence": [
+        "VP:rollout"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "new Transport Manager role focusing on fleet cost reporting",
+       "evidence": [
+        "S1"
+       ],
+       "verdict": "supported",
+       "reason": "Evidence S1 lists 'fleet cost reporting' as a responsibility of the Transport Manager role.",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "syncs vehicle locations and job status with field-service and ERP tools",
+       "evidence": [
+        "VP:integration"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      }
+     ],
+     "final_claims": [
+      {
+       "text": "fleet of 140 route trucks",
+       "evidence": [
+        "F4"
+       ],
+       "verdict": "supported",
+       "reason": "Evidence F4 states 'We operate a fleet of 140 route trucks'.",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "idle-time and route reports that typically lower fuel spend",
+       "evidence": [
+        "VP:fuel"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "Bluebell Linen & Uniform has been operating since 1965",
+       "evidence": [
+        "F5"
+       ],
+       "verdict": "supported",
+       "reason": "Evidence F5 states the team has been at it 'since 1965'.",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "devices are self-install, so a new depot or region is tracked from its first week",
+       "evidence": [
+        "VP:rollout"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "new Transport Manager role focusing on fleet cost reporting",
+       "evidence": [
+        "S1"
+       ],
+       "verdict": "supported",
+       "reason": "Evidence S1 lists 'fleet cost reporting' as a responsibility of the Transport Manager role.",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "syncs vehicle locations and job status with field-service and ERP tools",
+       "evidence": [
+        "VP:integration"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      }
+     ],
+     "first_passed": true,
+     "final_passed": true,
+     "first_issues": [],
+     "final_issues": [],
+     "spam_score": 0.0,
+     "spam_issues": [],
+     "readability": 54.4,
+     "words": [
+      65,
+      62,
+      56
+     ],
+     "personalization": 1,
+     "email1": "Subject: Idle time across 140 trucks\n\nHi Megan,\n\nManaging fuel costs for a fleet of 140 route trucks requires visibility into idle time and routing inefficiencies. Without automated reports, these costs often go unchecked.\n\nWayline provides idle-time and route reports that typically lower fuel spend. Northbeam Logistics reduced idle time by 23% in the first six months using these insights.\n\nCould we schedule a 20-minute call to compare notes on your fleet?\n\nDana",
+     "email1_first": "Subject: Idle time across 140 trucks\n\nHi Megan,\n\nManaging fuel costs for a fleet of 140 route trucks requires visibility into idle time and routing inefficiencies. Without automated reports, these costs often go unchecked.\n\nWayline provides idle-time and route reports that typically lower fuel spend. Northbeam Logistics reduced idle time by 23% in the first six months using these insights.\n\nCould we schedule a 20-minute call to compare notes on your fleet?\n\nDana"
+    }
+   ],
+   "audit": {
+    "A-final": [
+     {
+      "text": "Bluebell has an open Transport Manager role posted on 10 September 2026.",
+      "supported": true,
+      "reason": "The website lists a Transport Manager item dated 2026-09-10."
+     },
+     {
+      "text": "The Transport Manager job description mentions owning driver safety reviews.",
+      "supported": false,
+      "reason": "The reference facts give only the role title, not anything in its description."
+     }
+    ],
+    "B-final": [
+     {
+      "text": "Bluebell runs a fleet of 140 route trucks.",
+      "supported": true,
+      "reason": "The reference facts list a fleet of 140 route trucks."
+     },
+     {
+      "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+      "supported": true,
+      "reason": "This matches the sender's proof point exactly."
+     }
+    ]
+   },
+   "preference": "scout",
+   "preference_reason": "X ties its pitch to a real event at my company: the Transport Manager posting and its driver safety review duties. It also names a concrete capability, per-driver scoring of harsh braking and speeding with coaching prompts, which maps directly to work I need covered. Y is a generic template with my "
+  },
+  {
+   "domain": "brightwater-fs.example",
+   "contact": "Fleet Manager",
+   "seconds": 59.7,
+   "calls": {
+    "draft": 2,
+    "verify_claims": 2
+   },
+   "variants": [
+    {
+     "variant": "A",
+     "attempts": 2,
+     "trimmed": false,
+     "first_claims": [
+      {
+       "text": "opening for a Fleet Safety Manager posted on August 20",
+       "evidence": [
+        "S1"
+       ],
+       "verdict": "supported",
+       "reason": "S1 confirms an open job for 'Fleet Safety Manager' posted on '20 August 2026'.",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "310 service vans across Ohio, Indiana and Kentucky",
+       "evidence": [
+        "F5",
+        "F6"
+       ],
+       "verdict": "supported",
+       "reason": "F5 states the fleet size is '310 service vans'. F6 states service is provided across 'Ohio, Indiana and Kentucky'.",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "in-cab coaching that cuts harsh-braking and speeding events, scored per driver",
+       "evidence": [
+        "VP:safety"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "Harlow Plumbing & Heating cut harsh-braking events by 41% across 120 vans",
+       "evidence": [
+        "PP:harlow"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "dispatch board runs on ServiceTitan",
+       "evidence": [
+        "S2"
+       ],
+       "verdict": "supported",
+       "reason": "S2 states 'Our dispatch board and job scheduling run on ServiceTitan'.",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "two-way sync of vehicle locations and job status with field-service tools",
+       "evidence": [
+        "VP:integration"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      }
+     ],
+     "final_claims": [
+      {
+       "text": "opening for a Fleet Safety Manager posted on August 20",
+       "evidence": [
+        "S1"
+       ],
+       "verdict": "supported",
+       "reason": "S1 confirms an open job for 'Fleet Safety Manager' posted on '20 August 2026'.",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "310 service vans across Ohio, Indiana and Kentucky",
+       "evidence": [
+        "F5",
+        "F6"
+       ],
+       "verdict": "supported",
+       "reason": "F5 states the fleet size is '310 service vans'. F6 states service is provided 'across Ohio, Indiana and Kentucky'.",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "in-cab coaching that cuts harsh-braking and speeding events, scored per driver",
+       "evidence": [
+        "VP:safety"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "Harlow Plumbing & Heating cut harsh-braking events by 41% across 120 vans",
+       "evidence": [
+        "PP:harlow"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "310 vehicles",
+       "evidence": [
+        "F5"
+       ],
+       "verdict": "supported",
+       "reason": "F5 states the company employs a fleet of '310 service vans'.",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "dispatch board runs on ServiceTitan",
+       "evidence": [
+        "S2"
+       ],
+       "verdict": "supported",
+       "reason": "S2 states 'Our dispatch board and job scheduling run on ServiceTitan'.",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "two-way sync of vehicle locations and job status with field-service tools",
+       "evidence": [
+        "VP:integration"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "310 vans",
+       "evidence": [
+        "F5"
+       ],
+       "verdict": "supported",
+       "reason": "F5 states the fleet size is '310 service vans'.",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      }
+     ],
+     "first_passed": false,
+     "final_passed": true,
+     "first_issues": [
+      "'may' does not match any cited date"
+     ],
+     "final_issues": [],
+     "spam_score": 0.0,
+     "spam_issues": [],
+     "readability": 51.2,
+     "words": [
+      70,
+      60,
+      44
+     ],
+     "personalization": 3,
+     "email1": "Subject: Fleet Safety Manager role\n\nHi Ruth,\n\nI saw your opening for a Fleet Safety Manager posted on August 20. With 310 service vans across Ohio, Indiana and Kentucky, scaling safety protocols is likely top of mind.\n\nWayline provides in-cab coaching that cuts harsh-braking and speeding events, scored per driver. This supports safety leaders by automating feedback rather than relying solely on manual reviews.\n\nCould we schedule a 20-minute call to compare notes on your fleet?\n\nDana",
+     "email1_first": "Subject: Fleet Safety Manager role and driver coaching\n\nHi Ruth,\n\nI saw your opening for a Fleet Safety Manager posted on August 20. With 310 service vans across Ohio, Indiana and Kentucky, scaling safety protocols is likely top of mind.\n\nWayline provides in-cab coaching that cuts harsh-braking and speeding events, scored per driver. This supports safety leaders by automating feedback rather than relying solely on manual reviews.\n\nCould we schedule a 20-minute call to compare notes on your fleet?\n\nDana"
+    },
+    {
+     "variant": "B",
+     "attempts": 1,
+     "trimmed": false,
+     "first_claims": [
+      {
+       "text": "310 service vans in Ohio, Indiana and Kentucky",
+       "evidence": [
+        "F5",
+        "F6"
+       ],
+       "verdict": "supported",
+       "reason": "F5 states the fleet size is '310 service vans'. F6 states service is provided across 'Ohio, Indiana and Kentucky'.",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "in-cab coaching that cuts harsh-braking and speeding events, scored per driver",
+       "evidence": [
+        "VP:safety"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "Harlow Plumbing & Heating cut harsh-braking events by 41% across 120 vans",
+       "evidence": [
+        "PP:harlow"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "Idle-time and route reports typically lower fuel spend",
+       "evidence": [
+        "VP:fuel"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "uses ServiceTitan for scheduling",
+       "evidence": [
+        "S2"
+       ],
+       "verdict": "supported",
+       "reason": "S2 states 'Our dispatch board and job scheduling run on ServiceTitan', which supports the claim that they use it for scheduling.",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "two-way sync of vehicle locations and job status",
+       "evidence": [
+        "VP:integration"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      }
+     ],
+     "final_claims": [
+      {
+       "text": "310 service vans in Ohio, Indiana and Kentucky",
+       "evidence": [
+        "F5",
+        "F6"
+       ],
+       "verdict": "supported",
+       "reason": "F5 states the fleet size is '310 service vans'. F6 states service is provided across 'Ohio, Indiana and Kentucky'.",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "in-cab coaching that cuts harsh-braking and speeding events, scored per driver",
+       "evidence": [
+        "VP:safety"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "Harlow Plumbing & Heating cut harsh-braking events by 41% across 120 vans",
+       "evidence": [
+        "PP:harlow"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "Idle-time and route reports typically lower fuel spend",
+       "evidence": [
+        "VP:fuel"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "uses ServiceTitan for scheduling",
+       "evidence": [
+        "S2"
+       ],
+       "verdict": "supported",
+       "reason": "S2 states 'Our dispatch board and job scheduling run on ServiceTitan', which supports the claim that they use it for scheduling.",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "two-way sync of vehicle locations and job status",
+       "evidence": [
+        "VP:integration"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      }
+     ],
+     "first_passed": true,
+     "final_passed": true,
+     "first_issues": [],
+     "final_issues": [],
+     "spam_score": 0.0,
+     "spam_issues": [],
+     "readability": 42.7,
+     "words": [
+      64,
+      52,
+      50
+     ],
+     "personalization": 2,
+     "email1": "Subject: Managing safety for 310 vans\n\nHi Ruth,\n\nManaging driver behavior across 310 service vans in Ohio, Indiana and Kentucky creates significant operational complexity. Manual review of incidents often lags behind real-time risk.\n\nWayline provides in-cab coaching that cuts harsh-braking and speeding events, scored per driver. Harlow Plumbing & Heating cut harsh-braking events by 41% across 120 vans using this approach.\n\nCould we schedule a 20-minute call to compare notes on your fleet?\n\nDana",
+     "email1_first": "Subject: Managing safety for 310 vans\n\nHi Ruth,\n\nManaging driver behavior across 310 service vans in Ohio, Indiana and Kentucky creates significant operational complexity. Manual review of incidents often lags behind real-time risk.\n\nWayline provides in-cab coaching that cuts harsh-braking and speeding events, scored per driver. Harlow Plumbing & Heating cut harsh-braking events by 41% across 120 vans using this approach.\n\nCould we schedule a 20-minute call to compare notes on your fleet?\n\nDana"
+    }
+   ],
+   "audit": {
+    "A-final": [
+     {
+      "text": "Brightwater has an opening for a Fleet Safety Manager posted on August 20",
+      "supported": true,
+      "reason": "The website, dated 2026-08-20, lists Fleet Safety Manager."
+     },
+     {
+      "text": "Brightwater has 310 service vans",
+      "supported": true,
+      "reason": "The reference facts list a fleet of 310 service vans."
+     },
+     {
+      "text": "Brightwater operates across Ohio, Indiana and Kentucky",
+      "supported": true,
+      "reason": "The reference facts say it serves Ohio, Indiana and Kentucky."
+     }
+    ],
+    "A-first": [
+     {
+      "text": "Brightwater has an opening for a Fleet Safety Manager posted on August 20",
+      "supported": true,
+      "reason": "The website, dated 2026-08-20, lists Fleet Safety Manager."
+     },
+     {
+      "text": "Brightwater has 310 service vans",
+      "supported": true,
+      "reason": "The reference facts list a fleet of 310 service vans."
+     },
+     {
+      "text": "Brightwater operates across Ohio, Indiana and Kentucky",
+      "supported": true,
+      "reason": "The reference facts say it serves Ohio, Indiana and Kentucky."
+     }
+    ],
+    "B-final": [
+     {
+      "text": "Brightwater has 310 service vans",
+      "supported": true,
+      "reason": "The reference facts list a fleet of 310 service vans."
+     },
+     {
+      "text": "Brightwater's vans operate in Ohio, Indiana and Kentucky",
+      "supported": true,
+      "reason": "The reference facts say it serves Ohio, Indiana and Kentucky."
+     },
+     {
+      "text": "Harlow Plumbing & Heating cut harsh-braking events by 41% across 120 vans",
+      "supported": true,
+      "reason": "This matches the sender's proof point exactly."
+     }
+    ]
+   },
+   "preference": "scout",
+   "preference_reason": "As Fleet Manager, I'd answer X. It shows real research: it cites the Fleet Safety Manager opening we posted on August 20 and our 310 vans across Ohio, Indiana and Kentucky. It then ties a concrete capability, per-driver in-cab coaching that reduces harsh braking and speeding, to the safety scaling p"
+  },
+  {
+   "domain": "pinecrest-waste.example",
+   "error": "no contact with a published or supplied email address; add one before drafting"
+  },
+  {
+   "domain": "tallgrass-couriers.example",
+   "contact": "Fleet Operations Manager",
+   "seconds": 41.31,
+   "calls": {
+    "draft": 1,
+    "verify_claims": 1
+   },
+   "variants": [
+    {
+     "variant": "A",
+     "attempts": 1,
+     "trimmed": false,
+     "first_claims": [
+      {
+       "text": "your Manchester hub opened in August 2026 with 40 new electric vans",
+       "evidence": [
+        "S1"
+       ],
+       "verdict": "supported",
+       "reason": "The claim matches S1 exactly: 'Our Manchester hub opened in August 2026 with 40 new electric vans.'",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "self-install devices, so a new depot or region is tracked from its first week",
+       "evidence": [
+        "VP:rollout"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "190 delivery vans are on the road every working day",
+       "evidence": [
+        "F3"
+       ],
+       "verdict": "supported",
+       "reason": "The claim matches F3 exactly: 'Our 190 delivery vans are on the road every working day.'",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "two-way sync of vehicle locations and job status with field-service and ERP tools",
+       "evidence": [
+        "VP:integration"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "Tallgrass Couriers provides same-day and last-mile parcel delivery to customers across Yorkshire and the North West",
+       "evidence": [
+        "F1"
+       ],
+       "verdict": "supported",
+       "reason": "The claim is a direct quote from F1/F7: 'Tallgrass Couriers provides same-day and last-mile parcel delivery to customers across Yorkshire and the North West.'",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "in-cab coaching cuts harsh-braking and speeding events, scored per driver",
+       "evidence": [
+        "VP:safety"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "Harlow Plumbing & Heating cut harsh-braking events by 41% across 120 vans",
+       "evidence": [
+        "PP:harlow"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      }
+     ],
+     "final_claims": [
+      {
+       "text": "your Manchester hub opened in August 2026 with 40 new electric vans",
+       "evidence": [
+        "S1"
+       ],
+       "verdict": "supported",
+       "reason": "The claim matches S1 exactly: 'Our Manchester hub opened in August 2026 with 40 new electric vans.'",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "self-install devices, so a new depot or region is tracked from its first week",
+       "evidence": [
+        "VP:rollout"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "190 delivery vans are on the road every working day",
+       "evidence": [
+        "F3"
+       ],
+       "verdict": "supported",
+       "reason": "The claim matches F3 exactly: 'Our 190 delivery vans are on the road every working day.'",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "two-way sync of vehicle locations and job status with field-service and ERP tools",
+       "evidence": [
+        "VP:integration"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "Tallgrass Couriers provides same-day and last-mile parcel delivery to customers across Yorkshire and the North West",
+       "evidence": [
+        "F1"
+       ],
+       "verdict": "supported",
+       "reason": "The claim is a direct quote from F1/F7: 'Tallgrass Couriers provides same-day and last-mile parcel delivery to customers across Yorkshire and the North West.'",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "in-cab coaching cuts harsh-braking and speeding events, scored per driver",
+       "evidence": [
+        "VP:safety"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "Harlow Plumbing & Heating cut harsh-braking events by 41% across 120 vans",
+       "evidence": [
+        "PP:harlow"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      }
+     ],
+     "first_passed": true,
+     "final_passed": true,
+     "first_issues": [],
+     "final_issues": [
+      "claim not found verbatim in the email: '190 delivery vans are on the road every working day'",
+      "claim not found verbatim in the email: 'Tallgrass Couriers provides same-day and last-mile parcel delivery to customers '"
+     ],
+     "spam_score": 0.0,
+     "spam_issues": [],
+     "readability": 51.9,
+     "words": [
+      78,
+      59,
+      56
+     ],
+     "personalization": 1,
+     "email1": "Subject: Manchester hub rollout\n\nHi Daniel,\n\nI saw that your Manchester hub opened in August 2026 with 40 new electric vans. Integrating a new depot often strains visibility during the first few weeks.\n\nWayline offers self-install devices, so a new depot or region is tracked from its first week. This allows you to maintain oversight of driver safety and vehicle status immediately as you scale operations in the North West.\n\nAre you open to a 20-minute call to compare notes on your fleet?\n\nDana",
+     "email1_first": "Subject: Manchester hub rollout\n\nHi Daniel,\n\nI saw that your Manchester hub opened in August 2026 with 40 new electric vans. Integrating a new depot often strains visibility during the first few weeks.\n\nWayline offers self-install devices, so a new depot or region is tracked from its first week. This allows you to maintain oversight of driver safety and vehicle status immediately as you scale operations in the North West.\n\nAre you open to a 20-minute call to compare notes on your fleet?\n\nDana"
+    },
+    {
+     "variant": "B",
+     "attempts": 1,
+     "trimmed": false,
+     "first_claims": [
+      {
+       "text": "190 delivery vans are on the road every working day",
+       "evidence": [
+        "F3"
+       ],
+       "verdict": "supported",
+       "reason": "The claim matches F3 exactly: 'Our 190 delivery vans are on the road every working day.'",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Tallgrass Couriers provides same-day and last-mile parcel delivery to customers across Yorkshire and the North West",
+       "evidence": [
+        "F1"
+       ],
+       "verdict": "supported",
+       "reason": "The claim is a direct quote from F1/F7: 'Tallgrass Couriers provides same-day and last-mile parcel delivery to customers across Yorkshire and the North West.'",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "idle-time and route reports that typically lower fuel spend",
+       "evidence": [
+        "VP:fuel"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "team of roughly 380 employees",
+       "evidence": [
+        "F2"
+       ],
+       "verdict": "supported",
+       "reason": "The claim matches F2 exactly: 'Since 2015 we have grown to a team of roughly 380 employees.'",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "two-way sync of vehicle locations and job status with field-service and ERP tools",
+       "evidence": [
+        "VP:integration"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "Manchester hub opened in August 2026 with 40 new electric vans",
+       "evidence": [
+        "S1"
+       ],
+       "verdict": "supported",
+       "reason": "The claim matches S1 exactly: 'Our Manchester hub opened in August 2026 with 40 new electric vans.'",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "in-cab coaching cuts harsh-braking and speeding events, scored per driver",
+       "evidence": [
+        "VP:safety"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "Harlow Plumbing & Heating cut harsh-braking events by 41% across 120 vans",
+       "evidence": [
+        "PP:harlow"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      }
+     ],
+     "final_claims": [
+      {
+       "text": "190 delivery vans are on the road every working day",
+       "evidence": [
+        "F3"
+       ],
+       "verdict": "supported",
+       "reason": "The claim matches F3 exactly: 'Our 190 delivery vans are on the road every working day.'",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Tallgrass Couriers provides same-day and last-mile parcel delivery to customers across Yorkshire and the North West",
+       "evidence": [
+        "F1"
+       ],
+       "verdict": "supported",
+       "reason": "The claim is a direct quote from F1/F7: 'Tallgrass Couriers provides same-day and last-mile parcel delivery to customers across Yorkshire and the North West.'",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "idle-time and route reports that typically lower fuel spend",
+       "evidence": [
+        "VP:fuel"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "team of roughly 380 employees",
+       "evidence": [
+        "F2"
+       ],
+       "verdict": "supported",
+       "reason": "The claim matches F2 exactly: 'Since 2015 we have grown to a team of roughly 380 employees.'",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "two-way sync of vehicle locations and job status with field-service and ERP tools",
+       "evidence": [
+        "VP:integration"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "Manchester hub opened in August 2026 with 40 new electric vans",
+       "evidence": [
+        "S1"
+       ],
+       "verdict": "supported",
+       "reason": "The claim matches S1 exactly: 'Our Manchester hub opened in August 2026 with 40 new electric vans.'",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "in-cab coaching cuts harsh-braking and speeding events, scored per driver",
+       "evidence": [
+        "VP:safety"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "Harlow Plumbing & Heating cut harsh-braking events by 41% across 120 vans",
+       "evidence": [
+        "PP:harlow"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      }
+     ],
+     "first_passed": true,
+     "final_passed": true,
+     "first_issues": [],
+     "final_issues": [
+      "claim not found verbatim in the email: '190 delivery vans are on the road every working day'",
+      "claim not found verbatim in the email: 'Tallgrass Couriers provides same-day and last-mile parcel delivery to customers '",
+      "claim not found verbatim in the email: 'Manchester hub opened in August 2026 with 40 new electric vans'"
+     ],
+     "spam_score": 0.0,
+     "spam_issues": [],
+     "readability": 42.7,
+     "words": [
+      72,
+      64,
+      64
+     ],
+     "personalization": 2,
+     "email1": "Subject: Fuel spend for 190 vans\n\nHi Daniel,\n\nManaging fuel costs for a fleet of 190 delivery vans can be challenging, especially with daily routes across Yorkshire and the North West. Idle time often accounts for significant unnecessary spend.\n\nWayline provides idle-time and route reports that typically lower fuel spend. Northbeam Logistics reduced idle time by 23% in the first six months using our platform.\n\nWould you be open to a 20-minute call to compare notes on your fleet?\n\nDana",
+     "email1_first": "Subject: Fuel spend for 190 vans\n\nHi Daniel,\n\nManaging fuel costs for a fleet of 190 delivery vans can be challenging, especially with daily routes across Yorkshire and the North West. Idle time often accounts for significant unnecessary spend.\n\nWayline provides idle-time and route reports that typically lower fuel spend. Northbeam Logistics reduced idle time by 23% in the first six months using our platform.\n\nWould you be open to a 20-minute call to compare notes on your fleet?\n\nDana"
+    }
+   ],
+   "audit": {
+    "A-final": [
+     {
+      "text": "Your Manchester hub opened in August 2026",
+      "supported": true,
+      "reason": "The website (dated 2026-08-25) says the Manchester hub opened in August 2026."
+     },
+     {
+      "text": "The Manchester hub opened with 40 new electric vans",
+      "supported": true,
+      "reason": "The same website statement says the hub opened with 40 new electric vans."
+     },
+     {
+      "text": "Tallgrass is scaling operations in the North West",
+      "supported": true,
+      "reason": "Tallgrass serves the North West, and the new Manchester hub there shows expansion in that region."
+     }
+    ],
+    "B-final": [
+     {
+      "text": "Tallgrass has a fleet of 190 delivery vans",
+      "supported": true,
+      "reason": "The reference facts list the fleet as 190 delivery vans."
+     },
+     {
+      "text": "Tallgrass runs daily routes across Yorkshire and the North West",
+      "supported": true,
+      "reason": "Tallgrass serves Yorkshire and the North West, and same-day delivery means daily routes."
+     },
+     {
+      "text": "Northbeam Logistics reduced idle time by 23% in the first six months using Wayline's platform",
+      "supported": true,
+      "reason": "This matches the sender's proof point for Northbeam Logistics."
+     }
+    ]
+   },
+   "preference": "scout",
+   "preference_reason": "Y refers to a specific, recent event at my company: the Manchester hub that opened in August 2026 with 40 electric vans. It names a problem I would actually have, which is losing visibility during the first weeks of a new depot. It then ties that to a concrete benefit, self-install devices that get "
+  },
+  {
+   "domain": "swiftmark-parcel.example",
+   "contact": "Fleet Manager",
+   "seconds": 97.34,
+   "calls": {
+    "draft": 1,
+    "verify_claims": 1
+   },
+   "variants": [
+    {
+     "variant": "A",
+     "attempts": 1,
+     "trimmed": false,
+     "first_claims": [
+      {
+       "text": "Swiftmark started next-day delivery in the Berlin metropolitan area on 5 August 2026.",
+       "evidence": [
+        "S1"
+       ],
+       "verdict": "unchecked",
+       "reason": "",
+       "checked_by": [
+        "rules"
+       ]
+      },
+      {
+       "text": "self-install devices, so a new depot or region is tracked from its first week",
+       "evidence": [
+        "VP:rollout"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "in-cab coaching that cuts harsh-braking and speeding events, scored per driver",
+       "evidence": [
+        "VP:safety"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "Harlow Plumbing & Heating cut harsh-braking events by 41% across 120 vans",
+       "evidence": [
+        "PP:harlow"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "two-way sync of vehicle locations and job status with field-service and ERP tools",
+       "evidence": [
+        "VP:integration"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      }
+     ],
+     "final_claims": [
+      {
+       "text": "Swiftmark started next-day delivery in the Berlin metropolitan area on 5 August 2026.",
+       "evidence": [
+        "S1"
+       ],
+       "verdict": "unchecked",
+       "reason": "",
+       "checked_by": [
+        "rules"
+       ]
+      },
+      {
+       "text": "self-install devices, so a new depot or region is tracked from its first week",
+       "evidence": [
+        "VP:rollout"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "in-cab coaching that cuts harsh-braking and speeding events, scored per driver",
+       "evidence": [
+        "VP:safety"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "Harlow Plumbing & Heating cut harsh-braking events by 41% across 120 vans",
+       "evidence": [
+        "PP:harlow"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "two-way sync of vehicle locations and job status with field-service and ERP tools",
+       "evidence": [
+        "VP:integration"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      }
+     ],
+     "first_passed": true,
+     "final_passed": true,
+     "first_issues": [],
+     "final_issues": [
+      "pastes website text: 'Swiftmark started next-day delivery in the Berlin metropolitan area on 5 August '",
+      "claim verifier unavailable: the reply was cut off at max_tokens",
+      "hard to read (Flesch reading ease 39.1)"
+     ],
+     "spam_score": 0.0,
+     "spam_issues": [],
+     "readability": 39.1,
+     "words": [
+      70,
+      50,
+      60
+     ],
+     "personalization": 1,
+     "email1": "Subject: Berlin expansion and fleet visibility\n\nHi Anna,\n\nSwiftmark started next-day delivery in the Berlin metropolitan area on 5 August 2026. Scaling operations into a new metro area often strains existing oversight processes.\n\nWayline uses self-install devices, so a new depot or region is tracked from its first week. This allows you to maintain consistent safety coaching without delaying your Berlin launch timeline.\n\nDo you have 20 minutes to compare notes on managing fleet visibility during regional expansion?\n\nDana",
+     "email1_first": "Subject: Berlin expansion and fleet visibility\n\nHi Anna,\n\nSwiftmark started next-day delivery in the Berlin metropolitan area on 5 August 2026. Scaling operations into a new metro area often strains existing oversight processes.\n\nWayline uses self-install devices, so a new depot or region is tracked from its first week. This allows you to maintain consistent safety coaching without delaying your Berlin launch timeline.\n\nDo you have 20 minutes to compare notes on managing fleet visibility during regional expansion?\n\nDana"
+    },
+    {
+     "variant": "B",
+     "attempts": 1,
+     "trimmed": false,
+     "first_claims": [
+      {
+       "text": "fleet of 600 vans maintained in house",
+       "evidence": [
+        "F5"
+       ],
+       "verdict": "unchecked",
+       "reason": "",
+       "checked_by": [
+        "rules"
+       ]
+      },
+      {
+       "text": "idle-time and route reports that typically lower fuel spend",
+       "evidence": [
+        "VP:fuel"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "in-cab coaching that cuts harsh-braking and speeding events, scored per driver",
+       "evidence": [
+        "VP:safety"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "two-way sync of vehicle locations and job status with field-service and ERP tools",
+       "evidence": [
+        "VP:integration"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      }
+     ],
+     "final_claims": [
+      {
+       "text": "fleet of 600 vans maintained in house",
+       "evidence": [
+        "F5"
+       ],
+       "verdict": "unchecked",
+       "reason": "",
+       "checked_by": [
+        "rules"
+       ]
+      },
+      {
+       "text": "idle-time and route reports that typically lower fuel spend",
+       "evidence": [
+        "VP:fuel"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "in-cab coaching that cuts harsh-braking and speeding events, scored per driver",
+       "evidence": [
+        "VP:safety"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "two-way sync of vehicle locations and job status with field-service and ERP tools",
+       "evidence": [
+        "VP:integration"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      }
+     ],
+     "first_passed": true,
+     "final_passed": true,
+     "first_issues": [],
+     "final_issues": [
+      "claim verifier unavailable: the reply was cut off at max_tokens"
+     ],
+     "spam_score": 0.0,
+     "spam_issues": [],
+     "readability": 43.9,
+     "words": [
+      69,
+      51,
+      54
+     ],
+     "personalization": 1,
+     "email1": "Subject: Fuel efficiency for 600 vans\n\nHi Anna,\n\nManaging fuel costs for a fleet of 600 vans maintained in house presents significant operational challenges. Idle time often accounts for a notable portion of these expenses.\n\nWayline provides idle-time and route reports that typically lower fuel spend. Northbeam Logistics reduced idle time by 23% in the first six months. Would you be open to a 20-minute call to discuss how this could impact Swiftmark’s bottom line?\n\nDana",
+     "email1_first": "Subject: Fuel efficiency for 600 vans\n\nHi Anna,\n\nManaging fuel costs for a fleet of 600 vans maintained in house presents significant operational challenges. Idle time often accounts for a notable portion of these expenses.\n\nWayline provides idle-time and route reports that typically lower fuel spend. Northbeam Logistics reduced idle time by 23% in the first six months. Would you be open to a 20-minute call to discuss how this could impact Swiftmark’s bottom line?\n\nDana"
+    }
+   ],
+   "audit": {
+    "A-final": [
+     {
+      "text": "Swiftmark started next-day delivery in the Berlin metropolitan area on 5 August 2026.",
+      "supported": true,
+      "reason": "The website (dated 2026-08-05) states that Swiftmark started next-day delivery in the Berlin metropolitan area on 5 August 2026."
+     },
+     {
+      "text": "Swiftmark has an upcoming Berlin launch timeline that could be delayed",
+      "supported": false,
+      "reason": "The Berlin next-day service already started on 5 August 2026. The reference facts mention no pending Berlin launch or timeline."
+     }
+    ],
+    "B-final": [
+     {
+      "text": "Swiftmark has a fleet of 600 vans",
+      "supported": true,
+      "reason": "The reference facts list the fleet as 600 vans."
+     },
+     {
+      "text": "The 600 vans are maintained in house",
+      "supported": false,
+      "reason": "The reference facts do not say how Swiftmark maintains its fleet."
+     },
+     {
+      "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+      "supported": true,
+      "reason": "This matches the sender's proof point word for word."
+     }
+    ]
+   },
+   "preference": "scout",
+   "preference_reason": "X points to a specific, recent event at Swiftmark, the Berlin next-day launch. It connects that event to a real operational pain, keeping oversight consistent while expanding. It also gives a concrete product detail: self-install devices mean a new depot is tracked from its first week. Y is a generi"
+  },
+  {
+   "domain": "coldline-distribution.example",
+   "contact": "Chief Operating Officer",
+   "seconds": 49.95,
+   "calls": {
+    "draft": 2,
+    "verify_claims": 2
+   },
+   "variants": [
+    {
+     "variant": "A",
+     "attempts": 2,
+     "trimmed": false,
+     "first_claims": [
+      {
+       "text": "Coldline opened its new Antwerp depot on 14 July 2026, adding 60 refrigerated trucks to serve Flanders.",
+       "evidence": [
+        "S1"
+       ],
+       "verdict": "supported",
+       "reason": "The claim matches evidence S1 exactly regarding the date, location, number of trucks, and region served.",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline uses self-install devices, so a new depot or region is tracked from its first week.",
+       "evidence": [
+        "VP:rollout"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months using Wayline.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "Harlow Plumbing & Heating cut harsh-braking events by 41% across 120 vans with our in-cab coaching.",
+       "evidence": [
+        "PP:harlow"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      }
+     ],
+     "final_claims": [
+      {
+       "text": "Coldline opened its new Antwerp depot on 14 July 2026, adding 60 refrigerated trucks to serve Flanders.",
+       "evidence": [
+        "S1"
+       ],
+       "verdict": "supported",
+       "reason": "The claim matches the details in evidence S1 exactly: date (14 July 2026), action (opened new Antwerp depot), addition (60 refrigerated trucks), and purpose (serve Flanders).",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline uses self-install devices, so a new depot or region is tracked from its first week.",
+       "evidence": [
+        "VP:rollout"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months with Wayline.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "Our idle-time and route reports typically lower fuel spend.",
+       "evidence": [
+        "VP:fuel"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "Harlow Plumbing & Heating cut harsh-braking events by 41% across 120 vans with Wayline.",
+       "evidence": [
+        "PP:harlow"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "Our in-cab coaching cuts harsh-braking and speeding events, scored per driver.",
+       "evidence": [
+        "VP:safety"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      }
+     ],
+     "first_passed": false,
+     "final_passed": true,
+     "first_issues": [
+      "'may' does not match any cited date"
+     ],
+     "final_issues": [
+      "pastes website text: 'Coldline opened its new Antwerp depot on 14 July 2026, adding 60 refrigerated tr'"
+     ],
+     "spam_score": 0.0,
+     "spam_issues": [],
+     "readability": 68.5,
+     "words": [
+      46,
+      41,
+      37
+     ],
+     "personalization": 1,
+     "email1": "Subject: Antwerp depot visibility\n\nHi Sanne,\n\nColdline opened its new Antwerp depot on 14 July 2026, adding 60 refrigerated trucks to serve Flanders.\n\nWayline uses self-install devices, so a new depot or region is tracked from its first week.\n\nAre you open to a 20-minute call to compare notes on your fleet?\n\nDana",
+     "email1_first": "Subject: Tracking the new Antwerp depot fleet\n\nHi Sanne,\n\nColdline opened its new Antwerp depot on 14 July 2026, adding 60 refrigerated trucks to serve Flanders.\n\nWith that expansion, you may need visibility from day one. Wayline uses self-install devices, so a new depot or region is tracked from its first week.\n\nAre you open to a 20-minute call to compare notes on your fleet?\n\nDana"
+    },
+    {
+     "variant": "B",
+     "attempts": 1,
+     "trimmed": false,
+     "first_claims": [
+      {
+       "text": "Customers are served by a fleet of 420 refrigerated trucks, maintained in house.",
+       "evidence": [
+        "F5"
+       ],
+       "verdict": "supported",
+       "reason": "The claim matches evidence F5 exactly regarding the fleet size, vehicle type, and maintenance method.",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline offers two-way sync of vehicle locations and job status with field-service and ERP tools.",
+       "evidence": [
+        "VP:integration"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months with Wayline’s reporting.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "Harlow Plumbing & Heating cut harsh-braking events by 41% across 120 vans using our in-cab coaching.",
+       "evidence": [
+        "PP:harlow"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      }
+     ],
+     "final_claims": [
+      {
+       "text": "Customers are served by a fleet of 420 refrigerated trucks, maintained in house.",
+       "evidence": [
+        "F5"
+       ],
+       "verdict": "supported",
+       "reason": "The claim matches evidence F5 exactly regarding the fleet size, vehicle type, and maintenance method.",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "Wayline offers two-way sync of vehicle locations and job status with field-service and ERP tools.",
+       "evidence": [
+        "VP:integration"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months with Wayline’s reporting.",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "Harlow Plumbing & Heating cut harsh-braking events by 41% across 120 vans using our in-cab coaching.",
+       "evidence": [
+        "PP:harlow"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      }
+     ],
+     "first_passed": true,
+     "final_passed": true,
+     "first_issues": [],
+     "final_issues": [
+      "pastes website text: 'Customers are served by a fleet of 420 refrigerated trucks, maintained in house.'"
+     ],
+     "spam_score": 0.0,
+     "spam_issues": [],
+     "readability": 61.2,
+     "words": [
+      64,
+      43,
+      38
+     ],
+     "personalization": 1,
+     "email1": "Subject: Visibility for 420 refrigerated trucks\n\nHi Sanne,\n\nCustomers are served by a fleet of 420 refrigerated trucks, maintained in house. Coordinating maintenance and routes for that many assets often creates data gaps.\n\nWayline offers two-way sync of vehicle locations and job status with field-service and ERP tools. This keeps your operational data aligned without manual entry.\n\nAre you open to a 20-minute call to compare notes on your fleet?\n\nDana",
+     "email1_first": "Subject: Visibility for 420 refrigerated trucks\n\nHi Sanne,\n\nCustomers are served by a fleet of 420 refrigerated trucks, maintained in house. Coordinating maintenance and routes for that many assets often creates data gaps.\n\nWayline offers two-way sync of vehicle locations and job status with field-service and ERP tools. This keeps your operational data aligned without manual entry.\n\nAre you open to a 20-minute call to compare notes on your fleet?\n\nDana"
+    }
+   ],
+   "audit": {
+    "A-final": [
+     {
+      "text": "Coldline opened its new Antwerp depot on 14 July 2026",
+      "supported": true,
+      "reason": "The website item dated 2026-07-14 states the Antwerp depot opened on 14 July 2026. Calling it 'new' fits, since that is under three months before 2026-10-01."
+     },
+     {
+      "text": "The Antwerp depot added 60 refrigerated trucks to serve Flanders",
+      "supported": true,
+      "reason": "The same website item states the depot added 60 refrigerated trucks to serve Flanders."
+     }
+    ],
+    "A-first": [
+     {
+      "text": "Coldline opened its new Antwerp depot on 14 July 2026",
+      "supported": true,
+      "reason": "The website item dated 2026-07-14 states the Antwerp depot opened on 14 July 2026. Calling it 'new' (including the subject line's 'new Antwerp depot fleet') fits the timing."
+     },
+     {
+      "text": "The Antwerp depot added 60 refrigerated trucks to serve Flanders (described as an expansion)",
+      "supported": true,
+      "reason": "The website item states the depot added 60 refrigerated trucks to serve Flanders. That is an expansion."
+     }
+    ],
+    "B-final": [
+     {
+      "text": "Coldline serves customers with a fleet of 420 refrigerated trucks",
+      "supported": true,
+      "reason": "The reference facts list a fleet of 420 refrigerated trucks."
+     },
+     {
+      "text": "The fleet is maintained in house",
+      "supported": false,
+      "reason": "The reference facts do not say how or by whom the fleet is maintained."
+     }
+    ]
+   },
+   "preference": "scout",
+   "preference_reason": "Email Y cites a concrete, verifiable event: the new Antwerp depot opening on 14 July 2026 with 60 refrigerated trucks. It ties that event directly to an operational benefit I'd care about, since self-install devices mean a new depot can be tracked from its first week. That shows the vendor did real "
+  },
+  {
+   "domain": "nordlicht-kurier.example",
+   "contact": "Head of Fleet",
+   "seconds": 37.3,
+   "calls": {
+    "draft": 1,
+    "verify_claims": 1
+   },
+   "variants": [
+    {
+     "variant": "A",
+     "attempts": 1,
+     "trimmed": false,
+     "first_claims": [
+      {
+       "text": "Nordlicht Kurier began serving Salzburg and Innsbruck on 12 September 2026.",
+       "evidence": [
+        "S1"
+       ],
+       "verdict": "supported",
+       "reason": "The claim states Nordlicht Kurier began serving Salzburg and Innsbruck on 12 September 2026. Evidence S1 explicitly states: 'Nordlicht Kurier began serving Salzburg and Innsbruck on 12 September 2026.'",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "self-install devices, so a new depot or region is tracked from its first week",
+       "evidence": [
+        "VP:rollout"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "in-cab coaching that cuts harsh-braking and speeding events, scored per driver",
+       "evidence": [
+        "VP:safety"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "Harlow Plumbing & Heating cut harsh-braking events by 41% across 120 vans",
+       "evidence": [
+        "PP:harlow"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "idle-time and route reports that typically lower fuel spend",
+       "evidence": [
+        "VP:fuel"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      }
+     ],
+     "final_claims": [
+      {
+       "text": "Nordlicht Kurier began serving Salzburg and Innsbruck on 12 September 2026.",
+       "evidence": [
+        "S1"
+       ],
+       "verdict": "supported",
+       "reason": "The claim states Nordlicht Kurier began serving Salzburg and Innsbruck on 12 September 2026. Evidence S1 explicitly states: 'Nordlicht Kurier began serving Salzburg and Innsbruck on 12 September 2026.'",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "self-install devices, so a new depot or region is tracked from its first week",
+       "evidence": [
+        "VP:rollout"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "in-cab coaching that cuts harsh-braking and speeding events, scored per driver",
+       "evidence": [
+        "VP:safety"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "Harlow Plumbing & Heating cut harsh-braking events by 41% across 120 vans",
+       "evidence": [
+        "PP:harlow"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "idle-time and route reports that typically lower fuel spend",
+       "evidence": [
+        "VP:fuel"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      }
+     ],
+     "first_passed": true,
+     "final_passed": true,
+     "first_issues": [],
+     "final_issues": [
+      "pastes website text: 'Nordlicht Kurier began serving Salzburg and Innsbruck on 12 September 2026.'",
+      "the verifier doubts a statement that is not declared as a claim: 'Expanding your 210-van fleet into new territories often strains visibility during the initial weeks.' (This sentence asserts a specific operational challenge ('strains visibility') regarding the prospect's expansion. While )"
+     ],
+     "spam_score": 0.0,
+     "spam_issues": [],
+     "readability": 46.3,
+     "words": [
+      70,
+      53,
+      51
+     ],
+     "personalization": 1,
+     "email1": "Subject: Telematics for Salzburg and Innsbruck routes\n\nHi Sophie,\n\nNordlicht Kurier began serving Salzburg and Innsbruck on 12 September 2026. Expanding your 210-van fleet into new territories often strains visibility during the initial weeks.\n\nWayline uses self-install devices, so a new depot or region is tracked from its first week. This allows you to maintain safety and efficiency standards immediately without waiting for complex hardware installations.\n\nCould we schedule a 20-minute call to compare notes on your fleet?\n\nDana",
+     "email1_first": "Subject: Telematics for Salzburg and Innsbruck routes\n\nHi Sophie,\n\nNordlicht Kurier began serving Salzburg and Innsbruck on 12 September 2026. Expanding your 210-van fleet into new territories often strains visibility during the initial weeks.\n\nWayline uses self-install devices, so a new depot or region is tracked from its first week. This allows you to maintain safety and efficiency standards immediately without waiting for complex hardware installations.\n\nCould we schedule a 20-minute call to compare notes on your fleet?\n\nDana"
+    },
+    {
+     "variant": "B",
+     "attempts": 1,
+     "trimmed": false,
+     "first_claims": [
+      {
+       "text": "210 vans",
+       "evidence": [
+        "F5"
+       ],
+       "verdict": "supported",
+       "reason": "The claim states the fleet size is 210 vans. Evidence F5 explicitly states: 'Our 210 vans are on the road every working day.'",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "two-way sync of vehicle locations and job status with field-service and ERP tools",
+       "evidence": [
+        "VP:integration"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "idle-time and route reports that typically lower fuel spend",
+       "evidence": [
+        "VP:fuel"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "in-cab coaching that cuts harsh-braking and speeding events, scored per driver",
+       "evidence": [
+        "VP:safety"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "Harlow Plumbing & Heating cut harsh-braking events by 41% across 120 vans",
+       "evidence": [
+        "PP:harlow"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      }
+     ],
+     "final_claims": [
+      {
+       "text": "210 vans",
+       "evidence": [
+        "F5"
+       ],
+       "verdict": "supported",
+       "reason": "The claim states the fleet size is 210 vans. Evidence F5 explicitly states: 'Our 210 vans are on the road every working day.'",
+       "checked_by": [
+        "rules",
+        "llm"
+       ]
+      },
+      {
+       "text": "two-way sync of vehicle locations and job status with field-service and ERP tools",
+       "evidence": [
+        "VP:integration"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "idle-time and route reports that typically lower fuel spend",
+       "evidence": [
+        "VP:fuel"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "Northbeam Logistics reduced idle time by 23% in the first six months",
+       "evidence": [
+        "PP:northbeam"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "in-cab coaching that cuts harsh-braking and speeding events, scored per driver",
+       "evidence": [
+        "VP:safety"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      },
+      {
+       "text": "Harlow Plumbing & Heating cut harsh-braking events by 41% across 120 vans",
+       "evidence": [
+        "PP:harlow"
+       ],
+       "verdict": "supported",
+       "reason": "restates the seller's approved offer text",
+       "checked_by": [
+        "rules",
+        "offer"
+       ]
+      }
+     ],
+     "first_passed": true,
+     "final_passed": true,
+     "first_issues": [],
+     "final_issues": [
+      "claim not found verbatim in the email: 'idle-time and route reports that typically lower fuel spend'",
+      "the verifier doubts a statement that is not declared as a claim: 'Coordinating 210 vans across Bavaria, Salzburg, and Innsbruck creates significant operational blind ' (This sentence asserts that coordinating the fleet across these specific regions creates 'significant operational blind s)",
+      "the verifier doubts a statement that is not declared as a claim: 'Without real-time data, inefficient routing and idle time can erode margins quickly.' (This sentence implies the prospect lacks real-time data or is suffering from inefficient routing and idle time eroding m)"
+     ],
+     "spam_score": 0.0,
+     "spam_issues": [],
+     "readability": 44.0,
+     "words": [
+      67,
+      53,
+      47
+     ],
+     "personalization": 1,
+     "email1": "Subject: Visibility for 210 vans\n\nHi Sophie,\n\nCoordinating 210 vans across Bavaria, Salzburg, and Innsbruck creates significant operational blind spots. Without real-time data, inefficient routing and idle time can erode margins quickly.\n\nWayline provides two-way sync of vehicle locations and job status with field-service and ERP tools. This ensures your dispatch team has accurate, live data to optimize daily operations.\n\nCould we schedule a 20-minute call to compare notes on your fleet?\n\nDana",
+     "email1_first": "Subject: Visibility for 210 vans\n\nHi Sophie,\n\nCoordinating 210 vans across Bavaria, Salzburg, and Innsbruck creates significant operational blind spots. Without real-time data, inefficient routing and idle time can erode margins quickly.\n\nWayline provides two-way sync of vehicle locations and job status with field-service and ERP tools. This ensures your dispatch team has accurate, live data to optimize daily operations.\n\nCould we schedule a 20-minute call to compare notes on your fleet?\n\nDana"
+    }
+   ],
+   "audit": {
+    "A-final": [
+     {
+      "text": "Nordlicht Kurier began serving Salzburg and Innsbruck on 12 September 2026",
+      "supported": true,
+      "reason": "The website, dated 2026-09-12, states this exact date and these cities."
+     },
+     {
+      "text": "Nordlicht Kurier has a 210-van fleet",
+      "supported": true,
+      "reason": "The reference facts list the fleet as 210 vans."
+     },
+     {
+      "text": "Nordlicht Kurier is expanding its fleet into new territories",
+      "supported": true,
+      "reason": "Salzburg and Innsbruck are new service areas as of September 2026, beyond its core Bavaria territory."
+     }
+    ],
+    "B-final": [
+     {
+      "text": "Nordlicht Kurier coordinates 210 vans",
+      "supported": true,
+      "reason": "The reference facts list the fleet as 210 vans."
+     },
+     {
+      "text": "Nordlicht Kurier operates across Bavaria, Salzburg, and Innsbruck",
+      "supported": true,
+      "reason": "It serves Bavaria and began serving Salzburg and Innsbruck on 12 September 2026."
+     },
+     {
+      "text": "Nordlicht Kurier's operations have significant operational blind spots and lack real-time data",
+      "supported": false,
+      "reason": "The reference facts say nothing about Nordlicht's current visibility, tracking tools or data gaps."
+     }
+    ]
+   },
+   "preference": "scout",
+   "preference_reason": "X cites our 12 September 2026 launch in Salzburg and Innsbruck and our 210-van fleet, then ties self-install tracking to a real problem, which is visibility at new depots in the first weeks. That makes it relevant and credible. Y is a generic telematics pitch with no detail about our operations, so "
+  }
+ ]
+}

@@ -1,0 +1,240 @@
+{
+ "name": "qwen",
+ "suite": "llm_only",
+ "date": "2026-10-12",
+ "model": "compat/qwen3.7-plus",
+ "accounts": 14,
+ "accuracy": 0.5714,
+ "confusion": {
+  "qualified": {
+   "qualified": 3,
+   "nurture": 0,
+   "disqualified": 0
+  },
+  "nurture": {
+   "qualified": 4,
+   "nurture": 0,
+   "disqualified": 2
+  },
+  "disqualified": {
+   "qualified": 0,
+   "nurture": 0,
+   "disqualified": 5
+  }
+ },
+ "errors": [
+  "sterling-septic.example: gold nurture, got qualified (85) Segment Fit: The company operates in 'field_services' (septic and drain services), which is a target segment.; Fleet Size: Operates 70 pump trucks, exceeding the minimum threshold of 40 vehicles.; Emp",
+  "westbrook-logistics.example: gold nurture, got qualified (92) Segment Fit: The company is a 'truckload freight company' offering LTL and dedicated contract carriage, which aligns perfectly with the 'freight_trucking' target segment.; Fleet Size: They operate 300",
+  "redwood-facility.example: gold nurture, got disqualified (0) Competitor customer: The company explicitly states it uses 'TrackRight' telematics (P1.5), which is listed as a competitor.; Wrong segment: The company operates in 'facility maintenance', which does n",
+  "sunridge-solar.example: gold nurture, got qualified (92) Segment Fit: The company operates in 'field_services' / 'utilities_contracting' (solar installation), which is a target segment.; Fleet Size: They have 110 install trucks, well above the minimum of 40",
+  "thornbury-waste.example: gold nurture, got qualified (92) Segment match: Company operates in 'waste_management', which is a target segment.; Geography match: Headquartered in Manchester, United Kingdom (GB), which is a supported country.; Fleet size match: O",
+  "quayside-marine.example: gold nurture, got disqualified (15) Fleet size below minimum: The company operates a fleet of 30 vans, which is below the absolute minimum threshold of 15 vehicles for qualification but significantly below the ideal minimum of 40.; Segm"
+ ],
+ "calls": {
+  "qualify_llm_only": 14
+ },
+ "rows": [
+  {
+   "domain": "brightwater-fs.example",
+   "gold": "qualified",
+   "route": "qualified",
+   "score": 95,
+   "reasons": [
+    "Segment match: 'field_services' (HVAC and plumbing) is a target segment.",
+    "Location match: Headquartered in Columbus, Ohio, US (target country).",
+    "Fleet size match: 310 service vans exceeds the minimum of 40 vehicles.",
+    "Employee count match: ~640 employees falls within the 150-5000 range.",
+    "Strong buying signal: Open role for 'Fleet Safety Manager' posted August 2026 (within last 6 months), indicating focus on safety and fleet tracking."
+   ],
+   "traps": []
+  },
+  {
+   "domain": "tallgrass-couriers.example",
+   "gold": "qualified",
+   "route": "qualified",
+   "score": 95,
+   "reasons": [
+    "Segment fit: The company operates in 'last_mile_delivery' and 'freight_trucking', which are explicitly listed as target segments.",
+    "Geography fit: Headquartered in Leeds, United Kingdom (GB), which is an approved country.",
+    "Size fit: 380 employees falls within the 150-5000 range; 190 vehicles exceeds the minimum of 40.",
+    "Buying signal (Funding): Raised £18 million in Series B funding in May 2026 (within the last 12 months).",
+    "Buying signal (Expansion): Opened a new Manchester hub with 40 new electric vans in August 2026 (within the last 12 months)."
+   ],
+   "traps": []
+  },
+  {
+   "domain": "sterling-septic.example",
+   "gold": "nurture",
+   "route": "qualified",
+   "score": 85,
+   "reasons": [
+    "Segment Fit: The company operates in 'field_services' (septic and drain services), which is a target segment.",
+    "Fleet Size: Operates 70 pump trucks, exceeding the minimum threshold of 40 vehicles.",
+    "Employee Count: Has ~180 employees, falling within the ideal range of 150-5000.",
+    "Location: Headquartered in Charlotte, North Carolina, US, which is a supported country.",
+    "Buying Signal: Has a dedicated Fleet Manager role (Chloe Hughes) and recently posted a Fleet Manager job description (Aug 2024) focusing on compliance and safe driving, indicating active fleet management needs."
+   ],
+   "traps": [
+    "stale_careers"
+   ]
+  },
+  {
+   "domain": "westbrook-logistics.example",
+   "gold": "nurture",
+   "route": "qualified",
+   "score": 92,
+   "reasons": [
+    "Segment Fit: The company is a 'truckload freight company' offering LTL and dedicated contract carriage, which aligns perfectly with the 'freight_trucking' target segment.",
+    "Fleet Size: They operate 300 trucks, which exceeds the minimum requirement of 40 vehicles and falls well within the ideal range for mid-size fleets.",
+    "Employee Count: With 650 employees, they meet the employee count criteria (min 150, max 5000).",
+    "Location: Headquartered in Kansas City, Missouri, United States, which is within the targeted 'US' region.",
+    "Buying Signals: The presence of specific roles such as 'Fleet Operations Manager' and 'Safety Director' indicates an organizational structure focused on fleet management and safety, key areas for Wayline's value proposition. Additionally, they raised funding in 2023 to 'modernise its fleet', suggesting ongoing investment in operational technology."
+   ],
+   "traps": [
+    "outdated_page"
+   ]
+  },
+  {
+   "domain": "redwood-facility.example",
+   "gold": "nurture",
+   "route": "disqualified",
+   "score": 0,
+   "reasons": [
+    "Competitor customer: The company explicitly states it uses 'TrackRight' telematics (P1.5), which is listed as a competitor.",
+    "Wrong segment: The company operates in 'facility maintenance', which does not match the target segments (e.g., last_mile_delivery, freight_trucking, field_services) and is not explicitly included in the ideal customer profile."
+   ],
+   "traps": []
+  },
+  {
+   "domain": "sunridge-solar.example",
+   "gold": "nurture",
+   "route": "qualified",
+   "score": 92,
+   "reasons": [
+    "Segment Fit: The company operates in 'field_services' / 'utilities_contracting' (solar installation), which is a target segment.",
+    "Fleet Size: They have 110 install trucks, well above the minimum of 40 vehicles.",
+    "Company Size: 340 employees fits within the 150-5000 range.",
+    "Location: Headquartered in Phoenix, Arizona, US, which is a target country.",
+    "Tech Stack: Uses Salesforce Field Service, which is a listed buying signal."
+   ],
+   "traps": [
+    "injection"
+   ]
+  },
+  {
+   "domain": "thornbury-waste.example",
+   "gold": "nurture",
+   "route": "qualified",
+   "score": 92,
+   "reasons": [
+    "Segment match: Company operates in 'waste_management', which is a target segment.",
+    "Geography match: Headquartered in Manchester, United Kingdom (GB), which is a supported country.",
+    "Fleet size match: Operates 410 collection vehicles, well within the 40-2,000 vehicle target range.",
+    "Employee count match: ~1,300 employees, within the 150-5,000 target range.",
+    "Buying signal: Recent hiring for key operational roles (VP Operations, Fleet Manager, Safety Director) indicates active management of fleet and safety operations."
+   ],
+   "traps": [
+    "injection",
+    "hidden_text"
+   ]
+  },
+  {
+   "domain": "fleetforge-games.example",
+   "gold": "disqualified",
+   "route": "disqualified",
+   "score": 0,
+   "reasons": [
+    "Excluded segment: The company is a video game studio ('games'), which is explicitly listed in the excluded_segments.",
+    "No fleet vehicles: The company develops software/games and does not operate a physical fleet of 40+ vehicles for logistics, delivery, or field services."
+   ],
+   "traps": [
+    "keyword_wrong_segment"
+   ]
+  },
+  {
+   "domain": "convoy-analytics.example",
+   "gold": "disqualified",
+   "route": "disqualified",
+   "score": 0,
+   "reasons": [
+    "Excluded segment: The company identifies as a 'route-optimisation software company' (P1.3) and sells software services (P6), which falls under the excluded 'software' and 'telematics_vendor' categories.",
+    "Wrong business model: Convoy Analytics is a vendor of logistics software, not an end-user fleet operator with 40+ vehicles requiring telematics and driver coaching.",
+    "Employee count too low: The company has 120 employees (P1.4), which is below the absolute minimum threshold of 150 employees for the ideal customer profile."
+   ],
+   "traps": [
+    "keyword_wrong_segment"
+   ]
+  },
+  {
+   "domain": "fleetstreet-capital.example",
+   "gold": "disqualified",
+   "route": "disqualified",
+   "score": 0,
+   "reasons": [
+    "Wrong segment: The company is an investment management firm (finance), which is explicitly listed in the excluded_segments.",
+    "No fleet operations: The company manages financial assets and funds, not a physical vehicle fleet requiring telematics or driver safety coaching.",
+    "Too small: The company has roughly 60 employees, which is below the absolute minimum of 50 employees and well below the preferred minimum of 150."
+   ],
+   "traps": [
+    "keyword_wrong_segment"
+   ]
+  },
+  {
+   "domain": "trackright.example",
+   "gold": "disqualified",
+   "route": "disqualified",
+   "score": 0,
+   "reasons": [
+    "Company is a direct competitor (TrackRight Telematics) listed in the excluded competitors list.",
+    "Company operates in the 'telematics_vendor' segment which is explicitly excluded.",
+    "The company sells fleet telematics software rather than operating a fleet for logistics/services."
+   ],
+   "traps": [
+    "competitor"
+   ]
+  },
+  {
+   "domain": "northbeam-logistics.example",
+   "gold": "disqualified",
+   "route": "disqualified",
+   "score": 0,
+   "reasons": [
+    "Company 'Northbeam Logistics' is explicitly listed in the 'existing_customers' array in the Ideal Customer Profile.",
+    "Existing customers should not be contacted for new qualification as they are already part of the customer base."
+   ],
+   "traps": [
+    "existing_customer"
+   ]
+  },
+  {
+   "domain": "bramble-landscaping.example",
+   "gold": "qualified",
+   "route": "qualified",
+   "score": 85,
+   "reasons": [
+    "Segment Fit: The company operates in 'field_services' (commercial landscaping), which is a target segment.",
+    "Location: Headquartered in Bristol, United Kingdom, which is within the target country list (GB).",
+    "Fleet Size: Operates a fleet of 45 trucks, meeting the minimum requirement of 40 vehicles.",
+    "Employee Count: 120 employees, falling within the target range of 150-5000 (and above the absolute minimum of 50).",
+    "Buying Signals: Recently posted a 'Fleet & Yard Supervisor' role (Sept 2026) focusing on vehicle allocation and safe driving, indicating active fleet management and safety priorities. Leadership team has strong logistics backgrounds."
+   ],
+   "traps": [
+    "borderline"
+   ]
+  },
+  {
+   "domain": "quayside-marine.example",
+   "gold": "nurture",
+   "route": "disqualified",
+   "score": 15,
+   "reasons": [
+    "Fleet size below minimum: The company operates a fleet of 30 vans, which is below the absolute minimum threshold of 15 vehicles for qualification but significantly below the ideal minimum of 40.",
+    "Segment mismatch: The company provides 'marine engineering services' (installations, maintenance), which does not clearly align with the target segments like last-mile delivery, freight trucking, or field services in the context of high-volume fleet telematics. It leans more towards specialized technical contracting rather than high-mileage fleet operations.",
+    "No strong buying signals: While there is a new COO (Harriet Cole) joined in August 2026, there are no explicit mentions of open fleet/dispatch/safety roles or specific ERP/FSM software usage (e.g., ServiceTitan, Salesforce) that would indicate immediate readiness for telematics solutions."
+   ],
+   "traps": [
+    "borderline"
+   ]
+  }
+ ]
+}

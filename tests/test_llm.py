@@ -249,6 +249,104 @@ def test_policy_fallback_after_a_provider_403(tmp_path: Path) -> None:
     assert ledger.calls == 2
 
 
+# ------------------------------------------------------------------ the generic endpoint and the paid-model opt-in
+PROXY_URL = "http://127.0.0.1:9/v1"
+
+
+def compat_settings(**overrides: Any) -> Settings:
+    values: dict[str, Any] = {
+        "llm_provider": "compat",
+        "llm_model": "claude-haiku-5-5",
+        "compat_base_url": PROXY_URL,
+        "compat_api_key": TEST_KEY,
+        **overrides,
+    }
+    return Settings(**values)
+
+
+def test_paid_models_are_refused_by_default(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.delenv("ALLOW_PAID_MODELS", raising=False)
+    monkeypatch.delenv("SCOUT_ALLOW_PAID_MODELS", raising=False)
+    assert Settings().allow_paid_models is False and Settings().require_free_models is True  # type: ignore[call-arg]
+    with pytest.raises(PolicyViolationError, match="SCOUT_ALLOW_PAID_MODELS"):
+        build_chat_model(compat_settings())
+    with pytest.raises(PolicyViolationError):
+        OpenAICompatibleModel(kind="compat", base_url=PROXY_URL, model="claude-opus-5-5", api_key=TEST_KEY)
+    # A free model on the generic endpoint needs no opt-in, and the answer must come from a free model too.
+    transport, _ = capture(ok_reply("claude-haiku-5-5"))
+    free = OpenAICompatibleModel(
+        kind="compat", base_url=PROXY_URL, model="a/b:free", api_key=TEST_KEY, transport=transport
+    )
+    with pytest.raises(PolicyViolationError):
+        free.complete(MESSAGES, max_tokens=10)
+
+
+def test_the_opt_in_does_not_touch_the_openrouter_guard() -> None:
+    settings = Settings(llm_provider="openrouter", llm_model="openai/gpt-5", allow_paid_models=True)  # type: ignore[call-arg]
+    with pytest.raises(PolicyViolationError):
+        build_chat_model(settings)
+
+
+@pytest.mark.parametrize("variable", ["ALLOW_PAID_MODELS", "SCOUT_ALLOW_PAID_MODELS"])
+def test_opt_in_allows_paid_models_on_the_generic_endpoint(monkeypatch: pytest.MonkeyPatch, variable: str) -> None:
+    monkeypatch.setenv(variable, "1")
+    settings = compat_settings()
+    assert settings.allow_paid_models is True
+    built = build_chat_model(settings)
+    assert isinstance(built, OpenAICompatibleModel) and built.label == "compat/claude-haiku-5-5"
+    assert not built.require_free
+
+    transport, seen = capture(ok_reply("claude-haiku-5-5"))
+    model = OpenAICompatibleModel(
+        kind="compat", base_url=PROXY_URL, model="claude-haiku-5-5", api_key=TEST_KEY, require_free=False,
+        reasoning_effort="low", transport=transport,
+    )  # fmt: skip
+    completion = model.complete(MESSAGES, max_tokens=64)
+    body = json.loads(seen[0].content)
+    assert str(seen[0].url) == f"{PROXY_URL}/chat/completions"
+    assert seen[0].headers["authorization"] == f"Bearer {TEST_KEY}" and "x-title" not in seen[0].headers
+    assert body["model"] == "claude-haiku-5-5" and "models" not in body and "reasoning" not in body
+    assert body["temperature"] == 0.0 and completion.model == "claude-haiku-5-5"
+    no_temperature = build_chat_model(compat_settings(compat_send_temperature=False))
+    assert isinstance(no_temperature, OpenAICompatibleModel)
+    assert "temperature" not in no_temperature.body(MESSAGES, max_tokens=8, temperature=0.0)
+
+
+def test_compat_needs_a_model_and_a_base_url() -> None:
+    with pytest.raises(LLMError, match="no model"):
+        build_chat_model(compat_settings(llm_model="", allow_paid_models=True))
+    with pytest.raises(LLMError, match="base URL"):
+        build_chat_model(compat_settings(compat_base_url="", allow_paid_models=True))
+
+
+def test_budget_exhausted_is_final_not_retried(tmp_path: Path) -> None:
+    calls: list[httpx.Request] = []
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        calls.append(request)
+        return httpx.Response(429, json={"error": {"type": "budget_exhausted", "message": "project budget spent"}})
+
+    inner = OpenAICompatibleModel(
+        kind="compat", base_url=PROXY_URL, model="claude-opus-5-5", api_key=TEST_KEY, require_free=False,
+        transport=httpx.MockTransport(handler),
+    )  # fmt: skip
+    model = BudgetedModel(inner, ledger=CallLedger(tmp_path / "c.jsonl", 10), cache=None, throttle=None, tag="t")
+    with pytest.raises(BudgetExceededError, match="budget exhausted"):
+        model.complete(MESSAGES, max_tokens=5)
+    assert len(calls) == 1
+
+
+def test_judge_provider_is_configurable(tmp_path: Path) -> None:
+    from scout.eval.runner import _judge_model
+
+    settings = compat_settings(
+        allow_paid_models=True, judge_provider="compat", judge_model="claude-opus-5-5", llm_ledger=tmp_path / "c.jsonl"
+    )
+    assert _judge_model(settings, "eval_judge").label == "compat/claude-opus-5-5"
+    default = Settings(llm_provider="openrouter", openrouter_api_key=TEST_KEY, llm_ledger=tmp_path / "c.jsonl")  # type: ignore[call-arg]
+    assert _judge_model(default, "eval_judge").label == "openrouter/dots-studio/dots-3-note-preview:free"
+
+
 # ------------------------------------------------------------------ Anthropic, fake, JSON
 def test_anthropic_provider_with_a_mocked_client() -> None:
     sent: dict[str, Any] = {}
