@@ -65,7 +65,7 @@ Scout does the research and keeps a person in charge:
 - **Replies**: a reply simulator (100 hand-written replies) or `.eml` files dropped into a folder, a classifier with eight labels (interested, meeting request, not now, referral, objection with its type, unsubscribe, out of office, bounce) that runs high-precision rules first for opt-outs, bounces and auto-replies, then the model, and routing: hold a meeting slot that fits both calendars and open a CRM deal, snooze until the date they name, stop the sequence, add a referral for review, suppress.
 - **CRM sync**: a HubSpot adapter over the public CRM v3/v4 API (companies, contacts, email engagements, deals, associations) with an in-process mock for the demo and the tests, plus CSV exports of accounts, contacts and activities.
 - **Dashboard (Next.js, TypeScript strict)**: pipeline overview and funnel, accounts with signals, the account dossier with citations and the score breakdown, the approval queue, the draft review with claims highlighted and linked to their sources, sequences in the prospect's local time, the replies inbox, the evaluation page, the audit log and settings.
-- **Providers**: `openrouter` (free models, with a **free-only guard** on by default), `qwen` (Qwen Cloud / DashScope, OpenAI-compatible), `openai`, `anthropic` (official SDK, `claude-sonnet-5` by default) and `fake`, a rule-based offline implementation of every model task so tests, CI and the zero-key demo run without keys.
+- **Providers**: `openrouter` (free models, with a **free-only guard** on by default), `qwen` (Qwen Cloud / DashScope, OpenAI-compatible), `openai`, `anthropic` (official SDK, `claude-sonnet-5` by default), `compat` (any OpenAI-compatible endpoint, free-only unless `SCOUT_ALLOW_PAID_MODELS=1`) and `fake`, a rule-based offline implementation of every model task so tests, CI and the zero-key demo run without keys.
 - **Evaluation you can rerun**: research, qualification, drafts before and after the checker with an independent audit, a blind preference test, reply classification, the claim checker on its own, injection counterfactuals, compliance checks, ablations and a model comparison, with a budget wrapper (disk cache, throttle, retries, hard call cap) and a ledger of every real API call.
 
 ## How it works
@@ -190,7 +190,7 @@ uv run scout pipeline --all                       # or put the same lines in .en
 
 The **free-only guard** (`SCOUT_REQUIRE_FREE_MODELS=true`, the default) refuses any OpenRouter model id that does not end in `:free` (fallbacks included), refuses paid features such as `:online` web search and plugins, and rejects an answer that OpenRouter served from a paid model; nothing is constructed for a refused model. The fallback list is sent as OpenRouter's `models` array, and when a provider refuses a prompt with HTTP 403 the first fallback is asked directly. Every real request goes through a budget wrapper: one request per 3 seconds, retries with backoff on 429/5xx, a hard call cap (`SCOUT_LLM_MAX_CALLS`) and a JSONL ledger of every request (model ids, status, latency, tokens; never prompts). Token ceilings are generous (16k) because free reasoning models think for thousands of tokens before the JSON. `make eval-smoke` lists the current free models and smoke-tests the chosen ones.
 
-**Qwen Cloud** (Alibaba Model Studio / DashScope) speaks the OpenAI protocol, so the `qwen` provider is the same client with Qwen's endpoint and key: `SCOUT_LLM_PROVIDER=qwen`, `QWEN_API_KEY` (or `DASHSCOPE_API_KEY`), `SCOUT_LLM_MODEL=qwen3.7-plus`, `SCOUT_QWEN_BASE_URL` (international pay-as-you-go by default; Token Plan and mainland endpoints in [`.env.example`](.env.example)), and `SCOUT_QWEN_ENABLE_THINKING` for hybrid-thinking models. The request shape is covered by tests against a recorded transport; **no Qwen Cloud request was made for this README** (no key was available). OpenAI and Anthropic (`SCOUT_LLM_PROVIDER=anthropic`, official SDK) are wired the same way and were not called either.
+**Qwen Cloud** (Alibaba Model Studio / DashScope) speaks the OpenAI protocol, so the `qwen` provider is the same client with Qwen's endpoint and key: `SCOUT_LLM_PROVIDER=qwen`, `QWEN_API_KEY` (or `DASHSCOPE_API_KEY`), `SCOUT_LLM_MODEL=qwen3.7-plus`, `SCOUT_QWEN_BASE_URL` (international pay-as-you-go by default; Token Plan and mainland endpoints in [`.env.example`](.env.example)), and `SCOUT_QWEN_ENABLE_THINKING` for hybrid-thinking models. The request shape is covered by tests against a recorded transport; the direct DashScope endpoint was not called (no key was available). OpenAI and Anthropic (`SCOUT_LLM_PROVIDER=anthropic`, official SDK) are wired the same way and were not called directly either; `qwen3.7-plus` and Claude models were measured through an OpenAI-compatible proxy instead (see [Model comparison](#model-comparison)).
 
 ## Use your own target list (live mode)
 
@@ -366,7 +366,7 @@ The deterministic work (crawling the synthetic web, validation, rubric, claim ru
 
 ### API calls
 
-[`calls_summary.json`](results/calls_summary.json), from the [ledger](results/calls.jsonl): **462 requests** to OpenRouter in total (433 succeeded, 15 retried after 429/502/timeouts, 14 errors such as reasoning that ran out of tokens, two `inkling` refusals and one provider 403), about 484k input and 1.0M output tokens. By task: 74 extractions, 47 judgments, 50 drafts, 64 claim verifications, 137 reply classifications, 14 LLM-only qualifications, 6 injection runs (the rest of that suite came from the cache), 44 audit and preference judgments, and 26 for the smoke test. Requested models: `nvidia/nemotron-3-super-120b-a12b:free` (344), `dots-studio/dots-3-note-preview:free` (49), `nvidia/nemotron-3-ultra-550b-a55b:free` (30), `inclusionai/ling-3.0-flash-sante:free` (27), `google/gemma-4-31b-it:free` (10), `thinkingmachines/inkling:free` (2); served: the first four. **Every requested and served model id ends in `:free`**, enforced by the free-only guard. Two drafts runs were stopped and restarted after prompt fixes; their completed calls came back from the disk cache. No Qwen Cloud, OpenAI or Anthropic request was made.
+[`calls_summary.json`](results/calls_summary.json), from the [ledger](results/calls.jsonl): **462 requests** to OpenRouter in total (433 succeeded, 15 retried after 429/502/timeouts, 14 errors such as reasoning that ran out of tokens, two `inkling` refusals and one provider 403), about 484k input and 1.0M output tokens. By task: 74 extractions, 47 judgments, 50 drafts, 64 claim verifications, 137 reply classifications, 14 LLM-only qualifications, 6 injection runs (the rest of that suite came from the cache), 44 audit and preference judgments, and 26 for the smoke test. Requested models: `nvidia/nemotron-3-super-120b-a12b:free` (344), `dots-studio/dots-3-note-preview:free` (49), `nvidia/nemotron-3-ultra-550b-a55b:free` (30), `inclusionai/ling-3.0-flash-sante:free` (27), `google/gemma-4-31b-it:free` (10), `thinkingmachines/inkling:free` (2); served: the first four. **Every requested and served model id ends in `:free`**, enforced by the free-only guard. Two drafts runs were stopped and restarted after prompt fixes; their completed calls came back from the disk cache. No Qwen Cloud, OpenAI or Anthropic request was made in this run; the paid-model comparison has its own [ledger](results/paid-models/calls.jsonl).
 
 ### Screenshots
 
@@ -383,6 +383,34 @@ Taken with headless Chrome from the running dashboard and Mailpit ([`capture.mjs
 | ![Sequences: steps per approved draft in the prospect's local time with their status](docs/screenshots/sequences.png) | ![Audit log](docs/screenshots/audit-log.png) |
 | **Sequences**: steps in the prospect's time zone; replies cancelled or moved follow-ups | **Audit log**: every research, qualification, approval, send, opt-out and CRM event |
 
+## Model comparison
+
+The defaults stay free-only (OpenRouter `:free` models, guarded). Stronger models are an explicit opt-in through the `compat` provider (any OpenAI-compatible endpoint), which refuses every non-`:free` model id unless `SCOUT_ALLOW_PAID_MODELS=1` is set:
+
+```bash
+export SCOUT_LLM_PROVIDER=compat SCOUT_ALLOW_PAID_MODELS=1
+export SCOUT_COMPAT_BASE_URL=https://<your-gateway>/v1 SCOUT_COMPAT_API_KEY=...   # never committed
+export SCOUT_LLM_MODEL=claude-haiku-5-5 SCOUT_COMPAT_SEND_TEMPERATURE=false       # newer Claude models reject `temperature`
+```
+
+The same suites and data were re-run on 2026-10-12 through a budget proxy. The baseline column is the 2026-10-08 free run above. A dash means the suite was not run for that model:
+
+| Metric (n) | Free baseline | Claude Haiku 5.5 | Claude Opus 5.5 | Qwen 3.7 Plus |
+|---|---|---|---|---|
+| Research: segment right (59) · quotes on the cited page | 49 · 100% | **54** · 100% | — | **54** · 94.0% (46 not found, all rejected) |
+| Qualification route accuracy, rules first (60) | **96.7%** | 95.0% | — | **96.7%** |
+| LLM-only qualification ablation (14) | 9 of 14 | **11 of 14** | **11 of 14** | 8 of 14 |
+| Claim verifier alone, precision / recall (57 claims) | 89.7% / 89.7% | **96.6% / 96.6%** | 93.5% / **100%** | 96.0% / 82.8% |
+| Drafts: first-try checker pass · drafting p50 per account | 66.7% (18 acc.) · 137 s | **92.9%** (21 acc.) · **33 s** | judge only | 83.3% (9 acc.) · 42 s |
+| Spend (requests) | $0 (462) | ≈ $0.23 (289), ≈ $0.0008 per request | ≈ $2.31 (152), ≈ $0.015 per request | 387,679 proxy-metered tokens (258) |
+
+- Stronger models helped where the task is open-ended reading or judgment: segment labels (49 → 54 of 59), the claim verifier on its own, and the LLM-only qualification ablation. Even there, Haiku and Opus still qualified the injection sites and a good fit with no reason to buy, so the rules-first design stays.
+- Free was already enough where the rules carry the weight: rules-first route accuracy is flat (95.0–96.7%), every model scored 100% on the 100 replies, and with rules plus model the claim checker reached 100% recall for every model.
+- Haiku drafts pass the checker more often and four times faster, but they are longer and carry more claims. Scored by the same Opus judge on the 17 accounts both drafted, the unsupported share is about the same: 19.8% for Haiku vs 18.8% for the baseline.
+- Failure modes: Haiku read team-page "joined" dates as leadership changes (signal precision 93.7% → 89.4%); Qwen's bounded judgment used its full +10 twice on wrong accounts ("qualified" precision 91.7%), and 6% of its quotes were not on any page (all rejected by validation).
+- Samples are small outside the full suites: Opus ran as the main model only on subsets (8 accounts, 57 claims, 14 LLM-only accounts, 16 replies) and as the judge; Qwen drafted 9 accounts. Opus is also a much stricter judge than the free one, so compare draft audits only under the same judge.
+
+Full table, per-run files, spend, failed calls and caveats: [`results/paid-models/COMPARISON.md`](results/paid-models/COMPARISON.md).
 
 ## Compliance (general information, not legal advice)
 
@@ -409,7 +437,7 @@ Cold email is legal in many places and restricted in others; the rules depend on
 
 - **The benchmark is mine.** I (an AI agent) wrote the companies, the labels, the replies and the claims in the same session as the code. The replies are clearer than real ones, which is probably why both free models classified all of them correctly; treat 100% as "the plumbing works", not as a classifier accuracy you will see.
 - **Real websites are messier.** Single-page apps, PDFs, cookie walls and stale "about" pages are not in the synthetic web. Live mode handles robots.txt, rate limits and redirects, but research quality on real sites is not measured here.
-- **Segment classification is the weakest link.** The free model put a medical transport company in "finance" and a parcel-locker network in "equipment rental"; a disqualifier then followed from a wrong label. A stronger model, or a segment list with descriptions, would help (see the model notes in the results).
+- **Segment classification is the weakest link.** The free model put a medical transport company in "finance" and a parcel-locker network in "equipment rental"; a disqualifier then followed from a wrong label. Claude Haiku 5.5 and Qwen 3.7 Plus got 54 of 59 segments right against the free model's 49, which fixed the medical transport case (see [Model comparison](#model-comparison)); a segment list with descriptions would help any model.
 - **The checker can be strict.** It flags harmless color the evidence does not literally state ("must keep the team busy"), which costs a rewrite; and it cannot know whether a true, cited fact is a good thing to mention.
 - **Reply routing makes proposals, people make commitments.** A meeting request holds a slot in Scout's own table and opens a CRM deal; the confirmation email to the prospect goes through the same approval queue as everything else, and no real calendar is touched.
 - **Compliance features are not legal advice** and do not make a program compliant by themselves (see the compliance section).
@@ -422,10 +450,12 @@ All settings are environment variables (or `.env`); [`.env.example`](.env.exampl
 | Variable | Default | What it does |
 |---|---|---|
 | `SCOUT_DATABASE_URL` | `postgresql://scout:scout@localhost:5432/scout` | PostgreSQL: accounts, drafts, messages, replies, suppression, audit log, jobs |
-| `SCOUT_LLM_PROVIDER` / `SCOUT_LLM_MODEL` | `fake` / provider default | `fake`, `openrouter`, `qwen`, `openai`, `anthropic` |
+| `SCOUT_LLM_PROVIDER` / `SCOUT_LLM_MODEL` | `fake` / provider default | `fake`, `openrouter`, `qwen`, `openai`, `anthropic`, `compat` |
 | `SCOUT_LLM_FALLBACK_MODELS` | none | OpenRouter fallbacks (comma-separated, all `:free`) |
 | `SCOUT_REQUIRE_FREE_MODELS` | `true` | refuse non-`:free` OpenRouter ids, paid plugins and paid served models |
-| `SCOUT_JUDGE_MODEL` | `dots-studio/dots-3-note-preview:free` | the evaluation's independent auditor and preference judge |
+| `SCOUT_JUDGE_MODEL` / `SCOUT_JUDGE_PROVIDER` | `dots-studio/dots-3-note-preview:free` / `openrouter` | the evaluation's independent auditor and preference judge |
+| `SCOUT_COMPAT_BASE_URL` / `SCOUT_COMPAT_API_KEY` | none | the `compat` provider's OpenAI-compatible endpoint and key |
+| `SCOUT_ALLOW_PAID_MODELS` | `false` | explicit opt-in for non-`:free` model ids on `compat` (the OpenRouter guard is separate) |
 | `SCOUT_ICP_FILE` | `configs/icp.yaml` | ICP, rubric, personas and offer (also editable in Settings) |
 | `SCOUT_CRAWL_MODE` | `synthetic` | `live` for your own target list |
 | `SCOUT_INJECTION_GUARD` / `SCOUT_LLM_JUDGMENT` / `SCOUT_CLAIM_CHECKER` | `true` | switch the layers (the ablations turn them off) |
@@ -449,7 +479,7 @@ src/scout/
   outreach/              drafting, the claim checker, spam and readability checks, scheduling, time zones
   replies/               classifier (rules first), return dates, meeting slots
   crm/hubspot.py         HubSpot adapter and the in-process mock
-  llm/                   OpenRouter / Qwen / OpenAI, Anthropic, the offline model; free-only guard; budget wrapper
+  llm/                   OpenRouter / Qwen / OpenAI / compat, Anthropic, the offline model; free-only guard; budget wrapper
   store/db.py            PostgreSQL schema (approval CHECK, suppression trigger) and data access
   services.py            the pipeline, approval, sending, replies and routing, CRM sync, exports, funnel
   compliance.py          send gate, suppression, unsubscribe, do-not-contact, retention
@@ -484,7 +514,7 @@ make eval-offline  # every suite with the offline model, no API calls
 | `test_html_injection.py` | date formats, overlapping dates, blocks with their own dates, hidden text; 5 injection phrasings flagged and 6 hard negatives not; quarantine of the sentence only; a forged boundary marker defanged |
 | `test_research_qualify.py` | validation (quote not on any page, number not in the quote, unknown segment, re-attribution, an email not printed, freshness from the block date, live mode keeps no people), the country fallback from the address, offline research finds every planted signal, quarantined injection, rubric routes for each disqualifier and trap, stale signals at zero points, the signal cap, the judgment's bound and evidence rule, no judgment on a disqualified account, a gullible judge cannot move a rules-first score, contact personas, suppression and robots notes, client-list contacts in live mode |
 | `test_outreach.py` | supported claims pass; unknown numbers, names and dates, claims without evidence and old signals called recent are blocked; proof points tied to the offer; the model verifier's verdicts and trimming; evidence id normalization; the draft loop rewrites until the checker passes; spam, links, placeholders and shouting; business hours, weekends and time zones; sequence spacing; meeting slots inside both calendars |
-| `test_llm.py` | the free-only guard (ids, `:online`, plugins, fallbacks, the served model, applied before anything is built, not applied to other providers), OpenRouter and **Qwen Cloud request shapes**, the DashScope key variable, missing keys, error mapping (429 with retry-after, 5xx, errors inside a 200, empty or cut-off answers), the budget wrapper (retries, ledger without prompts, cache, hard cap, 403 fallback), the Anthropic provider with a mocked SDK client, the offline model's dispatch, JSON parsing |
+| `test_llm.py` | the free-only guard (ids, `:online`, plugins, fallbacks, the served model, applied before anything is built, not applied to other providers), OpenRouter and **Qwen Cloud request shapes**, the DashScope key variable, missing keys, error mapping (429 with retry-after, 5xx, errors inside a 200, empty or cut-off answers), the budget wrapper (retries, ledger without prompts, cache, hard cap, 403 fallback), the `compat` provider (paid ids refused without `SCOUT_ALLOW_PAID_MODELS`, the opt-in not touching the OpenRouter guard, omitting `temperature`, a proxy's `budget_exhausted` treated as final), a configurable judge provider, the Anthropic provider with a mocked SDK client, the offline model's dispatch, JSON parsing |
 | `test_replies_crm.py` | opt-out phrasings, bounce and auto-reply rules, every hand-written opt-out caught by the rules and no other reply mistaken for one, validation of the model's reply (an address not in the reply is dropped), the offline classifier; the HubSpot adapter's request shapes against fixture responses, upsert by search then PATCH, 401 and 429 handling, the in-memory mock round trip, no secret-looking strings in fixtures |
 | `test_database.py` | the pipeline over all 60 accounts, nothing scheduled before approval, an unapproved message never sent and the CHECK constraint, approval with edits (diff kept, unverifiable additions pointed out), sending with unsubscribe headers, the postal address and threading, an unsubscribe link stopping every sequence to the address, the suppression trigger and domain suppression, caps that defer, do-not-contact, retention keeping cited facts, reply routing for five labels (suppress, meeting and CRM deal, pause, stop, move), simulated replies with CRM sync and CSV exports, the capture-only mailer, the audit trail, the job queue |
 | `test_api.py` | overview, accounts, the dossier and its source lookup, the review flow (approve with edits, double approval refused, reject, feedback, send), replies, meetings and the unsubscribe pages, manual replies, suppression and do-not-contact, jobs, settings validation, audit filters, CSV exports, live-mode targets |
@@ -501,7 +531,7 @@ Not implemented yet:
 - Learning from feedback: using approved edits and rejection reasons as examples for the drafting prompt, and reporting which edits reviewers make most.
 - Holidays per country in scheduling, and booking meetings in a real calendar (today a slot is held in Scout's own table).
 - Live mode at scale: sitemap discovery, conditional requests, and a per-run politeness budget.
-- A stronger model behind the same checks where the free ones were weakest (see the results): segment classification and the bounded judgment.
+- Per-task model routing: a stronger model only where the [comparison](#model-comparison) shows a gain (segment classification, claim verification), the free one elsewhere.
 
 ## License
 
