@@ -306,7 +306,10 @@ def test_opt_in_allows_paid_models_on_the_generic_endpoint(monkeypatch: pytest.M
     assert str(seen[0].url) == f"{PROXY_URL}/chat/completions"
     assert seen[0].headers["authorization"] == f"Bearer {TEST_KEY}" and "x-title" not in seen[0].headers
     assert body["model"] == "claude-haiku-5-5" and "models" not in body and "reasoning" not in body
-    assert completion.model == "claude-haiku-5-5"
+    assert body["temperature"] == 0.0 and completion.model == "claude-haiku-5-5"
+    no_temperature = build_chat_model(compat_settings(compat_send_temperature=False))
+    assert isinstance(no_temperature, OpenAICompatibleModel)
+    assert "temperature" not in no_temperature.body(MESSAGES, max_tokens=8, temperature=0.0)
 
 
 def test_compat_needs_a_model_and_a_base_url() -> None:

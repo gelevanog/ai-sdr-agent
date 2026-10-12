@@ -45,6 +45,7 @@ class OpenAICompatibleModel:
         timeout_seconds: float = 120.0,
         reasoning_effort: str = "",
         enable_thinking: bool | None = None,
+        send_temperature: bool = True,
         transport: httpx.BaseTransport | None = None,
     ) -> None:
         if not api_key:
@@ -63,6 +64,7 @@ class OpenAICompatibleModel:
             ensure_free_models([model, *self.fallback_models])
         self.reasoning_effort = reasoning_effort
         self.enable_thinking = enable_thinking
+        self.send_temperature = send_temperature
         self._url = base_url.rstrip("/") + "/chat/completions"
         self._headers = {"Authorization": f"Bearer {api_key}"}
         if kind == "openrouter":
@@ -86,6 +88,8 @@ class OpenAICompatibleModel:
             "temperature": temperature,
             "stream": False,
         }
+        if not self.send_temperature:
+            del body["temperature"]
         if self.kind == "openrouter":
             if self.fallback_models:
                 body["models"] = [self.model, *self.fallback_models]

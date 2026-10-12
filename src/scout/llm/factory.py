@@ -63,6 +63,7 @@ def build_chat_model(
         timeout_seconds=settings.llm_timeout_seconds,
         reasoning_effort=settings.llm_reasoning_effort if kind == "openrouter" else "",
         enable_thinking=settings.qwen_enable_thinking if kind == "qwen" else None,
+        send_temperature=settings.compat_send_temperature if kind == "compat" else True,
     )
 
 

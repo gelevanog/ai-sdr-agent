@@ -149,6 +149,8 @@ class Settings(BaseSettings):
     compat_api_key: str | None = Field(
         default=None, validation_alias=AliasChoices("SCOUT_COMPAT_API_KEY", "COMPAT_API_KEY")
     )
+    compat_send_temperature: bool = True
+    """Some models behind OpenAI-compatible gateways reject `temperature` (e.g. newer Claude models): set false."""
 
     # ---- budget for real API calls
     llm_cache: bool = True
