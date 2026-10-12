@@ -1,0 +1,852 @@
+{
+ "name": "haiku",
+ "suite": "claims",
+ "date": "2026-10-12",
+ "model": "compat/claude-haiku-5-5",
+ "claims": 57,
+ "unsupported": 29,
+ "rules_only": {
+  "tp": 24,
+  "fp": 0,
+  "fn": 5,
+  "precision": 1.0,
+  "recall": 0.8276,
+  "f1": 0.9057
+ },
+ "llm_only": {
+  "tp": 28,
+  "fp": 1,
+  "fn": 1,
+  "precision": 0.9655,
+  "recall": 0.9655,
+  "f1": 0.9655
+ },
+ "combined": {
+  "tp": 29,
+  "fp": 1,
+  "fn": 0,
+  "precision": 0.9667,
+  "recall": 1.0,
+  "f1": 0.9831
+ },
+ "by_error_type": {
+  "wrong_number": {
+   "total": 6,
+   "rules": 6,
+   "llm": 6,
+   "combined": 6
+  },
+  "invented_detail": {
+   "total": 4,
+   "rules": 3,
+   "llm": 4,
+   "combined": 4
+  },
+  "wrong_role": {
+   "total": 2,
+   "rules": 0,
+   "llm": 2,
+   "combined": 2
+  },
+  "exaggeration": {
+   "total": 1,
+   "rules": 0,
+   "llm": 1,
+   "combined": 1
+  },
+  "wrong_date": {
+   "total": 2,
+   "rules": 2,
+   "llm": 2,
+   "combined": 2
+  },
+  "wrong_person": {
+   "total": 1,
+   "rules": 1,
+   "llm": 1,
+   "combined": 1
+  },
+  "wrong_place": {
+   "total": 3,
+   "rules": 3,
+   "llm": 3,
+   "combined": 3
+  },
+  "invented_customer": {
+   "total": 2,
+   "rules": 2,
+   "llm": 2,
+   "combined": 2
+  },
+  "wrong_detail": {
+   "total": 2,
+   "rules": 1,
+   "llm": 2,
+   "combined": 2
+  },
+  "wrong_attribution": {
+   "total": 1,
+   "rules": 1,
+   "llm": 1,
+   "combined": 1
+  },
+  "stale_as_recent": {
+   "total": 5,
+   "rules": 5,
+   "llm": 4,
+   "combined": 5
+  }
+ },
+ "false_alarms": [
+  "c41: After your 2023 Series A, the fleet has had time to grow. -> The 2023 Series A is supported by S1. However, 'the fleet has had time to grow' implies the fleet has grown. S1 says the funding was to modernise the fleet, not expand it, and the evidence contains no fleet-size history to show growth. The cited source does not support this implication."
+ ],
+ "missed": [],
+ "calls": {
+  "verify_claims": 12
+ },
+ "rows": [
+  {
+   "id": "c01",
+   "domain": "brightwater-fs.example",
+   "gold": "supported",
+   "error": null,
+   "text": "I noticed Brightwater is hiring a Fleet Safety Manager.",
+   "rules_flag": false,
+   "rules_issues": [],
+   "llm_flag": false,
+   "llm_reason": "S1 lists an open Fleet Safety Manager role at Brightwater, dated 2026-08-20, so 'is hiring' matches the evidence.",
+   "combined_flag": false
+  },
+  {
+   "id": "c02",
+   "domain": "brightwater-fs.example",
+   "gold": "supported",
+   "error": null,
+   "text": "With 310 service vans on the road, small changes add up.",
+   "rules_flag": false,
+   "rules_issues": [],
+   "llm_flag": false,
+   "llm_reason": "F7 states Brightwater's fleet is 310 service vans. 'On the road' is a general observation that asserts nothing beyond that.",
+   "combined_flag": false
+  },
+  {
+   "id": "c03",
+   "domain": "brightwater-fs.example",
+   "gold": "supported",
+   "error": null,
+   "text": "I saw that your dispatch board runs on ServiceTitan.",
+   "rules_flag": false,
+   "rules_issues": [],
+   "llm_flag": false,
+   "llm_reason": "S2 states that dispatch and job scheduling run on ServiceTitan.",
+   "combined_flag": false
+  },
+  {
+   "id": "c04",
+   "domain": "brightwater-fs.example",
+   "gold": "unsupported",
+   "error": "wrong_number",
+   "text": "With 350 service vans on the road, small changes add up.",
+   "rules_flag": true,
+   "rules_issues": [
+    "the number 350 is not in the research or the offer",
+    "'With 350 service vans on the road, small changes add up.': number(s) 350 not in the cited evidence"
+   ],
+   "llm_flag": true,
+   "llm_reason": "F7 gives the fleet as 310 vans, not 350.",
+   "combined_flag": true
+  },
+  {
+   "id": "c05",
+   "domain": "brightwater-fs.example",
+   "gold": "unsupported",
+   "error": "invented_detail",
+   "text": "I saw Brightwater just opened a depot in Indianapolis.",
+   "rules_flag": true,
+   "rules_issues": [
+    "'Indianapolis' is not a name found in the research or the offer"
+   ],
+   "llm_flag": true,
+   "llm_reason": "No evidence mentions a new depot or an Indianapolis location. The evidence only lists Indiana as a served region, and S1 concerns a job posting. The 'just opened' timing is also unsupported.",
+   "combined_flag": true
+  },
+  {
+   "id": "c06",
+   "domain": "brightwater-fs.example",
+   "gold": "unsupported",
+   "error": "wrong_role",
+   "text": "I noticed Brightwater is hiring a Head of Fleet.",
+   "rules_flag": false,
+   "rules_issues": [],
+   "llm_flag": true,
+   "llm_reason": "S1 shows only a Fleet Safety Manager opening. There is no evidence of a Head of Fleet role.",
+   "combined_flag": true
+  },
+  {
+   "id": "c07",
+   "domain": "brightwater-fs.example",
+   "gold": "unsupported",
+   "error": "exaggeration",
+   "text": "Congrats on doubling your fleet this year.",
+   "rules_flag": false,
+   "rules_issues": [],
+   "llm_flag": true,
+   "llm_reason": "F7 gives a current fleet of 310 vans with no history. Nothing in the evidence shows the fleet doubled or any growth this year.",
+   "combined_flag": true
+  },
+  {
+   "id": "c08",
+   "domain": "brightwater-fs.example",
+   "gold": "supported",
+   "error": null,
+   "text": "Brightwater has been serving customers since 1998.",
+   "rules_flag": false,
+   "rules_issues": [],
+   "llm_flag": false,
+   "llm_reason": "F6 states the company was founded in 1998. Serving customers since then is directly implied.",
+   "combined_flag": false
+  },
+  {
+   "id": "c52",
+   "domain": "brightwater-fs.example",
+   "gold": "supported",
+   "error": null,
+   "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+   "rules_flag": false,
+   "rules_issues": [],
+   "llm_flag": false,
+   "llm_reason": "The claim restates the seller's proof point PP:northbeam, which states a 23% idle-time reduction in the first six months.",
+   "combined_flag": false
+  },
+  {
+   "id": "c53",
+   "domain": "brightwater-fs.example",
+   "gold": "unsupported",
+   "error": "wrong_number",
+   "text": "Northbeam Logistics reduced idle time by 32% in the first six months.",
+   "rules_flag": true,
+   "rules_issues": [
+    "the number 32 is not in the research or the offer",
+    "'Northbeam Logistics reduced idle time by 32% in the first six months.': number(s) 32 not in the cited evidence"
+   ],
+   "llm_flag": true,
+   "llm_reason": "PP:northbeam states a 23% reduction, not 32%.",
+   "combined_flag": true
+  },
+  {
+   "id": "c09",
+   "domain": "coldline-distribution.example",
+   "gold": "supported",
+   "error": null,
+   "text": "Congrats on opening the Antwerp depot in July.",
+   "rules_flag": false,
+   "rules_issues": [],
+   "llm_flag": false,
+   "llm_reason": "S1 states the Antwerp depot opened on 14 July 2026, so 'in July' matches the evidence and is not in the future relative to today (2026-10-01).",
+   "combined_flag": false
+  },
+  {
+   "id": "c10",
+   "domain": "coldline-distribution.example",
+   "gold": "supported",
+   "error": null,
+   "text": "Adding 60 refrigerated trucks for Flanders is a big step.",
+   "rules_flag": false,
+   "rules_issues": [],
+   "llm_flag": false,
+   "llm_reason": "S1 states the new Antwerp depot adds 60 refrigerated trucks to serve Flanders, which matches the claim.",
+   "combined_flag": false
+  },
+  {
+   "id": "c11",
+   "domain": "coldline-distribution.example",
+   "gold": "supported",
+   "error": null,
+   "text": "I saw that Sanne de Vries joined as Chief Operating Officer.",
+   "rules_flag": false,
+   "rules_issues": [],
+   "llm_flag": false,
+   "llm_reason": "S2 states Sanne de Vries has joined Coldline Distribution as Chief Operating Officer.",
+   "combined_flag": false
+  },
+  {
+   "id": "c12",
+   "domain": "coldline-distribution.example",
+   "gold": "unsupported",
+   "error": "wrong_date",
+   "text": "Congrats on opening the Antwerp depot in March.",
+   "rules_flag": true,
+   "rules_issues": [
+    "'march' does not match any cited date"
+   ],
+   "llm_flag": true,
+   "llm_reason": "S1 dates the Antwerp depot opening to 14 July 2026, not March. The month is mis-dated.",
+   "combined_flag": true
+  },
+  {
+   "id": "c13",
+   "domain": "coldline-distribution.example",
+   "gold": "unsupported",
+   "error": "wrong_number",
+   "text": "Adding 80 refrigerated trucks for Flanders is a big step.",
+   "rules_flag": true,
+   "rules_issues": [
+    "the number 80 is not in the research or the offer",
+    "'Adding 80 refrigerated trucks for Flanders is a big step.': number(s) 80 not in the cited evidence"
+   ],
+   "llm_flag": true,
+   "llm_reason": "S1 says the depot adds 60 refrigerated trucks, not 80. The number is wrong.",
+   "combined_flag": true
+  },
+  {
+   "id": "c14",
+   "domain": "coldline-distribution.example",
+   "gold": "unsupported",
+   "error": "wrong_person",
+   "text": "I saw that Pieter Bakker joined as Chief Operating Officer.",
+   "rules_flag": true,
+   "rules_issues": [
+    "'Pieter' is not a name found in the research or the offer",
+    "'Bakker' is not a name found in the research or the offer"
+   ],
+   "llm_flag": true,
+   "llm_reason": "S2 names Sanne de Vries as the new Chief Operating Officer. Pieter Bakker does not appear in the evidence.",
+   "combined_flag": true
+  },
+  {
+   "id": "c15",
+   "domain": "coldline-distribution.example",
+   "gold": "unsupported",
+   "error": "wrong_place",
+   "text": "Congrats on opening the Brussels depot.",
+   "rules_flag": true,
+   "rules_issues": [
+    "'Brussels' is not a name found in the research or the offer"
+   ],
+   "llm_flag": true,
+   "llm_reason": "S1 describes the new depot as in Antwerp, not Brussels. No Brussels depot appears in the evidence.",
+   "combined_flag": true
+  },
+  {
+   "id": "c54",
+   "domain": "coldline-distribution.example",
+   "gold": "supported",
+   "error": null,
+   "text": "Harlow Plumbing & Heating cut harsh-braking events by 41% across 120 vans.",
+   "rules_flag": false,
+   "rules_issues": [],
+   "llm_flag": false,
+   "llm_reason": "PP:harlow states Harlow Plumbing & Heating cut harsh-braking events by 41% across 120 vans. The claim restates this proof point.",
+   "combined_flag": false
+  },
+  {
+   "id": "c55",
+   "domain": "coldline-distribution.example",
+   "gold": "unsupported",
+   "error": "invented_customer",
+   "text": "Pinecrest Waste already uses Wayline across 260 trucks.",
+   "rules_flag": true,
+   "rules_issues": [
+    "the number 260 is not in the research or the offer",
+    "'Waste' is not a name found in the research or the offer",
+    "'Pinecrest Waste already uses Wayline across 260 trucks.': number(s) 260 not in the cited evidence"
+   ],
+   "llm_flag": true,
+   "llm_reason": "The cited evidence (PP:harlow) is about Harlow Plumbing & Heating and 120 vans. It says nothing about Pinecrest Waste, Wayline, or 260 trucks, so the claim is not supported by the evidence it cites.",
+   "combined_flag": true
+  },
+  {
+   "id": "c16",
+   "domain": "tallgrass-couriers.example",
+   "gold": "supported",
+   "error": null,
+   "text": "Congratulations on the £18 million Series B.",
+   "rules_flag": false,
+   "rules_issues": [],
+   "llm_flag": false,
+   "llm_reason": "S2 states Tallgrass Couriers raised £18 million in a Series B round, so the congratulations cites the correct round and amount.",
+   "combined_flag": false
+  },
+  {
+   "id": "c17",
+   "domain": "tallgrass-couriers.example",
+   "gold": "supported",
+   "error": null,
+   "text": "I read about the Series B led by Moorland Ventures.",
+   "rules_flag": false,
+   "rules_issues": [],
+   "llm_flag": false,
+   "llm_reason": "S2 states the Series B round was led by Moorland Ventures.",
+   "combined_flag": false
+  },
+  {
+   "id": "c18",
+   "domain": "tallgrass-couriers.example",
+   "gold": "supported",
+   "error": null,
+   "text": "Your new Manchester hub must keep the team busy.",
+   "rules_flag": false,
+   "rules_issues": [],
+   "llm_flag": false,
+   "llm_reason": "S1 states the Manchester hub opened in August 2026, which supports calling it new as of 2026-10-01. 'Must keep the team busy' is a general inference that asserts no further specific fact.",
+   "combined_flag": false
+  },
+  {
+   "id": "c19",
+   "domain": "tallgrass-couriers.example",
+   "gold": "unsupported",
+   "error": "wrong_number",
+   "text": "Congratulations on the £25 million Series B.",
+   "rules_flag": true,
+   "rules_issues": [
+    "'Congratulations on the £25 million Series B.': number(s) 25 not in the cited evidence"
+   ],
+   "llm_flag": true,
+   "llm_reason": "S2 says the Series B was £18 million, not £25 million.",
+   "combined_flag": true
+  },
+  {
+   "id": "c20",
+   "domain": "tallgrass-couriers.example",
+   "gold": "unsupported",
+   "error": "wrong_detail",
+   "text": "Congratulations on closing your Series C.",
+   "rules_flag": true,
+   "rules_issues": [
+    "'C' is not a name found in the research or the offer"
+   ],
+   "llm_flag": true,
+   "llm_reason": "S2 describes a Series B round. No Series C appears in the evidence.",
+   "combined_flag": true
+  },
+  {
+   "id": "c21",
+   "domain": "tallgrass-couriers.example",
+   "gold": "unsupported",
+   "error": "wrong_number",
+   "text": "The Manchester hub with 100 electric vans is impressive.",
+   "rules_flag": true,
+   "rules_issues": [
+    "the number 100 is not in the research or the offer",
+    "'The Manchester hub with 100 electric vans is impressive.': number(s) 100 not in the cited evidence"
+   ],
+   "llm_flag": true,
+   "llm_reason": "S1 says the Manchester hub came with 40 new electric vans, not 100.",
+   "combined_flag": true
+  },
+  {
+   "id": "c22",
+   "domain": "tallgrass-couriers.example",
+   "gold": "supported",
+   "error": null,
+   "text": "You added 40 new electric vans in Manchester.",
+   "rules_flag": false,
+   "rules_issues": [],
+   "llm_flag": false,
+   "llm_reason": "S1 states the Manchester hub opened with 40 new electric vans, and the claim gives the same number and location.",
+   "combined_flag": false
+  },
+  {
+   "id": "c56",
+   "domain": "tallgrass-couriers.example",
+   "gold": "unsupported",
+   "error": "wrong_attribution",
+   "text": "Harlow Plumbing & Heating reduced idle time by 23%.",
+   "rules_flag": true,
+   "rules_issues": [
+    "'Harlow Plumbing & Heating reduced idle time by 23%.': number(s) 23 not in the cited evidence"
+   ],
+   "llm_flag": true,
+   "llm_reason": "PP:harlow reports a 41% cut in harsh-braking events, not a 23% reduction in idle time. The 23% idle-time figure belongs to PP:northbeam (Northbeam Logistics), so the claim misattributes the metric and the customer.",
+   "combined_flag": true
+  },
+  {
+   "id": "c23",
+   "domain": "ridgeway-utility.example",
+   "gold": "supported",
+   "error": null,
+   "text": "Marcus Okafor started as VP Fleet Operations in September.",
+   "rules_flag": false,
+   "rules_issues": [],
+   "llm_flag": false,
+   "llm_reason": "S2 says Marcus Okafor was appointed VP Fleet Operations effective September 2, 2026. Today is 2026-10-01, so 'started in September' matches the evidence.",
+   "combined_flag": false
+  },
+  {
+   "id": "c24",
+   "domain": "ridgeway-utility.example",
+   "gold": "unsupported",
+   "error": "wrong_date",
+   "text": "Marcus Okafor started as VP Fleet Operations in January.",
+   "rules_flag": true,
+   "rules_issues": [
+    "'january' does not match any cited date"
+   ],
+   "llm_flag": true,
+   "llm_reason": "S2 gives the start date as September 2, 2026, not January. The month is misstated.",
+   "combined_flag": true
+  },
+  {
+   "id": "c25",
+   "domain": "ridgeway-utility.example",
+   "gold": "supported",
+   "error": null,
+   "text": "I noticed you are hiring a night-shift dispatcher.",
+   "rules_flag": false,
+   "rules_issues": [],
+   "llm_flag": false,
+   "llm_reason": "S1 shows an open role for a Dispatcher (Night Shift) dated 2026-09-12, which supports saying they are hiring a night-shift dispatcher.",
+   "combined_flag": false
+  },
+  {
+   "id": "c26",
+   "domain": "ridgeway-utility.example",
+   "gold": "unsupported",
+   "error": "invented_detail",
+   "text": "Since Ridgeway already runs GPS trackers on every truck, the switch is easy.",
+   "rules_flag": true,
+   "rules_issues": [
+    "'GPS' is not a name found in the research or the offer"
+   ],
+   "llm_flag": true,
+   "llm_reason": "The cited F1 describes power line and gas utility contracting and its locations. Nothing in the evidence mentions GPS trackers or that they are installed on every truck.",
+   "combined_flag": true
+  },
+  {
+   "id": "c27",
+   "domain": "ridgeway-utility.example",
+   "gold": "supported",
+   "error": null,
+   "text": "Running 700 trucks and service vehicles takes a lot of coordination.",
+   "rules_flag": false,
+   "rules_issues": [],
+   "llm_flag": false,
+   "llm_reason": "F6 states a fleet of 700 trucks and service vehicles. The remark about coordination is a general observation that asserts nothing further about the prospect.",
+   "combined_flag": false
+  },
+  {
+   "id": "c28",
+   "domain": "meridian-mobile-medical.example",
+   "gold": "supported",
+   "error": null,
+   "text": "Congratulations on the $22 million Series C.",
+   "rules_flag": false,
+   "rules_issues": [],
+   "llm_flag": false,
+   "llm_reason": "S2 states that Meridian Mobile Medical closed a $22 million Series C, dated 2026-04-30, and the claim matches that amount and round.",
+   "combined_flag": false
+  },
+  {
+   "id": "c29",
+   "domain": "meridian-mobile-medical.example",
+   "gold": "unsupported",
+   "error": "wrong_detail",
+   "text": "Congratulations on the €22 million Series C.",
+   "rules_flag": false,
+   "rules_issues": [],
+   "llm_flag": true,
+   "llm_reason": "S2 gives the Series C as $22 million, not €22 million. The currency is wrong.",
+   "combined_flag": true
+  },
+  {
+   "id": "c30",
+   "domain": "meridian-mobile-medical.example",
+   "gold": "supported",
+   "error": null,
+   "text": "I saw you're hiring a Fleet Coordinator.",
+   "rules_flag": false,
+   "rules_issues": [],
+   "llm_flag": false,
+   "llm_reason": "S1 lists an open Fleet Coordinator role, so the claim that the company is hiring for that role is backed by the evidence. The claim uses no timing word that the evidence contradicts.",
+   "combined_flag": false
+  },
+  {
+   "id": "c31",
+   "domain": "meridian-mobile-medical.example",
+   "gold": "unsupported",
+   "error": "invented_detail",
+   "text": "Your plan to double the imaging fleet by 2027 is ambitious.",
+   "rules_flag": true,
+   "rules_issues": [
+    "the number 2027 is not in the research or the offer",
+    "'2027' does not match any cited date",
+    "'Your plan to double the imaging fleet by 2027 is ambitious.': number(s) 2027 not in the cited evidence"
+   ],
+   "llm_flag": true,
+   "llm_reason": "S2 says the Series C will add imaging vans across the Mountain West. It says nothing about doubling the fleet or a 2027 target, so both the figure and the date are added.",
+   "combined_flag": true
+  },
+  {
+   "id": "c32",
+   "domain": "swiftmark-parcel.example",
+   "gold": "supported",
+   "error": null,
+   "text": "Congrats on the €40 million growth financing.",
+   "rules_flag": false,
+   "rules_issues": [],
+   "llm_flag": false,
+   "llm_reason": "S2 states Swiftmark Parcel secured €40 million in growth financing in February 2026, so the congratulation on the €40 million growth financing matches the evidence.",
+   "combined_flag": false
+  },
+  {
+   "id": "c33",
+   "domain": "swiftmark-parcel.example",
+   "gold": "supported",
+   "error": null,
+   "text": "You started next-day delivery in Berlin in August.",
+   "rules_flag": false,
+   "rules_issues": [],
+   "llm_flag": false,
+   "llm_reason": "S1 states Swiftmark started next-day delivery in the Berlin metropolitan area on 5 August 2026. Today is 2026-10-01, so 'in August' is correctly dated and in the past.",
+   "combined_flag": false
+  },
+  {
+   "id": "c34",
+   "domain": "swiftmark-parcel.example",
+   "gold": "unsupported",
+   "error": "wrong_place",
+   "text": "You started next-day delivery in Munich in August.",
+   "rules_flag": true,
+   "rules_issues": [
+    "'Munich' is not a name found in the research or the offer"
+   ],
+   "llm_flag": true,
+   "llm_reason": "S1 says the next-day delivery launch was in the Berlin metropolitan area, not Munich. Munich is not in the evidence.",
+   "combined_flag": true
+  },
+  {
+   "id": "c35",
+   "domain": "swiftmark-parcel.example",
+   "gold": "unsupported",
+   "error": "wrong_number",
+   "text": "Your 800 vans cover a lot of ground.",
+   "rules_flag": true,
+   "rules_issues": [
+    "the number 800 is not in the research or the offer",
+    "'Your 800 vans cover a lot of ground.': number(s) 800 not in the cited evidence"
+   ],
+   "llm_flag": true,
+   "llm_reason": "F6 gives the fleet size as 600 vans, not 800. The claim's figure is not in the evidence.",
+   "combined_flag": true
+  },
+  {
+   "id": "c36",
+   "domain": "swiftmark-parcel.example",
+   "gold": "supported",
+   "error": null,
+   "text": "Your 600 vans cover northern Germany.",
+   "rules_flag": false,
+   "rules_issues": [],
+   "llm_flag": false,
+   "llm_reason": "F6 states a fleet of 600 vans serves customers, and F1 and F2 state the company provides parcel delivery across northern Germany. The claim that the 600 vans cover northern Germany is a direct combination of these.",
+   "combined_flag": false
+  },
+  {
+   "id": "c57",
+   "domain": "swiftmark-parcel.example",
+   "gold": "unsupported",
+   "error": "invented_customer",
+   "text": "Delivery leaders like Amazon coach their drivers with Wayline.",
+   "rules_flag": true,
+   "rules_issues": [
+    "'Amazon' is not a name found in the research or the offer"
+   ],
+   "llm_flag": true,
+   "llm_reason": "VP:safety describes in-cab coaching that cuts harsh-braking and speeding events. It does not mention Amazon, does not name Wayline, and says nothing about Amazon or any other company using it. The claim that Amazon coaches its drivers with Wayline is not in the evidence.",
+   "combined_flag": true
+  },
+  {
+   "id": "c37",
+   "domain": "sterling-septic.example",
+   "gold": "unsupported",
+   "error": "stale_as_recent",
+   "text": "I saw you're currently hiring a Fleet Manager.",
+   "rules_flag": true,
+   "rules_issues": [
+    "'I saw you're currently hiring a Fleet Manager.': presents an old signal (S1) as recent"
+   ],
+   "llm_flag": false,
+   "llm_reason": "S1 lists Fleet Manager as an open role, which directly implies the company is currently hiring for it. The listing's posting date (2024-08-12) is older, but the evidence does not contradict the open status.",
+   "combined_flag": true
+  },
+  {
+   "id": "c38",
+   "domain": "sterling-septic.example",
+   "gold": "unsupported",
+   "error": "stale_as_recent",
+   "text": "I saw the new Fleet Manager opening on your site.",
+   "rules_flag": true,
+   "rules_issues": [
+    "'I saw the new Fleet Manager opening on your site.': presents an old signal (S1) as recent"
+   ],
+   "llm_flag": true,
+   "llm_reason": "The word \"new\" is a timing claim the evidence does not support. S1 is dated 2024-08-12 (12 August 2024), more than two years before today (2026-10-01), so the opening is not new.",
+   "combined_flag": true
+  },
+  {
+   "id": "c39",
+   "domain": "sterling-septic.example",
+   "gold": "supported",
+   "error": null,
+   "text": "Sterling runs 70 pump trucks across the Carolinas.",
+   "rules_flag": false,
+   "rules_issues": [],
+   "llm_flag": false,
+   "llm_reason": "F6 states the company operates a fleet of 70 pump trucks, and F1 places the company in the Carolinas (serving the Carolinas), so the claim restates the cited facts accurately.",
+   "combined_flag": false
+  },
+  {
+   "id": "c40",
+   "domain": "westbrook-logistics.example",
+   "gold": "unsupported",
+   "error": "stale_as_recent",
+   "text": "Congrats on the recent $12 million Series A.",
+   "rules_flag": true,
+   "rules_issues": [
+    "'Congrats on the recent $12 million Series A.': presents an old signal (S1) as recent"
+   ],
+   "llm_flag": true,
+   "llm_reason": "The $12 million Series A is supported by S1, but S1 is dated 2023-03-20 and today is 2026-10-01, so it is more than three years old. Calling it 'recent' is a mis-dated timing claim.",
+   "combined_flag": true
+  },
+  {
+   "id": "c41",
+   "domain": "westbrook-logistics.example",
+   "gold": "supported",
+   "error": null,
+   "text": "After your 2023 Series A, the fleet has had time to grow.",
+   "rules_flag": false,
+   "rules_issues": [],
+   "llm_flag": true,
+   "llm_reason": "The 2023 Series A is supported by S1. However, 'the fleet has had time to grow' implies the fleet has grown. S1 says the funding was to modernise the fleet, not expand it, and the evidence contains no fleet-size history to show growth. The cited source does not support this implication.",
+   "combined_flag": true
+  },
+  {
+   "id": "c42",
+   "domain": "westbrook-logistics.example",
+   "gold": "supported",
+   "error": null,
+   "text": "You run 300 trucks across the Midwest.",
+   "rules_flag": false,
+   "rules_issues": [],
+   "llm_flag": false,
+   "llm_reason": "F5 states a fleet_size of 300 and quotes '300 trucks'. F1 and F3 place the company serving the Midwest, so 'across the Midwest' is supported.",
+   "combined_flag": false
+  },
+  {
+   "id": "c43",
+   "domain": "redwood-facility.example",
+   "gold": "supported",
+   "error": null,
+   "text": "I know your vans already run TrackRight telematics.",
+   "rules_flag": false,
+   "rules_issues": [],
+   "llm_flag": false,
+   "llm_reason": "S1 states that since 2024 every Redwood van has been tracked with TrackRight telematics, so the claim that the vans already run TrackRight is directly stated in the evidence.",
+   "combined_flag": false
+  },
+  {
+   "id": "c44",
+   "domain": "redwood-facility.example",
+   "gold": "unsupported",
+   "error": "invented_detail",
+   "text": "I heard your team is unhappy with TrackRight.",
+   "rules_flag": false,
+   "rules_issues": [],
+   "llm_flag": true,
+   "llm_reason": "Nothing in the evidence mentions the team's attitude or satisfaction with TrackRight. S1 only says TrackRight is the telematics system in use, so the claim that the team is unhappy is added and not in the evidence.",
+   "combined_flag": true
+  },
+  {
+   "id": "c45",
+   "domain": "glenmore-security.example",
+   "gold": "unsupported",
+   "error": "stale_as_recent",
+   "text": "Congrats to Callum Reid on the new Director of Operations role.",
+   "rules_flag": true,
+   "rules_issues": [
+    "'Congrats to Callum Reid on the new Director of Operations role.': presents an old signal (S1) as recent"
+   ],
+   "llm_flag": true,
+   "llm_reason": "The evidence confirms Callum Reid was appointed Director of Operations in May 2024. Today is 2026-10-01, so the role is about 28 months old. Calling it 'new' is a timing claim the evidence does not support. The name and title are correct; the 'new' framing is mis-dated.",
+   "combined_flag": true
+  },
+  {
+   "id": "c46",
+   "domain": "glenmore-security.example",
+   "gold": "supported",
+   "error": null,
+   "text": "Your 120 patrol cars cover Scotland.",
+   "rules_flag": false,
+   "rules_issues": [],
+   "llm_flag": false,
+   "llm_reason": "F7 states the company has 120 patrol cars on the road every working day. F4 and F1 state it provides mobile security patrols to customers across Scotland. Saying the 120 cars cover Scotland is a reasonable direct reading of those facts.",
+   "combined_flag": false
+  },
+  {
+   "id": "c47",
+   "domain": "crescentcity-plumbing.example",
+   "gold": "unsupported",
+   "error": "stale_as_recent",
+   "text": "I see you're hiring a Fleet Manager right now.",
+   "rules_flag": true,
+   "rules_issues": [
+    "'I see you're hiring a Fleet Manager right now.': presents an old signal (S1) as recent"
+   ],
+   "llm_flag": true,
+   "llm_reason": "The evidence (S1) lists an open Fleet Manager role, but it is dated 2026-02-10 (February 2026). Today is 2026-10-01, so the posting is about seven months old. The claim's timing words 'right now' assert a current opening that the evidence does not establish; the role may have been filled or closed s",
+   "combined_flag": true
+  },
+  {
+   "id": "c48",
+   "domain": "nordlicht-kurier.example",
+   "gold": "supported",
+   "error": null,
+   "text": "Nordlicht now serves Salzburg and Innsbruck.",
+   "rules_flag": false,
+   "rules_issues": [],
+   "llm_flag": false,
+   "llm_reason": "S1 states Nordlicht Kurier began serving Salzburg and Innsbruck on 12 September 2026. With today being 2026-10-01, 'now serves' is consistent with that date.",
+   "combined_flag": false
+  },
+  {
+   "id": "c49",
+   "domain": "nordlicht-kurier.example",
+   "gold": "supported",
+   "error": null,
+   "text": "Katrin Vogel became Managing Director in April.",
+   "rules_flag": false,
+   "rules_issues": [],
+   "llm_flag": false,
+   "llm_reason": "S2 states Katrin Vogel became Managing Director of Nordlicht Kurier in April 2026, matching the claim's role and timing.",
+   "combined_flag": false
+  },
+  {
+   "id": "c50",
+   "domain": "nordlicht-kurier.example",
+   "gold": "unsupported",
+   "error": "wrong_place",
+   "text": "Nordlicht now serves Vienna and Graz.",
+   "rules_flag": true,
+   "rules_issues": [
+    "'Vienna' is not a name found in the research or the offer",
+    "'Graz' is not a name found in the research or the offer"
+   ],
+   "llm_flag": true,
+   "llm_reason": "S1 mentions only Salzburg and Innsbruck. Vienna and Graz appear nowhere in the evidence.",
+   "combined_flag": true
+  },
+  {
+   "id": "c51",
+   "domain": "nordlicht-kurier.example",
+   "gold": "unsupported",
+   "error": "wrong_role",
+   "text": "Katrin Vogel became the company's CFO in April.",
+   "rules_flag": false,
+   "rules_issues": [],
+   "llm_flag": true,
+   "llm_reason": "S2 says Katrin Vogel became Managing Director, not CFO. The claim changes the role to one the evidence does not support.",
+   "combined_flag": true
+  }
+ ]
+}

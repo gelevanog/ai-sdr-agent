@@ -1,0 +1,870 @@
+{
+ "name": "main_opusjudge",
+ "suite": "drafts_rejudged",
+ "date": "2026-10-12",
+ "model": "openrouter/nvidia/nemotron-3-super-120b-a12b:free",
+ "judge_model": "compat/claude-opus-5-5",
+ "source": "results/main_drafts.json",
+ "accounts": 18,
+ "independent_audit": {
+  "first_drafts": {
+   "claims": 87,
+   "unsupported": 21,
+   "unsupported_rate": 0.2414,
+   "examples": [
+    "meridian-mobile-medical.example A-final: The Fleet Coordinator role owns vehicle maintenance schedules, driver safety reviews and fleet cost  (The reference facts give only the job title. They do not describe the role's dut)",
+    "meridian-mobile-medical.example B-final: The imaging vans are maintained in house (The reference facts do not say how or by whom the fleet is maintained.)",
+    "lakeshore-beverage.example B-final: We operate a fleet of 230 delivery trucks. (The reference facts give Lakeshore Beverage, not the sender, a fleet of 230 deli)",
+    "copperline-electrical.example A-final: The 210 vans are on the road every working day. (The reference facts give no information on vehicle usage or daily operations.)",
+    "copperline-electrical.example B-final: The 210 vans are on the road every working day. (The reference facts give no information on vehicle usage or daily operations.)",
+    "harborview-shuttle.example B-first: Wayline's in-cab coaching helps achieve similar results (around a 41% harsh-braking reduction) for H (The product description says only that coaching cuts harsh-braking events. Nothi)",
+    "bluebell-linen.example A-final: The Transport Manager role focuses on vehicle maintenance and driver safety. (The reference facts give only the role title, not its focus or duties.)",
+    "brightwater-fs.example A-first: This can help the new manager reduce risk from day one. (The reference facts only show the role was posted. Nothing says a manager has be)",
+    "brightwater-fs.example B-first: Brightwater's vans have idle time that drives up fuel costs. (The email states this as fact, but the reference facts say nothing about Brightw)",
+    "tallgrass-couriers.example A-first: Tallgrass Couriers opened a Manchester hub last month (The hub opened in August 2026. As of 2026-10-01, 'last month' means September 20)",
+    "swiftmark-parcel.example A-final: That expansion puts more vans on the road (The reference facts list a fleet of 600 vans but say nothing about the Berlin ex)",
+    "nordlicht-kurier.example B-final: All 210 vans are on the road each working day. (The reference facts give only the fleet size. They say nothing about how many va)",
+    "granitepeak-construction.example B-first: Wayline's idle-time reports help fleets achieve similar results. (The reference has only one idle-time result, from Northbeam. It only says the re)",
+    "evergreen-lawntree.example B-final: Many lawn-and-tree companies see harsh-braking events drive up maintenance costs. (The reference facts contain no industry data linking harsh braking to maintenanc)",
+    "clearwater-pest.example A-first: Clearwater has new depots to integrate. (The facts state the acquisition of three operators but say nothing about depots.)",
+    "clearwater-pest.example A-first: Our rollout lets you track new vehicles from day one. (The sender's product says a new depot or region is tracked from its first week, )",
+    "clearwater-pest.example B-final: All 230 vehicles are on the road every working day. (The facts give the fleet size but say nothing about daily vehicle usage.)",
+    "halvorsen-freight.example B-final: Northbeam's result shows how better idle-time reporting cuts fuel costs. (The Northbeam proof point covers idle time only. No fuel-cost savings for Northb)",
+    "aldergrove-bus.example A-first: Alder Grove's safety work currently relies on reactive checks (implied by 'rather than reactive chec (The reference facts say nothing about Alder Grove's current safety practices.)",
+    "aldergrove-bus.example B-first: Northbeam achieved the reduction using Wayline's idle-time and route reports (The proof point does not say which product feature produced Northbeam's result. )",
+    "northstar-rental.example A-final: The SAP setup is as of Sept 28, 2026 (The reference gives no date for the SAP statement, so the specific 'as of Sept 2)"
+   ]
+  },
+  "final_drafts": {
+   "claims": 84,
+   "unsupported": 15,
+   "unsupported_rate": 0.1786,
+   "examples": [
+    "meridian-mobile-medical.example A-final: The Fleet Coordinator role owns vehicle maintenance schedules, driver safety reviews and fleet cost  (The reference facts give only the job title. They do not describe the role's dut)",
+    "meridian-mobile-medical.example B-final: The imaging vans are maintained in house (The reference facts do not say how or by whom the fleet is maintained.)",
+    "lakeshore-beverage.example B-final: We operate a fleet of 230 delivery trucks. (The reference facts give Lakeshore Beverage, not the sender, a fleet of 230 deli)",
+    "copperline-electrical.example A-final: The 210 vans are on the road every working day. (The reference facts give no information on vehicle usage or daily operations.)",
+    "copperline-electrical.example B-final: The 210 vans are on the road every working day. (The reference facts give no information on vehicle usage or daily operations.)",
+    "bluebell-linen.example A-final: The Transport Manager role focuses on vehicle maintenance and driver safety. (The reference facts give only the role title, not its focus or duties.)",
+    "swiftmark-parcel.example A-final: That expansion puts more vans on the road (The reference facts list a fleet of 600 vans but say nothing about the Berlin ex)",
+    "nordlicht-kurier.example B-final: All 210 vans are on the road each working day. (The reference facts give only the fleet size. They say nothing about how many va)",
+    "evergreen-lawntree.example B-final: Many lawn-and-tree companies see harsh-braking events drive up maintenance costs. (The reference facts contain no industry data linking harsh braking to maintenanc)",
+    "clearwater-pest.example A-final: Clearwater has new depots to get online. (The facts state the acquisition of three operators but say nothing about depots.)",
+    "clearwater-pest.example A-final: Our rollout lets you track new vehicles from day one. (The sender's product says a new depot or region is tracked from its first week, )",
+    "clearwater-pest.example B-final: All 230 vehicles are on the road every working day. (The facts give the fleet size but say nothing about daily vehicle usage.)",
+    "halvorsen-freight.example B-final: Northbeam's result shows how better idle-time reporting cuts fuel costs. (The Northbeam proof point covers idle time only. No fuel-cost savings for Northb)",
+    "northstar-rental.example A-final: The SAP setup is as of Sept 28, 2026 (The reference gives no date for the SAP statement, so the specific 'as of Sept 2)",
+    "northstar-rental.example B-final: The 500 delivery trucks are on the road every working day (The reference says nothing about how often the trucks are on the road.)"
+   ]
+  }
+ },
+ "preference_vs_template": {
+  "scout": 17,
+  "baseline": 1,
+  "scout_win_rate": 0.9444
+ },
+ "rows": [
+  {
+   "domain": "meridian-mobile-medical.example",
+   "audit": {
+    "A-final": [
+     {
+      "text": "Meridian is hiring a Fleet Coordinator, posted Sept 1",
+      "supported": true,
+      "reason": "The reference facts list a Fleet Coordinator posting dated 2026-09-01."
+     },
+     {
+      "text": "The Fleet Coordinator role owns vehicle maintenance schedules, driver safety reviews and fleet cost reporting",
+      "supported": false,
+      "reason": "The reference facts give only the job title. They do not describe the role's duties."
+     }
+    ],
+    "B-final": [
+     {
+      "text": "Meridian has a fleet of 85 imaging vans",
+      "supported": true,
+      "reason": "The reference facts state Fleet: 85 imaging vans."
+     },
+     {
+      "text": "The imaging vans are maintained in house",
+      "supported": false,
+      "reason": "The reference facts do not say how or by whom the fleet is maintained."
+     }
+    ]
+   },
+   "preference": "scout",
+   "preference_reason": "Email Y cites a real, recent signal: the Fleet Coordinator posting from Sept 1 and the duties it covers (maintenance schedules, driver safety reviews, cost reporting). That shows research and ties the pitch to a problem I'm actively staffing for. It also names a concrete capability, in-cab coaching "
+  },
+  {
+   "domain": "lakeshore-beverage.example",
+   "audit": {
+    "A-final": [
+     {
+      "text": "Lakeshore Beverage posted a fleet safety role on 30 August 2026 (subject: 'Safety hiring signal'; body: 'Posted 30 August 2026.')",
+      "supported": true,
+      "reason": "The reference facts list a 'Fleet Safety Specialist' website entry dated 2026-08-30. The email does not say what was posted, so the claim is vague, but the date matches."
+     },
+     {
+      "text": "Our in-cab coaching cuts harsh-braking and speeding events, scored per driver.",
+      "supported": true,
+      "reason": "Matches the sender's product description: in-cab coaching that cuts harsh-braking and speeding events, scored per driver."
+     }
+    ],
+    "B-final": [
+     {
+      "text": "We operate a fleet of 230 delivery trucks.",
+      "supported": false,
+      "reason": "The reference facts give Lakeshore Beverage, not the sender, a fleet of 230 delivery trucks. The email says 'we', which makes it look like the sender owns the fleet."
+     },
+     {
+      "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+      "supported": true,
+      "reason": "Matches the sender's proof point word for word."
+     }
+    ]
+   },
+   "preference": "baseline",
+   "preference_reason": "Y is generic, but it is coherent and credible. It names the sender's company (Wayline), mentions Lakeshore Beverage, and points to two outcomes a beverage fleet manager cares about: fuel costs and driver safety. X has a more concrete hook (in-cab coaching and per-driver scoring of harsh braking and "
+  },
+  {
+   "domain": "copperline-electrical.example",
+   "audit": {
+    "A-final": [
+     {
+      "text": "You posted a Fleet Administrator role on 18 September 2026.",
+      "supported": true,
+      "reason": "The website entry dated 2026-09-18 lists a Fleet Administrator role."
+     },
+     {
+      "text": "Copperline has 210 vans.",
+      "supported": true,
+      "reason": "The reference facts give a fleet of 210 vans."
+     },
+     {
+      "text": "The 210 vans are on the road every working day.",
+      "supported": false,
+      "reason": "The reference facts give no information on vehicle usage or daily operations."
+     }
+    ],
+    "B-final": [
+     {
+      "text": "Copperline has 210 vans.",
+      "supported": true,
+      "reason": "The reference facts give a fleet of 210 vans."
+     },
+     {
+      "text": "The 210 vans are on the road every working day.",
+      "supported": false,
+      "reason": "The reference facts give no information on vehicle usage or daily operations."
+     },
+     {
+      "text": "Harlow Plumbing & Heating cut harsh-braking events by 41% across 120 vans using our in-cab coaching.",
+      "supported": true,
+      "reason": "Matches the sender's proof point (41% across 120 vans). The proof point does not name the in-cab coaching feature, but the result itself is stated."
+     }
+    ]
+   },
+   "preference": "scout",
+   "preference_reason": "X refers to our Fleet Administrator posting and our 210 vans, names a concrete capability (in-cab coaching that cuts harsh braking and speeding, scored per driver), and ties it to supporting a new hire. That reads like someone who looked at our business. It has flaws: the vendor's company is never n"
+  },
+  {
+   "domain": "harborview-shuttle.example",
+   "audit": {
+    "A-final": [
+     {
+      "text": "Harborview Shuttle posted a Safety & Training Manager role on September 3, 2026.",
+      "supported": true,
+      "reason": "The website lists a Safety & Training Manager posting dated 2026-09-03."
+     }
+    ],
+    "A-first": [
+     {
+      "text": "Harborview Shuttle posted a Safety & Training Manager role on September 3, 2026.",
+      "supported": true,
+      "reason": "The website lists a Safety & Training Manager posting dated 2026-09-03."
+     }
+    ],
+    "B-final": [
+     {
+      "text": "Harborview Shuttle won a rental-car shuttle contract.",
+      "supported": true,
+      "reason": "The website (2026-08-12) says Harborview won the Sea-Tac rental-car shuttle contract in August 2026."
+     },
+     {
+      "text": "Harborview Shuttle is adding 30 buses.",
+      "supported": true,
+      "reason": "The website (2026-08-12) says Harborview is adding 30 buses."
+     },
+     {
+      "text": "Harlow Plumbing & Heating cut harsh-braking events by 41% across 120 vans.",
+      "supported": true,
+      "reason": "This matches the sender's proof point exactly."
+     }
+    ],
+    "B-first": [
+     {
+      "text": "Harborview Shuttle won the Sea-Tac rental-car shuttle contract.",
+      "supported": true,
+      "reason": "The website (2026-08-12) says Harborview won the Sea-Tac rental-car shuttle contract in August 2026."
+     },
+     {
+      "text": "Harborview Shuttle is adding 30 buses.",
+      "supported": true,
+      "reason": "The website (2026-08-12) says Harborview is adding 30 buses."
+     },
+     {
+      "text": "Harlow Plumbing & Heating cut harsh-braking events by 41% across 120 vans.",
+      "supported": true,
+      "reason": "This matches the sender's proof point exactly."
+     },
+     {
+      "text": "Wayline's in-cab coaching helps achieve similar results (around a 41% harsh-braking reduction) for Harborview.",
+      "supported": false,
+      "reason": "The product description says only that coaching cuts harsh-braking events. Nothing supports a promise of similar results for Harborview; the 41% figure applies only to Harlow."
+     }
+    ]
+   },
+   "preference": "scout",
+   "preference_reason": "Y ties its pitch to a real signal: our Safety & Training Manager posting. It names a concrete capability, in-cab coaching with per-driver scoring of harsh braking and speeding, which maps directly to what a shuttle fleet cares about. X is a generic telematics pitch that could go to any fleet, with v"
+  },
+  {
+   "domain": "bluebell-linen.example",
+   "audit": {
+    "A-final": [
+     {
+      "text": "The Transport Manager role was posted 10 September 2026.",
+      "supported": true,
+      "reason": "The website lists a Transport Manager item dated 2026-09-10."
+     },
+     {
+      "text": "The Transport Manager role focuses on vehicle maintenance and driver safety.",
+      "supported": false,
+      "reason": "The reference facts give only the role title, not its focus or duties."
+     }
+    ],
+    "B-final": [
+     {
+      "text": "Bluebell operates a fleet of 140 vehicles.",
+      "supported": true,
+      "reason": "The reference facts list a fleet of 140 route trucks."
+     },
+     {
+      "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+      "supported": true,
+      "reason": "This matches the sender's proof point exactly."
+     }
+    ]
+   },
+   "preference": "scout",
+   "preference_reason": "X ties its pitch to something real at our company, the Transport Manager posting, so it reads like the sender looked us up. It also names a concrete capability (in-cab coaching) and a measurable result (fewer harsh-braking and speeding events per driver), which fits an ops director thinking about fl"
+  },
+  {
+   "domain": "brightwater-fs.example",
+   "audit": {
+    "A-final": [
+     {
+      "text": "You posted a Fleet Safety Manager role on 20 August 2026.",
+      "supported": true,
+      "reason": "The reference facts list a Fleet Safety Manager item on the website dated 2026-08-20."
+     },
+     {
+      "text": "Our in-cab coaching cuts harsh-braking and speeding events, scored per driver.",
+      "supported": true,
+      "reason": "This matches the sender's product description word for word."
+     }
+    ],
+    "A-first": [
+     {
+      "text": "You posted a Fleet Safety Manager role on 20 August 2026.",
+      "supported": true,
+      "reason": "The reference facts list a Fleet Safety Manager item on the website dated 2026-08-20."
+     },
+     {
+      "text": "Our in-cab coaching cuts harsh-braking and speeding events, scored per driver.",
+      "supported": true,
+      "reason": "This matches the sender's product description."
+     },
+     {
+      "text": "This can help the new manager reduce risk from day one.",
+      "supported": false,
+      "reason": "The reference facts only show the role was posted. Nothing says a manager has been hired. The 'from day one' risk-reduction claim is also not in the product description."
+     }
+    ],
+    "B-final": [
+     {
+      "text": "Brightwater has 310 service vans.",
+      "supported": true,
+      "reason": "The reference facts state a fleet of 310 service vans."
+     },
+     {
+      "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+      "supported": true,
+      "reason": "This matches the sender's proof point exactly."
+     }
+    ],
+    "B-first": [
+     {
+      "text": "Brightwater manages 310 service vans.",
+      "supported": true,
+      "reason": "The reference facts state a fleet of 310 service vans."
+     },
+     {
+      "text": "Brightwater's vans have idle time that drives up fuel costs.",
+      "supported": false,
+      "reason": "The email states this as fact, but the reference facts say nothing about Brightwater's idle time or fuel costs."
+     },
+     {
+      "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+      "supported": true,
+      "reason": "This matches the sender's proof point exactly."
+     }
+    ]
+   },
+   "preference": "scout",
+   "preference_reason": "X ties its pitch to a real signal: our Fleet Safety Manager posting from 20 August. It also names a concrete mechanism, in-cab coaching that reduces harsh braking and speeding with per-driver scoring, which matches the problem that hire is meant to solve. Y is a generic telematics pitch ('reduce fue"
+  },
+  {
+   "domain": "tallgrass-couriers.example",
+   "audit": {
+    "A-final": [
+     {
+      "text": "Tallgrass Couriers opened a Manchester hub in August 2026",
+      "supported": true,
+      "reason": "The website (dated 2026-08-25) says the Manchester hub opened in August 2026."
+     },
+     {
+      "text": "The Manchester hub opened with 40 new electric vans",
+      "supported": true,
+      "reason": "The website (dated 2026-08-25) says the hub opened with 40 new electric vans."
+     }
+    ],
+    "A-first": [
+     {
+      "text": "Tallgrass Couriers opened a Manchester hub last month",
+      "supported": false,
+      "reason": "The hub opened in August 2026. As of 2026-10-01, 'last month' means September 2026, so the timing is wrong."
+     },
+     {
+      "text": "The Manchester hub opened with 40 new electric vans",
+      "supported": true,
+      "reason": "The website (dated 2026-08-25) says the hub opened with 40 new electric vans."
+     }
+    ],
+    "B-final": [
+     {
+      "text": "Tallgrass Couriers runs a fleet of 190 vehicles",
+      "supported": true,
+      "reason": "The reference facts list a fleet of 190 delivery vans."
+     },
+     {
+      "text": "Northbeam Logistics reduced idle time by 23% in the first six months using Wayline's idle-time and route reports",
+      "supported": true,
+      "reason": "The 23% reduction in the first six months matches the proof point. The proof point does not name the feature used, but idle-time and route reports are the product's idle-time offering."
+     }
+    ]
+   },
+   "preference": "scout",
+   "preference_reason": "Y names a specific event, the new Manchester hub with 40 electric vans, and ties Wayline to a concrete problem I'd face right now: getting new vehicles into fleet data from day one. Self-install devices suit a fast depot rollout, and the 'compare notes' ask feels peer-level rather than pushy. X is a"
+  },
+  {
+   "domain": "swiftmark-parcel.example",
+   "audit": {
+    "A-final": [
+     {
+      "text": "Swiftmark Parcel started next-day delivery in the Berlin metropolitan area on 5 August 2026.",
+      "supported": true,
+      "reason": "The website (dated 2026-08-05) says Swiftmark started next-day delivery in the Berlin metropolitan area on 5 August 2026."
+     },
+     {
+      "text": "That expansion puts more vans on the road",
+      "supported": false,
+      "reason": "The reference facts list a fleet of 600 vans but say nothing about the Berlin expansion adding vans."
+     }
+    ],
+    "B-final": [
+     {
+      "text": "Swiftmark Parcel operates a fleet of 600 vans.",
+      "supported": true,
+      "reason": "The reference facts list the fleet as 600 vans."
+     },
+     {
+      "text": "Harlow Plumbing & Heating cut harsh-braking events by 41% across 120 vans.",
+      "supported": true,
+      "reason": "This matches the sender's proof point exactly."
+     }
+    ]
+   },
+   "preference": "scout",
+   "preference_reason": "X cites a concrete event, the 5 August 2026 Berlin next-day expansion, and ties it to a real fleet-manager concern: more vans on the road raise safety risk. It also names a specific capability, per-driver in-cab coaching on harsh braking and speeding. Y is a generic template that could go to any fle"
+  },
+  {
+   "domain": "coldline-distribution.example",
+   "audit": {
+    "A-final": [
+     {
+      "text": "Coldline opened a new Antwerp depot on 14 July 2026",
+      "supported": true,
+      "reason": "The website (dated 2026-07-14) says Coldline opened its new Antwerp depot on 14 July 2026. Calling it 'new' fits the date, about 2.5 months before the reference date."
+     },
+     {
+      "text": "The new depot added 60 refrigerated trucks to serve Flanders",
+      "supported": true,
+      "reason": "The same website item says the depot added 60 refrigerated trucks to serve Flanders."
+     },
+     {
+      "text": "Coldline is going through an expansion (subject line 'Antwerp depot expansion' and 'managing the expansion')",
+      "supported": true,
+      "reason": "Opening the Antwerp depot and adding 60 trucks is an expansion stated in the reference facts."
+     }
+    ],
+    "B-final": [
+     {
+      "text": "Coldline has a fleet of 420 refrigerated trucks",
+      "supported": true,
+      "reason": "The reference facts list the fleet as 420 refrigerated trucks."
+     },
+     {
+      "text": "Northbeam Logistics reduced idle time by 23% in the first six months",
+      "supported": true,
+      "reason": "This matches the sender's proof point exactly."
+     },
+     {
+      "text": "Wayline's idle-time and route reports typically lower fuel spend",
+      "supported": true,
+      "reason": "The sender's product description says the idle-time and route reports typically lower fuel spend."
+     }
+    ],
+    "B-first": [
+     {
+      "text": "Coldline has a fleet of 420 refrigerated trucks",
+      "supported": true,
+      "reason": "The reference facts list the fleet as 420 refrigerated trucks."
+     },
+     {
+      "text": "Northbeam Logistics reduced idle time by 23% in the first six months",
+      "supported": true,
+      "reason": "This matches the sender's proof point exactly."
+     },
+     {
+      "text": "Wayline's idle-time and route reports typically lower fuel spend",
+      "supported": true,
+      "reason": "The sender's product description says the idle-time and route reports typically lower fuel spend."
+     }
+    ]
+   },
+   "preference": "scout",
+   "preference_reason": "Email Y cites a specific, relevant event: the new Antwerp depot with 60 refrigerated trucks. It ties Wayline's offer (self-install devices, visibility from week one) to the operational challenge I'd actually be facing, and the ask to 'compare notes on the expansion' reads as peer-level rather than a"
+  },
+  {
+   "domain": "nordlicht-kurier.example",
+   "audit": {
+    "A-final": [
+     {
+      "text": "Nordlicht Kurier began serving Salzburg and Innsbruck on 12 September 2026.",
+      "supported": true,
+      "reason": "The website (dated 2026-09-12) says Nordlicht Kurier began serving Salzburg and Innsbruck on 12 September 2026."
+     },
+     {
+      "text": "Salzburg-Innsbruck is a new region for Nordlicht Kurier (subject line).",
+      "supported": true,
+      "reason": "Service there began on 2026-09-12, less than three weeks before the 2026-10-01 reference date, so 'new' fits the dates."
+     }
+    ],
+    "B-final": [
+     {
+      "text": "Nordlicht Kurier has 210 vans.",
+      "supported": true,
+      "reason": "The reference facts list a fleet of 210 vans."
+     },
+     {
+      "text": "All 210 vans are on the road each working day.",
+      "supported": false,
+      "reason": "The reference facts give only the fleet size. They say nothing about how many vans run each working day."
+     },
+     {
+      "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+      "supported": true,
+      "reason": "This matches the sender's proof point word for word."
+     }
+    ]
+   },
+   "preference": "scout",
+   "preference_reason": "X refers to a specific, verifiable event: our launch in Salzburg and Innsbruck on 12 September. It ties the offer to a real problem I'd have as Head of Fleet, which is getting visibility on vehicles in new regions quickly, and self-install devices make that plausible without a long rollout. Y is a g"
+  },
+  {
+   "domain": "granitepeak-construction.example",
+   "audit": {
+    "A-final": [
+     {
+      "text": "Granite Peak uses Microsoft Dynamics 365 for project costing and equipment tracking.",
+      "supported": true,
+      "reason": "The website says project costing and equipment tracking live in Microsoft Dynamics 365."
+     }
+    ],
+    "A-first": [
+     {
+      "text": "Granite Peak uses Microsoft Dynamics 365 for project costing and equipment tracking.",
+      "supported": true,
+      "reason": "The website says project costing and equipment tracking live in Microsoft Dynamics 365."
+     }
+    ],
+    "B-final": [
+     {
+      "text": "You operate a fleet of 340 pickups, trucks and heavy equipment.",
+      "supported": true,
+      "reason": "The reference lists a fleet of 340 pickups, trucks and heavy equipment."
+     },
+     {
+      "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+      "supported": true,
+      "reason": "This matches the sender's proof point exactly."
+     },
+     {
+      "text": "Wayline provides idle-time and route reports that typically lower fuel spend.",
+      "supported": true,
+      "reason": "The sender's product description states that idle-time and route reports typically lower fuel spend."
+     }
+    ],
+    "B-first": [
+     {
+      "text": "You operate a fleet of 340 pickups, trucks and heavy equipment.",
+      "supported": true,
+      "reason": "The reference lists a fleet of 340 pickups, trucks and heavy equipment."
+     },
+     {
+      "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+      "supported": true,
+      "reason": "This matches the sender's proof point exactly."
+     },
+     {
+      "text": "Wayline's idle-time reports help fleets achieve similar results.",
+      "supported": false,
+      "reason": "The reference has only one idle-time result, from Northbeam. It only says the reports typically lower fuel spend and does not say fleets generally get similar (around 23%) idle-time reductions."
+     }
+    ]
+   },
+   "preference": "scout",
+   "preference_reason": "Email Y is more likely to get a reply because it is specific to Granite Peak. It names the company's actual system (Dynamics 365 for project costing and equipment tracking) and offers a concrete benefit: syncing vehicle locations and job status into the ERP. That speaks to a real pain for a construc"
+  },
+  {
+   "domain": "evergreen-lawntree.example",
+   "audit": {
+    "A-final": [
+     {
+      "text": "You posted a Fleet Manager role on September 15, 2026.",
+      "supported": true,
+      "reason": "The reference facts list a Fleet Manager entry on the website dated 2026-09-15."
+     }
+    ],
+    "B-final": [
+     {
+      "text": "Your fleet has 120 vehicles.",
+      "supported": true,
+      "reason": "The reference facts state the fleet is 120 trucks."
+     },
+     {
+      "text": "Many lawn-and-tree companies see harsh-braking events drive up maintenance costs.",
+      "supported": false,
+      "reason": "The reference facts contain no industry data linking harsh braking to maintenance costs for lawn-and-tree companies."
+     },
+     {
+      "text": "Harlow Plumbing & Heating cut harsh-braking events by 41% across 120 vans.",
+      "supported": true,
+      "reason": "This matches the sender's proof point exactly."
+     }
+    ]
+   },
+   "preference": "scout",
+   "preference_reason": "Email X ties its outreach to a real event at my company, the Fleet Manager posting, so it reads as researched rather than mass-sent. It also names a concrete capability, in-cab coaching that reduces harsh braking and speeding with per-driver scores, which matters for a crew-truck fleet. It doesn't n"
+  },
+  {
+   "domain": "ironbridge-plumbing.example",
+   "audit": {
+    "A-final": [
+     {
+      "text": "You posted a Fleet Coordinator role on August 22, 2026",
+      "supported": true,
+      "reason": "The website lists a Fleet Coordinator entry dated 2026-08-22."
+     }
+    ],
+    "B-final": [
+     {
+      "text": "Ironbridge has 95 vans on the road",
+      "supported": true,
+      "reason": "The reference facts list a fleet of 95 vans."
+     },
+     {
+      "text": "Harlow Plumbing & Heating cut harsh-braking events by 41% across 120 vans",
+      "supported": true,
+      "reason": "This matches the sender's proof point exactly."
+     }
+    ]
+   },
+   "preference": "scout",
+   "preference_reason": "Y references a concrete trigger, our Fleet Coordinator posting, and names a specific capability: in-cab coaching that reduces harsh braking and speeding, scored per driver. It also ties that to a real need, getting a new coordinator up to speed on safety standards, which shows the sender looked at o"
+  },
+  {
+   "domain": "clearwater-pest.example",
+   "audit": {
+    "A-final": [
+     {
+      "text": "Clearwater Pest Control recently acquired three local pest control operators in Orlando and Jacksonville.",
+      "supported": true,
+      "reason": "The website (dated 2026-08-17) says Clearwater acquired three local operators in Orlando and Jacksonville in August 2026. That is about 1–2 months before the reference date, so 'recently' fits."
+     },
+     {
+      "text": "Clearwater has new depots to get online.",
+      "supported": false,
+      "reason": "The facts state the acquisition of three operators but say nothing about depots."
+     },
+     {
+      "text": "Our rollout lets you track new vehicles from day one.",
+      "supported": false,
+      "reason": "The sender's product says a new depot or region is tracked from its first week, not from day one."
+     }
+    ],
+    "A-first": [
+     {
+      "text": "Clearwater Pest Control recently acquired three local pest control operators in Orlando and Jacksonville.",
+      "supported": true,
+      "reason": "The website (dated 2026-08-17) says Clearwater acquired three local operators in Orlando and Jacksonville in August 2026, which fits 'recently' as of 2026-10-01."
+     },
+     {
+      "text": "Clearwater has new depots to integrate.",
+      "supported": false,
+      "reason": "The facts state the acquisition of three operators but say nothing about depots."
+     },
+     {
+      "text": "Our rollout lets you track new vehicles from day one.",
+      "supported": false,
+      "reason": "The sender's product says a new depot or region is tracked from its first week, not from day one."
+     }
+    ],
+    "B-final": [
+     {
+      "text": "Clearwater Pest Control has 230 service vehicles.",
+      "supported": true,
+      "reason": "The reference facts list the fleet as 230 service vehicles."
+     },
+     {
+      "text": "All 230 vehicles are on the road every working day.",
+      "supported": false,
+      "reason": "The facts give the fleet size but say nothing about daily vehicle usage."
+     },
+     {
+      "text": "Harlow Plumbing & Heating cut harsh-braking events by 41% across 120 vans.",
+      "supported": true,
+      "reason": "This matches the sender's proof point exactly."
+     }
+    ]
+   },
+   "preference": "scout",
+   "preference_reason": "Y opens with a specific, relevant trigger: the three acquisitions in Orlando and Jacksonville. It ties that to a real Head of Fleet problem, integrating new depots and vehicles quickly, which shows actual research. It has flaws. The phrase \"our rollout value prop\" is jargon, and Y never names the co"
+  },
+  {
+   "domain": "halvorsen-freight.example",
+   "audit": {
+    "A-final": [
+     {
+      "text": "You posted a Fleet Safety Lead role on September 5, 2026.",
+      "supported": true,
+      "reason": "The reference says the website lists 'Fleet Safety Lead', dated 2026-09-05."
+     },
+     {
+      "text": "Our in-cab coaching cuts harsh-braking and speeding events.",
+      "supported": true,
+      "reason": "The sender's product description states this."
+     },
+     {
+      "text": "Harlow Plumbing & Heating have seen a 41% reduction in harsh-braking events across 120 vans.",
+      "supported": true,
+      "reason": "This matches the sender's proof point exactly."
+     }
+    ],
+    "B-final": [
+     {
+      "text": "Halvorsen Freight runs a fleet of 450 vehicles.",
+      "supported": true,
+      "reason": "The reference states a fleet of 450 tractors."
+     },
+     {
+      "text": "Northbeam Logistics reduced idle time by 23% in the first six months.",
+      "supported": true,
+      "reason": "This matches the sender's proof point exactly."
+     },
+     {
+      "text": "Northbeam's result shows how better idle-time reporting cuts fuel costs.",
+      "supported": false,
+      "reason": "The Northbeam proof point covers idle time only. No fuel-cost savings for Northbeam are stated. The product description says only that idle-time reports 'typically' lower fuel spend."
+     }
+    ]
+   },
+   "preference": "scout",
+   "preference_reason": "Y gives me a concrete reason to reply. It cites our recent Fleet Safety Lead posting, so it touches a priority I'm actively working on, and it backs its claim with a named customer and a specific result: a 41% drop in harsh-braking events across 120 vans. A plumbing van fleet isn't a perfect match f"
+  },
+  {
+   "domain": "aldergrove-bus.example",
+   "audit": {
+    "A-final": [
+     {
+      "text": "Alder Grove posted a Transportation Safety Officer role on 28 August 2026",
+      "supported": true,
+      "reason": "The website lists a Transportation Safety Officer item dated 2026-08-28."
+     },
+     {
+      "text": "Our in-cab coaching cuts harsh-braking and speeding events, scored per driver",
+      "supported": true,
+      "reason": "This matches the sender's product description."
+     }
+    ],
+    "A-first": [
+     {
+      "text": "Alder Grove posted a Transportation Safety Officer role on 28 August 2026",
+      "supported": true,
+      "reason": "The website lists a Transportation Safety Officer item dated 2026-08-28."
+     },
+     {
+      "text": "Our in-cab coaching cuts harsh-braking and speeding events, scored per driver",
+      "supported": true,
+      "reason": "This matches the sender's product description."
+     },
+     {
+      "text": "Alder Grove's safety work currently relies on reactive checks (implied by 'rather than reactive checks')",
+      "supported": false,
+      "reason": "The reference facts say nothing about Alder Grove's current safety practices."
+     }
+    ],
+    "B-final": [
+     {
+      "text": "Alder Grove operates 300 school buses",
+      "supported": true,
+      "reason": "The reference facts state a fleet of 300 school buses."
+     },
+     {
+      "text": "Alder Grove operates across southern Maine",
+      "supported": true,
+      "reason": "The reference facts state it serves southern Maine."
+     },
+     {
+      "text": "Northbeam Logistics reduced idle time by 23% in the first six months",
+      "supported": true,
+      "reason": "This matches the sender's proof point exactly."
+     },
+     {
+      "text": "Wayline's idle-time and route reports typically lower fuel spend",
+      "supported": true,
+      "reason": "This matches the sender's product description."
+     }
+    ],
+    "B-first": [
+     {
+      "text": "Alder Grove operates 300 school buses",
+      "supported": true,
+      "reason": "The reference facts state a fleet of 300 school buses."
+     },
+     {
+      "text": "Alder Grove operates across southern Maine",
+      "supported": true,
+      "reason": "The reference facts state it serves southern Maine."
+     },
+     {
+      "text": "Northbeam Logistics reduced idle time by 23% in the first six months",
+      "supported": true,
+      "reason": "This matches the sender's proof point."
+     },
+     {
+      "text": "Northbeam achieved the reduction using Wayline's idle-time and route reports",
+      "supported": false,
+      "reason": "The proof point does not say which product feature produced Northbeam's result. Crediting it to the idle-time and route reports is not stated."
+     }
+    ]
+   },
+   "preference": "scout",
+   "preference_reason": "Y opens with a concrete, verifiable trigger: our Transportation Safety Officer posting. It ties that to a specific capability, per-driver scoring of harsh-braking and speeding events with in-cab coaching, which matters a lot for a school bus fleet carrying kids. The ask is framed around our safety p"
+  },
+  {
+   "domain": "ridgeway-utility.example",
+   "audit": {
+    "A-final": [
+     {
+      "text": "Ridgeway posted a Dispatcher (Night Shift) role on September 12",
+      "supported": true,
+      "reason": "The website lists a Dispatcher (Night Shift) posting dated 2026-09-12. The email says 'you', but the reference only shows a company posting and does not say Marcus posted it personally."
+     },
+     {
+      "text": "The dispatcher role is new (subject line)",
+      "supported": true,
+      "reason": "The posting is dated 2026-09-12, less than three weeks before the 2026-10-01 reference date, so 'new' matches."
+     },
+     {
+      "text": "Our in-cab coaching cuts harsh-braking and speeding events, scored per driver",
+      "supported": true,
+      "reason": "The sender's product description says this word for word."
+     }
+    ],
+    "B-final": [
+     {
+      "text": "Ridgeway has a fleet of 700 vehicles",
+      "supported": true,
+      "reason": "The reference facts list 700 trucks and service vehicles."
+     },
+     {
+      "text": "Northbeam Logistics reduced idle time by 23% in the first six months",
+      "supported": true,
+      "reason": "This matches the sender's proof point exactly."
+     }
+    ]
+   },
+   "preference": "scout",
+   "preference_reason": "X cites something specific about Ridgeway, the September 12 night-shift dispatcher posting, and names a concrete capability: in-cab coaching that cuts harsh-braking and speeding events, scored per driver. That speaks directly to a fleet VP's safety concerns and frames the call as comparing notes rat"
+  },
+  {
+   "domain": "northstar-rental.example",
+   "audit": {
+    "A-final": [
+     {
+      "text": "Northstar Rental Equipment runs its rentals, dispatch and invoicing in SAP",
+      "supported": true,
+      "reason": "The website says rentals, dispatch and invoicing are handled in SAP."
+     },
+     {
+      "text": "The SAP setup is as of Sept 28, 2026",
+      "supported": false,
+      "reason": "The reference gives no date for the SAP statement, so the specific 'as of Sept 28, 2026' date is not supported."
+     }
+    ],
+    "B-final": [
+     {
+      "text": "Northstar has 500 delivery trucks",
+      "supported": true,
+      "reason": "The reference lists a fleet of 500 delivery trucks."
+     },
+     {
+      "text": "The 500 delivery trucks are on the road every working day",
+      "supported": false,
+      "reason": "The reference says nothing about how often the trucks are on the road."
+     },
+     {
+      "text": "Northbeam Logistics reduced idle time by 23% in the first six months",
+      "supported": true,
+      "reason": "This matches the sender's proof point exactly."
+     }
+    ],
+    "B-first": [
+     {
+      "text": "Northstar has a fleet of 500 delivery trucks",
+      "supported": true,
+      "reason": "The reference lists a fleet of 500 delivery trucks."
+     },
+     {
+      "text": "Northbeam Logistics reduced idle time by 23% in the first six months",
+      "supported": true,
+      "reason": "This matches the sender's proof point exactly."
+     }
+    ]
+   },
+   "preference": "scout",
+   "preference_reason": "Y names something real about how we work (rentals, dispatch and invoicing in SAP) and offers a concrete benefit: syncing vehicle locations and job status into SAP without manual entry. That speaks directly to a rental fleet's daily pain. The odd '(as of Sept 28, 2026)' parenthetical reads like scrap"
+  }
+ ]
+}
