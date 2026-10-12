@@ -115,7 +115,7 @@ def _judge_model(settings: Settings, tag: str) -> ChatModel:
     if settings.llm_provider == "fake":
         return build_chat_model(settings)
     return budgeted(
-        build_chat_model(settings, provider="openrouter", model=settings.judge_model, fallback_models=[]),
+        build_chat_model(settings, provider=settings.judge_provider, model=settings.judge_model, fallback_models=[]),
         settings,
         tag=tag,
     )

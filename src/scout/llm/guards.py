@@ -1,7 +1,10 @@
 """The free-only guard (on by default): refuses any OpenRouter model id that does not end in ``:free``, checks the
 fallback list too, refuses paid features (``:online`` web search, the ``web`` plugin) and rejects an answer that
 OpenRouter served from a non-free model. A client who wants paid models turns it off deliberately with
-SCOUT_REQUIRE_FREE_MODELS=false."""
+SCOUT_REQUIRE_FREE_MODELS=false.
+
+The generic OpenAI-compatible provider (`compat`) gets the same guard; it is lifted only by the explicit opt-in
+SCOUT_ALLOW_PAID_MODELS=1 (see COMPAT_HINT)."""
 
 from __future__ import annotations
 
@@ -10,15 +13,16 @@ from typing import Any
 
 from scout.llm.base import PolicyViolationError
 
+COMPAT_HINT = "set SCOUT_ALLOW_PAID_MODELS=1 to allow paid models on the compat provider"
 
-def ensure_free_models(model_ids: Iterable[str]) -> None:
+
+def ensure_free_models(
+    model_ids: Iterable[str], *, hint: str = "set SCOUT_REQUIRE_FREE_MODELS=false to allow paid models"
+) -> None:
     ids = [str(model) for model in model_ids]
     paid = [model for model in ids if not model.endswith(":free") or ":online" in model]
     if paid:
-        raise PolicyViolationError(
-            f"free-only guard: refusing non-free OpenRouter model id(s): {', '.join(paid)} "
-            "(set SCOUT_REQUIRE_FREE_MODELS=false to allow paid models)"
-        )
+        raise PolicyViolationError(f"free-only guard: refusing non-free model id(s): {', '.join(paid)} ({hint})")
 
 
 def ensure_free_body(body: Mapping[str, Any]) -> None:

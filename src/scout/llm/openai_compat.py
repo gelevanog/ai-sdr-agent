@@ -1,4 +1,5 @@
-"""OpenAI-compatible chat completions over HTTP: OpenRouter, Qwen Cloud (DashScope / Model Studio) and OpenAI."""
+"""OpenAI-compatible chat completions over HTTP: OpenRouter, Qwen Cloud (DashScope / Model Studio), OpenAI and any
+other OpenAI-compatible endpoint (`compat`, free-only unless SCOUT_ALLOW_PAID_MODELS is set)."""
 
 from __future__ import annotations
 
@@ -7,16 +8,28 @@ from typing import Any, Literal
 
 import httpx
 
-from scout.llm.base import Completion, LLMError, LLMUnavailableError, Message, RetryableLLMError
-from scout.llm.guards import ensure_free_body, ensure_free_models, ensure_served_free
+from scout.llm.base import (
+    BudgetExceededError,
+    Completion,
+    LLMError,
+    LLMUnavailableError,
+    Message,
+    RetryableLLMError,
+)
+from scout.llm.guards import COMPAT_HINT, ensure_free_body, ensure_free_models, ensure_served_free
 
-Kind = Literal["openrouter", "qwen", "openai"]
+Kind = Literal["openrouter", "qwen", "openai", "compat"]
 
 OPENROUTER_HEADERS = {
     "HTTP-Referer": "https://github.com/gelevanog/ai-sdr-agent",
     "X-Title": "Scout",
 }
-_KEY_NAMES = {"openrouter": "OPENROUTER_API_KEY", "qwen": "QWEN_API_KEY", "openai": "OPENAI_API_KEY"}
+_KEY_NAMES = {
+    "openrouter": "OPENROUTER_API_KEY",
+    "qwen": "QWEN_API_KEY",
+    "openai": "OPENAI_API_KEY",
+    "compat": "SCOUT_COMPAT_API_KEY",
+}
 
 
 class OpenAICompatibleModel:
@@ -43,8 +56,10 @@ class OpenAICompatibleModel:
         self.kind = kind
         self.model = model
         self.fallback_models = list(fallback_models) if kind == "openrouter" else []
-        self.require_free = require_free and kind == "openrouter"
-        if self.require_free:
+        self.require_free = require_free and kind in {"openrouter", "compat"}
+        if self.require_free and kind == "compat":
+            ensure_free_models([model], hint=COMPAT_HINT)
+        elif self.require_free:
             ensure_free_models([model, *self.fallback_models])
         self.reasoning_effort = reasoning_effort
         self.enable_thinking = enable_thinking
@@ -78,6 +93,8 @@ class OpenAICompatibleModel:
                 body["reasoning"] = {"effort": self.reasoning_effort}
             if self.require_free:
                 ensure_free_body(body)
+        if self.kind == "compat" and self.require_free:
+            ensure_free_body(body)
         if self.kind == "qwen" and self.enable_thinking is not None:
             # Qwen3 hybrid-thinking models on DashScope's OpenAI-compatible endpoint take this extra field.
             body["enable_thinking"] = self.enable_thinking
@@ -129,6 +146,14 @@ def _error_message(data: dict[str, Any]) -> str:
     return str(error)[:300]
 
 
+def _budget_exhausted(data: dict[str, Any]) -> bool:
+    error = data.get("error")
+    kinds = {data.get("type"), data.get("code")}
+    if isinstance(error, dict):
+        kinds |= {error.get("type"), error.get("code")}
+    return "budget_exhausted" in kinds
+
+
 def _json_or_error(response: httpx.Response) -> dict[str, Any]:
     status = response.status_code
     try:
@@ -144,6 +169,9 @@ def _json_or_error(response: httpx.Response) -> dict[str, Any]:
     if status < 400:
         return data
     message = _error_message(data)
+    if status == 429 and _budget_exhausted(data):
+        # A budget proxy's hard limit is final: retrying would only spend the retries.
+        raise BudgetExceededError(f"budget exhausted: {message}")
     if status == 429:
         retry_after = response.headers.get("retry-after")
         try:
